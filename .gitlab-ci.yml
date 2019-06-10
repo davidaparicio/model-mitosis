@@ -11,7 +11,6 @@ cache:
   script:
     - 'mvn $MAVEN_CLI_OPTS install'
 
-# Verify merge requests using JDK8
-install:jdk8:
+install:jdk11:
   <<: *install
-  image: maven:3.3.9-jdk-8
+  image: maven:3.6.0-jdk-11
