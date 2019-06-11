@@ -1,4 +1,4 @@
-package org.craftsrecords.columbiadexpress.infractructure
+package org.craftsrecords.columbiadexpress.infrastructure
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication

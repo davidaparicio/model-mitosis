@@ -1,4 +1,4 @@
-package org.craftsrecords.columbiadexpress.infractructure
+package org.craftsrecords.columbiadexpress.infrastructure
 
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
