@@ -14,6 +14,10 @@ class SpacePort(val id: UUID = UUID.randomUUID(), val name: String, val location
         return true
     }
 
+    infix fun `has a name containing`(partialName: String): Boolean {
+        return name.contains(partialName, true)
+    }
+
     override fun hashCode(): Int {
         return id.hashCode()
     }

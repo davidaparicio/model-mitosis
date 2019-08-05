@@ -11,4 +11,55 @@
     </parent>
     <artifactId>columbiad-express-domain</artifactId>
 
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-enforcer-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>enforce</goal>
+                        </goals>
+                        <configuration>
+                            <rules>
+                                <bannedDependencies>
+                                    <excludes>
+                                        <exclude>*</exclude> <!-- forbids non domain dependencies -->
+                                    </excludes>
+                                    <includes>
+                                        <!-- but allow kotlin dependencies-->
+                                        <include>org.jetbrains.kotlin:*</include>
+                                        <include>org.jetbrains:annotations</include>
+                                        <!-- and test dependencies-->
+                                        <include>*:*:*:*:test</include>
+                                    </includes>
+                                </bannedDependencies>
+                            </rules>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <artifactId>kotlin-maven-plugin</artifactId>
+                <groupId>org.jetbrains.kotlin</groupId>
+                <configuration>
+                    <compilerPlugins>
+                        <plugin>all-open</plugin>
+                    </compilerPlugins>
+                    <pluginOptions>
+                        <option>all-open:annotation=org.craftsrecords.columbiadexpress.domain.api.DomainService</option>
+                        <option>all-open:annotation=org.craftsrecords.columbiadexpress.domain.spaceport.stubs.Stub
+                        </option>
+                    </pluginOptions>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.jetbrains.kotlin</groupId>
+                        <artifactId>kotlin-maven-allopen</artifactId>
+                        <version>${kotlin.version}</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+        </plugins>
+    </build>
 </project>

@@ -9,8 +9,8 @@ interface RetrieveSpacePortsShould {
     val retrieveSpacePorts: RetrieveSpacePorts
 
     @Test
-    fun `find all space ports having their name containing a partial name`() {
-        val result = retrieveSpacePorts `having their name containing` "Cosmo"
+    fun `find all space ports having a given substring in their name`() {
+        val result = retrieveSpacePorts `having in their name` "Cosmo"
         assertThat(result).allMatch { it.name.contains("Cosmo") }
     }
 
