@@ -2,6 +2,7 @@ package org.craftsrecords.columbiadexpress.domain.spaceport
 
 import org.craftsrecords.columbiadexpress.domain.Random
 import org.craftsrecords.columbiadexpress.domain.spaceport.AstronomicalBody.EARTH
+import org.craftsrecords.columbiadexpress.domain.spaceport.AstronomicalBody.MOON
 import org.junit.jupiter.api.extension.ExtensionContext
 import org.junit.jupiter.api.extension.ParameterContext
 import org.junit.jupiter.api.extension.ParameterResolver
@@ -18,6 +19,10 @@ class SpacePortParameterResolver : ParameterResolver {
 
         if (parameterContext.isAnnotated(OnEarth::class.java)) {
             return spacePort(EARTH)
+        }
+        
+        if (parameterContext.isAnnotated(OnMoon::class.java)) {
+            return spacePort(MOON)
         }
         return spacePort()
     }

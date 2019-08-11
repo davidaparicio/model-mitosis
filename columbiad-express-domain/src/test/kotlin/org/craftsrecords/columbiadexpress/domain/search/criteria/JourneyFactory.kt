@@ -24,3 +24,7 @@ fun randomJourney(): Journey {
             now().plusDays(numberOfDays),
             spacePort(values().asIterable().minus(departureAstronomicalBody).random()))
 }
+
+fun createConnectionTo(journey: Journey): Journey = journey.copy(departureSpacePort = journey.arrivalSpacePort, arrivalSpacePort = journey.departureSpacePort)
+
+infix fun Journey.departingAt(departureSchedule: LocalDateTime) = this.copy(departureSchedule = departureSchedule)

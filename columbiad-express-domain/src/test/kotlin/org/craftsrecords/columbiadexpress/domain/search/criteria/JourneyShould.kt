@@ -1,5 +1,6 @@
 package org.craftsrecords.columbiadexpress.domain.search.criteria
 
+import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.craftsrecords.columbiadexpress.domain.EqualityShould
 import org.craftsrecords.columbiadexpress.domain.spaceport.OnEarth
@@ -23,5 +24,17 @@ class JourneyShould : EqualityShould<Journey> {
         assertThatThrownBy { journey.copy(departureSchedule = now().minusWeeks(1)) }
                 .isInstanceOf(IllegalArgumentException::class.java)
                 .hasMessage("Cannot create a Journey with a departure scheduled in the past")
+    }
+
+    @Test
+    fun `be connected to the next journey if current arrival space port is the departure of the next journey`(journey: Journey) {
+        val nextJourney = journey.copy(departureSpacePort = journey.arrivalSpacePort, arrivalSpacePort = journey.departureSpacePort)
+        assertThat(journey `is connected to` nextJourney).isTrue()
+    }
+
+    @Test
+    fun `not be connected to the next journey if current arrival space port is not the departure of the next journey`(journey: Journey) {
+        val nextJourney = journey.copy()
+        assertThat(journey `is connected to` nextJourney).isFalse()
     }
 }
