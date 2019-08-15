@@ -1,6 +1,6 @@
 package org.craftsrecords.columbiadexpress.domain.spaceport
 
-import java.util.*
+import java.util.UUID
 import java.util.UUID.randomUUID
 
 data class SpacePort(val id: UUID = randomUUID(), val name: String, val location: AstronomicalBody) {

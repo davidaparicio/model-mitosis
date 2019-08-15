@@ -1,5 +1,6 @@
 package org.craftsrecords.columbiadexpress.domain.search
 
 import org.craftsrecords.columbiadexpress.domain.search.criteria.Criteria
+import java.util.UUID
 
-class Search(private val criteria: Criteria)
+data class Search(val id: UUID = UUID.randomUUID(), val criteria: Criteria)
