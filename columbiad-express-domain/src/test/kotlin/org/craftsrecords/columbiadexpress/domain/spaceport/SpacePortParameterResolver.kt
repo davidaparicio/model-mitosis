@@ -20,7 +20,7 @@ class SpacePortParameterResolver : ParameterResolver {
         if (parameterContext.isAnnotated(OnEarth::class.java)) {
             return spacePort(EARTH)
         }
-        
+
         if (parameterContext.isAnnotated(OnMoon::class.java)) {
             return spacePort(MOON)
         }
