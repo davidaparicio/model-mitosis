@@ -17,7 +17,7 @@ class CriteriaShould(private val journey: Journey) {
         val journeys =
                 listOf(
                         journey,
-                        createConnectionTo(journey) departingAt journey.departureSchedule.plusWeeks(1))
+                        connectionTo(journey) departingAt journey.departureSchedule.plusWeeks(1))
 
         assertThatCode { Criteria(journeys) }.doesNotThrowAnyException()
     }
@@ -34,7 +34,7 @@ class CriteriaShould(private val journey: Journey) {
         val journeys =
                 listOf(
                         journey.copy(departureSchedule = now().plusWeeks(1)),
-                        createConnectionTo(journey) departingAt now().plusDays(1))
+                        connectionTo(journey) departingAt now().plusDays(1))
 
         assertThatThrownBy { Criteria(journeys) }
                 .isInstanceOf(IllegalArgumentException::class.java)
