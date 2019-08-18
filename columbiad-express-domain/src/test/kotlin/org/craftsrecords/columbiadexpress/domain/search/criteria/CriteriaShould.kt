@@ -15,7 +15,7 @@ class CriteriaShould(private val journey: Journey) {
     @Test
     fun `create Criteria`(@OnEarth spacePortOnEarth: SpacePort, @OnMoon spacePortOnMoon: SpacePort) {
         val journeys =
-                setOf(
+                listOf(
                         journey,
                         createConnectionTo(journey) departingAt journey.departureSchedule.plusWeeks(1))
 
@@ -24,7 +24,7 @@ class CriteriaShould(private val journey: Journey) {
 
     @Test
     fun `contain at least one journey`() {
-        assertThatThrownBy { Criteria(emptySet()) }
+        assertThatThrownBy { Criteria(emptyList()) }
                 .isInstanceOf(IllegalArgumentException::class.java)
                 .hasMessage("Criteria must contain at least one journey")
     }
@@ -32,7 +32,7 @@ class CriteriaShould(private val journey: Journey) {
     @Test
     fun `have only journeys ordered by departureSchedule`() {
         val journeys =
-                setOf(
+                listOf(
                         journey.copy(departureSchedule = now().plusWeeks(1)),
                         createConnectionTo(journey) departingAt now().plusDays(1))
 
@@ -45,7 +45,7 @@ class CriteriaShould(private val journey: Journey) {
     @Test
     fun `have only connected journeys`(@OnEarth spacePortOnEarth: SpacePort, @OnMoon spacePortOnMoon: SpacePort) {
         val journeys =
-                setOf(
+                listOf(
                         Journey(spacePortOnEarth, now().plusDays(1), spacePortOnMoon),
                         Journey(spacePortOnEarth, now().plusWeeks(1), spacePortOnMoon))
         assertThatThrownBy { Criteria(journeys) }
