@@ -1,9 +1,22 @@
 package org.craftsrecords.columbiadexpress.domain.search
 
+import org.craftsrecords.columbiadexpress.domain.spaceport.SpacePort
+import java.time.Duration
+import java.time.Duration.between
 import java.time.LocalDateTime
 import java.time.LocalDateTime.now
 
-data class SpaceTrain(val departureSchedule: LocalDateTime, val arrivalSchedule: LocalDateTime, val fares: Set<Fare>) {
+data class SpaceTrain(
+        val number: String,
+        val journey: Journey,
+        val origin: SpacePort,
+        val destination: SpacePort,
+        val departureSchedule: LocalDateTime,
+        val arrivalSchedule: LocalDateTime,
+        val fares: Set<Fare>) {
+
+    val duration: Duration = between(departureSchedule, arrivalSchedule)
+
     init {
         require(departureSchedule.isAfter(now())) {
             "departureSchedule cannot be in the past"
