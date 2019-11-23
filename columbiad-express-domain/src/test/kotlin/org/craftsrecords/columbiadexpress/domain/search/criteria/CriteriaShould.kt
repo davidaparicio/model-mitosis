@@ -2,13 +2,14 @@ package org.craftsrecords.columbiadexpress.domain.search.criteria
 
 import org.assertj.core.api.Assertions.assertThatCode
 import org.assertj.core.api.Assertions.assertThatThrownBy
+import org.craftsrecords.columbiadexpress.domain.EqualityShould
 import org.craftsrecords.columbiadexpress.domain.spaceport.OnEarth
 import org.craftsrecords.columbiadexpress.domain.spaceport.OnMoon
 import org.craftsrecords.columbiadexpress.domain.spaceport.SpacePort
 import org.junit.jupiter.api.Test
 import java.time.LocalDateTime.now
 
-class CriteriaShould(private val journey: Journey) {
+class CriteriaShould(private val journey: Journey) : EqualityShould<Criteria> {
 
     @Test
     fun `create Criteria`(@OnEarth spacePortOnEarth: SpacePort, @OnMoon spacePortOnMoon: SpacePort) {

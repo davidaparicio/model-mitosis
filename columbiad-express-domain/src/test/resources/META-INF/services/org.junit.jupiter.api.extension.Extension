@@ -3,3 +3,4 @@ org.craftsrecords.columbiadexpress.domain.spaceport.SpacePortParameterResolver
 org.craftsrecords.columbiadexpress.domain.search.criteria.JourneyParameterResolver
 org.craftsrecords.columbiadexpress.domain.search.PriceParameterResolver
 org.craftsrecords.columbiadexpress.domain.search.SpaceTrainParameterResolver
+org.craftsrecords.columbiadexpress.domain.search.criteria.CriteriaParameterResolver
