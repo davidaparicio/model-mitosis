@@ -3,14 +3,11 @@ package org.craftsrecords.columbiadexpress.domain.search.criteria
 import org.craftsrecords.columbiadexpress.domain.Random
 import org.junit.jupiter.api.extension.ExtensionContext
 import org.junit.jupiter.api.extension.ParameterContext
-import org.junit.jupiter.api.extension.ParameterResolver
+import org.junit.jupiter.api.extension.support.TypeBasedParameterResolver
 
-class JourneyParameterResolver : ParameterResolver {
-    override fun supportsParameter(parameterContext: ParameterContext, extensionContext: ExtensionContext): Boolean {
-        return parameterContext.parameter.type == Journey::class.java
-    }
+class JourneyParameterResolver : TypeBasedParameterResolver<Journey>() {
 
-    override fun resolveParameter(parameterContext: ParameterContext, extensionContext: ExtensionContext): Any {
+    override fun resolveParameter(parameterContext: ParameterContext, extensionContext: ExtensionContext): Journey {
         if (parameterContext.isAnnotated(Random::class.java)) {
             return randomJourney()
         }

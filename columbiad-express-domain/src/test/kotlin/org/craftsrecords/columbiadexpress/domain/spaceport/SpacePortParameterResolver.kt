@@ -5,14 +5,10 @@ import org.craftsrecords.columbiadexpress.domain.spaceport.AstronomicalBody.EART
 import org.craftsrecords.columbiadexpress.domain.spaceport.AstronomicalBody.MOON
 import org.junit.jupiter.api.extension.ExtensionContext
 import org.junit.jupiter.api.extension.ParameterContext
-import org.junit.jupiter.api.extension.ParameterResolver
+import org.junit.jupiter.api.extension.support.TypeBasedParameterResolver
 
-class SpacePortParameterResolver : ParameterResolver {
-    override fun supportsParameter(parameterContext: ParameterContext, extensionContext: ExtensionContext): Boolean {
-        return parameterContext.parameter.type == SpacePort::class.java
-    }
-
-    override fun resolveParameter(parameterContext: ParameterContext, extensionContext: ExtensionContext): Any {
+class SpacePortParameterResolver : TypeBasedParameterResolver<SpacePort>() {
+    override fun resolveParameter(parameterContext: ParameterContext, extensionContext: ExtensionContext): SpacePort {
         if (parameterContext.isAnnotated(Random::class.java)) {
             return randomSpacePort()
         }
