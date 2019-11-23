@@ -78,6 +78,9 @@
                         <includes>
                             <include>**/*Should.java</include>
                         </includes>
+                        <argLine>
+                            -Djunit.jupiter.extensions.autodetection.enabled=true
+                        </argLine>
                     </configuration>
                 </plugin>
                 <plugin>

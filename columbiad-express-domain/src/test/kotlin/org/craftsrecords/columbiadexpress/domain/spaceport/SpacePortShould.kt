@@ -2,12 +2,10 @@ package org.craftsrecords.columbiadexpress.domain.spaceport
 
 import org.assertj.core.api.Assertions.assertThat
 import org.craftsrecords.columbiadexpress.domain.EqualityShould
-import org.craftsrecords.columbiadexpress.domain.InjectDomainObjects
 import org.craftsrecords.columbiadexpress.domain.spaceport.AstronomicalBody.EARTH
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 
-@InjectDomainObjects
 @DisplayName("SpacePort should")
 class SpacePortShould : EqualityShould<SpacePort> {
 

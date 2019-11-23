@@ -3,7 +3,6 @@ package org.craftsrecords.columbiadexpress.domain
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-@InjectDomainObjects
 interface EqualityShould<T> {
 
     @Test
@@ -13,7 +12,7 @@ interface EqualityShould<T> {
     }
 
     @Test
-    fun `not be equal to a different value value`(value: T, @Random otherValue: T) {
+    fun `not be equal to a different value`(value: T, @Random otherValue: T) {
         assertThat(value).isNotEqualTo(otherValue)
         assertThat(value.hashCode()).isNotEqualTo(otherValue.hashCode())
     }

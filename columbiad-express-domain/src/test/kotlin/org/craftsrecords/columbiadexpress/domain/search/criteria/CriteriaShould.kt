@@ -2,14 +2,12 @@ package org.craftsrecords.columbiadexpress.domain.search.criteria
 
 import org.assertj.core.api.Assertions.assertThatCode
 import org.assertj.core.api.Assertions.assertThatThrownBy
-import org.craftsrecords.columbiadexpress.domain.InjectDomainObjects
 import org.craftsrecords.columbiadexpress.domain.spaceport.OnEarth
 import org.craftsrecords.columbiadexpress.domain.spaceport.OnMoon
 import org.craftsrecords.columbiadexpress.domain.spaceport.SpacePort
 import org.junit.jupiter.api.Test
 import java.time.LocalDateTime.now
 
-@InjectDomainObjects
 class CriteriaShould(private val journey: Journey) {
 
     @Test
