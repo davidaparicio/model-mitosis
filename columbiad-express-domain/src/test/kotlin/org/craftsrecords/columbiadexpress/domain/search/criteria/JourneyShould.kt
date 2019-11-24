@@ -5,11 +5,9 @@ import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.craftsrecords.columbiadexpress.domain.EqualityShould
 import org.craftsrecords.columbiadexpress.domain.spaceport.OnEarth
 import org.craftsrecords.columbiadexpress.domain.spaceport.SpacePort
-import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import java.time.LocalDateTime.now
 
-@DisplayName("Journey should")
 class JourneyShould : EqualityShould<Journey> {
 
     @Test

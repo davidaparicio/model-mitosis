@@ -81,6 +81,7 @@
                         </includes>
                         <argLine>
                             -Djunit.jupiter.extensions.autodetection.enabled=true
+                            -Djunit.jupiter.displayname.generator.default=org.craftsrecords.ShouldDisplayNameGenerator
                         </argLine>
                     </configuration>
                 </plugin>

@@ -3,10 +3,8 @@ package org.craftsrecords.columbiadexpress.domain.spaceport
 import org.assertj.core.api.Assertions.assertThat
 import org.craftsrecords.columbiadexpress.domain.EqualityShould
 import org.craftsrecords.columbiadexpress.domain.spaceport.AstronomicalBody.EARTH
-import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 
-@DisplayName("SpacePort should")
 class SpacePortShould : EqualityShould<SpacePort> {
 
     private val spacePort = SpacePort(name = "Cape Canaveral Air Force Station", location = EARTH)

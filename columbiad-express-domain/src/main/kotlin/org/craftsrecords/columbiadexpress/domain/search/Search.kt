@@ -6,9 +6,7 @@ import java.util.UUID.randomUUID
 
 data class Search(val id: UUID = randomUUID(), val criteria: Criteria, val spaceTrains: List<SpaceTrain>) {
     init {
-        require(spaceTrains.isNotEmpty()) {
-            "list of space trains cannot be empty"
-        }
+
     }
 
     override fun equals(other: Any?): Boolean {
