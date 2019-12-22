@@ -5,23 +5,14 @@ import org.junit.jupiter.api.Test
 
 interface EqualityShould<T> {
 
-    fun createValue(): T
-    fun createAnotherValue(): T
-
     @Test
-    fun `be equal to the same value`() {
-        val value = createValue()
-        val otherValue = createValue()
-
+    fun `be equal to the same value`(value: T, otherValue: T) {
         assertThat(value).isEqualTo(otherValue)
         assertThat(value).hasSameHashCodeAs(otherValue)
     }
 
     @Test
-    fun `not be equal to a different value value`() {
-        val value = createValue()
-        val otherValue = createAnotherValue()
-
+    fun `not be equal to a different value`(value: T, @Random otherValue: T) {
         assertThat(value).isNotEqualTo(otherValue)
         assertThat(value.hashCode()).isNotEqualTo(otherValue.hashCode())
     }

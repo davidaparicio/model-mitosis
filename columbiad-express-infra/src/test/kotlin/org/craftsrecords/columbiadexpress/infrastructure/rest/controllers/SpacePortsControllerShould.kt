@@ -12,7 +12,6 @@ import org.springframework.http.MediaType.APPLICATION_JSON_VALUE
 import org.springframework.test.context.junit.jupiter.SpringExtension
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
-import org.springframework.test.web.servlet.result.MockMvcResultHandlers
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.content
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
@@ -48,7 +47,6 @@ class SpacePortsControllerShould {
                         .param("withNameContaining", partialName)
                         .accept(APPLICATION_JSON_VALUE))
                 //
-                .andDo(MockMvcResultHandlers.print())
                 .andExpect(status().isOk)
                 .andExpect(content().contentType(APPLICATION_JSON_VALUE))
                 .andExpect(jsonPath("$._embedded.spacePorts[*].name").value(containsInAnyOrder("Vostochny Cosmodrome", "Baikonur Cosmodrome")))
@@ -64,7 +62,6 @@ class SpacePortsControllerShould {
                 //
                 .andExpect(status().isOk)
                 .andExpect(content().contentType(HAL_JSON_VALUE))
-                .andDo(MockMvcResultHandlers.print())
                 .andExpect(jsonPath("$.name").value("Vostochny Cosmodrome"))
                 .andExpect(jsonPath("$.location").value("EARTH"))
                 .andExpect(jsonPath("$._links.self.href").value("http://localhost/spaceports/$spacePortId"))

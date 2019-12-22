@@ -20,12 +20,12 @@
     </modules>
 
     <properties>
-        <kotlin.version>1.3.40</kotlin.version>
+        <kotlin.version>1.3.60</kotlin.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <kotlin.compiler.incremental>true</kotlin.compiler.incremental>
-        <java.version>1.8</java.version>
-        <junit-jupiter.version>5.5.1</junit-jupiter.version>
-        <junit-platform.version>1.5.1</junit-platform.version>
+        <java.version>1.11</java.version>
+        <junit-jupiter.version>5.5.2</junit-jupiter.version>
+        <junit-platform.version>1.5.2</junit-platform.version>
     </properties>
     <build>
         <sourceDirectory>${project.basedir}/src/main/kotlin</sourceDirectory>
@@ -79,6 +79,10 @@
                         <includes>
                             <include>**/*Should.java</include>
                         </includes>
+                        <argLine>
+                            -Djunit.jupiter.extensions.autodetection.enabled=true
+                            -Djunit.jupiter.displayname.generator.default=org.craftsrecords.ShouldDisplayNameGenerator
+                        </argLine>
                     </configuration>
                 </plugin>
                 <plugin>
@@ -99,7 +103,7 @@
                 </plugin>
                 <plugin>
                     <artifactId>maven-jar-plugin</artifactId>
-                    <version>3.1.1</version>
+                    <version>3.2.0</version>
                 </plugin>
                 <plugin>
                     <artifactId>maven-install-plugin</artifactId>
@@ -212,10 +216,11 @@
                 <version>${junit-platform.version}</version>
                 <scope>test</scope>
             </dependency>
+
             <dependency>
                 <groupId>org.assertj</groupId>
                 <artifactId>assertj-core</artifactId>
-                <version>3.13.2</version>
+                <version>3.14.0</version>
                 <scope>test</scope>
             </dependency>
             <dependency>
@@ -226,6 +231,11 @@
             <dependency>
                 <groupId>org.jetbrains.kotlin</groupId>
                 <artifactId>kotlin-stdlib</artifactId>
+                <version>${kotlin.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jetbrains.kotlin</groupId>
+                <artifactId>kotlin-stdlib-common</artifactId>
                 <version>${kotlin.version}</version>
             </dependency>
             <dependency>

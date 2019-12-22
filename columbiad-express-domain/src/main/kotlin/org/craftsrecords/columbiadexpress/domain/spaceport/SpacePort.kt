@@ -1,24 +1,13 @@
 package org.craftsrecords.columbiadexpress.domain.spaceport
 
-import java.util.*
+import java.util.UUID
+import java.util.UUID.randomUUID
 
-class SpacePort(val id: UUID = UUID.randomUUID(), val name: String, val location: AstronomicalBody) {
-    override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (javaClass != other?.javaClass) return false
-
-        other as SpacePort
-
-        if (id != other.id) return false
-
-        return true
-    }
-
+data class SpacePort(val id: UUID = randomUUID(), val name: String, val location: AstronomicalBody) {
     infix fun `has a name containing`(partialName: String): Boolean {
         return name.contains(partialName, true)
     }
 
-    override fun hashCode(): Int {
-        return id.hashCode()
-    }
+    infix fun `is not on the same planet than`(otherSpacePort: SpacePort): Boolean =
+            this.location != otherSpacePort.location
 }
