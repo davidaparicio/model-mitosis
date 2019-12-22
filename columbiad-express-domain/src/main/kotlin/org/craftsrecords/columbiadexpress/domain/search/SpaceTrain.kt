@@ -31,3 +31,5 @@ data class SpaceTrain(
         }
     }
 }
+
+typealias SpaceTrains = List<SpaceTrain>

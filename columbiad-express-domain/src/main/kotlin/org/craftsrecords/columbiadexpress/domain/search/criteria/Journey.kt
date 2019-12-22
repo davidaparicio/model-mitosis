@@ -19,3 +19,5 @@ data class Journey(val departureSpacePort: SpacePort,
         return arrivalSpacePort == nextJourney.departureSpacePort
     }
 }
+
+typealias Journeys = List<Journey>

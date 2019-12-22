@@ -1,16 +1,22 @@
 package org.craftsrecords.columbiadexpress.domain.search.criteria
 
+import org.craftsrecords.TypedParameterResolver
 import org.craftsrecords.columbiadexpress.domain.Random
-import org.junit.jupiter.api.extension.ExtensionContext
-import org.junit.jupiter.api.extension.ParameterContext
-import org.junit.jupiter.api.extension.support.TypeBasedParameterResolver
 
-class JourneyParameterResolver : TypeBasedParameterResolver<Journey>() {
-
-    override fun resolveParameter(parameterContext: ParameterContext, extensionContext: ExtensionContext): Journey {
-        if (parameterContext.isAnnotated(Random::class.java)) {
-            return randomJourney()
+class JourneyParameterResolver : TypedParameterResolver<Journey>({ parameterContext, _ ->
+    when {
+        parameterContext.isAnnotated(Random::class.java) -> {
+            randomJourney()
         }
-        return journey()
+        else -> journey()
     }
-}
+})
+
+class JourneysParameterResolver : TypedParameterResolver<List<Journey>>({ parameterContext, _ ->
+    when {
+        parameterContext.isAnnotated(Random::class.java) -> {
+            listOf(randomJourney())
+        }
+        else -> listOf(journey())
+    }
+})

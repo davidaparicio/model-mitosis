@@ -1,15 +1,14 @@
 package org.craftsrecords.columbiadexpress.domain.search
 
+import org.craftsrecords.TypedParameterResolver
 import org.craftsrecords.columbiadexpress.domain.Random
-import org.junit.jupiter.api.extension.ExtensionContext
-import org.junit.jupiter.api.extension.ParameterContext
-import org.junit.jupiter.api.extension.support.TypeBasedParameterResolver
 
-class SearchParameterResolver : TypeBasedParameterResolver<Search>() {
-    override fun resolveParameter(parameterContext: ParameterContext, extensionContext: ExtensionContext): Search {
-        if (parameterContext.isAnnotated(Random::class.java)) {
-            return randomSearch()
+class SearchParameterResolver : TypedParameterResolver<Search>({ parameterContext, _ ->
+    when {
+        parameterContext.isAnnotated(Random::class.java) -> {
+            randomSearch()
         }
-        return search()
+
+        else -> search()
     }
-}
+})

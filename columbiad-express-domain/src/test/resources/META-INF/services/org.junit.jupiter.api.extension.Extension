@@ -5,3 +5,4 @@ org.craftsrecords.columbiadexpress.domain.search.PriceParameterResolver
 org.craftsrecords.columbiadexpress.domain.search.SpaceTrainParameterResolver
 org.craftsrecords.columbiadexpress.domain.search.criteria.CriteriaParameterResolver
 org.craftsrecords.columbiadexpress.domain.search.SearchParameterResolver
+org.craftsrecords.columbiadexpress.domain.search.criteria.JourneysParameterResolver

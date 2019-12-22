@@ -1,6 +1,6 @@
 package org.craftsrecords.columbiadexpress.domain.search.criteria
 
-data class Criteria(private val journeys: List<Journey>) {
+data class Criteria(val journeys: Journeys) {
     init {
         require(journeys.isNotEmpty())
         { "Criteria must contain at least one journey" }
@@ -12,9 +12,9 @@ data class Criteria(private val journeys: List<Journey>) {
         { "Criteria must only have connected journeys" }
     }
 
-    private fun List<Journey>.areConnectedTogether() =
+    private fun Journeys.areConnectedTogether() =
             this.zipWithNext { journey, nextJourney -> journey `is connected to` nextJourney }.all { it }
 
-    private fun List<Journey>.areOrderedByDepartureSchedule() =
+    private fun Journeys.areOrderedByDepartureSchedule() =
             this.sortedBy { it.departureSchedule } == this
 }
