@@ -35,22 +35,21 @@ abstract class TypedParameterResolver<T>(private val resolver: (parameterContext
 
     private fun getParameterType(parameterContext: ParameterContext): KType? = ktype(parameterContext.parameter.parameterizedType)
 
-    private fun ktype(javaType: Type, typeArguments: List<KType> = emptyList()): KType {
-        return when (javaType) {
-            is Class<*> ->
-                javaType.kotlin.createType(typeArguments.map { KTypeProjection(KVariance.INVARIANT, it) })
-            is ParameterizedType ->
-                ktype(javaType.rawType, javaType.actualTypeArguments.map { ktype(it) })
-            /* is WildcardType ->
-                 toKotlinType(javaType.upperBounds[0], typeArguments), incomplete use case, it doesn't supports
-                 lowerbound ? super Integer neither "star" ?.
-                 In the case of single '?' there is no lowerbound and the upper is set to Object.
-                 Need to deal with KTypeProjection Covariant etc. ?
-                 */
-            else ->
-                throw IllegalArgumentException("Cannot convert Java type: $javaType")
-        }
-    }
+    private fun ktype(javaType: Type, typeArguments: List<KType> = emptyList()): KType =
+            when (javaType) {
+                is Class<*> ->
+                    javaType.kotlin.createType(typeArguments.map { KTypeProjection(KVariance.INVARIANT, it) })
+                is ParameterizedType ->
+                    ktype(javaType.rawType, javaType.actualTypeArguments.map { ktype(it) })
+                /* is WildcardType ->
+                     toKotlinType(javaType.upperBounds[0], typeArguments), incomplete use case, it doesn't supports
+                     lowerbound ? super Integer neither "star" ?.
+                     In the case of single '?' there is no lowerbound and the upper is set to Object.
+                     Need to deal with KTypeProjection Covariant etc. ?
+                     */
+                else ->
+                    throw IllegalArgumentException("Cannot convert Java type: $javaType")
+            }
 
     private fun enclosedTypeOfParameterResolver(): KType? {
         return this::class.allSupertypes

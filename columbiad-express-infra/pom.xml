@@ -105,5 +105,11 @@
             <artifactId>columbiad-express-domain</artifactId>
             <version>${project.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.craftsrecords</groupId>
+            <artifactId>columbiad-express-domain</artifactId>
+            <version>${project.version}</version>
+            <type>test-jar</type>
+        </dependency>
     </dependencies>
 </project>
