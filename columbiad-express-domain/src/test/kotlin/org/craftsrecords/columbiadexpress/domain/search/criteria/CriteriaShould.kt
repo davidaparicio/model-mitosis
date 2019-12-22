@@ -41,7 +41,6 @@ class CriteriaShould(private val journey: Journey) : EqualityShould<Criteria> {
                 .hasMessage("Criteria must only have journeys ordered by departure schedule")
     }
 
-
     @Test
     fun `have only connected journeys`(@OnEarth spacePortOnEarth: SpacePort, @OnMoon spacePortOnMoon: SpacePort) {
         val journeys =

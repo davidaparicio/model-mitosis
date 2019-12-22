@@ -4,16 +4,27 @@ import org.craftsrecords.columbiadexpress.domain.search.criteria.Criteria
 import org.craftsrecords.columbiadexpress.domain.search.criteria.Journey
 import java.util.UUID
 import java.util.UUID.randomUUID
+import org.craftsrecords.columbiadexpress.domain.search.Journey as JourneyOrder
 
 data class Search(val id: UUID = randomUUID(), val criteria: Criteria, val spaceTrains: SpaceTrains) {
     init {
+        require(allJourneysToHaveAtLeastOneSpaceTrain()) {
+            "some journeys don't have at least one corresponding space train"
+        }
+
         require(spaceTrains.all { it `corresponds to` criteria.journeys }) {
             "some space trains don't correspond to any journey from the criteria"
         }
     }
 
+    private fun allJourneysToHaveAtLeastOneSpaceTrain() =
+            criteria.journeys.indices
+                    .map { JourneyOrder.values()[it] }
+                    .all { journey ->
+                        spaceTrains.any { spaceTrain -> spaceTrain.journey == journey }
+                    }
+
     private infix fun SpaceTrain.`corresponds to`(journeys: List<Journey>): Boolean {
-        //criteria.journeys.indices.map { journeys. }
         return journeys.any { it.departureSpacePort == this.origin && it.arrivalSpacePort == this.destination }
     }
 
@@ -29,7 +40,5 @@ data class Search(val id: UUID = randomUUID(), val criteria: Criteria, val space
         return true
     }
 
-    override fun hashCode(): Int {
-        return id.hashCode()
-    }
+    override fun hashCode(): Int = id.hashCode()
 }

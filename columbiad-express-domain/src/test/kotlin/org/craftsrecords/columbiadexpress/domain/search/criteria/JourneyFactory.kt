@@ -15,6 +15,9 @@ fun journey(): Journey = Journey(
         LocalDateTime.of(LocalDate.now().plusDays(1), LocalTime.of(10, 0)),
         spacePort(MOON))
 
+fun outboundJourney(): Journey = journey()
+fun inboundJourney(): Journey = inboundOf(outboundJourney())
+
 fun randomJourney(): Journey {
     val numberOfDays = Random.nextLong(1, 30)
     val departureAstronomicalBody = values().random()

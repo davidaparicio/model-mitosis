@@ -6,3 +6,4 @@ org.craftsrecords.columbiadexpress.domain.search.SpaceTrainParameterResolver
 org.craftsrecords.columbiadexpress.domain.search.criteria.CriteriaParameterResolver
 org.craftsrecords.columbiadexpress.domain.search.SearchParameterResolver
 org.craftsrecords.columbiadexpress.domain.search.criteria.JourneysParameterResolver
+org.craftsrecords.columbiadexpress.domain.search.LinkedJourneyAndSpaceTrainParameterResolver

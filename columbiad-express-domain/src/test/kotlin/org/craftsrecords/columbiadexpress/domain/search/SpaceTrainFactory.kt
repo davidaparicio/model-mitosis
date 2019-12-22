@@ -24,6 +24,8 @@ fun spaceTrain(): SpaceTrain = SpaceTrain(
         arrivalSchedule = departureSchedule.plusWeeks(1),
         fares = setOf(fare()))
 
+fun outboundSpaceTrain(): SpaceTrain = spaceTrain()
+
 fun randomSpaceTrain(): SpaceTrain = spaceTrain()
         .copy(
                 number = nextLong(1, 1000).toString(),

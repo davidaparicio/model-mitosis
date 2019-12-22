@@ -5,9 +5,7 @@ import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.craftsrecords.columbiadexpress.domain.EqualityShould
 import org.craftsrecords.columbiadexpress.domain.search.criteria.Criteria
 import org.craftsrecords.columbiadexpress.domain.search.criteria.Journey
-import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.fail
 
 class SearchShould : EqualityShould<Search> {
     @Test
@@ -25,12 +23,14 @@ class SearchShould : EqualityShould<Search> {
                 .hasMessage("some space trains don't correspond to any journey from the criteria")
     }
 
-    @Disabled
     @Test
-    fun `have a space train for each bound`(journeys: List<Journey>, spaceTrain: SpaceTrain) {
-        println(journeys)
-        val criteria = Criteria(journeys)
-        fail { "" }
+    fun `have a space train for each bound`(@Outbound outbound: Pair<Journey, SpaceTrain>, @Inbound inboundJourney: Journey) {
+        val (outboundJourney, outboundSpaceTrain) = outbound
+        val criteria = Criteria(listOf(outboundJourney, inboundJourney))
+
+        assertThatThrownBy { Search(criteria = criteria, spaceTrains = listOf(outboundSpaceTrain)) }
+                .isInstanceOf(IllegalArgumentException::class.java)
+                .hasMessage("some journeys don't have at least one corresponding space train")
     }
 
 }
