@@ -1,16 +1,23 @@
 package org.craftsrecords.columbiadexpress.domain.search.criteria
 
+import org.assertj.core.api.Assertions.assertThatCode
+import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.craftsrecords.columbiadexpress.domain.EqualityShould
+import org.craftsrecords.columbiadexpress.domain.spaceport.OnEarth
+import org.craftsrecords.columbiadexpress.domain.spaceport.OnMoon
+import org.craftsrecords.columbiadexpress.domain.spaceport.SpacePort
+import org.junit.jupiter.api.Test
+import java.time.LocalDateTime.now
 
 class CriteriaShould(private val journey: Journey) : EqualityShould<Criteria> {
 
-    /*
+
     @Test
     fun `create Criteria`(@OnEarth spacePortOnEarth: SpacePort, @OnMoon spacePortOnMoon: SpacePort) {
         val journeys =
                 listOf(
                         journey,
-                        connectionTo(journey) departingAt journey.departureSchedule.plusWeeks(1))
+                        inboundOf(journey) departingAt journey.departureSchedule.plusWeeks(1))
 
         assertThatCode { Criteria(journeys) }.doesNotThrowAnyException()
     }
@@ -27,7 +34,7 @@ class CriteriaShould(private val journey: Journey) : EqualityShould<Criteria> {
         val journeys =
                 listOf(
                         journey.copy(departureSchedule = now().plusWeeks(1)),
-                        connectionTo(journey) departingAt now().plusDays(1))
+                        inboundOf(journey) departingAt now().plusDays(1))
 
         assertThatThrownBy { Criteria(journeys) }
                 .isInstanceOf(IllegalArgumentException::class.java)
@@ -44,5 +51,5 @@ class CriteriaShould(private val journey: Journey) : EqualityShould<Criteria> {
         assertThatThrownBy { Criteria(journeys) }
                 .isInstanceOf(IllegalArgumentException::class.java)
                 .hasMessage("Criteria must only have connected journeys")
-    }*/
+    }
 }
