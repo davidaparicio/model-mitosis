@@ -1,6 +1,6 @@
 package org.craftsrecords.columbiadexpress.domain.search
 
-enum class Journey {
+enum class Bound {
     OUTBOUND,
     INBOUND
 }

@@ -8,7 +8,7 @@ import java.time.LocalDateTime.now
 
 data class SpaceTrain(
         val number: String,
-        val journey: Journey,
+        val bound: Bound,
         val origin: SpacePort,
         val destination: SpacePort,
         val departureSchedule: LocalDateTime,

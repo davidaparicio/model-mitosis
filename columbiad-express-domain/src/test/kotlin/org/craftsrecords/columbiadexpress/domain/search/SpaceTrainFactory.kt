@@ -1,6 +1,6 @@
 package org.craftsrecords.columbiadexpress.domain.search
 
-import org.craftsrecords.columbiadexpress.domain.search.Journey.OUTBOUND
+import org.craftsrecords.columbiadexpress.domain.search.Bound.OUTBOUND
 import org.craftsrecords.columbiadexpress.domain.spaceport.AstronomicalBody.EARTH
 import org.craftsrecords.columbiadexpress.domain.spaceport.AstronomicalBody.MOON
 import org.craftsrecords.columbiadexpress.domain.spaceport.spacePort
@@ -17,7 +17,7 @@ private val departureSchedule =
 
 fun spaceTrain(): SpaceTrain = SpaceTrain(
         number = "6127",
-        journey = OUTBOUND,
+        bound = OUTBOUND,
         origin = spacePort(EARTH),
         destination = spacePort(MOON),
         departureSchedule = departureSchedule,
