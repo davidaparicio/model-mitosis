@@ -20,7 +20,7 @@ class JourneyParameterResolver : TypedParameterResolver<Journey>({ parameterCont
     }
 })
 
-class JourneysParameterResolver : TypedParameterResolver<List<Journey>>({ parameterContext, _ ->
+class JourneysParameterResolver : TypedParameterResolver<Journeys>({ parameterContext, _ ->
     when {
         parameterContext.isAnnotated(Random::class.java) -> {
             listOf(randomJourney())

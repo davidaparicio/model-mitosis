@@ -51,4 +51,13 @@ class CriteriaShould(private val journey: Journey) : EqualityShould<Criteria> {
                 .isInstanceOf(IllegalArgumentException::class.java)
                 .hasMessage("Criteria must only have connected journeys")
     }
+
+    @Test
+    fun `have at least 5 days between all journeys`(journey: Journey) {
+        val tooCloseJourney = inboundOf(journey).copy(departureSchedule = journey.departureSchedule)
+
+        assertThatThrownBy { Criteria(listOf(journey, tooCloseJourney)) }
+                .isInstanceOf(IllegalArgumentException::class.java)
+                .hasMessage("An elapse time of 5 days must be respected between journeys")
+    }
 }

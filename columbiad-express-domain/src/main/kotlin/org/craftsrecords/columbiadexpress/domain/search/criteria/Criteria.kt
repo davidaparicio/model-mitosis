@@ -1,5 +1,7 @@
 package org.craftsrecords.columbiadexpress.domain.search.criteria
 
+import java.time.LocalDateTime
+
 data class Criteria(val journeys: Journeys) {
     init {
         require(journeys.isNotEmpty())
@@ -10,6 +12,10 @@ data class Criteria(val journeys: Journeys) {
 
         require(journeys.areConnectedTogether())
         { "Criteria must only have connected journeys" }
+
+        require(journeys.haveAtLeastADayBetweenEach()) {
+            "An elapse time of 5 days must be respected between journeys"
+        }
     }
 
     private fun Journeys.areConnectedTogether() =
@@ -17,4 +23,11 @@ data class Criteria(val journeys: Journeys) {
 
     private fun Journeys.areOrderedByDepartureSchedule() =
             this.sortedBy { it.departureSchedule } == this
+
+    private fun Journeys.haveAtLeastADayBetweenEach(): Boolean = map { it.departureSchedule }
+            .zipWithNext { departureOfJourney, departureOfNextJourney -> departureOfNextJourney `is at least 5 days after` departureOfJourney }
+            .all { it }
+
+    private infix fun LocalDateTime.`is at least 5 days after`(departureOfPreviousJourney: LocalDateTime): Boolean =
+            coerceAtLeast(departureOfPreviousJourney.plusDays(5)) == this
 }

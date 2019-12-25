@@ -19,9 +19,13 @@ import javax.servlet.http.HttpServletResponse.SC_NOT_FOUND
 class SpacePortsController(private val retrieveSpacePorts: RetrieveSpacePorts) {
 
 
+    companion object {
+        const val WHATEVER = ""
+    }
+
     @GetMapping
     fun getSpacePorts(@RequestParam(name = "withNameContaining", required = false) partialName: String?): SpacePorts {
-        val spacePorts = retrieveSpacePorts `having in their name` (partialName ?: "")
+        val spacePorts = retrieveSpacePorts `having in their name` (partialName ?: WHATEVER)
         return spacePorts
                 .toResource()
                 .addLinks(partialName)
@@ -37,5 +41,4 @@ class SpacePortsController(private val retrieveSpacePorts: RetrieveSpacePorts) {
     fun handleNoSuchElementException(response: HttpServletResponse, exception: NoSuchElementException) {
         response.sendError(SC_NOT_FOUND, exception.message)
     }
-
 }

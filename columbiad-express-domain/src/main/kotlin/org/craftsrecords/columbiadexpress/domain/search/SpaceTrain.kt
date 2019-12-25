@@ -5,10 +5,12 @@ import java.time.Duration
 import java.time.Duration.between
 import java.time.LocalDateTime
 import java.time.LocalDateTime.now
+import java.util.UUID
 
 data class SpaceTrain(
+        val id: UUID = UUID.randomUUID(),
         val number: String,
-        val journey: Journey,
+        val bound: Bound,
         val origin: SpacePort,
         val destination: SpacePort,
         val departureSchedule: LocalDateTime,

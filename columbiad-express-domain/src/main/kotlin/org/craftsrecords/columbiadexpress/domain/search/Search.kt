@@ -1,31 +1,34 @@
 package org.craftsrecords.columbiadexpress.domain.search
 
 import org.craftsrecords.columbiadexpress.domain.search.criteria.Criteria
-import org.craftsrecords.columbiadexpress.domain.search.criteria.Journey
+import org.craftsrecords.columbiadexpress.domain.search.criteria.Journeys
 import java.util.UUID
 import java.util.UUID.randomUUID
-import org.craftsrecords.columbiadexpress.domain.search.Journey as JourneyOrder
 
 data class Search(val id: UUID = randomUUID(), val criteria: Criteria, val spaceTrains: SpaceTrains) {
     init {
-        require(allJourneysToHaveAtLeastOneSpaceTrain()) {
+        val (journeys) = criteria
+
+        require(journeys.bounds() `are all satified by a space train amongst` spaceTrains) {
             "some journeys don't have at least one corresponding space train"
         }
 
-        require(spaceTrains.all { it `corresponds to` criteria.journeys }) {
+        require(spaceTrains `correspond to` journeys) {
             "some space trains don't correspond to any journey from the criteria"
         }
     }
 
-    private fun allJourneysToHaveAtLeastOneSpaceTrain() =
-            criteria.journeys.indices
-                    .map { JourneyOrder.values()[it] }
-                    .all { journey ->
-                        spaceTrains.any { spaceTrain -> spaceTrain.journey == journey }
-                    }
+    private fun Journeys.bounds(): List<Bound> = indices.map { Bound.values()[it] }
+    private infix fun List<Bound>.`are all satified by a space train amongst`(spaceTrains: SpaceTrains): Boolean {
+        return spaceTrains.isEmpty() || spaceTrains.map { it.bound }.containsAll(this)
+    }
 
-    private infix fun SpaceTrain.`corresponds to`(journeys: List<Journey>): Boolean {
-        return journeys.any { it.departureSpacePort == this.origin && it.arrivalSpacePort == this.destination }
+    private infix fun SpaceTrains.`correspond to`(journeys: Journeys): Boolean {
+        return all { it `corresponds to` journeys }
+    }
+
+    private infix fun SpaceTrain.`corresponds to`(journeys: Journeys): Boolean {
+        return journeys.any { it.departureSpacePort == origin && it.arrivalSpacePort == destination }
     }
 
 
