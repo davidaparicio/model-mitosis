@@ -16,6 +16,7 @@ import org.craftsrecords.columbiadexpress.domain.spaceport.SpacePort
 import org.craftsrecords.columbiadexpress.domain.spaceport.api.DomainService
 import org.craftsrecords.columbiadexpress.domain.spaceport.api.RetrieveSpacePorts
 import org.craftsrecords.columbiadexpress.domain.spaceport.api.SearchForSpaceTrains
+import org.craftsrecords.columbiadexpress.domain.spaceport.spi.Searches
 import org.craftsrecords.columbiadexpress.domain.spaceport.spi.SpacePorts
 import java.math.BigDecimal
 import java.time.LocalDateTime
@@ -24,7 +25,7 @@ import java.util.Locale.FRANCE
 import java.util.UUID
 
 @DomainService
-class ColumbiadExpress(private val spacePorts: SpacePorts) : RetrieveSpacePorts, SearchForSpaceTrains {
+class ColumbiadExpress(override val spacePorts: SpacePorts, override val searches: Searches) : RetrieveSpacePorts, SearchForSpaceTrains {
     override fun `identified by`(id: UUID): SpacePort {
         return spacePorts.getAllSpacePorts().first { it.id == id }
     }
@@ -37,7 +38,7 @@ class ColumbiadExpress(private val spacePorts: SpacePorts) : RetrieveSpacePorts,
 
     override fun satisfying(criteria: Criteria): Search {
         val spaceTrains = generateSpaceTrains(criteria.journeys)
-        return Search(criteria = criteria, spaceTrains = spaceTrains)
+        return searches.save(Search(criteria = criteria, spaceTrains = spaceTrains))
     }
 
     private fun generateSpaceTrains(journeys: Journeys): SpaceTrains {
