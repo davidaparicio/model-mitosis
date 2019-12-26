@@ -3,13 +3,11 @@ package org.craftsrecords.columbiadexpress.infrastructure.rest.controllers
 import org.craftsrecords.columbiadexpress.infrastructure.configurations.DomainConfiguration
 import org.hamcrest.Matchers.containsInAnyOrder
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
 import org.springframework.context.annotation.Import
 import org.springframework.hateoas.MediaTypes.HAL_JSON_VALUE
 import org.springframework.http.MediaType.APPLICATION_JSON_VALUE
-import org.springframework.test.context.junit.jupiter.SpringExtension
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.content
@@ -17,13 +15,9 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPat
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 import java.util.UUID.nameUUIDFromBytes
 
-@ExtendWith(SpringExtension::class)
 @WebMvcTest(controllers = [SpacePortsController::class])
 @Import(DomainConfiguration::class)
-class SpacePortsControllerShould {
-
-    @Autowired
-    private lateinit var mvc: MockMvc
+class SpacePortsControllerShould(@Autowired val mvc: MockMvc) {
 
     @Test
     fun `list all available SpacePorts`() {
