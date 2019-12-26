@@ -33,7 +33,7 @@ class SpacePortsControllerShould {
                 //
                 .andExpect(status().isOk)
                 .andExpect(content().contentType(APPLICATION_JSON_VALUE))
-                .andExpect(jsonPath("$._embedded.spacePorts.length()").value(3))
+                .andExpect(jsonPath("$._embedded.spacePorts.length()").value(10))
                 .andExpect(jsonPath("$._links.self.href").value("http://localhost/spaceports"))
                 .andExpect(jsonPath("$._links.allSpacePorts.href").value("http://localhost/spaceports"))
 
@@ -56,7 +56,7 @@ class SpacePortsControllerShould {
 
     @Test
     fun `give the details of a specific SpacePort`() {
-        val spacePortId = nameUUIDFromBytes("1".toByteArray())
+        val spacePortId = nameUUIDFromBytes("Vostochny".toByteArray())
         mvc.perform(
                 get("/spaceports/{id}", spacePortId))
                 //
