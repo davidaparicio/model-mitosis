@@ -50,7 +50,7 @@ class SpacePortsControllerShould(@Autowired val mvc: MockMvc) {
 
     @Test
     fun `give the details of a specific SpacePort`() {
-        val spacePortId = nameUUIDFromBytes("Vostochny".toByteArray())
+        val spacePortId = nameUUIDFromBytes("Vostochny".toByteArray()).toString()
         mvc.perform(
                 get("/spaceports/{id}", spacePortId))
                 //
@@ -63,7 +63,7 @@ class SpacePortsControllerShould(@Autowired val mvc: MockMvc) {
 
     @Test
     fun `return 404 if the SpacePort doesn't exist`() {
-        val spacePortId = nameUUIDFromBytes("unknown".toByteArray())
+        val spacePortId = "unknown"
 
         mvc.perform(
                 get("/spaceports/{id}", spacePortId))
