@@ -9,7 +9,8 @@ import java.util.UUID
 
 import org.craftsrecords.columbiadexpress.domain.spaceport.SpacePort as DomainSpacePort
 
-open class SpacePort(private val id: UUID, val name: String, val location: AstronomicalBody) : RepresentationModel<SpacePort>()
+@Resource
+class SpacePort(private val id: UUID, val name: String, val location: AstronomicalBody) : RepresentationModel<SpacePort>()
 
 fun DomainSpacePort.toResource(): SpacePort {
     return SpacePort(id, name, location)

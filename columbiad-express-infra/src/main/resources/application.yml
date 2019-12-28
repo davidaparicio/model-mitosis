@@ -1,8 +1,6 @@
 spring:
   output:
     ansi.enabled: always
-  jackson:
-    property-naming-strategy: SNAKE_CASE
 
 server:
   port: 1865
