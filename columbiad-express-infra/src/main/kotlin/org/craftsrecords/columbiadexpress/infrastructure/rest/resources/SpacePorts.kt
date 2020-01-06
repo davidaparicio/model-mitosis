@@ -7,7 +7,8 @@ import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder
 import org.springframework.hateoas.server.mvc.add
 import org.craftsrecords.columbiadexpress.domain.spaceport.SpacePort as DomainSpacePort
 
-open class SpacePorts(spaceports: Set<SpacePort>) : CollectionModel<SpacePort>(spaceports) {
+@Resource
+class SpacePorts(spaceports: Set<SpacePort>) : CollectionModel<SpacePort>(spaceports) {
     companion object {
         const val REL_ALL_SPACEPORTS: String = "allSpacePorts"
     }

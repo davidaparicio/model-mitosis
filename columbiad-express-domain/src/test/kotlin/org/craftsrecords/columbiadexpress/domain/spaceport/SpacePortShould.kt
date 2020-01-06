@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test
 
 class SpacePortShould : EqualityShould<SpacePort> {
 
-    private val spacePort = SpacePort(name = "Cape Canaveral Air Force Station", location = EARTH)
+    private val spacePort = SpacePort(id = "fa9f2371-5b13-40a1-bd18-42db3371f073", name = "Cape Canaveral Air Force Station", location = EARTH)
 
     @Test
     fun `recognize sub sequences in its name`() {

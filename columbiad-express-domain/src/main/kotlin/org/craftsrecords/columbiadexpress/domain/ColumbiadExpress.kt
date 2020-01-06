@@ -22,11 +22,10 @@ import java.math.BigDecimal
 import java.time.LocalDateTime
 import java.util.Currency
 import java.util.Locale.FRANCE
-import java.util.UUID
 
 @DomainService
 class ColumbiadExpress(override val spacePorts: SpacePorts, override val searches: Searches) : RetrieveSpacePorts, SearchForSpaceTrains {
-    override fun `identified by`(id: UUID): SpacePort {
+    override fun `identified by`(id: String): SpacePort {
         return spacePorts.getAllSpacePorts().first { it.id == id }
     }
 

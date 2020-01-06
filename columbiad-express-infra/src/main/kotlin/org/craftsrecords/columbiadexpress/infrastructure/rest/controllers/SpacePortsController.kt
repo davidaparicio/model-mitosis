@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
-import java.util.UUID
 import javax.servlet.http.HttpServletResponse
 import javax.servlet.http.HttpServletResponse.SC_NOT_FOUND
 
@@ -32,7 +31,7 @@ class SpacePortsController(private val retrieveSpacePorts: RetrieveSpacePorts) {
     }
 
     @GetMapping(path = ["/{id}"])
-    fun getSpacePortIdentifiedBy(@PathVariable id: UUID): SpacePort {
+    fun getSpacePortIdentifiedBy(@PathVariable id: String): SpacePort {
         val spacePort = retrieveSpacePorts `identified by` id
         return spacePort.toResource()
     }
