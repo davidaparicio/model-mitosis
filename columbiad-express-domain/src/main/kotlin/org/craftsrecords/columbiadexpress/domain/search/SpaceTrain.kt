@@ -15,7 +15,7 @@ data class SpaceTrain(
         val destination: SpacePort,
         val departureSchedule: LocalDateTime,
         val arrivalSchedule: LocalDateTime,
-        val fares: Set<Fare>) {
+        val fares: Fares) {
 
     val duration: Duration = between(departureSchedule, arrivalSchedule)
 
