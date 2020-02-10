@@ -1,4 +1,4 @@
-package org.craftsrecords.columbiadexpress.domain.spaceport.api
+package org.craftsrecords.columbiadexpress.domain.api
 
 import java.lang.annotation.Inherited
 

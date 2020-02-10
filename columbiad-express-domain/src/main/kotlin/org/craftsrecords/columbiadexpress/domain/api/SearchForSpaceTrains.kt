@@ -1,8 +1,8 @@
-package org.craftsrecords.columbiadexpress.domain.spaceport.api
+package org.craftsrecords.columbiadexpress.domain.api
 
 import org.craftsrecords.columbiadexpress.domain.search.Search
 import org.craftsrecords.columbiadexpress.domain.search.criteria.Criteria
-import org.craftsrecords.columbiadexpress.domain.spaceport.spi.Searches
+import org.craftsrecords.columbiadexpress.domain.spi.Searches
 
 interface SearchForSpaceTrains {
     val searches: Searches

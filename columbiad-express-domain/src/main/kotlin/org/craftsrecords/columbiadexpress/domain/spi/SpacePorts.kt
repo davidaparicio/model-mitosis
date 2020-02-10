@@ -1,4 +1,4 @@
-package org.craftsrecords.columbiadexpress.domain.spaceport.spi
+package org.craftsrecords.columbiadexpress.domain.spi
 
 import org.craftsrecords.columbiadexpress.domain.spaceport.SpacePort
 

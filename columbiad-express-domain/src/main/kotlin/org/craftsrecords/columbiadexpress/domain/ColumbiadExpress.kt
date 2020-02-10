@@ -1,5 +1,9 @@
 package org.craftsrecords.columbiadexpress.domain
 
+import org.craftsrecords.columbiadexpress.domain.api.DomainService
+import org.craftsrecords.columbiadexpress.domain.api.RetrieveSpacePorts
+import org.craftsrecords.columbiadexpress.domain.api.SearchForSpaceTrains
+import org.craftsrecords.columbiadexpress.domain.api.SelectSpaceTrain
 import org.craftsrecords.columbiadexpress.domain.search.Bound
 import org.craftsrecords.columbiadexpress.domain.search.ComfortClass.FIRST
 import org.craftsrecords.columbiadexpress.domain.search.ComfortClass.SECOND
@@ -13,18 +17,19 @@ import org.craftsrecords.columbiadexpress.domain.search.criteria.Journey
 import org.craftsrecords.columbiadexpress.domain.search.criteria.Journeys
 import org.craftsrecords.columbiadexpress.domain.spaceport.AstronomicalBody
 import org.craftsrecords.columbiadexpress.domain.spaceport.SpacePort
-import org.craftsrecords.columbiadexpress.domain.spaceport.api.DomainService
-import org.craftsrecords.columbiadexpress.domain.spaceport.api.RetrieveSpacePorts
-import org.craftsrecords.columbiadexpress.domain.spaceport.api.SearchForSpaceTrains
-import org.craftsrecords.columbiadexpress.domain.spaceport.spi.Searches
-import org.craftsrecords.columbiadexpress.domain.spaceport.spi.SpacePorts
+import org.craftsrecords.columbiadexpress.domain.spi.Searches
+import org.craftsrecords.columbiadexpress.domain.spi.SpacePorts
 import java.math.BigDecimal
 import java.time.LocalDateTime
 import java.util.Currency
 import java.util.Locale.FRANCE
+import java.util.UUID
 
 @DomainService
-class ColumbiadExpress(override val spacePorts: SpacePorts, override val searches: Searches) : RetrieveSpacePorts, SearchForSpaceTrains {
+class ColumbiadExpress(override val spacePorts: SpacePorts, override val searches: Searches) :
+        RetrieveSpacePorts,
+        SearchForSpaceTrains,
+        SelectSpaceTrain {
     override fun `identified by`(id: String): SpacePort {
         return spacePorts.getAllSpacePorts().first { it.id == id }
     }
@@ -60,6 +65,13 @@ class ColumbiadExpress(override val spacePorts: SpacePorts, override val searche
                 origin = journey.departureSpacePort,
                 fares = generateFares())
     }
+
+    override fun selectFareOfSpaceTrainInSearch(spaceTrainNumber: String, fareId: UUID, searchId: UUID): Search {
+        val search = searches `find search identified by` searchId
+                ?: throw NoSuchElementException("unknown search id $searchId")
+        val searchWithSelection = search.selectSpaceTrainWithFare(spaceTrainNumber, fareId)
+        return searches.save(searchWithSelection)
+    }
 }
 
 private fun computeDepartureSchedule(criteriaDepartureSchedule: LocalDateTime, spaceTrainIndex: Int, firstDepartureDeltaInMinutes: Long) =
@@ -77,6 +89,6 @@ private fun computeArrivalSchedule(departureSchedule: LocalDateTime, spaceTrainI
 
 private fun generateFares(): Set<Fare> {
     val currency = Currency.getInstance(FRANCE)
-    return setOf(Fare(FIRST, Price(BigDecimal((180..400).random()), currency)),
-            Fare(SECOND, Price(BigDecimal((150..200).random()), currency)))
+    return setOf(Fare(comfortClass = FIRST, price = Price(BigDecimal((180..400).random()), currency)),
+            Fare(comfortClass = SECOND, price = Price(BigDecimal((150..200).random()), currency)))
 }

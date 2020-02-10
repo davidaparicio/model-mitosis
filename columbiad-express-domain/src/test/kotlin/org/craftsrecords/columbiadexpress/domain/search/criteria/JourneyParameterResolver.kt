@@ -4,6 +4,7 @@ import org.craftsrecords.TypedParameterResolver
 import org.craftsrecords.columbiadexpress.domain.Random
 import org.craftsrecords.columbiadexpress.domain.search.Inbound
 import org.craftsrecords.columbiadexpress.domain.search.Outbound
+import org.craftsrecords.columbiadexpress.domain.search.RoundTrip
 
 class JourneyParameterResolver : TypedParameterResolver<Journey>({ parameterContext, _ ->
     when {

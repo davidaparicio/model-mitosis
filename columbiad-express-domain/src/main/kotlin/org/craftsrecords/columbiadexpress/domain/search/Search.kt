@@ -2,23 +2,59 @@ package org.craftsrecords.columbiadexpress.domain.search
 
 import org.craftsrecords.columbiadexpress.domain.search.criteria.Criteria
 import org.craftsrecords.columbiadexpress.domain.search.criteria.Journeys
+import org.craftsrecords.columbiadexpress.domain.search.selection.SelectedSpaceTrain
+import org.craftsrecords.columbiadexpress.domain.search.selection.Selection
 import java.util.UUID
 import java.util.UUID.randomUUID
 
-data class Search(val id: UUID = randomUUID(), val criteria: Criteria, val spaceTrains: SpaceTrains) {
+data class Search(
+        val id: UUID = randomUUID(),
+        val criteria: Criteria,
+        val spaceTrains: SpaceTrains,
+        val selection: Selection = Selection()
+) {
     init {
         val (journeys) = criteria
+        val (selectedSpaceTrains) = selection
 
-        require(journeys.bounds() `are all satified by a space train amongst` spaceTrains) {
+        require(journeys.bounds `are all satified by a space train amongst` spaceTrains) {
             "some journeys don't have at least one corresponding space train"
         }
 
         require(spaceTrains `correspond to` journeys) {
             "some space trains don't correspond to any journey from the criteria"
         }
+
+        require(selectedSpaceTrains `exist in` spaceTrains) {
+            "unknown space train in the selection"
+        }
+
+        require(selectedSpaceTrains `with only known fares from` spaceTrains) {
+            "unknown fare in the selection"
+        }
+
+        require(selectedSpaceTrains `are corresponding to the bounds of` spaceTrains) {
+            "selected space trains don't correspond to the right bound"
+        }
+
     }
 
-    private fun Journeys.bounds(): List<Bound> = indices.map { Bound.values()[it] }
+
+    private infix fun Map<Bound, SelectedSpaceTrain>.`exist in`(spaceTrains: SpaceTrains): Boolean =
+            spaceTrains.map { it.number }.containsAll(this.values.map { it.spaceTrainNumber })
+
+    private infix fun Map<Bound, SelectedSpaceTrain>.`with only known fares from`(spaceTrains: SpaceTrains): Boolean =
+            this.values.all { chosenSpaceTrain ->
+                spaceTrains.find { it.number == chosenSpaceTrain.spaceTrainNumber }?.fares?.any { it.id == chosenSpaceTrain.fareId }
+                        ?: false
+            }
+
+    private infix fun Map<Bound, SelectedSpaceTrain>.`are corresponding to the bounds of`(spaceTrains: SpaceTrains): Boolean =
+            this.all { spaceTrains.find { spaceTrain -> spaceTrain.number == it.value.spaceTrainNumber }?.bound == it.key }
+
+    private val Journeys.bounds
+        get(): List<Bound> = indices.map { Bound.values()[it] }
+
     private infix fun List<Bound>.`are all satified by a space train amongst`(spaceTrains: SpaceTrains): Boolean {
         return spaceTrains.isEmpty() || spaceTrains.map { it.bound }.containsAll(this)
     }
@@ -44,4 +80,10 @@ data class Search(val id: UUID = randomUUID(), val criteria: Criteria, val space
     }
 
     override fun hashCode(): Int = id.hashCode()
+
+    fun selectSpaceTrainWithFare(spaceTrainNumber: String, fareId: UUID): Search {
+        val spaceTrain = spaceTrains.first { it.number == spaceTrainNumber && it.fares.any { fare -> fare.id == fareId } }
+        val newSelection = selection.selectSpaceTrainWithFare(spaceTrain, fareId)
+        return this.copy(selection = newSelection)
+    }
 }

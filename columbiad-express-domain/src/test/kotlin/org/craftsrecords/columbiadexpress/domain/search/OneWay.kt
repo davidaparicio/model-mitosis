@@ -1,4 +1,4 @@
-package org.craftsrecords.columbiadexpress.domain.search.criteria
+package org.craftsrecords.columbiadexpress.domain.search
 
 @Retention(AnnotationRetention.RUNTIME)
 @Target(AnnotationTarget.VALUE_PARAMETER)

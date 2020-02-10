@@ -1,31 +1,43 @@
 package org.craftsrecords.columbiadexpress.infrastructure.rest.controllers
 
+import org.craftsrecords.columbiadexpress.domain.api.*
+import org.craftsrecords.columbiadexpress.domain.search.Bound
+import org.craftsrecords.columbiadexpress.domain.search.Bound.INBOUND
+import org.craftsrecords.columbiadexpress.domain.search.Bound.OUTBOUND
 import org.craftsrecords.columbiadexpress.domain.spaceport.SpacePort
-import org.craftsrecords.columbiadexpress.domain.spaceport.api.RetrieveSpacePorts
-import org.craftsrecords.columbiadexpress.domain.spaceport.api.SearchForSpaceTrains
-import org.craftsrecords.columbiadexpress.infrastructure.rest.resources.Criteria
+import org.craftsrecords.columbiadexpress.domain.spi.Searches
+import org.craftsrecords.columbiadexpress.infrastructure.rest.resources.*
+import org.craftsrecords.columbiadexpress.infrastructure.rest.resources.Fare
 import org.craftsrecords.columbiadexpress.infrastructure.rest.resources.Search
-import org.craftsrecords.columbiadexpress.infrastructure.rest.resources.toResource
+import org.springframework.hateoas.IanaLinkRelations.SELF
 import org.springframework.hateoas.server.EntityLinks
 import org.springframework.hateoas.server.ExposesResourceFor
+import org.springframework.hateoas.server.LinkBuilder
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo
+import org.springframework.http.HttpStatus.NOT_FOUND
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.http.ResponseEntity.created
+import org.springframework.http.ResponseEntity.ok
+import org.springframework.web.bind.annotation.*
+import org.springframework.web.server.ResponseStatusException
 import java.net.URI
 import java.time.LocalDateTime.parse
+import java.util.*
+import org.craftsrecords.columbiadexpress.domain.search.Fare as DomainFare
+import org.craftsrecords.columbiadexpress.domain.search.Fares as DomainFares
 import org.craftsrecords.columbiadexpress.domain.search.Search as DomainSearch
+import org.craftsrecords.columbiadexpress.domain.search.SpaceTrain as DomainSpaceTrain
+import org.craftsrecords.columbiadexpress.domain.search.SpaceTrains as DomainSpaceTrains
 import org.craftsrecords.columbiadexpress.domain.search.criteria.Criteria as DomainCriteria
 import org.craftsrecords.columbiadexpress.domain.search.criteria.Journey as DomainJourney
-
 
 @RestController
 @RequestMapping("/searches")
 @ExposesResourceFor(Search::class)
 class SearchController(private val `search for space trains`: SearchForSpaceTrains,
                        private val `retrieve space ports`: RetrieveSpacePorts,
+                       private val `select space train`: SelectSpaceTrain,
+                       private val searches: Searches,
                        private val entityLinks: EntityLinks) {
 
     @PostMapping
@@ -33,16 +45,79 @@ class SearchController(private val `search for space trains`: SearchForSpaceTrai
         val domainCriteria = criteria.toDomainObject()
 
         val domainSearch = `search for space trains` satisfying domainCriteria
+        val search = domainSearch.toResource()
 
-        return domainSearch.toResponseEntity()
+        return created(search.getRequiredLink(SELF).toUri()).body(search)
     }
 
-    private fun DomainSearch.toResponseEntity(): ResponseEntity<Search> {
-        val search = this.toResource()
-        val selfLink = entityLinks.linkForItemResource(Search::class.java, this.id).withSelfRel()
-        search.add(selfLink)
-        return ResponseEntity.created(selfLink.toUri()).body(search)
+    @GetMapping("/{searchId}")
+    fun retrieveAnExistingSearch(@PathVariable searchId: UUID): ResponseEntity<Search> {
+        val domainSearch = retrieveSearch(searchId)
+        return ok(domainSearch.toResource())
     }
+
+
+    @GetMapping("/{searchId}/spacetrains")
+    fun retrieveSpaceTrainsForBound(@PathVariable searchId: UUID, @RequestParam bound: Bound): ResponseEntity<SpaceTrains> {
+        val domainSearch = retrieveSearch(searchId)
+        val searchLink = searchLink(searchId)
+        val spaceTrains = SpaceTrains(domainSearch.spaceTrains.filter { it.bound == bound }.toResource(searchLink))
+        spaceTrains
+                .add(searchLink.withRel("search"))
+                .add(searchLink.slash("spacetrains?bound=$bound").withSelfRel())
+        return ok(spaceTrains)
+    }
+
+    @PostMapping("/{searchId}/spacetrains/{spaceTrainNumber}/fares/{fareId}/select")
+    fun selectSpaceTrainWithFare(@PathVariable searchId: UUID, @PathVariable spaceTrainNumber: String, @PathVariable fareId: UUID): ResponseEntity<Selection> {
+        val search =
+                `select space train` `having the number` spaceTrainNumber `with the fare` fareId `in search` searchId
+        val selection = search.toSelectionResource()
+        return ok(selection)
+    }
+
+    @GetMapping("/{searchId}/selection")
+    fun selectSpaceTrainWithFare(@PathVariable searchId: UUID): ResponseEntity<Selection> {
+        val search = retrieveSearch(searchId)
+        val selection = search.toSelectionResource()
+        return ok(selection)
+    }
+
+    private fun retrieveSearch(searchId: UUID) = (searches `find search identified by` searchId
+            ?: throw ResponseStatusException(NOT_FOUND, "unknown search id $searchId"))
+
+    private fun DomainSearch.toResource(): Search {
+        val searchLink = searchLink(id)
+        return Search(id, criteria.toResource())
+                .add(searchLink.withSelfRel())
+                .add(searchLink.slash("selection").withRel("current-selection"))
+                .addIf(spaceTrains.any { it.bound == OUTBOUND }) {
+                    searchLink.slash("spacetrains?bound=${OUTBOUND}").withRel("outbound-spacetrains")
+                }
+                .addIf(spaceTrains.any { it.bound == INBOUND }) {
+                    searchLink.slash("spacetrains?bound=${INBOUND}").withRel("inbound-spacetrains")
+                }
+    }
+
+    private fun DomainSearch.toSelectionResource(): Selection {
+        val searchLink = searchLink(id)
+        val selectedSpaceTrain = selection.selectedSpaceTrains.values.map { selectedSpaceTrain ->
+            val spaceTrain = spaceTrains.first { it.number == selectedSpaceTrain.spaceTrainNumber }
+            SelectedSpaceTrain(spaceTrain.number, spaceTrain.bound, spaceTrain.origin.toResource(), spaceTrain.destination.toResource(), spaceTrain.departureSchedule, spaceTrain.arrivalSchedule, spaceTrain.fares.first { it.id == selectedSpaceTrain.fareId }.toResource())
+        }
+        return Selection(selectedSpaceTrain)
+                .add(searchLink.withRel("search"))
+                .add(searchLink.slash("selection").withSelfRel())
+                .also { selection ->
+                    spaceTrains.map { it.bound }.toSet()
+                            .forEach { bound ->
+                                selection.add(searchLink.slash("spacetrains?bound=${bound}").withRel("${bound.toString().toLowerCase()}-spacetrains"))
+                            }
+                }
+    }
+
+    private fun searchLink(searchId: UUID) =
+            entityLinks.linkForItemResource(Search::class.java, searchId)
 
     private fun Criteria.toDomainObject(): DomainCriteria =
             DomainCriteria(journeys.map {
@@ -56,6 +131,31 @@ class SearchController(private val `search for space trains`: SearchForSpaceTrai
         val spacePortsUri = linkTo(SpacePortsController::class.java).toUri()
         val id = spacePortsUri.relativize(this).toString()
         return `retrieve space ports` `identified by` id
+    }
+
+    private fun DomainSpaceTrain.toResource(searchLink: LinkBuilder): SpaceTrain = SpaceTrain(
+            number,
+            bound,
+            origin.toResource(),
+            destination.toResource(),
+            departureSchedule,
+            arrivalSchedule,
+            fares.toResource(searchLink.slash("spacetrains").slash(number)))
+
+    private fun DomainSpaceTrains.toResource(searchLink: LinkBuilder): List<SpaceTrain> = this.map { it.toResource(searchLink) }
+
+    private fun DomainFares.toResource(spaceTrainLink: LinkBuilder): Fares = this.map { it.toResource(spaceTrainLink) }.toSet()
+
+    private fun DomainFare.toResource(spaceTrainLink: LinkBuilder? = null): Fare {
+        val fare = Fare(id, comfortClass, price)
+
+        spaceTrainLink?.let {
+            fare.add(spaceTrainLink.slash("fares")
+                    .slash("$id")
+                    .slash("select")
+                    .withRel("select"))
+        }
+        return fare
     }
 }
 

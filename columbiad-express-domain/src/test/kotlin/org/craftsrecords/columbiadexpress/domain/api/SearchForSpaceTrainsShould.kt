@@ -1,9 +1,8 @@
 package org.craftsrecords.columbiadexpress.domain.api
 
 import org.assertj.core.api.Assertions.assertThat
+import org.craftsrecords.columbiadexpress.domain.search.RoundTrip
 import org.craftsrecords.columbiadexpress.domain.search.criteria.Criteria
-import org.craftsrecords.columbiadexpress.domain.search.criteria.RoundTrip
-import org.craftsrecords.columbiadexpress.domain.spaceport.api.SearchForSpaceTrains
 import org.junit.jupiter.api.Test
 
 interface SearchForSpaceTrainsShould {

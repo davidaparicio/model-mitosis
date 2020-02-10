@@ -3,9 +3,13 @@ package org.craftsrecords.columbiadexpress.domain.search
 import org.assertj.core.api.Assertions.assertThatCode
 import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.craftsrecords.columbiadexpress.domain.EqualityShould
+import org.craftsrecords.columbiadexpress.domain.search.Bound.OUTBOUND
 import org.craftsrecords.columbiadexpress.domain.search.criteria.Criteria
 import org.craftsrecords.columbiadexpress.domain.search.criteria.Journey
+import org.craftsrecords.columbiadexpress.domain.search.selection.SelectedSpaceTrain
+import org.craftsrecords.columbiadexpress.domain.search.selection.Selection
 import org.junit.jupiter.api.Test
+import java.util.UUID.randomUUID
 
 class SearchShould : EqualityShould<Search> {
     @Test
@@ -31,6 +35,48 @@ class SearchShould : EqualityShould<Search> {
         assertThatThrownBy { Search(criteria = criteria, spaceTrains = listOf(outboundSpaceTrain)) }
                 .isInstanceOf(IllegalArgumentException::class.java)
                 .hasMessage("some journeys don't have at least one corresponding space train")
+    }
+
+    @Test
+    fun `only have selected space trains existing inside the result list`(@RoundTrip search: Search) {
+        val invalidSelection = Selection(
+                mapOf(OUTBOUND to SelectedSpaceTrain(spaceTrainNumber = "unknown", fareId = randomUUID()))
+        )
+
+        assertThatThrownBy { search.copy(selection = invalidSelection) }
+                .isInstanceOf(IllegalArgumentException::class.java)
+                .hasMessage("unknown space train in the selection")
+    }
+
+    @Test
+    fun `only have selected fares existing inside the result list`(@RoundTrip search: Search) {
+        val spaceTrain = search.spaceTrains.first()
+        val spaceTrainNumber = spaceTrain.number
+        val bound = spaceTrain.bound
+
+        val invalidSelection = Selection(
+                mapOf(bound to SelectedSpaceTrain(spaceTrainNumber = spaceTrainNumber, fareId = randomUUID()))
+        )
+
+        assertThatThrownBy { search.copy(selection = invalidSelection) }
+                .isInstanceOf(IllegalArgumentException::class.java)
+                .hasMessage("unknown fare in the selection")
+    }
+
+    @Test
+    fun `only have selected space trains corresponding to the right bound`(@RoundTrip search: Search) {
+        val spaceTrain = search.spaceTrains.first()
+        val spaceTrainNumber = spaceTrain.number
+        val fareId = spaceTrain.fares.first().id
+        val wrongBound = Bound.values().first { it != spaceTrain.bound }
+
+        val invalidSelection = Selection(
+                mapOf(wrongBound to SelectedSpaceTrain(spaceTrainNumber = spaceTrainNumber, fareId = fareId))
+        )
+
+        assertThatThrownBy { search.copy(selection = invalidSelection) }
+                .isInstanceOf(IllegalArgumentException::class.java)
+                .hasMessage("selected space trains don't correspond to the right bound")
     }
 
 }

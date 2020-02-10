@@ -1,7 +1,6 @@
 package org.craftsrecords.columbiadexpress.domain.api
 
 import org.assertj.core.api.Assertions.assertThat
-import org.craftsrecords.columbiadexpress.domain.spaceport.api.RetrieveSpacePorts
 import org.junit.jupiter.api.Test
 
 interface RetrieveSpacePortsShould {
