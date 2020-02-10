@@ -1,7 +1,7 @@
-package org.craftsrecords.columbiadexpress.domain.spaceport.api
+package org.craftsrecords.columbiadexpress.domain.api
 
 import org.craftsrecords.columbiadexpress.domain.spaceport.SpacePort
-import org.craftsrecords.columbiadexpress.domain.spaceport.spi.SpacePorts
+import org.craftsrecords.columbiadexpress.domain.spi.SpacePorts
 
 
 interface RetrieveSpacePorts {

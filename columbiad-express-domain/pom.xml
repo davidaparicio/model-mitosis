@@ -48,7 +48,7 @@
                     </compilerPlugins>
                     <pluginOptions>
                         <option>all-open:annotation=org.craftsrecords.columbiadexpress.domain.api.DomainService</option>
-                        <option>all-open:annotation=org.craftsrecords.columbiadexpress.domain.spaceport.stubs.Stub
+                        <option>all-open:annotation=org.craftsrecords.columbiadexpress.domain.stubs.Stub
                         </option>
                     </pluginOptions>
                 </configuration>

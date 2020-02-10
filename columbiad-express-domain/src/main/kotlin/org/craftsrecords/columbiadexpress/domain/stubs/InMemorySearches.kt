@@ -1,7 +1,7 @@
-package org.craftsrecords.columbiadexpress.domain.spaceport.stubs
+package org.craftsrecords.columbiadexpress.domain.stubs
 
 import org.craftsrecords.columbiadexpress.domain.search.Search
-import org.craftsrecords.columbiadexpress.domain.spaceport.spi.Searches
+import org.craftsrecords.columbiadexpress.domain.spi.Searches
 import java.util.UUID
 
 @Stub

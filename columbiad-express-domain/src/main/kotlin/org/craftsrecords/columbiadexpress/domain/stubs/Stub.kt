@@ -1,4 +1,4 @@
-package org.craftsrecords.columbiadexpress.domain.spaceport.stubs
+package org.craftsrecords.columbiadexpress.domain.stubs
 
 import java.lang.annotation.Inherited
 

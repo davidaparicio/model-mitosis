@@ -11,8 +11,11 @@ class SearchParameterResolver : TypedParameterResolver<Search>({ parameterContex
         parameterContext.isAnnotated(Random::class.java) -> {
             randomSearch()
         }
+        parameterContext.isAnnotated(RoundTrip::class.java) -> {
+            roundTripSearch()
+        }
 
-        else -> search()
+        else -> oneWaySearch()
     }
 })
 

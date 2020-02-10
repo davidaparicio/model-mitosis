@@ -1,9 +1,9 @@
-package org.craftsrecords.columbiadexpress.domain.spaceport.stubs
+package org.craftsrecords.columbiadexpress.domain.stubs
 
 import org.craftsrecords.columbiadexpress.domain.spaceport.AstronomicalBody.EARTH
 import org.craftsrecords.columbiadexpress.domain.spaceport.AstronomicalBody.MOON
 import org.craftsrecords.columbiadexpress.domain.spaceport.SpacePort
-import org.craftsrecords.columbiadexpress.domain.spaceport.spi.SpacePorts
+import org.craftsrecords.columbiadexpress.domain.spi.SpacePorts
 import java.util.UUID.nameUUIDFromBytes
 
 @Stub

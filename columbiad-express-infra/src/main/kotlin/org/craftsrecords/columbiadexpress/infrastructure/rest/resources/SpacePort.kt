@@ -8,7 +8,7 @@ import org.springframework.hateoas.server.mvc.add
 import org.craftsrecords.columbiadexpress.domain.spaceport.SpacePort as DomainSpacePort
 
 @Resource
-class SpacePort(private val id: String, val name: String, val location: AstronomicalBody) : RepresentationModel<SpacePort>()
+data class SpacePort(private val id: String, val name: String, val location: AstronomicalBody) : RepresentationModel<SpacePort>()
 
 fun DomainSpacePort.toResource(): SpacePort {
     return SpacePort(id, name, location)
