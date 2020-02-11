@@ -1,5 +1,6 @@
 package org.craftsrecords.columbiadexpress.domain.search.selection
 
-import java.util.UUID
+import org.craftsrecords.columbiadexpress.domain.search.Price
+import java.util.*
 
-data class SelectedSpaceTrain(val spaceTrainNumber: String, val fareId: UUID)
+data class SelectedSpaceTrain(val spaceTrainNumber: String, val fareId: UUID, val price: Price)

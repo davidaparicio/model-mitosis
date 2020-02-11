@@ -16,11 +16,11 @@ interface SelectSpaceTrainShould {
     @Test
     fun `select a space train with a specific fare in an existing search`(@RoundTrip search: Search) {
         val spaceTrain = search.spaceTrains.first()
-        val fareId = spaceTrain.fares.first().id
+        val fare = spaceTrain.fares.first()
 
-        val result = selectSpaceTrain `having the number` spaceTrain.number `with the fare` fareId `in search` search.id
+        val result = selectSpaceTrain `having the number` spaceTrain.number `with the fare` fare.id `in search` search.id
         assertThat(result.selection.selectedSpaceTrains)
-                .containsOnly(entry(spaceTrain.bound, SelectedSpaceTrain(spaceTrain.number, fareId)))
+                .containsOnly(entry(spaceTrain.bound, SelectedSpaceTrain(spaceTrain.number, fare.id, fare.price)))
     }
 
     @Test

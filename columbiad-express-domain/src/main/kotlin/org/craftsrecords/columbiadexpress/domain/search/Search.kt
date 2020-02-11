@@ -4,7 +4,7 @@ import org.craftsrecords.columbiadexpress.domain.search.criteria.Criteria
 import org.craftsrecords.columbiadexpress.domain.search.criteria.Journeys
 import org.craftsrecords.columbiadexpress.domain.search.selection.SelectedSpaceTrain
 import org.craftsrecords.columbiadexpress.domain.search.selection.Selection
-import java.util.UUID
+import java.util.*
 import java.util.UUID.randomUUID
 
 data class Search(
@@ -82,8 +82,9 @@ data class Search(
     override fun hashCode(): Int = id.hashCode()
 
     fun selectSpaceTrainWithFare(spaceTrainNumber: String, fareId: UUID): Search {
-        val spaceTrain = spaceTrains.first { it.number == spaceTrainNumber && it.fares.any { fare -> fare.id == fareId } }
-        val newSelection = selection.selectSpaceTrainWithFare(spaceTrain, fareId)
+        val spaceTrain = spaceTrains.first { it.number == spaceTrainNumber }
+        val price = spaceTrain.fares.first { it.id == fareId }.price
+        val newSelection = selection.selectSpaceTrainWithFare(spaceTrain, fareId, price)
         return this.copy(selection = newSelection)
     }
 }
