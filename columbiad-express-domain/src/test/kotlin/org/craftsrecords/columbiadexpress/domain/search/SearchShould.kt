@@ -40,7 +40,7 @@ class SearchShould : EqualityShould<Search> {
     @Test
     fun `only have selected space trains existing inside the result list`(@RoundTrip search: Search) {
         val invalidSelection = Selection(
-                mapOf(OUTBOUND to SelectedSpaceTrain(spaceTrainNumber = "unknown", fareId = randomUUID()))
+                mapOf(OUTBOUND to SelectedSpaceTrain(spaceTrainNumber = "unknown", fareId = randomUUID(), price = price()))
         )
 
         assertThatThrownBy { search.copy(selection = invalidSelection) }
@@ -55,7 +55,22 @@ class SearchShould : EqualityShould<Search> {
         val bound = spaceTrain.bound
 
         val invalidSelection = Selection(
-                mapOf(bound to SelectedSpaceTrain(spaceTrainNumber = spaceTrainNumber, fareId = randomUUID()))
+                mapOf(bound to SelectedSpaceTrain(spaceTrainNumber = spaceTrainNumber, fareId = randomUUID(), price = price()))
+        )
+
+        assertThatThrownBy { search.copy(selection = invalidSelection) }
+                .isInstanceOf(IllegalArgumentException::class.java)
+                .hasMessage("unknown fare in the selection")
+    }
+
+    @Test
+    fun `only have selected fares with the right price`(@RoundTrip search: Search) {
+        val spaceTrain = search.spaceTrains.first()
+        val spaceTrainNumber = spaceTrain.number
+        val bound = spaceTrain.bound
+
+        val invalidSelection = Selection(
+                mapOf(bound to SelectedSpaceTrain(spaceTrainNumber = spaceTrainNumber, fareId = randomUUID(), price = price()))
         )
 
         assertThatThrownBy { search.copy(selection = invalidSelection) }
@@ -67,11 +82,11 @@ class SearchShould : EqualityShould<Search> {
     fun `only have selected space trains corresponding to the right bound`(@RoundTrip search: Search) {
         val spaceTrain = search.spaceTrains.first()
         val spaceTrainNumber = spaceTrain.number
-        val fareId = spaceTrain.fares.first().id
+        val fare = spaceTrain.fares.first()
         val wrongBound = Bound.values().first { it != spaceTrain.bound }
 
         val invalidSelection = Selection(
-                mapOf(wrongBound to SelectedSpaceTrain(spaceTrainNumber = spaceTrainNumber, fareId = fareId))
+                mapOf(wrongBound to SelectedSpaceTrain(spaceTrainNumber = spaceTrainNumber, fareId = fare.id, price = fare.price))
         )
 
         assertThatThrownBy { search.copy(selection = invalidSelection) }

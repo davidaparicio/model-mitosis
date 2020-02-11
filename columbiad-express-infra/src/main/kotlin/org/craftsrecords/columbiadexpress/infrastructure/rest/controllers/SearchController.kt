@@ -2,8 +2,6 @@ package org.craftsrecords.columbiadexpress.infrastructure.rest.controllers
 
 import org.craftsrecords.columbiadexpress.domain.api.*
 import org.craftsrecords.columbiadexpress.domain.search.Bound
-import org.craftsrecords.columbiadexpress.domain.search.Bound.INBOUND
-import org.craftsrecords.columbiadexpress.domain.search.Bound.OUTBOUND
 import org.craftsrecords.columbiadexpress.domain.spaceport.SpacePort
 import org.craftsrecords.columbiadexpress.domain.spi.Searches
 import org.craftsrecords.columbiadexpress.infrastructure.rest.resources.*
@@ -91,30 +89,35 @@ class SearchController(private val `search for space trains`: SearchForSpaceTrai
         return Search(id, criteria.toResource())
                 .add(searchLink.withSelfRel())
                 .add(searchLink.slash("selection").withRel("current-selection"))
-                .addIf(spaceTrains.any { it.bound == OUTBOUND }) {
-                    searchLink.slash("spacetrains?bound=${OUTBOUND}").withRel("outbound-spacetrains")
-                }
-                .addIf(spaceTrains.any { it.bound == INBOUND }) {
-                    searchLink.slash("spacetrains?bound=${INBOUND}").withRel("inbound-spacetrains")
+                .also { search ->
+                    spaceTrains.map { it.bound }.distinct()
+                            .forEach { bound ->
+                                search.add(boundLink(searchLink, bound))
+                            }
                 }
     }
 
     private fun DomainSearch.toSelectionResource(): Selection {
         val searchLink = searchLink(id)
-        val selectedSpaceTrain = selection.selectedSpaceTrains.values.map { selectedSpaceTrain ->
-            val spaceTrain = spaceTrains.first { it.number == selectedSpaceTrain.spaceTrainNumber }
-            SelectedSpaceTrain(spaceTrain.number, spaceTrain.bound, spaceTrain.origin.toResource(), spaceTrain.destination.toResource(), spaceTrain.departureSchedule, spaceTrain.arrivalSchedule, spaceTrain.fares.first { it.id == selectedSpaceTrain.fareId }.toResource())
-        }
-        return Selection(selectedSpaceTrain)
+        val selectedSpaceTrain =
+                selection.selectedSpaceTrains.values
+                        .map { selectedSpaceTrain ->
+                            val spaceTrain = spaceTrains.first { it.number == selectedSpaceTrain.spaceTrainNumber }
+                            SelectedSpaceTrain(spaceTrain.number, spaceTrain.bound, spaceTrain.origin.toResource(), spaceTrain.destination.toResource(), spaceTrain.departureSchedule, spaceTrain.arrivalSchedule, spaceTrain.fares.first { it.id == selectedSpaceTrain.fareId }.toResource())
+                        }
+        return Selection(selectedSpaceTrain, selection.totalPrice)
                 .add(searchLink.withRel("search"))
                 .add(searchLink.slash("selection").withSelfRel())
                 .also { selection ->
-                    spaceTrains.map { it.bound }.toSet()
+                    spaceTrains.map { it.bound }.distinct()
                             .forEach { bound ->
-                                selection.add(searchLink.slash("spacetrains?bound=${bound}").withRel("${bound.toString().toLowerCase()}-spacetrains"))
+                                selection.add(boundLink(searchLink, bound))
                             }
                 }
     }
+
+    private fun boundLink(searchLink: LinkBuilder, bound: Bound) =
+            searchLink.slash("spacetrains?bound=${bound}").withRel("${bound.toString().toLowerCase()}-spacetrains")
 
     private fun searchLink(searchId: UUID) =
             entityLinks.linkForItemResource(Search::class.java, searchId)

@@ -79,12 +79,12 @@ class SearchControllerShould(@Autowired val mvc: MockMvc, @Autowired val searche
                 .andExpect(jsonPath("$.criteria.journeys[0].departureSpacePort").value(departureSpacePort))
                 .andExpect(jsonPath("$.criteria.journeys[0].departureSchedule").value(departureSchedule.toString()))
                 .andExpect(jsonPath("$.criteria.journeys[0].arrivalSpacePort").value(arrivalSpacePort))
-                .andExpect(jsonPath("$.spaceTrains").doesNotExist())
+                .andExpect(jsonPath("$.spaceTrains").doesNotHaveJsonPath())
                 .andDo { location = it.response.getHeader("Location")!! }
                 .andExpect(jsonPath("$._links.self.href").value(location))
                 .andExpect(jsonPath("$._links.current-selection.href").value("$location/selection"))
                 .andExpect(jsonPath("$._links.outbound-spacetrains.href").value("$location/spacetrains?bound=OUTBOUND"))
-                .andExpect(jsonPath("$._links.inbound-spacetrains").doesNotExist())
+                .andExpect(jsonPath("$._links.inbound-spacetrains").doesNotHaveJsonPath())
 
         checkOutboundSpaceTrains(location)
 
@@ -167,7 +167,7 @@ class SearchControllerShould(@Autowired val mvc: MockMvc, @Autowired val searche
                 .andExpect(jsonPath("$.criteria.journeys[1].departureSpacePort").value(arrivalSpacePort))
                 .andExpect(jsonPath("$.criteria.journeys[1].departureSchedule").value(departureSchedule.plusWeeks(3).toString()))
                 .andExpect(jsonPath("$.criteria.journeys[1].arrivalSpacePort").value(departureSpacePort))
-                .andExpect(jsonPath("$.spaceTrains").doesNotExist())
+                .andExpect(jsonPath("$.spaceTrains").doesNotHaveJsonPath())
                 .andDo { location = it.response.getHeader("Location")!! }
                 .andExpect(jsonPath("$._links.self.href").value(location))
                 .andExpect(jsonPath("$._links.current-selection.href").value("$location/selection"))
@@ -182,6 +182,7 @@ class SearchControllerShould(@Autowired val mvc: MockMvc, @Autowired val searche
                         .accept(APPLICATION_JSON_VALUE))
                 .andExpect(status().isOk)
                 .andExpect(jsonPath("$.spaceTrains").value(hasSize<Collection<*>>(0)))
+                .andExpect(jsonPath("$.totalPrice").doesNotHaveJsonPath())
                 .andExpect(jsonPath("$._links.search.href").value(location))
                 .andExpect(jsonPath("$._links.self.href").value("$location/selection"))
 
@@ -228,6 +229,8 @@ class SearchControllerShould(@Autowired val mvc: MockMvc, @Autowired val searche
                 .andExpect(jsonPath("$.spaceTrains[0].fare.comfortClass").value(fare.comfortClass.toString()))
                 .andExpect(jsonPath("$.spaceTrains[0].fare.price.amount").value(fare.price.amount))
                 .andExpect(jsonPath("$.spaceTrains[0].fare.price.currency").value(fare.price.currency.toString()))
+                .andExpect(jsonPath("$.totalPrice.amount").value(fare.price.amount))
+                .andExpect(jsonPath("$.totalPrice.currency").value(fare.price.currency.toString()))
                 .andExpect(jsonPath("$._links.search.href").value(location))
                 .andExpect(jsonPath("$._links.self.href").value("$location/selection"))
                 .andExpect(jsonPath("$._links.outbound-spacetrains.href").value("$location/spacetrains?bound=OUTBOUND"))
