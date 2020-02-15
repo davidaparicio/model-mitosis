@@ -39,6 +39,12 @@ data class Search(
 
     }
 
+    fun selectSpaceTrainWithFare(spaceTrainNumber: String, fareId: UUID): Search {
+        val spaceTrain = spaceTrains.first { it.number == spaceTrainNumber }
+        val price = spaceTrain.fares.first { it.id == fareId }.price
+        val newSelection = selection.selectSpaceTrainWithFare(spaceTrain, fareId, price)
+        return this.copy(selection = newSelection)
+    }
 
     private infix fun Map<Bound, SelectedSpaceTrain>.`exist in`(spaceTrains: SpaceTrains): Boolean =
             spaceTrains.map { it.number }.containsAll(this.values.map { it.spaceTrainNumber })
@@ -67,7 +73,6 @@ data class Search(
         return journeys.any { it.departureSpacePort == origin && it.arrivalSpacePort == destination }
     }
 
-
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false
@@ -81,10 +86,4 @@ data class Search(
 
     override fun hashCode(): Int = id.hashCode()
 
-    fun selectSpaceTrainWithFare(spaceTrainNumber: String, fareId: UUID): Search {
-        val spaceTrain = spaceTrains.first { it.number == spaceTrainNumber }
-        val price = spaceTrain.fares.first { it.id == fareId }.price
-        val newSelection = selection.selectSpaceTrainWithFare(spaceTrain, fareId, price)
-        return this.copy(selection = newSelection)
-    }
 }
