@@ -8,10 +8,14 @@ import org.craftsrecords.columbiadexpress.infrastructure.rest.resources.*
 import org.craftsrecords.columbiadexpress.infrastructure.rest.resources.Fare
 import org.craftsrecords.columbiadexpress.infrastructure.rest.resources.Search
 import org.springframework.hateoas.IanaLinkRelations.SELF
+import org.springframework.hateoas.LinkRelation
+import org.springframework.hateoas.LinkRelation.of
+import org.springframework.hateoas.RepresentationModel
 import org.springframework.hateoas.server.EntityLinks
 import org.springframework.hateoas.server.ExposesResourceFor
 import org.springframework.hateoas.server.LinkBuilder
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo
+import org.springframework.hateoas.server.mvc.add
 import org.springframework.http.HttpStatus.NOT_FOUND
 import org.springframework.http.ResponseEntity
 import org.springframework.http.ResponseEntity.created
@@ -62,7 +66,7 @@ class SearchController(private val `search for space trains`: SearchForSpaceTrai
         val spaceTrains = SpaceTrains(domainSearch.spaceTrains.filter { it.bound == bound }.toResource(searchLink))
         spaceTrains
                 .add(searchLink.withRel("search"))
-                .add(searchLink.slash("spacetrains?bound=$bound").withSelfRel())
+                .linkToSpaceTrainsForBound(searchId, bound, SELF)
         return ok(spaceTrains)
     }
 
@@ -81,6 +85,12 @@ class SearchController(private val `search for space trains`: SearchForSpaceTrai
         return ok(selection)
     }
 
+    private fun <R : RepresentationModel<R>> R.linkToSpaceTrainsForBound(searchId: UUID, bound: Bound, linkRelation: LinkRelation): R {
+        return this.add(SearchController::class) {
+            linkTo { retrieveSpaceTrainsForBound(searchId, bound) } withRel linkRelation
+        }
+    }
+
     private fun retrieveSearch(searchId: UUID) = (searches `find search identified by` searchId
             ?: throw ResponseStatusException(NOT_FOUND, "unknown search id $searchId"))
 
@@ -92,7 +102,7 @@ class SearchController(private val `search for space trains`: SearchForSpaceTrai
                 .also { search ->
                     spaceTrains.map { it.bound }.distinct()
                             .forEach { bound ->
-                                search.add(boundLink(searchLink, bound))
+                                search.linkToSpaceTrainsForBound(id, bound, of("${bound.toString().toLowerCase()}-spacetrains"))
                             }
                 }
     }
@@ -113,13 +123,10 @@ class SearchController(private val `search for space trains`: SearchForSpaceTrai
                 .also { selection ->
                     spaceTrains.map { it.bound }.distinct()
                             .forEach { bound ->
-                                selection.add(boundLink(searchLink, bound))
+                                selection.linkToSpaceTrainsForBound(id, bound, of("${bound.toString().toLowerCase()}-spacetrains"))
                             }
                 }
     }
-
-    private fun boundLink(searchLink: LinkBuilder, bound: Bound) =
-            searchLink.slash("spacetrains?bound=${bound}").withRel("${bound.toString().toLowerCase()}-spacetrains")
 
     private fun searchLink(searchId: UUID) =
             entityLinks.linkForItemResource(Search::class.java, searchId)
