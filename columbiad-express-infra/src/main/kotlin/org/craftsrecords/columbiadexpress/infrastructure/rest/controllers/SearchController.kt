@@ -105,6 +105,8 @@ class SearchController(private val `search for space trains`: SearchForSpaceTrai
                             val spaceTrain = spaceTrains.first { it.number == selectedSpaceTrain.spaceTrainNumber }
                             SelectedSpaceTrain(spaceTrain.number, spaceTrain.bound, spaceTrain.origin.toResource(), spaceTrain.destination.toResource(), spaceTrain.departureSchedule, spaceTrain.arrivalSchedule, spaceTrain.fares.first { it.id == selectedSpaceTrain.fareId }.toResource())
                         }
+                        .sortedBy { it.bound.ordinal }
+
         return Selection(selectedSpaceTrain, selection.totalPrice)
                 .add(searchLink.withRel("search"))
                 .add(searchLink.slash("selection").withSelfRel())

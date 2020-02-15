@@ -1,6 +1,8 @@
 package org.craftsrecords.columbiadexpress.infrastructure.rest.controllers
 
 import com.jayway.jsonpath.JsonPath
+import org.craftsrecords.columbiadexpress.domain.search.Bound.INBOUND
+import org.craftsrecords.columbiadexpress.domain.search.Bound.OUTBOUND
 import org.craftsrecords.columbiadexpress.domain.search.OneWay
 import org.craftsrecords.columbiadexpress.domain.search.RoundTrip
 import org.craftsrecords.columbiadexpress.domain.search.Search
@@ -208,29 +210,46 @@ class SearchControllerShould(@Autowired val mvc: MockMvc, @Autowired val searche
     }
 
     @Test
-    fun `select a space train with a fare`(@RoundTrip search: Search) {
-        val spaceTrain = search.spaceTrains.first()
-        val fare = spaceTrain.fares.first()
+    fun `select space trains with fares`(@RoundTrip search: Search) {
+        val outBoundSpaceTrain = search.spaceTrains.first { it.bound == OUTBOUND }
+        val outBoundFare = outBoundSpaceTrain.fares.first()
+        val inBoundSpaceTrain = search.spaceTrains.first { it.bound == INBOUND }
+        val inBoundFare = inBoundSpaceTrain.fares.first()
         val location = "http://localhost/searches/${search.id}"
+
+        val selectedSpaceTrainsAndFares = arrayListOf(outBoundSpaceTrain to outBoundFare, inBoundSpaceTrain to inBoundFare)
+
         mvc.perform(
-                post("/searches/${search.id}/spacetrains/${spaceTrain.number}/fares/${fare.id}/select")
+                post("/searches/${search.id}/spacetrains/${inBoundSpaceTrain.number}/fares/${inBoundFare.id}/select")
+                        .accept(APPLICATION_JSON_VALUE))
+
+        mvc.perform(
+                post("/searches/${search.id}/spacetrains/${outBoundSpaceTrain.number}/fares/${outBoundFare.id}/select")
                         .accept(APPLICATION_JSON_VALUE))
                 //
                 .andExpect(status().isOk)
-                .andExpect(jsonPath("$.spaceTrains").value(hasSize<Collection<*>>(1)))
-                .andExpect(jsonPath("$.spaceTrains[0].number").value(spaceTrain.number))
-                .andExpect(jsonPath("$.spaceTrains[0].bound").value(spaceTrain.bound.toString()))
-                .andExpect(jsonPath("$.spaceTrains[0].origin.name").value(spaceTrain.origin.name))
-                .andExpect(jsonPath("$.spaceTrains[0].origin.location").value(spaceTrain.origin.location.toString()))
-                .andExpect(jsonPath("$.spaceTrains[0].origin._links.self.href").value("http://localhost/spaceports/${spaceTrain.origin.id}"))
-                .andExpect(jsonPath("$.spaceTrains[0].destination.name").value(spaceTrain.destination.name))
-                .andExpect(jsonPath("$.spaceTrains[0].destination.location").value(spaceTrain.destination.location.toString()))
-                .andExpect(jsonPath("$.spaceTrains[0].destination._links.self.href").value("http://localhost/spaceports/${spaceTrain.destination.id}"))
-                .andExpect(jsonPath("$.spaceTrains[0].fare.comfortClass").value(fare.comfortClass.toString()))
-                .andExpect(jsonPath("$.spaceTrains[0].fare.price.amount").value(fare.price.amount))
-                .andExpect(jsonPath("$.spaceTrains[0].fare.price.currency").value(fare.price.currency.toString()))
-                .andExpect(jsonPath("$.totalPrice.amount").value(fare.price.amount))
-                .andExpect(jsonPath("$.totalPrice.currency").value(fare.price.currency.toString()))
+                .andExpect(jsonPath("$.spaceTrains").value(hasSize<Collection<*>>(2)))
+                .also { result ->
+                    selectedSpaceTrainsAndFares
+                            .forEachIndexed { index, spaceTrainFare ->
+                                val (spaceTrain, fare) = spaceTrainFare
+                                result.andExpect(jsonPath("$.spaceTrains[$index].bound").value(spaceTrain.bound.toString()))
+                                        .andExpect(jsonPath("$.spaceTrains[$index].number").value(spaceTrain.number))
+                                        .andExpect(jsonPath("$.spaceTrains[$index].origin.name").value(spaceTrain.origin.name))
+                                        .andExpect(jsonPath("$.spaceTrains[$index].origin.location").value(spaceTrain.origin.location.toString()))
+                                        .andExpect(jsonPath("$.spaceTrains[$index].origin._links.self.href").value("http://localhost/spaceports/${spaceTrain.origin.id}"))
+                                        .andExpect(jsonPath("$.spaceTrains[$index].destination.name").value(spaceTrain.destination.name))
+                                        .andExpect(jsonPath("$.spaceTrains[$index].destination.location").value(spaceTrain.destination.location.toString()))
+                                        .andExpect(jsonPath("$.spaceTrains[$index].destination._links.self.href").value("http://localhost/spaceports/${spaceTrain.destination.id}"))
+                                        .andExpect(jsonPath("$.spaceTrains[$index].fare.comfortClass").value(fare.comfortClass.toString()))
+                                        .andExpect(jsonPath("$.spaceTrains[$index].fare.price.amount").value(fare.price.amount))
+                                        .andExpect(jsonPath("$.spaceTrains[$index].fare.price.currency").value(fare.price.currency.toString()))
+
+                            }
+                }
+
+                .andExpect(jsonPath("$.totalPrice.amount").value(outBoundFare.price.amount + inBoundFare.price.amount))
+                .andExpect(jsonPath("$.totalPrice.currency").value(outBoundFare.price.currency.toString()))
                 .andExpect(jsonPath("$._links.search.href").value(location))
                 .andExpect(jsonPath("$._links.self.href").value("$location/selection"))
                 .andExpect(jsonPath("$._links.outbound-spacetrains.href").value("$location/spacetrains?bound=OUTBOUND"))
