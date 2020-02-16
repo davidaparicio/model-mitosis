@@ -1,9 +1,8 @@
 package org.craftsrecords.columbiadexpress.domain.search
 
-import org.assertj.core.api.Assertions.assertThatCode
-import org.assertj.core.api.Assertions.assertThatThrownBy
+import org.assertj.core.api.Assertions.*
 import org.craftsrecords.columbiadexpress.domain.EqualityShould
-import org.craftsrecords.columbiadexpress.domain.search.Bound.OUTBOUND
+import org.craftsrecords.columbiadexpress.domain.search.Bound.*
 import org.craftsrecords.columbiadexpress.domain.search.criteria.Criteria
 import org.craftsrecords.columbiadexpress.domain.search.criteria.Journey
 import org.craftsrecords.columbiadexpress.domain.search.selection.SelectedSpaceTrain
@@ -83,7 +82,7 @@ class SearchShould : EqualityShould<Search> {
         val spaceTrain = search.spaceTrains.first()
         val spaceTrainNumber = spaceTrain.number
         val fare = spaceTrain.fares.first()
-        val wrongBound = Bound.values().first { it != spaceTrain.bound }
+        val wrongBound = values().first { it != spaceTrain.bound }
 
         val invalidSelection = Selection(
                 mapOf(wrongBound to SelectedSpaceTrain(spaceTrainNumber = spaceTrainNumber, fareId = fare.id, price = fare.price))
@@ -94,4 +93,43 @@ class SearchShould : EqualityShould<Search> {
                 .hasMessage("selected space trains don't correspond to the right bound")
     }
 
+    @Test
+    fun `have an incomplete selection if no space trains have been selected`(@OneWay baseSearch: Search) {
+        val search = baseSearch.copy(selection = Selection())
+        assertThat(search.isSelectionComplete()).isFalse()
+    }
+
+    @Test
+    fun `have an complete selection if a space train has been selected for a oneway search`(@OneWay baseSearch: Search) {
+        val search = baseSearch.selectOneOutboundSpaceTrain()
+
+        assertThat(search.isSelectionComplete()).isTrue()
+    }
+
+    @Test
+    fun `have an incomplete selection if only one space trains have been selected for a round trip`(@RoundTrip baseSearch: Search) {
+        val search = baseSearch.selectOneOutboundSpaceTrain()
+
+        assertThat(search.isSelectionComplete()).isFalse()
+    }
+
+    @Test
+    fun `have an complete selection if all space trains have been selected for a round trip`(@RoundTrip baseSearch: Search) {
+        val spaceTrain = baseSearch.spaceTrains.first { it.bound == INBOUND }
+        val fare = spaceTrain.fares.first()
+
+        val search = baseSearch
+                .selectOneOutboundSpaceTrain()
+                .selectSpaceTrainWithFare(spaceTrain.number, fare.id)
+
+        assertThat(search.isSelectionComplete()).isTrue()
+    }
+
+    private fun Search.selectOneOutboundSpaceTrain(): Search {
+        val spaceTrain = spaceTrains.first { it.bound == OUTBOUND }
+        val fare = spaceTrain.fares.first()
+        return this
+                .copy(selection = Selection())
+                .selectSpaceTrainWithFare(spaceTrain.number, fare.id)
+    }
 }

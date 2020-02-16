@@ -46,6 +46,10 @@ data class Search(
         return this.copy(selection = newSelection)
     }
 
+    fun isSelectionComplete(): Boolean {
+        return selection.selectedSpaceTrains.keys.size == criteria.journeys.size
+    }
+
     private infix fun Map<Bound, SelectedSpaceTrain>.`exist in`(spaceTrains: SpaceTrains): Boolean =
             spaceTrains.map { it.number }.containsAll(this.values.map { it.spaceTrainNumber })
 
