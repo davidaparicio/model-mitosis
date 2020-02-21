@@ -1,9 +1,9 @@
 package org.craftsrecords.columbiadexpress.domain.search.selection
 
-import org.craftsrecords.columbiadexpress.domain.search.Bound
-import org.craftsrecords.columbiadexpress.domain.search.Price
 import org.craftsrecords.columbiadexpress.domain.search.SpaceTrain
-import java.util.*
+import org.craftsrecords.columbiadexpress.domain.sharedkernel.Bound
+import org.craftsrecords.columbiadexpress.domain.sharedkernel.Price
+import java.util.UUID
 
 data class Selection(val selectedSpaceTrains: Map<Bound, SelectedSpaceTrain> = mapOf()) {
 

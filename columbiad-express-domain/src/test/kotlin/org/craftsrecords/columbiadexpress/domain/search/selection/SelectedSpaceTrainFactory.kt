@@ -1,7 +1,7 @@
 package org.craftsrecords.columbiadexpress.domain.search.selection
 
-import org.craftsrecords.columbiadexpress.domain.search.price
-import org.craftsrecords.columbiadexpress.domain.search.randomPrice
+import org.craftsrecords.columbiadexpress.domain.sharedkernel.price
+import org.craftsrecords.columbiadexpress.domain.sharedkernel.randomPrice
 import java.util.UUID.nameUUIDFromBytes
 import java.util.UUID.randomUUID
 

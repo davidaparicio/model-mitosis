@@ -1,22 +1,26 @@
 package org.craftsrecords.columbiadexpress.domain
 
+import org.craftsrecords.columbiadexpress.domain.api.BookSomeSpaceTrains
 import org.craftsrecords.columbiadexpress.domain.api.DomainService
 import org.craftsrecords.columbiadexpress.domain.api.RetrieveSpacePorts
 import org.craftsrecords.columbiadexpress.domain.api.SearchForSpaceTrains
 import org.craftsrecords.columbiadexpress.domain.api.SelectSpaceTrain
-import org.craftsrecords.columbiadexpress.domain.search.Bound
-import org.craftsrecords.columbiadexpress.domain.search.ComfortClass.FIRST
-import org.craftsrecords.columbiadexpress.domain.search.ComfortClass.SECOND
-import org.craftsrecords.columbiadexpress.domain.search.Fare
-import org.craftsrecords.columbiadexpress.domain.search.Price
+import org.craftsrecords.columbiadexpress.domain.booking.Booking
 import org.craftsrecords.columbiadexpress.domain.search.Search
 import org.craftsrecords.columbiadexpress.domain.search.SpaceTrain
 import org.craftsrecords.columbiadexpress.domain.search.SpaceTrains
 import org.craftsrecords.columbiadexpress.domain.search.criteria.Criteria
 import org.craftsrecords.columbiadexpress.domain.search.criteria.Journey
 import org.craftsrecords.columbiadexpress.domain.search.criteria.Journeys
+import org.craftsrecords.columbiadexpress.domain.sharedkernel.Bound
+import org.craftsrecords.columbiadexpress.domain.sharedkernel.ComfortClass.FIRST
+import org.craftsrecords.columbiadexpress.domain.sharedkernel.ComfortClass.SECOND
+import org.craftsrecords.columbiadexpress.domain.sharedkernel.Fare
+import org.craftsrecords.columbiadexpress.domain.sharedkernel.Price
+import org.craftsrecords.columbiadexpress.domain.sharedkernel.Schedule
 import org.craftsrecords.columbiadexpress.domain.spaceport.AstronomicalBody
 import org.craftsrecords.columbiadexpress.domain.spaceport.SpacePort
+import org.craftsrecords.columbiadexpress.domain.spi.Bookings
 import org.craftsrecords.columbiadexpress.domain.spi.Searches
 import org.craftsrecords.columbiadexpress.domain.spi.SpacePorts
 import java.math.BigDecimal
@@ -24,12 +28,14 @@ import java.time.LocalDateTime
 import java.util.Currency
 import java.util.Locale.FRANCE
 import java.util.UUID
+import org.craftsrecords.columbiadexpress.domain.booking.SpaceTrain as BookingSpaceTrain
 
 @DomainService
-class ColumbiadExpress(override val spacePorts: SpacePorts, override val searches: Searches) :
+class ColumbiadExpress(override val spacePorts: SpacePorts, override val searches: Searches, override val bookings: Bookings) :
         RetrieveSpacePorts,
         SearchForSpaceTrains,
-        SelectSpaceTrain {
+        SelectSpaceTrain,
+        BookSomeSpaceTrains {
     override fun `identified by`(id: String): SpacePort {
         return spacePorts.getAllSpacePorts().first { it.id == id }
     }
@@ -56,11 +62,10 @@ class ColumbiadExpress(override val spacePorts: SpacePorts, override val searche
     }
 
     private fun generateSpaceTrain(journey: Journey, spaceTrainIndex: Int, firstDepartureDeltaInMinutes: Long, bound: Bound): SpaceTrain {
-        val departureSchedule = computeDepartureSchedule(journey.departureSchedule, spaceTrainIndex, firstDepartureDeltaInMinutes)
+        val departure = computeDepartureSchedule(journey.departureSchedule, spaceTrainIndex, firstDepartureDeltaInMinutes)
         return SpaceTrain(number = generateSpaceTrainNumber(journey.arrivalSpacePort.location),
                 bound = bound,
-                departureSchedule = departureSchedule,
-                arrivalSchedule = computeArrivalSchedule(departureSchedule, spaceTrainIndex.toLong()),
+                schedule = Schedule(departure, computeArrival(departure, spaceTrainIndex.toLong())),
                 destination = journey.arrivalSpacePort,
                 origin = journey.departureSpacePort,
                 fares = generateFares())
@@ -72,6 +77,21 @@ class ColumbiadExpress(override val spacePorts: SpacePorts, override val searche
         val searchWithSelection = search.selectSpaceTrainWithFare(spaceTrainNumber, fareId)
         return searches.save(searchWithSelection)
     }
+
+    override fun `from the selection of`(search: Search): Booking {
+        require(search.isSelectionComplete()) {
+            "cannot book a partial selection"
+        }
+
+        val selection = search.selection
+        val spaceTrains = selection.selectedSpaceTrains.values
+                .map { selectedSpaceTrain ->
+                    val spaceTrain = search.spaceTrains.first { it.number == selectedSpaceTrain.spaceTrainNumber }
+                    val fare = spaceTrain.fares.first { it.id == selectedSpaceTrain.fareId }
+                    BookingSpaceTrain(spaceTrain.number, spaceTrain.origin, spaceTrain.destination, spaceTrain.schedule, fare)
+                }
+        return Booking(spaceTrains = spaceTrains)
+    }
 }
 
 private fun computeDepartureSchedule(criteriaDepartureSchedule: LocalDateTime, spaceTrainIndex: Int, firstDepartureDeltaInMinutes: Long) =
@@ -82,7 +102,7 @@ private fun computeDepartureSchedule(criteriaDepartureSchedule: LocalDateTime, s
 private fun generateSpaceTrainNumber(arrivalLocation: AstronomicalBody) =
         "${arrivalLocation}${(100..200).random()}"
 
-private fun computeArrivalSchedule(departureSchedule: LocalDateTime, spaceTrainIndex: Long) =
+private fun computeArrival(departureSchedule: LocalDateTime, spaceTrainIndex: Long) =
         departureSchedule
                 .plusHours(97 * spaceTrainIndex)
                 .plusMinutes((20L..840L).random())

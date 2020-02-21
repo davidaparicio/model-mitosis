@@ -1,12 +1,17 @@
 package org.craftsrecords.columbiadexpress.domain.search
 
-import org.assertj.core.api.Assertions.*
+import org.assertj.core.api.Assertions.assertThat
+import org.assertj.core.api.Assertions.assertThatCode
+import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.craftsrecords.columbiadexpress.domain.EqualityShould
-import org.craftsrecords.columbiadexpress.domain.search.Bound.*
 import org.craftsrecords.columbiadexpress.domain.search.criteria.Criteria
 import org.craftsrecords.columbiadexpress.domain.search.criteria.Journey
 import org.craftsrecords.columbiadexpress.domain.search.selection.SelectedSpaceTrain
 import org.craftsrecords.columbiadexpress.domain.search.selection.Selection
+import org.craftsrecords.columbiadexpress.domain.sharedkernel.Bound.INBOUND
+import org.craftsrecords.columbiadexpress.domain.sharedkernel.Bound.OUTBOUND
+import org.craftsrecords.columbiadexpress.domain.sharedkernel.Bound.values
+import org.craftsrecords.columbiadexpress.domain.sharedkernel.price
 import org.junit.jupiter.api.Test
 import java.util.UUID.randomUUID
 

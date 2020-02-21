@@ -1,4 +1,4 @@
-package org.craftsrecords.columbiadexpress.domain.search
+package org.craftsrecords.columbiadexpress.domain.sharedkernel
 
 enum class Bound {
     OUTBOUND,

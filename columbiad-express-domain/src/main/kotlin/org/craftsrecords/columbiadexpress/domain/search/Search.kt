@@ -4,7 +4,8 @@ import org.craftsrecords.columbiadexpress.domain.search.criteria.Criteria
 import org.craftsrecords.columbiadexpress.domain.search.criteria.Journeys
 import org.craftsrecords.columbiadexpress.domain.search.selection.SelectedSpaceTrain
 import org.craftsrecords.columbiadexpress.domain.search.selection.Selection
-import java.util.*
+import org.craftsrecords.columbiadexpress.domain.sharedkernel.Bound
+import java.util.UUID
 import java.util.UUID.randomUUID
 
 data class Search(

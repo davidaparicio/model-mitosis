@@ -1,6 +1,6 @@
 package org.craftsrecords.columbiadexpress.infrastructure.rest.resources
 
-import org.craftsrecords.columbiadexpress.domain.search.Bound
+import org.craftsrecords.columbiadexpress.domain.sharedkernel.Bound
 import org.springframework.hateoas.RepresentationModel
 import java.time.LocalDateTime
 

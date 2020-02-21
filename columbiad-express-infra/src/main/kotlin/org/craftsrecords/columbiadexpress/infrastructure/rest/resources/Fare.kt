@@ -1,7 +1,7 @@
 package org.craftsrecords.columbiadexpress.infrastructure.rest.resources
 
-import org.craftsrecords.columbiadexpress.domain.search.ComfortClass
-import org.craftsrecords.columbiadexpress.domain.search.Price
+import org.craftsrecords.columbiadexpress.domain.sharedkernel.ComfortClass
+import org.craftsrecords.columbiadexpress.domain.sharedkernel.Price
 import org.springframework.hateoas.RepresentationModel
 import java.util.UUID
 

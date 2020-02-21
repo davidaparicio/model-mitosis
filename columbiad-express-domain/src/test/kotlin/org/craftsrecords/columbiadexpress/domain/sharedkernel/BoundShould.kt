@@ -1,8 +1,8 @@
-package org.craftsrecords.columbiadexpress.domain.search
+package org.craftsrecords.columbiadexpress.domain.sharedkernel
 
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatThrownBy
-import org.craftsrecords.columbiadexpress.domain.search.Bound.INBOUND
+import org.craftsrecords.columbiadexpress.domain.sharedkernel.Bound.INBOUND
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.ValueSource

@@ -1,7 +1,7 @@
 package org.craftsrecords.columbiadexpress.infrastructure.rest.resources
 
 import org.springframework.hateoas.RepresentationModel
-import java.util.*
+import java.util.UUID
 
 
 @Resource

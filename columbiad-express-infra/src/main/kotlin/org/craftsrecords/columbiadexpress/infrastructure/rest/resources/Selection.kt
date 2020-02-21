@@ -1,6 +1,6 @@
 package org.craftsrecords.columbiadexpress.infrastructure.rest.resources
 
-import org.craftsrecords.columbiadexpress.domain.search.Price
+import org.craftsrecords.columbiadexpress.domain.sharedkernel.Price
 import org.springframework.hateoas.RepresentationModel
 
 
