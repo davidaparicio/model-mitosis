@@ -79,21 +79,27 @@ class ColumbiadExpress(override val spacePorts: SpacePorts, override val searche
     }
 
     override fun `from the selection of`(search: Search): Booking {
-        if (!search.isSelectionComplete()) {
-            throw CannotBookAPartialSelection()
+        when {
+
+            !search.isSelectionComplete() -> {
+                throw CannotBookAPartialSelection()
+            }
+
+            else -> {
+                val selection = search.selection
+                val spaceTrains = selection.selectedSpaceTrains
+                        .entries
+                        .sortedBy { it.key.ordinal }
+                        .map { it.value }
+                        .map { selectedSpaceTrain ->
+                            val spaceTrain = search.spaceTrains.first { it.number == selectedSpaceTrain.spaceTrainNumber }
+                            val fare = spaceTrain.fares.first { it.id == selectedSpaceTrain.fareId }
+                            BookingSpaceTrain(spaceTrain.number, spaceTrain.origin, spaceTrain.destination, spaceTrain.schedule, fare)
+                        }
+                return bookings.save(Booking(spaceTrains = spaceTrains))
+            }
         }
 
-        val selection = search.selection
-        val spaceTrains = selection.selectedSpaceTrains
-                .entries
-                .sortedBy { it.key.ordinal }
-                .map { it.value }
-                .map { selectedSpaceTrain ->
-                    val spaceTrain = search.spaceTrains.first { it.number == selectedSpaceTrain.spaceTrainNumber }
-                    val fare = spaceTrain.fares.first { it.id == selectedSpaceTrain.fareId }
-                    BookingSpaceTrain(spaceTrain.number, spaceTrain.origin, spaceTrain.destination, spaceTrain.schedule, fare)
-                }
-        return Booking(spaceTrains = spaceTrains)
     }
 }
 

@@ -26,6 +26,7 @@ import org.springframework.hateoas.server.EntityLinks
 import org.springframework.hateoas.server.ExposesResourceFor
 import org.springframework.hateoas.server.LinkBuilder
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo
+import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn
 import org.springframework.hateoas.server.mvc.add
 import org.springframework.http.HttpStatus.NOT_FOUND
 import org.springframework.http.ResponseEntity
@@ -116,6 +117,9 @@ class SearchController(private val `search for space trains`: SearchForSpaceTrai
         return Search(id, criteria.toResource())
                 .add(searchLink.withSelfRel())
                 .add(searchLink.slash("selection").withRel("current-selection"))
+                .addIf(isSelectionComplete()) {
+                    linkTo(methodOn(BookingController::class.java).bookSomeSpaceTrainsFromTheSelectionOf(id)).withRel("create-booking")
+                }
                 .also { search ->
                     spaceTrains.map { it.bound }.distinct()
                             .forEach { bound ->
@@ -137,6 +141,9 @@ class SearchController(private val `search for space trains`: SearchForSpaceTrai
         return Selection(selectedSpaceTrain, selection.totalPrice)
                 .add(searchLink.withRel("search"))
                 .add(searchLink.slash("selection").withSelfRel())
+                .addIf(isSelectionComplete()) {
+                    linkTo(methodOn(BookingController::class.java).bookSomeSpaceTrainsFromTheSelectionOf(id)).withRel("create-booking")
+                }
                 .also { selection ->
                     spaceTrains.map { it.bound }.distinct()
                             .forEach { bound ->

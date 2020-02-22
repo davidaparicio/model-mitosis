@@ -36,10 +36,10 @@ class BookingController(private val bookSomeSpaceTrains: BookSomeSpaceTrains,
     fun bookSomeSpaceTrainsFromTheSelectionOf(@RequestParam searchId: UUID): ResponseEntity<Booking> {
         val search = searches `find search identified by` searchId
                 ?: throw ResponseStatusException(BAD_REQUEST, "cannot find any search corresponding to id $searchId")
-        try {
+        return try {
             val domainBooking = bookSomeSpaceTrains `from the selection of` search
             val booking = domainBooking.toResource()
-            return created(booking.getRequiredLink(SELF).toUri()).body(booking)
+            created(booking.getRequiredLink(SELF).toUri()).body(booking)
         } catch (exception: CannotBookAPartialSelection) {
             throw ResponseStatusException(BAD_REQUEST, exception.message)
         }
