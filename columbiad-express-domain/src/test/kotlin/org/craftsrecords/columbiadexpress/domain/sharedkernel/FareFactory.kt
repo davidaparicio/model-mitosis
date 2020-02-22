@@ -1,8 +1,8 @@
-package org.craftsrecords.columbiadexpress.domain.search
+package org.craftsrecords.columbiadexpress.domain.sharedkernel
 
-import org.craftsrecords.columbiadexpress.domain.search.ComfortClass.FIRST
-import org.craftsrecords.columbiadexpress.domain.search.ComfortClass.SECOND
-import org.craftsrecords.columbiadexpress.domain.search.ComfortClass.values
+import org.craftsrecords.columbiadexpress.domain.sharedkernel.ComfortClass.FIRST
+import org.craftsrecords.columbiadexpress.domain.sharedkernel.ComfortClass.SECOND
+import org.craftsrecords.columbiadexpress.domain.sharedkernel.ComfortClass.values
 import java.util.UUID.nameUUIDFromBytes
 
 fun fare(): Fare = Fare(nameUUIDFromBytes("fare1".toByteArray()), FIRST, price())

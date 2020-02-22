@@ -1,12 +1,14 @@
-package org.craftsrecords.columbiadexpress.domain.search
+package org.craftsrecords.columbiadexpress.domain.sharedkernel
 
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.craftsrecords.columbiadexpress.domain.EqualityShould
 import org.junit.jupiter.api.Test
 import java.math.BigDecimal
-import java.math.BigDecimal.*
-import java.util.*
+import java.math.BigDecimal.ONE
+import java.math.BigDecimal.TEN
+import java.math.BigDecimal.ZERO
+import java.util.Currency
 import java.util.Locale.FRANCE
 import java.util.Locale.US
 

@@ -4,7 +4,8 @@ import org.craftsrecords.columbiadexpress.domain.search.criteria.Criteria
 import org.craftsrecords.columbiadexpress.domain.search.criteria.Journeys
 import org.craftsrecords.columbiadexpress.domain.search.selection.SelectedSpaceTrain
 import org.craftsrecords.columbiadexpress.domain.search.selection.Selection
-import java.util.*
+import org.craftsrecords.columbiadexpress.domain.sharedkernel.Bound
+import java.util.UUID
 import java.util.UUID.randomUUID
 
 data class Search(
@@ -44,6 +45,10 @@ data class Search(
         val price = spaceTrain.fares.first { it.id == fareId }.price
         val newSelection = selection.selectSpaceTrainWithFare(spaceTrain, fareId, price)
         return this.copy(selection = newSelection)
+    }
+
+    fun isSelectionComplete(): Boolean {
+        return selection.selectedSpaceTrains.keys.size == criteria.journeys.size
     }
 
     private infix fun Map<Bound, SelectedSpaceTrain>.`exist in`(spaceTrains: SpaceTrains): Boolean =

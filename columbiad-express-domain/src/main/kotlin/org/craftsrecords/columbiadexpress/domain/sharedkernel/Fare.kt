@@ -1,4 +1,4 @@
-package org.craftsrecords.columbiadexpress.domain.search
+package org.craftsrecords.columbiadexpress.domain.sharedkernel
 
 import java.util.UUID
 import java.util.UUID.randomUUID

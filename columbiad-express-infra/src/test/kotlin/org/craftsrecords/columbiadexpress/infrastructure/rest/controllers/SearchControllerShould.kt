@@ -1,14 +1,16 @@
 package org.craftsrecords.columbiadexpress.infrastructure.rest.controllers
 
 import com.jayway.jsonpath.JsonPath
-import org.craftsrecords.columbiadexpress.domain.search.Bound.INBOUND
-import org.craftsrecords.columbiadexpress.domain.search.Bound.OUTBOUND
 import org.craftsrecords.columbiadexpress.domain.search.OneWay
 import org.craftsrecords.columbiadexpress.domain.search.RoundTrip
 import org.craftsrecords.columbiadexpress.domain.search.Search
+import org.craftsrecords.columbiadexpress.domain.sharedkernel.Bound.INBOUND
+import org.craftsrecords.columbiadexpress.domain.sharedkernel.Bound.OUTBOUND
 import org.craftsrecords.columbiadexpress.domain.spi.Searches
 import org.craftsrecords.columbiadexpress.infrastructure.configurations.DomainConfiguration
-import org.hamcrest.Matchers.*
+import org.hamcrest.Matchers.hasSize
+import org.hamcrest.Matchers.matchesPattern
+import org.hamcrest.Matchers.notNullValue
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
@@ -18,7 +20,9 @@ import org.springframework.http.MediaType.APPLICATION_JSON_VALUE
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers.*
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers.content
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 import java.time.LocalDateTime.now
 import java.time.temporal.ChronoUnit.MINUTES
 
@@ -28,16 +32,19 @@ class SearchControllerShould(@Autowired val mvc: MockMvc, @Autowired val searche
 
     private val departureSpacePort = "http://localhost/spaceports/ddf86b0b-94e3-3566-8486-fd076b9686a6"
     private val arrivalSpacePort = "http://localhost/spaceports/4ed3116c-e359-3245-b8d0-cec742551507"
-    private val departureSchedule =
+    private val outboundDepartureSchedule =
             now().plusDays(5)
                     .withHour(10)
                     .withMinute(0)
                     .truncatedTo(MINUTES)
+
+    private val inboundDepartureSchedule = outboundDepartureSchedule.plusWeeks(3)
+
     private val oneWayCriteria = """
 {
 	"journeys" : [{
 			"departureSpacePort" : "$departureSpacePort",
-			"departureSchedule" : "$departureSchedule",
+			"departureSchedule" : "$outboundDepartureSchedule",
 			"arrivalSpacePort" : "$arrivalSpacePort"
         }]
 }
@@ -48,12 +55,12 @@ class SearchControllerShould(@Autowired val mvc: MockMvc, @Autowired val searche
 	"journeys" : [
                     {
 			            "departureSpacePort" : "$departureSpacePort",
-			            "departureSchedule" : "$departureSchedule",
+			            "departureSchedule" : "$outboundDepartureSchedule",
 			            "arrivalSpacePort" : "$arrivalSpacePort"
                     },
                     {
                     	"departureSpacePort" : "$arrivalSpacePort",
-			            "departureSchedule" : "${departureSchedule.plusWeeks(3)}",
+			            "departureSchedule" : "$inboundDepartureSchedule",
 			            "arrivalSpacePort" : "$departureSpacePort"
                     }
                 ]
@@ -79,7 +86,7 @@ class SearchControllerShould(@Autowired val mvc: MockMvc, @Autowired val searche
                 .andExpect(content().contentType(APPLICATION_JSON_VALUE))
                 .andExpect(jsonPath("$.criteria.journeys").value(hasSize<Collection<*>>(1)))
                 .andExpect(jsonPath("$.criteria.journeys[0].departureSpacePort").value(departureSpacePort))
-                .andExpect(jsonPath("$.criteria.journeys[0].departureSchedule").value(departureSchedule.toString()))
+                .andExpect(jsonPath("$.criteria.journeys[0].departureSchedule").value(outboundDepartureSchedule.toString()))
                 .andExpect(jsonPath("$.criteria.journeys[0].arrivalSpacePort").value(arrivalSpacePort))
                 .andExpect(jsonPath("$.spaceTrains").doesNotHaveJsonPath())
                 .andDo { location = it.response.getHeader("Location")!! }
@@ -112,10 +119,12 @@ class SearchControllerShould(@Autowired val mvc: MockMvc, @Autowired val searche
                 .andExpect(jsonPath("$.spaceTrains[0].origin.name").value("Centre Spatial Guyanais"))
                 .andExpect(jsonPath("$.spaceTrains[0].origin.location").value("EARTH"))
                 .andExpect(jsonPath("$.spaceTrains[0].origin._links.self.href").value(departureSpacePort))
-                .andExpect(jsonPath("$.spaceTrains[0].number").value(notNullValue()))
                 .andExpect(jsonPath("$.spaceTrains[0].destination.name").value("Mare Cognitum"))
                 .andExpect(jsonPath("$.spaceTrains[0].destination.location").value("MOON"))
                 .andExpect(jsonPath("$.spaceTrains[0].destination._links.self.href").value(arrivalSpacePort))
+                .andExpect(jsonPath("$.spaceTrains[0].departureSchedule").exists())
+                .andExpect(jsonPath("$.spaceTrains[0].arrivalSchedule").exists())
+                .andExpect(jsonPath("$.spaceTrains[0].duration").exists())
                 .andExpect(jsonPath("$.spaceTrains[0].fares").value(hasSize<Collection<*>>(2)))
                 .andExpect(jsonPath("$.spaceTrains[0].fares[0].comfortClass").value("FIRST"))
                 .andExpect(jsonPath("$.spaceTrains[0].fares[0].price.amount").value(notNullValue()))
@@ -135,6 +144,9 @@ class SearchControllerShould(@Autowired val mvc: MockMvc, @Autowired val searche
                 .andExpect(jsonPath("$.spaceTrains[0].number").value(notNullValue()))
                 .andDo { spaceTrainNumber = JsonPath.read(it.response.contentAsString, "$.spaceTrains[0].number") }
                 .andExpect(jsonPath("$.spaceTrains[0].bound").value("INBOUND"))
+                .andExpect(jsonPath("$.spaceTrains[0].departureSchedule").exists())
+                .andExpect(jsonPath("$.spaceTrains[0].arrivalSchedule").exists())
+                .andExpect(jsonPath("$.spaceTrains[0].duration").exists())
                 .andExpect(jsonPath("$.spaceTrains[0].origin.name").value("Mare Cognitum"))
                 .andExpect(jsonPath("$.spaceTrains[0].origin.location").value("MOON"))
                 .andExpect(jsonPath("$.spaceTrains[0].origin._links.self.href").value(arrivalSpacePort))
@@ -164,10 +176,10 @@ class SearchControllerShould(@Autowired val mvc: MockMvc, @Autowired val searche
                 .andExpect(content().contentType(APPLICATION_JSON_VALUE))
                 .andExpect(jsonPath("$.criteria.journeys").value(hasSize<Collection<*>>(2)))
                 .andExpect(jsonPath("$.criteria.journeys[0].departureSpacePort").value(departureSpacePort))
-                .andExpect(jsonPath("$.criteria.journeys[0].departureSchedule").value(departureSchedule.toString()))
+                .andExpect(jsonPath("$.criteria.journeys[0].departureSchedule").value(outboundDepartureSchedule.toString()))
                 .andExpect(jsonPath("$.criteria.journeys[0].arrivalSpacePort").value(arrivalSpacePort))
                 .andExpect(jsonPath("$.criteria.journeys[1].departureSpacePort").value(arrivalSpacePort))
-                .andExpect(jsonPath("$.criteria.journeys[1].departureSchedule").value(departureSchedule.plusWeeks(3).toString()))
+                .andExpect(jsonPath("$.criteria.journeys[1].departureSchedule").value(inboundDepartureSchedule.toString()))
                 .andExpect(jsonPath("$.criteria.journeys[1].arrivalSpacePort").value(departureSpacePort))
                 .andExpect(jsonPath("$.spaceTrains").doesNotHaveJsonPath())
                 .andDo { location = it.response.getHeader("Location")!! }

@@ -1,7 +1,8 @@
-package org.craftsrecords.columbiadexpress.infrastructure.rest.resources
+package org.craftsrecords.columbiadexpress.infrastructure.rest.resources.spaceport
 
 import org.craftsrecords.columbiadexpress.domain.spaceport.AstronomicalBody
 import org.craftsrecords.columbiadexpress.infrastructure.rest.controllers.SpacePortsController
+import org.craftsrecords.columbiadexpress.infrastructure.rest.resources.Resource
 import org.springframework.hateoas.IanaLinkRelations.SELF
 import org.springframework.hateoas.RepresentationModel
 import org.springframework.hateoas.server.mvc.add

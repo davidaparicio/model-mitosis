@@ -1,4 +1,4 @@
-package org.craftsrecords.columbiadexpress.domain.search
+package org.craftsrecords.columbiadexpress.domain.sharedkernel
 
 import org.craftsrecords.TypedParameterResolver
 import org.craftsrecords.columbiadexpress.domain.Random

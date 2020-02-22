@@ -1,8 +1,8 @@
-package org.craftsrecords.columbiadexpress.domain.search
+package org.craftsrecords.columbiadexpress.domain.sharedkernel
 
 import java.math.BigDecimal
 import java.math.BigDecimal.ZERO
-import java.util.*
+import java.util.Currency
 
 data class Price(val amount: BigDecimal, val currency: Currency) {
     init {

@@ -1,13 +1,16 @@
 package org.craftsrecords.columbiadexpress.domain.search
 
+import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatCode
 import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.craftsrecords.columbiadexpress.domain.EqualityShould
-import org.craftsrecords.columbiadexpress.domain.search.Bound.OUTBOUND
 import org.craftsrecords.columbiadexpress.domain.search.criteria.Criteria
 import org.craftsrecords.columbiadexpress.domain.search.criteria.Journey
 import org.craftsrecords.columbiadexpress.domain.search.selection.SelectedSpaceTrain
 import org.craftsrecords.columbiadexpress.domain.search.selection.Selection
+import org.craftsrecords.columbiadexpress.domain.sharedkernel.Bound.OUTBOUND
+import org.craftsrecords.columbiadexpress.domain.sharedkernel.Bound.values
+import org.craftsrecords.columbiadexpress.domain.sharedkernel.price
 import org.junit.jupiter.api.Test
 import java.util.UUID.randomUUID
 
@@ -83,7 +86,7 @@ class SearchShould : EqualityShould<Search> {
         val spaceTrain = search.spaceTrains.first()
         val spaceTrainNumber = spaceTrain.number
         val fare = spaceTrain.fares.first()
-        val wrongBound = Bound.values().first { it != spaceTrain.bound }
+        val wrongBound = values().first { it != spaceTrain.bound }
 
         val invalidSelection = Selection(
                 mapOf(wrongBound to SelectedSpaceTrain(spaceTrainNumber = spaceTrainNumber, fareId = fare.id, price = fare.price))
@@ -92,6 +95,36 @@ class SearchShould : EqualityShould<Search> {
         assertThatThrownBy { search.copy(selection = invalidSelection) }
                 .isInstanceOf(IllegalArgumentException::class.java)
                 .hasMessage("selected space trains don't correspond to the right bound")
+    }
+
+    @Test
+    fun `have an incomplete selection if no space trains have been selected`(@OneWay baseSearch: Search) {
+        val search = baseSearch.copy(selection = Selection())
+        assertThat(search.isSelectionComplete()).isFalse()
+    }
+
+    @Test
+    fun `have an complete selection if a space train has been selected for a oneway search`(@OneWay baseSearch: Search) {
+        val (search) = baseSearch.selectAnOutboundSpaceTrain()
+
+        assertThat(search.isSelectionComplete()).isTrue()
+    }
+
+    @Test
+    fun `have an incomplete selection if only one space trains have been selected for a round trip`(@RoundTrip baseSearch: Search) {
+        val (search) = baseSearch.selectAnOutboundSpaceTrain()
+
+        assertThat(search.isSelectionComplete()).isFalse()
+    }
+
+    @Test
+    fun `have an complete selection if all space trains have been selected for a round trip`(@RoundTrip baseSearch: Search) {
+        val (search) =
+                baseSearch
+                        .selectAnOutboundSpaceTrain()
+                        .selectAnInboundSpaceTrain()
+
+        assertThat(search.isSelectionComplete()).isTrue()
     }
 
 }

@@ -1,6 +1,9 @@
-package org.craftsrecords.columbiadexpress.infrastructure.rest.resources
+package org.craftsrecords.columbiadexpress.infrastructure.rest.resources.search
 
-import org.craftsrecords.columbiadexpress.domain.search.Bound
+import org.craftsrecords.columbiadexpress.domain.sharedkernel.Bound
+import org.craftsrecords.columbiadexpress.infrastructure.rest.resources.Fare
+import org.craftsrecords.columbiadexpress.infrastructure.rest.resources.Resource
+import org.craftsrecords.columbiadexpress.infrastructure.rest.resources.spaceport.SpacePort
 import org.springframework.hateoas.RepresentationModel
 import java.time.LocalDateTime
 
