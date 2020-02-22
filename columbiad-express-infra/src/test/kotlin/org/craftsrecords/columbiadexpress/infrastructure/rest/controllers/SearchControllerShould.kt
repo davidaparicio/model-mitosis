@@ -94,6 +94,8 @@ class SearchControllerShould(@Autowired val mvc: MockMvc, @Autowired val searche
                 .andExpect(jsonPath("$._links.current-selection.href").value("$location/selection"))
                 .andExpect(jsonPath("$._links.outbound-spacetrains.href").value("$location/spacetrains?bound=OUTBOUND"))
                 .andExpect(jsonPath("$._links.inbound-spacetrains").doesNotHaveJsonPath())
+                .andExpect(jsonPath("$._links.create-booking").doesNotHaveJsonPath())
+
 
         checkOutboundSpaceTrains(location)
 
@@ -199,6 +201,7 @@ class SearchControllerShould(@Autowired val mvc: MockMvc, @Autowired val searche
                 .andExpect(jsonPath("$.totalPrice").doesNotHaveJsonPath())
                 .andExpect(jsonPath("$._links.search.href").value(location))
                 .andExpect(jsonPath("$._links.self.href").value("$location/selection"))
+                .andExpect(jsonPath("$._links.create-booking").doesNotHaveJsonPath())
 
     }
 
@@ -234,6 +237,7 @@ class SearchControllerShould(@Autowired val mvc: MockMvc, @Autowired val searche
         mvc.perform(
                 post("/searches/${search.id}/spacetrains/${inBoundSpaceTrain.number}/fares/${inBoundFare.id}/select")
                         .accept(APPLICATION_JSON_VALUE))
+                .andExpect(jsonPath("$._links.create-booking").doesNotHaveJsonPath())
 
         mvc.perform(
                 post("/searches/${search.id}/spacetrains/${outBoundSpaceTrain.number}/fares/${outBoundFare.id}/select")
@@ -266,5 +270,12 @@ class SearchControllerShould(@Autowired val mvc: MockMvc, @Autowired val searche
                 .andExpect(jsonPath("$._links.self.href").value("$location/selection"))
                 .andExpect(jsonPath("$._links.outbound-spacetrains.href").value("$location/spacetrains?bound=OUTBOUND"))
                 .andExpect(jsonPath("$._links.inbound-spacetrains.href").value("$location/spacetrains?bound=INBOUND"))
+                .andExpect(jsonPath("$._links.create-booking.href").value("http://localhost/bookings?searchId=${search.id}"))
+
+        mvc.perform(
+                get("/searches/${search.id}")
+                        .accept(APPLICATION_JSON_VALUE))
+                .andExpect(jsonPath("$._links.create-booking.href").value("http://localhost/bookings?searchId=${search.id}"))
+
     }
 }
