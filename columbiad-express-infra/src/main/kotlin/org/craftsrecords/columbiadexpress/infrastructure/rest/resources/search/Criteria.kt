@@ -1,5 +1,8 @@
-package org.craftsrecords.columbiadexpress.infrastructure.rest.resources
+package org.craftsrecords.columbiadexpress.infrastructure.rest.resources.search
 
+import org.craftsrecords.columbiadexpress.infrastructure.rest.resources.Resource
+import org.craftsrecords.columbiadexpress.infrastructure.rest.resources.spaceport.SpacePort
+import org.craftsrecords.columbiadexpress.infrastructure.rest.resources.spaceport.toResource
 import org.springframework.hateoas.IanaLinkRelations
 import java.net.URI
 import org.craftsrecords.columbiadexpress.domain.search.criteria.Criteria as DomainCriteria

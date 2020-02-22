@@ -119,7 +119,6 @@ class SearchControllerShould(@Autowired val mvc: MockMvc, @Autowired val searche
                 .andExpect(jsonPath("$.spaceTrains[0].origin.name").value("Centre Spatial Guyanais"))
                 .andExpect(jsonPath("$.spaceTrains[0].origin.location").value("EARTH"))
                 .andExpect(jsonPath("$.spaceTrains[0].origin._links.self.href").value(departureSpacePort))
-                .andExpect(jsonPath("$.spaceTrains[0].number").value(notNullValue()))
                 .andExpect(jsonPath("$.spaceTrains[0].destination.name").value("Mare Cognitum"))
                 .andExpect(jsonPath("$.spaceTrains[0].destination.location").value("MOON"))
                 .andExpect(jsonPath("$.spaceTrains[0].destination._links.self.href").value(arrivalSpacePort))

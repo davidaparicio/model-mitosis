@@ -79,12 +79,15 @@ class ColumbiadExpress(override val spacePorts: SpacePorts, override val searche
     }
 
     override fun `from the selection of`(search: Search): Booking {
-        require(search.isSelectionComplete()) {
-            "cannot book a partial selection"
+        if (!search.isSelectionComplete()) {
+            throw CannotBookAPartialSelection()
         }
 
         val selection = search.selection
-        val spaceTrains = selection.selectedSpaceTrains.values
+        val spaceTrains = selection.selectedSpaceTrains
+                .entries
+                .sortedBy { it.key.ordinal }
+                .map { it.value }
                 .map { selectedSpaceTrain ->
                     val spaceTrain = search.spaceTrains.first { it.number == selectedSpaceTrain.spaceTrainNumber }
                     val fare = spaceTrain.fares.first { it.id == selectedSpaceTrain.fareId }

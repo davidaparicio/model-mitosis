@@ -1,9 +1,9 @@
 package org.craftsrecords.columbiadexpress.infrastructure.rest.controllers
 
 import org.craftsrecords.columbiadexpress.domain.api.RetrieveSpacePorts
-import org.craftsrecords.columbiadexpress.infrastructure.rest.resources.SpacePort
-import org.craftsrecords.columbiadexpress.infrastructure.rest.resources.SpacePorts
-import org.craftsrecords.columbiadexpress.infrastructure.rest.resources.toResource
+import org.craftsrecords.columbiadexpress.infrastructure.rest.resources.spaceport.SpacePort
+import org.craftsrecords.columbiadexpress.infrastructure.rest.resources.spaceport.SpacePorts
+import org.craftsrecords.columbiadexpress.infrastructure.rest.resources.spaceport.toResource
 import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable

@@ -2,11 +2,12 @@ package org.craftsrecords.columbiadexpress.domain.api
 
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatThrownBy
+import org.craftsrecords.columbiadexpress.domain.CannotBookAPartialSelection
 import org.craftsrecords.columbiadexpress.domain.search.OneWay
 import org.craftsrecords.columbiadexpress.domain.search.RoundTrip
 import org.craftsrecords.columbiadexpress.domain.search.Search
-import org.craftsrecords.columbiadexpress.domain.search.SpaceTrain
-import org.craftsrecords.columbiadexpress.domain.sharedkernel.Fare
+import org.craftsrecords.columbiadexpress.domain.search.selectAnInboundSpaceTrain
+import org.craftsrecords.columbiadexpress.domain.search.selectAnOutboundSpaceTrain
 import org.junit.jupiter.api.Test
 
 interface BookSomeSpaceTrainsShould {
@@ -14,8 +15,7 @@ interface BookSomeSpaceTrainsShould {
 
     @Test
     fun `book some space trains from the selection of`(@OneWay search: Search) {
-        val (spaceTrain, fare) = selectSpaceTrainWithFare(search)
-        val searchWithSelection = search.selectSpaceTrainWithFare(spaceTrainNumber = spaceTrain.number, fareId = fare.id)
+        val (searchWithSelection, spaceTrain, fare) = search.selectAnOutboundSpaceTrain()
 
         val booking = bookSomeSpaceTrains `from the selection of` searchWithSelection
 
@@ -30,20 +30,28 @@ interface BookSomeSpaceTrainsShould {
         assertThat(selectedSpaceTrain.schedule).isEqualTo(spaceTrain.schedule)
     }
 
-    fun selectSpaceTrainWithFare(search: Search): Pair<SpaceTrain, Fare> {
-        val spaceTrain = search.spaceTrains.first()
-        val fare = spaceTrain.fares.first()
-        return Pair(spaceTrain, fare)
-    }
-
     @Test
     fun `not book from an incomplete selection`(@RoundTrip search: Search) {
-        val (spaceTrain, fare) = selectSpaceTrainWithFare(search)
-        val searchWithPartialSelection = search.selectSpaceTrainWithFare(spaceTrainNumber = spaceTrain.number, fareId = fare.id)
+        val (searchWithPartialSelection) = search.selectAnOutboundSpaceTrain()
 
         assertThatThrownBy {
             bookSomeSpaceTrains `from the selection of` searchWithPartialSelection
-        }.isInstanceOf(IllegalArgumentException::class.java)
+        }.isInstanceOf(CannotBookAPartialSelection::class.java)
                 .hasMessage("cannot book a partial selection")
+    }
+
+    @Test
+    fun `preserve bound order in selection`(@RoundTrip search: Search) {
+        val (searchWithSelection) = search.selectAnInboundSpaceTrain().selectAnOutboundSpaceTrain()
+
+        val booking = bookSomeSpaceTrains `from the selection of` searchWithSelection
+
+        val expectedSortedSpaceTrainNumber =
+                searchWithSelection.selection.selectedSpaceTrains
+                        .entries
+                        .sortedBy { it.key.ordinal }
+                        .map { it.value.spaceTrainNumber }
+
+        assertThat(booking.spaceTrains).extracting("number").containsExactlyElementsOf(expectedSortedSpaceTrainNumber)
     }
 }

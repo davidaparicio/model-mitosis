@@ -1,5 +1,6 @@
-package org.craftsrecords.columbiadexpress.infrastructure.rest.resources
+package org.craftsrecords.columbiadexpress.infrastructure.rest.resources.search
 
+import org.craftsrecords.columbiadexpress.infrastructure.rest.resources.Resource
 import org.springframework.hateoas.RepresentationModel
 import java.util.UUID
 

@@ -8,7 +8,6 @@ import org.craftsrecords.columbiadexpress.domain.search.criteria.Criteria
 import org.craftsrecords.columbiadexpress.domain.search.criteria.Journey
 import org.craftsrecords.columbiadexpress.domain.search.selection.SelectedSpaceTrain
 import org.craftsrecords.columbiadexpress.domain.search.selection.Selection
-import org.craftsrecords.columbiadexpress.domain.sharedkernel.Bound.INBOUND
 import org.craftsrecords.columbiadexpress.domain.sharedkernel.Bound.OUTBOUND
 import org.craftsrecords.columbiadexpress.domain.sharedkernel.Bound.values
 import org.craftsrecords.columbiadexpress.domain.sharedkernel.price
@@ -106,35 +105,26 @@ class SearchShould : EqualityShould<Search> {
 
     @Test
     fun `have an complete selection if a space train has been selected for a oneway search`(@OneWay baseSearch: Search) {
-        val search = baseSearch.selectOneOutboundSpaceTrain()
+        val (search) = baseSearch.selectAnOutboundSpaceTrain()
 
         assertThat(search.isSelectionComplete()).isTrue()
     }
 
     @Test
     fun `have an incomplete selection if only one space trains have been selected for a round trip`(@RoundTrip baseSearch: Search) {
-        val search = baseSearch.selectOneOutboundSpaceTrain()
+        val (search) = baseSearch.selectAnOutboundSpaceTrain()
 
         assertThat(search.isSelectionComplete()).isFalse()
     }
 
     @Test
     fun `have an complete selection if all space trains have been selected for a round trip`(@RoundTrip baseSearch: Search) {
-        val spaceTrain = baseSearch.spaceTrains.first { it.bound == INBOUND }
-        val fare = spaceTrain.fares.first()
-
-        val search = baseSearch
-                .selectOneOutboundSpaceTrain()
-                .selectSpaceTrainWithFare(spaceTrain.number, fare.id)
+        val (search) =
+                baseSearch
+                        .selectAnOutboundSpaceTrain()
+                        .selectAnInboundSpaceTrain()
 
         assertThat(search.isSelectionComplete()).isTrue()
     }
 
-    private fun Search.selectOneOutboundSpaceTrain(): Search {
-        val spaceTrain = spaceTrains.first { it.bound == OUTBOUND }
-        val fare = spaceTrain.fares.first()
-        return this
-                .copy(selection = Selection())
-                .selectSpaceTrainWithFare(spaceTrain.number, fare.id)
-    }
 }
