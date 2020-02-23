@@ -2,9 +2,11 @@ package org.craftsrecords.columbiadexpress.domain.search
 
 import org.craftsrecords.columbiadexpress.domain.search.criteria.Criteria
 import org.craftsrecords.columbiadexpress.domain.search.criteria.Journeys
-import org.craftsrecords.columbiadexpress.domain.search.selection.SelectedSpaceTrain
 import org.craftsrecords.columbiadexpress.domain.search.selection.Selection
 import org.craftsrecords.columbiadexpress.domain.sharedkernel.Bound
+import org.craftsrecords.columbiadexpress.domain.sharedkernel.Bound.INBOUND
+import org.craftsrecords.columbiadexpress.domain.sharedkernel.Bound.OUTBOUND
+import org.craftsrecords.columbiadexpress.domain.sharedkernel.Bound.values
 import java.util.UUID
 import java.util.UUID.randomUUID
 
@@ -16,7 +18,6 @@ data class Search(
 ) {
     init {
         val (journeys) = criteria
-        val (selectedSpaceTrains) = selection
 
         require(journeys.bounds `are all satified by a space train amongst` spaceTrains) {
             "some journeys don't have at least one corresponding space train"
@@ -26,45 +27,104 @@ data class Search(
             "some space trains don't correspond to any journey from the criteria"
         }
 
-        require(selectedSpaceTrains `exist in` spaceTrains) {
+        require(selection `exists in` spaceTrains) {
             "unknown space train in the selection"
         }
 
-        require(selectedSpaceTrains `with only known fares from` spaceTrains) {
+        require(selection `with only known fares from` spaceTrains) {
             "unknown fare in the selection"
         }
 
-        require(selectedSpaceTrains `are corresponding to the bounds of` spaceTrains) {
+        require(selection `corresponds to the bounds of` spaceTrains) {
             "selected space trains don't correspond to the right bound"
         }
 
+        require(spaceTrainsDontHaveCompatibilitiesWhenOneWay()) {
+            "SpaceTrains cannot have compatibilities in a one way search"
+        }
+
+        require(spaceTrainsHaveCompatibilitiesWhenRoundTrip()) {
+            "SpaceTrains must have compatibilities in a round trip search"
+        }
+
+        require(spaceTrains.areNotCompatibleWithOtherSpaceTrainOnTheSameBound()) {
+            "SpaceTrains cannot be compatible with another space train on the same bound"
+        }
+
+        require(spaceTrains.areCompatibleWithKnownOnes()) {
+            "some SpaceTrains have unknown compatibilities"
+        }
+
+        require(spaceTrains.haveSymmetricCompatibilities()) {
+            "some SpaceTrains don't respect a symmetric compatibility"
+        }
     }
 
-    fun selectSpaceTrainWithFare(spaceTrainNumber: String, fareId: UUID): Search {
-        val spaceTrain = spaceTrains.first { it.number == spaceTrainNumber }
-        val price = spaceTrain.fares.first { it.id == fareId }.price
-        val newSelection = selection.selectSpaceTrainWithFare(spaceTrain, fareId, price)
-        return this.copy(selection = newSelection)
+    private fun spaceTrainsHaveCompatibilitiesWhenRoundTrip(): Boolean {
+        if (!criteria.isOneWay()) {
+            return spaceTrains.all { it.compatibleSpaceTrains.isNotEmpty() }
+        }
+        return true
+    }
+
+    private fun spaceTrainsDontHaveCompatibilitiesWhenOneWay(): Boolean {
+        if (criteria.isOneWay()) {
+            return spaceTrains.all { it.compatibleSpaceTrains.isEmpty() }
+        }
+        return true
+    }
+
+    fun selectSpaceTrainWithFare(spaceTrainNumber: String, fareId: UUID, resetSelection: Boolean): Search {
+        val spaceTrainToSelect = spaceTrains.first { it.number == spaceTrainNumber }
+
+        val newSelection = getExistingSelectionOrReset(resetSelection, spaceTrainToSelect)
+
+        val price = spaceTrainToSelect.fares.first { it.id == fareId }.price
+        return copy(selection = newSelection.selectSpaceTrainWithFare(spaceTrainToSelect, fareId, price))
+    }
+
+    private fun getExistingSelectionOrReset(resetSelection: Boolean, spaceTrainToSelect: SpaceTrain): Selection {
+        return when {
+            resetSelection -> {
+                Selection()
+            }
+
+            else -> {
+                require(spaceTrainToSelect.isCompatibleWithSelection()) {
+                    "cannot select incompatible space trains"
+                }
+                selection
+            }
+        }
     }
 
     fun isSelectionComplete(): Boolean {
-        return selection.selectedSpaceTrains.keys.size == criteria.journeys.size
+        return selection.bounds.size == criteria.journeys.size
     }
 
-    private infix fun Map<Bound, SelectedSpaceTrain>.`exist in`(spaceTrains: SpaceTrains): Boolean =
-            spaceTrains.map { it.number }.containsAll(this.values.map { it.spaceTrainNumber })
+    private fun SpaceTrain.isCompatibleWithSelection(): Boolean {
+        val alreadySelectedBounds = selection.bounds.filter { it != bound }
+        return alreadySelectedBounds.map { selection[it] }
+                .all { selectedSpaceTrain ->
+                    spaceTrains.first { it.number == selectedSpaceTrain?.spaceTrainNumber }
+                            .compatibleSpaceTrains.contains(number)
+                }
+    }
 
-    private infix fun Map<Bound, SelectedSpaceTrain>.`with only known fares from`(spaceTrains: SpaceTrains): Boolean =
-            this.values.all { chosenSpaceTrain ->
-                spaceTrains.find { it.number == chosenSpaceTrain.spaceTrainNumber }?.fares?.any { it.id == chosenSpaceTrain.fareId }
+    private infix fun Selection.`exists in`(spaceTrainsFromSearch: SpaceTrains): Boolean =
+            spaceTrainsFromSearch.map { it.number }.containsAll(spaceTrains.map { it.spaceTrainNumber })
+
+    private infix fun Selection.`with only known fares from`(spaceTrainsFromSearch: SpaceTrains): Boolean =
+            spaceTrains.all { selectedSpaceTrain ->
+                spaceTrainsFromSearch.find { it.number == selectedSpaceTrain.spaceTrainNumber }?.fares?.any { it.id == selectedSpaceTrain.fareId }
                         ?: false
             }
 
-    private infix fun Map<Bound, SelectedSpaceTrain>.`are corresponding to the bounds of`(spaceTrains: SpaceTrains): Boolean =
-            this.all { spaceTrains.find { spaceTrain -> spaceTrain.number == it.value.spaceTrainNumber }?.bound == it.key }
+    private infix fun Selection.`corresponds to the bounds of`(spaceTrainsFromSearch: SpaceTrains): Boolean =
+            all { spaceTrainsFromSearch.find { spaceTrain -> spaceTrain.number == it.value.spaceTrainNumber }?.bound == it.key }
 
     private val Journeys.bounds
-        get(): List<Bound> = indices.map { Bound.values()[it] }
+        get(): List<Bound> = indices.map { values()[it] }
 
     private infix fun List<Bound>.`are all satified by a space train amongst`(spaceTrains: SpaceTrains): Boolean {
         return spaceTrains.isEmpty() || spaceTrains.map { it.bound }.containsAll(this)
@@ -91,4 +151,39 @@ data class Search(
 
     override fun hashCode(): Int = id.hashCode()
 
+}
+
+private fun List<SpaceTrain>.haveSymmetricCompatibilities(): Boolean {
+    return all { spaceTrain ->
+        spaceTrain.compatibleSpaceTrains
+                .all { compatibleNumber -> first { it.number == compatibleNumber }.compatibleSpaceTrains.contains(spaceTrain.number) }
+    }
+
+}
+
+private fun List<SpaceTrain>.areCompatibleWithKnownOnes(): Boolean {
+    val spaceTrainByBound = groupBy { it.bound }
+
+    val outboundSpaceTrains = spaceTrainByBound[OUTBOUND] ?: return true
+    val outboundSpaceTrainsCompatibilities = outboundSpaceTrains.map {
+        it.compatibleSpaceTrains
+    }.flatten()
+
+    val inboundSpaceTrains = spaceTrainByBound[INBOUND] ?: return true
+    val inboundSpaceTrainCompatibilities = inboundSpaceTrains.map { it.compatibleSpaceTrains }.flatten()
+
+    return outboundSpaceTrainsCompatibilities.all { outboundCompatibility -> inboundSpaceTrains.any { outboundCompatibility == it.number } }
+            .and(inboundSpaceTrainCompatibilities.all { inboundCompatibility -> outboundSpaceTrains.any { inboundCompatibility == it.number } })
+}
+
+private fun Criteria.isOneWay(): Boolean = journeys.size == 1
+
+private fun List<SpaceTrain>.areNotCompatibleWithOtherSpaceTrainOnTheSameBound(): Boolean {
+    return groupBy { it.bound }.values
+            .all { spaceTrainsOnTheSameBound ->
+                spaceTrainsOnTheSameBound
+                        .map { it.compatibleSpaceTrains }
+                        .flatten()
+                        .none { aCompatibleSpaceTrainNumber -> spaceTrainsOnTheSameBound.any { it.number == aCompatibleSpaceTrainNumber } }
+            }
 }

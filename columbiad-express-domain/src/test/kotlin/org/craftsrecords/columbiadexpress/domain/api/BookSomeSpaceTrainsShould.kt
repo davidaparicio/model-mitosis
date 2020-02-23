@@ -47,8 +47,8 @@ interface BookSomeSpaceTrainsShould {
         val booking = bookSomeSpaceTrains `from the selection of` searchWithSelection
 
         val expectedSortedSpaceTrainNumber =
-                searchWithSelection.selection.selectedSpaceTrains
-                        .entries
+                searchWithSelection.selection
+                        .spaceTrainsByBound
                         .sortedBy { it.key.ordinal }
                         .map { it.value.spaceTrainNumber }
 

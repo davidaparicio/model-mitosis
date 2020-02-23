@@ -3,6 +3,7 @@ package org.craftsrecords.columbiadexpress.infrastructure.rest.controllers
 import org.craftsrecords.columbiadexpress.domain.api.RetrieveSpacePorts
 import org.craftsrecords.columbiadexpress.domain.api.SearchForSpaceTrains
 import org.craftsrecords.columbiadexpress.domain.api.SelectSpaceTrain
+import org.craftsrecords.columbiadexpress.domain.api.`by resetting the selection`
 import org.craftsrecords.columbiadexpress.domain.api.`in search`
 import org.craftsrecords.columbiadexpress.domain.api.`with the fare`
 import org.craftsrecords.columbiadexpress.domain.sharedkernel.Bound
@@ -89,10 +90,11 @@ class SearchController(private val `search for space trains`: SearchForSpaceTrai
     }
 
     @PostMapping("/{searchId}/spacetrains/{spaceTrainNumber}/fares/{fareId}/select")
-    fun selectSpaceTrainWithFare(@PathVariable searchId: UUID, @PathVariable spaceTrainNumber: String, @PathVariable fareId: UUID): ResponseEntity<Selection> {
+    fun selectSpaceTrainWithFare(@PathVariable searchId: UUID, @PathVariable spaceTrainNumber: String, @PathVariable fareId: UUID, @RequestParam resetSelection: Boolean = false): ResponseEntity<Selection> {
         val search =
-                `select space train` `having the number` spaceTrainNumber `with the fare` fareId `in search` searchId
+                `select space train` `having the number` spaceTrainNumber `with the fare` fareId `in search` searchId `by resetting the selection` resetSelection
         val selection = search.toSelectionResource()
+        TODO("ADD RESET SELECTION AND LINK ACCORDING TO CURRENT SELECTION")
         return ok(selection)
     }
 
@@ -123,7 +125,7 @@ class SearchController(private val `search for space trains`: SearchForSpaceTrai
                 .also { search ->
                     spaceTrains.map { it.bound }.distinct()
                             .forEach { bound ->
-                                search.linkToSpaceTrainsForBound(id, bound, of("${bound.toString().toLowerCase()}-spacetrains"))
+                                search.linkToSpaceTrainsForBound(id, bound, of("all-${bound.toString().toLowerCase()}s"))
                             }
                 }
     }
@@ -131,7 +133,7 @@ class SearchController(private val `search for space trains`: SearchForSpaceTrai
     private fun DomainSearch.toSelectionResource(): Selection {
         val searchLink = searchLink(id)
         val selectedSpaceTrain =
-                selection.selectedSpaceTrains.values
+                selection.spaceTrains
                         .map { selectedSpaceTrain ->
                             val spaceTrain = spaceTrains.first { it.number == selectedSpaceTrain.spaceTrainNumber }
                             SelectedSpaceTrain(spaceTrain.number, spaceTrain.bound, spaceTrain.origin.toResource(), spaceTrain.destination.toResource(), spaceTrain.schedule.departure, spaceTrain.schedule.arrival, spaceTrain.fares.first { it.id == selectedSpaceTrain.fareId }.toResource())
@@ -147,7 +149,7 @@ class SearchController(private val `search for space trains`: SearchForSpaceTrai
                 .also { selection ->
                     spaceTrains.map { it.bound }.distinct()
                             .forEach { bound ->
-                                selection.linkToSpaceTrainsForBound(id, bound, of("${bound.toString().toLowerCase()}-spacetrains"))
+                                selection.linkToSpaceTrainsForBound(id, bound, of("all-${bound.toString().toLowerCase()}s"))
                             }
                 }
     }

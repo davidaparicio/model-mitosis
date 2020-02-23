@@ -13,6 +13,8 @@ import org.craftsrecords.columbiadexpress.domain.search.criteria.Criteria
 import org.craftsrecords.columbiadexpress.domain.search.criteria.Journey
 import org.craftsrecords.columbiadexpress.domain.search.criteria.Journeys
 import org.craftsrecords.columbiadexpress.domain.sharedkernel.Bound
+import org.craftsrecords.columbiadexpress.domain.sharedkernel.Bound.INBOUND
+import org.craftsrecords.columbiadexpress.domain.sharedkernel.Bound.OUTBOUND
 import org.craftsrecords.columbiadexpress.domain.sharedkernel.ComfortClass.FIRST
 import org.craftsrecords.columbiadexpress.domain.sharedkernel.ComfortClass.SECOND
 import org.craftsrecords.columbiadexpress.domain.sharedkernel.Fare
@@ -52,18 +54,46 @@ class ColumbiadExpress(override val spacePorts: SpacePorts, override val searche
     }
 
     private fun generateSpaceTrains(journeys: Journeys): SpaceTrains {
-        return journeys.mapIndexed { journeyIndex, journey ->
+        val spaceTrains = journeys.mapIndexed { journeyIndex, journey ->
             val bound = Bound.fromJourneyIndex(journeyIndex)
             val firstDepartureDeltaInMinutes = (0L..60L).random()
-            (1..3).map { spaceTrainIndex ->
+            (1..5).map { spaceTrainIndex ->
                 generateSpaceTrain(journey, spaceTrainIndex, firstDepartureDeltaInMinutes, bound)
             }
         }.flatten()
+
+        return spaceTrains.generateCompatibilities()
+    }
+
+    private fun List<SpaceTrain>.generateCompatibilities(): List<SpaceTrain> {
+        val inbounds = filter { it.bound == INBOUND }
+        if (inbounds.isEmpty()) {
+            return this
+        }
+
+        val outbounds = filter { it.bound == OUTBOUND }
+        val inboundNumbers = inbounds.map { it.number }
+
+        val outboundsWithCompatibilities =
+                outbounds.map {
+                    it.copy(compatibleSpaceTrains = setOf(inboundNumbers.random(), inboundNumbers.random()))
+                }
+
+        val inboundsWithCompatibilities = inbounds.map { inbound ->
+            inbound.copy(compatibleSpaceTrains = outboundsWithCompatibilities
+                    .filter { outbound ->
+                        outbound.compatibleSpaceTrains.contains(inbound.number)
+                    }.map(SpaceTrain::number)
+                    .toSet()
+            )
+        }.filter { it.compatibleSpaceTrains.isNotEmpty() }
+
+        return outboundsWithCompatibilities + inboundsWithCompatibilities
     }
 
     private fun generateSpaceTrain(journey: Journey, spaceTrainIndex: Int, firstDepartureDeltaInMinutes: Long, bound: Bound): SpaceTrain {
         val departure = computeDepartureSchedule(journey.departureSchedule, spaceTrainIndex, firstDepartureDeltaInMinutes)
-        return SpaceTrain(number = generateSpaceTrainNumber(journey.arrivalSpacePort.location),
+        return SpaceTrain(number = generateSpaceTrainNumber(journey.arrivalSpacePort.location, spaceTrainIndex),
                 bound = bound,
                 schedule = Schedule(departure, computeArrival(departure, spaceTrainIndex.toLong())),
                 destination = journey.arrivalSpacePort,
@@ -71,10 +101,10 @@ class ColumbiadExpress(override val spacePorts: SpacePorts, override val searche
                 fares = generateFares())
     }
 
-    override fun selectFareOfSpaceTrainInSearch(spaceTrainNumber: String, fareId: UUID, searchId: UUID): Search {
+    override fun selectFareOfSpaceTrainInSearch(spaceTrainNumber: String, fareId: UUID, searchId: UUID, resetSelection: Boolean): Search {
         val search = searches `find search identified by` searchId
                 ?: throw NoSuchElementException("unknown search id $searchId")
-        val searchWithSelection = search.selectSpaceTrainWithFare(spaceTrainNumber, fareId)
+        val searchWithSelection = search.selectSpaceTrainWithFare(spaceTrainNumber, fareId, resetSelection)
         return searches.save(searchWithSelection)
     }
 
@@ -87,15 +117,16 @@ class ColumbiadExpress(override val spacePorts: SpacePorts, override val searche
 
             else -> {
                 val selection = search.selection
-                val spaceTrains = selection.selectedSpaceTrains
-                        .entries
-                        .sortedBy { it.key.ordinal }
-                        .map { it.value }
-                        .map { selectedSpaceTrain ->
-                            val spaceTrain = search.spaceTrains.first { it.number == selectedSpaceTrain.spaceTrainNumber }
-                            val fare = spaceTrain.fares.first { it.id == selectedSpaceTrain.fareId }
-                            BookingSpaceTrain(spaceTrain.number, spaceTrain.origin, spaceTrain.destination, spaceTrain.schedule, fare)
-                        }
+                val spaceTrains =
+                        selection
+                                .spaceTrainsByBound
+                                .sortedBy { it.key.ordinal }
+                                .map { it.value }
+                                .map { selectedSpaceTrain ->
+                                    val spaceTrain = search.spaceTrains.first { it.number == selectedSpaceTrain.spaceTrainNumber }
+                                    val fare = spaceTrain.fares.first { it.id == selectedSpaceTrain.fareId }
+                                    BookingSpaceTrain(spaceTrain.number, spaceTrain.origin, spaceTrain.destination, spaceTrain.schedule, fare)
+                                }
                 return bookings.save(Booking(spaceTrains = spaceTrains))
             }
         }
@@ -108,8 +139,8 @@ private fun computeDepartureSchedule(criteriaDepartureSchedule: LocalDateTime, s
                 .plusMinutes(firstDepartureDeltaInMinutes)
                 .plusHours(2L * (spaceTrainIndex - 1))
 
-private fun generateSpaceTrainNumber(arrivalLocation: AstronomicalBody) =
-        "${arrivalLocation}${(100..200).random()}"
+private fun generateSpaceTrainNumber(arrivalLocation: AstronomicalBody, spaceTrainIndex: Int) =
+        "${arrivalLocation}$spaceTrainIndex${(10..99).random()}"
 
 private fun computeArrival(departureSchedule: LocalDateTime, spaceTrainIndex: Long) =
         departureSchedule

@@ -12,4 +12,11 @@ class SpaceTrainShould(private val spaceTrain: SpaceTrain) : EqualityShould<Spac
                 .isInstanceOf(IllegalArgumentException::class.java)
                 .hasMessage("SpaceTrain must have at least one fare")
     }
+
+    @Test
+    fun `not be compatible with itself`() {
+        assertThatThrownBy { spaceTrain.copy(compatibleSpaceTrains = setOf(spaceTrain.number)) }
+                .isInstanceOf(IllegalArgumentException::class.java)
+                .hasMessage("SpaceTrain cannot be compatible with itself")
+    }
 }

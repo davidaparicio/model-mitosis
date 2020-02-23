@@ -11,14 +11,20 @@ data class SpaceTrain(
         val origin: SpacePort,
         val destination: SpacePort,
         val schedule: Schedule,
-        val fares: Fares) {
-
+        val fares: Fares,
+        val compatibleSpaceTrains: Set<String> = emptySet()) {
 
     init {
         require(fares.isNotEmpty()) {
             "SpaceTrain must have at least one fare"
         }
+
+        require(isNotCompatibleWithItself()) {
+            "SpaceTrain cannot be compatible with itself"
+        }
     }
+
+    private fun isNotCompatibleWithItself() = !compatibleSpaceTrains.contains(number)
 }
 
 typealias SpaceTrains = List<SpaceTrain>

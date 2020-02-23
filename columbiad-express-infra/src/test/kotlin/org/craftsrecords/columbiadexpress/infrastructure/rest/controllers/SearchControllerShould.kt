@@ -92,8 +92,8 @@ class SearchControllerShould(@Autowired val mvc: MockMvc, @Autowired val searche
                 .andDo { location = it.response.getHeader("Location")!! }
                 .andExpect(jsonPath("$._links.self.href").value(location))
                 .andExpect(jsonPath("$._links.current-selection.href").value("$location/selection"))
-                .andExpect(jsonPath("$._links.outbound-spacetrains.href").value("$location/spacetrains?bound=OUTBOUND"))
-                .andExpect(jsonPath("$._links.inbound-spacetrains").doesNotHaveJsonPath())
+                .andExpect(jsonPath("$._links.all-outbounds.href").value("$location/spacetrains?bound=OUTBOUND"))
+                .andExpect(jsonPath("$._links.all-inbounds").doesNotHaveJsonPath())
                 .andExpect(jsonPath("$._links.create-booking").doesNotHaveJsonPath())
 
 
@@ -114,7 +114,7 @@ class SearchControllerShould(@Autowired val mvc: MockMvc, @Autowired val searche
                 get("$location/spacetrains?bound=OUTBOUND")
                         .accept(APPLICATION_JSON_VALUE))
                 .andExpect(status().isOk)
-                .andExpect(jsonPath("$.spaceTrains").value(hasSize<Collection<*>>(3)))
+                .andExpect(jsonPath("$.spaceTrains").value(hasSize<Collection<*>>(5)))
                 .andExpect(jsonPath("$.spaceTrains[0].number").value(notNullValue()))
                 .andDo { spaceTrainNumber = JsonPath.read(it.response.contentAsString, "$.spaceTrains[0].number") }
                 .andExpect(jsonPath("$.spaceTrains[0].bound").value("OUTBOUND"))
@@ -142,7 +142,6 @@ class SearchControllerShould(@Autowired val mvc: MockMvc, @Autowired val searche
                 get("$location/spacetrains?bound=INBOUND")
                         .accept(APPLICATION_JSON_VALUE))
                 .andExpect(status().isOk)
-                .andExpect(jsonPath("$.spaceTrains").value(hasSize<Collection<*>>(3)))
                 .andExpect(jsonPath("$.spaceTrains[0].number").value(notNullValue()))
                 .andDo { spaceTrainNumber = JsonPath.read(it.response.contentAsString, "$.spaceTrains[0].number") }
                 .andExpect(jsonPath("$.spaceTrains[0].bound").value("INBOUND"))
@@ -187,8 +186,8 @@ class SearchControllerShould(@Autowired val mvc: MockMvc, @Autowired val searche
                 .andDo { location = it.response.getHeader("Location")!! }
                 .andExpect(jsonPath("$._links.self.href").value(location))
                 .andExpect(jsonPath("$._links.current-selection.href").value("$location/selection"))
-                .andExpect(jsonPath("$._links.outbound-spacetrains.href").value("$location/spacetrains?bound=OUTBOUND"))
-                .andExpect(jsonPath("$._links.inbound-spacetrains.href").value("$location/spacetrains?bound=INBOUND"))
+                .andExpect(jsonPath("$._links.all-outbounds.href").value("$location/spacetrains?bound=OUTBOUND"))
+                .andExpect(jsonPath("$._links.all-inbounds.href").value("$location/spacetrains?bound=INBOUND"))
 
         checkOutboundSpaceTrains(location)
         checkInboundSpaceTrains(location)
@@ -268,8 +267,8 @@ class SearchControllerShould(@Autowired val mvc: MockMvc, @Autowired val searche
                 .andExpect(jsonPath("$.totalPrice.currency").value(outBoundFare.price.currency.toString()))
                 .andExpect(jsonPath("$._links.search.href").value(location))
                 .andExpect(jsonPath("$._links.self.href").value("$location/selection"))
-                .andExpect(jsonPath("$._links.outbound-spacetrains.href").value("$location/spacetrains?bound=OUTBOUND"))
-                .andExpect(jsonPath("$._links.inbound-spacetrains.href").value("$location/spacetrains?bound=INBOUND"))
+                .andExpect(jsonPath("$._links.all-outbounds.href").value("$location/spacetrains?bound=OUTBOUND"))
+                .andExpect(jsonPath("$._links.all-inbounds.href").value("$location/spacetrains?bound=INBOUND"))
                 .andExpect(jsonPath("$._links.create-booking.href").value("http://localhost/bookings?searchId=${search.id}"))
 
         mvc.perform(

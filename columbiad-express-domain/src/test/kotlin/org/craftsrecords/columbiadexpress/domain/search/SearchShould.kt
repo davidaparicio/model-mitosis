@@ -8,8 +8,10 @@ import org.craftsrecords.columbiadexpress.domain.search.criteria.Criteria
 import org.craftsrecords.columbiadexpress.domain.search.criteria.Journey
 import org.craftsrecords.columbiadexpress.domain.search.selection.SelectedSpaceTrain
 import org.craftsrecords.columbiadexpress.domain.search.selection.Selection
+import org.craftsrecords.columbiadexpress.domain.sharedkernel.Bound.INBOUND
 import org.craftsrecords.columbiadexpress.domain.sharedkernel.Bound.OUTBOUND
 import org.craftsrecords.columbiadexpress.domain.sharedkernel.Bound.values
+import org.craftsrecords.columbiadexpress.domain.sharedkernel.Fare
 import org.craftsrecords.columbiadexpress.domain.sharedkernel.price
 import org.junit.jupiter.api.Test
 import java.util.UUID.randomUUID
@@ -125,6 +127,93 @@ class SearchShould : EqualityShould<Search> {
                         .selectAnInboundSpaceTrain()
 
         assertThat(search.isSelectionComplete()).isTrue()
+    }
+
+    @Test
+    fun `not be able to select incompatible space trains`(@RoundTrip search: Search) {
+        val (newSearch, incompatibleInbound, inboundFare) = search.selectOutboundAndReturnIncompatibleInbound()
+
+        assertThatThrownBy { newSearch.selectSpaceTrainWithFare(incompatibleInbound.number, inboundFare.id, false) }
+                .isInstanceOf(IllegalArgumentException::class.java)
+                .hasMessage("cannot select incompatible space trains")
+    }
+
+    @Test
+    fun `be able to select an incompatible space train on reset selection`(@RoundTrip search: Search) {
+        val (searchWithPartialSelection, incompatibleInbound, inboundFare) = search.selectOutboundAndReturnIncompatibleInbound()
+
+        val newSearch = searchWithPartialSelection.selectSpaceTrainWithFare(incompatibleInbound.number, inboundFare.id, true)
+
+        assertThat(newSearch.selection).hasSize(1)
+        assertThat(newSearch.selection).containsValue(SelectedSpaceTrain(incompatibleInbound.number, inboundFare.id, inboundFare.price))
+    }
+
+    private fun Search.selectOutboundAndReturnIncompatibleInbound(): Triple<Search, SpaceTrain, Fare> {
+        val outbound = spaceTrains.first { it.bound == OUTBOUND }
+        val outboundFare = outbound.fares.first()
+        val incompatibleInbound = spaceTrains.first { it.bound == INBOUND && !it.compatibleSpaceTrains.contains(outbound.number) }
+        val inboundFare = incompatibleInbound.fares.first()
+
+        val newSearch = selectSpaceTrainWithFare(outbound.number, outboundFare.id, false)
+        return Triple(newSearch, incompatibleInbound, inboundFare)
+    }
+
+    @Test
+    fun `not have any space train compatibility for a one way search`(@OneWay search: Search, spaceTrain: SpaceTrain) {
+        val invalidSpaceTrain = spaceTrain.copy(compatibleSpaceTrains = setOf("42"))
+        val spaceTrains = search.spaceTrains + invalidSpaceTrain
+        assertThatThrownBy { search.copy(spaceTrains = spaceTrains) }
+                .isInstanceOf(IllegalArgumentException::class.java)
+                .hasMessage("SpaceTrains cannot have compatibilities in a one way search")
+    }
+
+    @Test
+    fun `have space train compatibilities for a round trip search`(@RoundTrip search: Search, spaceTrain: SpaceTrain) {
+
+        val invalidSpaceTrain = spaceTrain.copy(compatibleSpaceTrains = emptySet())
+        val spaceTrains = search.spaceTrains + invalidSpaceTrain
+        assertThatThrownBy { search.copy(spaceTrains = spaceTrains) }
+                .isInstanceOf(IllegalArgumentException::class.java)
+                .hasMessage("SpaceTrains must have compatibilities in a round trip search")
+    }
+
+    @Test
+    fun `not have any space train compatible with a space train on the same bound`(@RoundTrip search: Search, invalidSpaceTrainBase: SpaceTrain) {
+        val spaceTrainOnTheSameBound = search.spaceTrains.first { it.bound == invalidSpaceTrainBase.bound }
+        val invalidSpaceTrain =
+                invalidSpaceTrainBase
+                        .copy(compatibleSpaceTrains = setOf(spaceTrainOnTheSameBound.number))
+        val spaceTrains = search.spaceTrains + invalidSpaceTrain
+
+        assertThatThrownBy { search.copy(spaceTrains = spaceTrains) }
+                .isInstanceOf(IllegalArgumentException::class.java)
+                .hasMessage("SpaceTrains cannot be compatible with another space train on the same bound")
+    }
+
+    @Test
+    fun `not have any space train compatible with an unknown one`(@RoundTrip search: Search, invalidSpaceTrainBase: SpaceTrain) {
+        val invalidSpaceTrain =
+                invalidSpaceTrainBase
+                        .copy(compatibleSpaceTrains = setOf("unknown"))
+        val spaceTrains = search.spaceTrains + invalidSpaceTrain
+
+        assertThatThrownBy { search.copy(spaceTrains = spaceTrains) }
+                .isInstanceOf(IllegalArgumentException::class.java)
+                .hasMessage("some SpaceTrains have unknown compatibilities")
+    }
+
+    @Test
+    fun `only have symmetric space train compatibilities`(@RoundTrip search: Search, @Inbound invalidSpaceTrainBase: SpaceTrain) {
+
+        val outbound = search.spaceTrains.first { it.bound == OUTBOUND }
+        val invalidSpaceTrain =
+                invalidSpaceTrainBase
+                        .copy(compatibleSpaceTrains = setOf(outbound.number))
+        val spaceTrains = search.spaceTrains + invalidSpaceTrain
+
+        assertThatThrownBy { search.copy(spaceTrains = spaceTrains) }
+                .isInstanceOf(IllegalArgumentException::class.java)
+                .hasMessage("some SpaceTrains don't respect a symmetric compatibility")
     }
 
 }
