@@ -25,6 +25,12 @@ data class SpaceTrain(
     }
 
     private fun isNotCompatibleWithItself() = !compatibleSpaceTrains.contains(number)
-}
 
+    companion object {
+        operator fun List<SpaceTrain>.get(bound: Bound): List<SpaceTrain> = filter { it.bound == bound }
+    }
+
+}
 typealias SpaceTrains = List<SpaceTrain>
+
+

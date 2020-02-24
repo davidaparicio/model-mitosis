@@ -4,6 +4,7 @@ import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatCode
 import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.craftsrecords.columbiadexpress.domain.EqualityShould
+import org.craftsrecords.columbiadexpress.domain.search.SpaceTrain.Companion.get
 import org.craftsrecords.columbiadexpress.domain.search.criteria.Criteria
 import org.craftsrecords.columbiadexpress.domain.search.criteria.Journey
 import org.craftsrecords.columbiadexpress.domain.search.selection.SelectedSpaceTrain
@@ -214,6 +215,37 @@ class SearchShould : EqualityShould<Search> {
         assertThatThrownBy { search.copy(spaceTrains = spaceTrains) }
                 .isInstanceOf(IllegalArgumentException::class.java)
                 .hasMessage("some SpaceTrains don't respect a symmetric compatibility")
+    }
+
+    @Test
+    fun `find the space train of a given number`(@OneWay baseSearch: Search, spaceTrain: SpaceTrain) {
+        val wantedNumber = "5435345"
+        val wantedSpaceTrain = spaceTrain.copy(number = wantedNumber)
+        val search = baseSearch.copy(spaceTrains = baseSearch.spaceTrains + wantedSpaceTrain)
+        assertThat(search.getSpaceTrainWithNumber(wantedNumber)).isEqualTo(wantedSpaceTrain)
+    }
+
+    @Test
+    fun `not be able to find a space train of an unknown number`(@OneWay search: Search) {
+        assertThatThrownBy { search.getSpaceTrainWithNumber("unknown") }
+                .isInstanceOf(NoSuchElementException::class.java)
+    }
+
+    @Test
+    fun `return all the space trains of a bound when asking for the selectable ones and selection is empty`(@RoundTrip baseSearch: Search) {
+        val search = baseSearch.copy(selection = Selection())
+        val allInbounds = search.spaceTrains[INBOUND]
+        assertThat(search.selectableSpaceTrains(INBOUND)).isEqualTo(allInbounds)
+    }
+
+    @Test
+    fun `return only selectable space trains of a bound when selection is not empty`(@RoundTrip baseSearch: Search) {
+        val (search, outbound, _) = baseSearch.copy(selection = Selection()).selectAnOutboundSpaceTrain()
+        val (searchWithFullSelection, _, _) = search.selectAnInboundSpaceTrain()
+        assertThat(searchWithFullSelection.selectableSpaceTrains(INBOUND))
+                .allSatisfy {
+                    assertThat(outbound.compatibleSpaceTrains).contains(it.number)
+                }
     }
 
 }

@@ -123,7 +123,7 @@ class ColumbiadExpress(override val spacePorts: SpacePorts, override val searche
                                 .sortedBy { it.key.ordinal }
                                 .map { it.value }
                                 .map { selectedSpaceTrain ->
-                                    val spaceTrain = search.spaceTrains.first { it.number == selectedSpaceTrain.spaceTrainNumber }
+                                    val spaceTrain = search.getSpaceTrainWithNumber(selectedSpaceTrain.spaceTrainNumber)
                                     val fare = spaceTrain.fares.first { it.id == selectedSpaceTrain.fareId }
                                     BookingSpaceTrain(spaceTrain.number, spaceTrain.origin, spaceTrain.destination, spaceTrain.schedule, fare)
                                 }

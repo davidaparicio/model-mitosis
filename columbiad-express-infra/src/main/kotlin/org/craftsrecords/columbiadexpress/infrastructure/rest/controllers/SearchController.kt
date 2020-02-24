@@ -6,6 +6,7 @@ import org.craftsrecords.columbiadexpress.domain.api.SelectSpaceTrain
 import org.craftsrecords.columbiadexpress.domain.api.`by resetting the selection`
 import org.craftsrecords.columbiadexpress.domain.api.`in search`
 import org.craftsrecords.columbiadexpress.domain.api.`with the fare`
+import org.craftsrecords.columbiadexpress.domain.search.SpaceTrain.Companion.get
 import org.craftsrecords.columbiadexpress.domain.sharedkernel.Bound
 import org.craftsrecords.columbiadexpress.domain.spaceport.SpacePort
 import org.craftsrecords.columbiadexpress.domain.spi.Searches
@@ -79,10 +80,11 @@ class SearchController(private val `search for space trains`: SearchForSpaceTrai
 
 
     @GetMapping("/{searchId}/spacetrains")
-    fun retrieveSpaceTrainsForBound(@PathVariable searchId: UUID, @RequestParam bound: Bound): ResponseEntity<SpaceTrains> {
+    fun retrieveSpaceTrainsForBound(@PathVariable searchId: UUID, @RequestParam bound: Bound, @RequestParam onlySelectable: Boolean = false): ResponseEntity<SpaceTrains> {
         val domainSearch = retrieveSearch(searchId)
         val searchLink = searchLink(searchId)
-        val spaceTrains = SpaceTrains(domainSearch.spaceTrains.filter { it.bound == bound }.toResource(searchLink))
+        val spaceTrain = domainSearch.spaceTrains[bound]
+        val spaceTrains = SpaceTrains(spaceTrain.toResource(searchLink))
         spaceTrains
                 .add(searchLink.withRel("search"))
                 .linkToSpaceTrainsForBound(searchId, bound, SELF)
@@ -94,7 +96,6 @@ class SearchController(private val `search for space trains`: SearchForSpaceTrai
         val search =
                 `select space train` `having the number` spaceTrainNumber `with the fare` fareId `in search` searchId `by resetting the selection` resetSelection
         val selection = search.toSelectionResource()
-        TODO("ADD RESET SELECTION AND LINK ACCORDING TO CURRENT SELECTION")
         return ok(selection)
     }
 
@@ -107,7 +108,7 @@ class SearchController(private val `search for space trains`: SearchForSpaceTrai
 
     private fun <R : RepresentationModel<R>> R.linkToSpaceTrainsForBound(searchId: UUID, bound: Bound, linkRelation: LinkRelation): R {
         return this.add(SearchController::class) {
-            linkTo { retrieveSpaceTrainsForBound(searchId, bound) } withRel linkRelation
+            linkTo { retrieveSpaceTrainsForBound(searchId, bound, true) } withRel linkRelation
         }
     }
 

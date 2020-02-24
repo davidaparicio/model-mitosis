@@ -1,5 +1,6 @@
 package org.craftsrecords.columbiadexpress.domain.search
 
+import org.craftsrecords.columbiadexpress.domain.search.SpaceTrain.Companion.get
 import org.craftsrecords.columbiadexpress.domain.search.criteria.Criteria
 import org.craftsrecords.columbiadexpress.domain.search.criteria.Journeys
 import org.craftsrecords.columbiadexpress.domain.search.selection.Selection
@@ -60,6 +61,9 @@ data class Search(
         }
     }
 
+
+    fun getSpaceTrainWithNumber(wantedNumber: String): SpaceTrain = spaceTrains.first { it.number == wantedNumber }
+
     private fun spaceTrainsHaveCompatibilitiesWhenRoundTrip(): Boolean {
         if (!criteria.isOneWay()) {
             return spaceTrains.all { it.compatibleSpaceTrains.isNotEmpty() }
@@ -100,6 +104,22 @@ data class Search(
 
     fun isSelectionComplete(): Boolean {
         return selection.bounds.size == criteria.journeys.size
+    }
+
+    fun selectableSpaceTrains(bound: Bound): List<SpaceTrain> {
+        return when {
+            selection.isEmpty() -> spaceTrains[bound]
+
+            else -> selection.spaceTrainsByBound
+                    .asSequence()
+                    .filter { it.key != bound }
+                    .map { getSpaceTrainWithNumber(it.value.spaceTrainNumber) }
+                    .filter { it.bound == bound }
+                    .map { it.compatibleSpaceTrains }
+                    .flatten()
+                    .map { getSpaceTrainWithNumber(it) }
+                    .toList()
+        }
     }
 
     private fun SpaceTrain.isCompatibleWithSelection(): Boolean {
@@ -150,7 +170,6 @@ data class Search(
     }
 
     override fun hashCode(): Int = id.hashCode()
-
 }
 
 private fun List<SpaceTrain>.haveSymmetricCompatibilities(): Boolean {
