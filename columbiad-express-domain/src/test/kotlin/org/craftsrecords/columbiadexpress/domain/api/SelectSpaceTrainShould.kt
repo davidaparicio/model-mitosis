@@ -18,8 +18,8 @@ interface SelectSpaceTrainShould {
         val spaceTrain = search.spaceTrains.first()
         val fare = spaceTrain.fares.first()
 
-        val result = selectSpaceTrain `having the number` spaceTrain.number `with the fare` fare.id `in search` search.id
-        assertThat(result.selection.selectedSpaceTrains)
+        val result = selectSpaceTrain `having the number` spaceTrain.number `with the fare` fare.id `in search` search.id `by resetting the selection` false
+        assertThat(result.selection)
                 .containsOnly(entry(spaceTrain.bound, SelectedSpaceTrain(spaceTrain.number, fare.id, fare.price)))
     }
 
@@ -29,14 +29,14 @@ interface SelectSpaceTrainShould {
         val fareId = randomUUID()
         val searchId = nameUUIDFromBytes("unknown".toByteArray())
 
-        assertThatThrownBy { selectSpaceTrain `having the number` spaceTrainNumber `with the fare` fareId `in search` searchId }
+        assertThatThrownBy { selectSpaceTrain `having the number` spaceTrainNumber `with the fare` fareId `in search` searchId `by resetting the selection` false }
                 .isInstanceOf(NoSuchElementException::class.java)
                 .hasMessage("unknown search id $searchId")
     }
 
     @Test
     fun `not be able to select an unknown space train`(@RoundTrip search: Search) {
-        assertThatThrownBy { selectSpaceTrain `having the number` "unknown" `with the fare` randomUUID() `in search` search.id }
+        assertThatThrownBy { selectSpaceTrain `having the number` "unknown" `with the fare` randomUUID() `in search` search.id `by resetting the selection` false }
                 .isInstanceOf(NoSuchElementException::class.java)
     }
 
@@ -45,7 +45,7 @@ interface SelectSpaceTrainShould {
         val spaceTrainNumber = search.spaceTrains.first().number
         val fareId = randomUUID()
 
-        assertThatThrownBy { selectSpaceTrain `having the number` spaceTrainNumber `with the fare` fareId `in search` search.id }
+        assertThatThrownBy { selectSpaceTrain `having the number` spaceTrainNumber `with the fare` fareId `in search` search.id `by resetting the selection` false }
                 .isInstanceOf(NoSuchElementException::class.java)
     }
 }

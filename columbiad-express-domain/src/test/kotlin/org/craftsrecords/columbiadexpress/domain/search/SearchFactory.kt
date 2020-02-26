@@ -38,7 +38,9 @@ fun Triple<Search, SpaceTrain, Fare>.selectAnOutboundSpaceTrain(): Triple<Search
 }
 
 private fun Search.doABoundSelectionFor(bound: Bound): Triple<Search, SpaceTrain, Fare> {
-    val spaceTrain = spaceTrains.first { it.bound == bound }
-    val fare = spaceTrain.fares.first()
-    return Triple(selectSpaceTrainWithFare(spaceTrain.number, fare.id), spaceTrain, fare)
+    val alreadySelectedSpaceTrain = spaceTrains.find { it.number == selection[bound]?.spaceTrainNumber }
+    val spaceTrainToSelect = alreadySelectedSpaceTrain?.let { spaceTrains.first { it.number == it.compatibleSpaceTrains.first() } }
+            ?: spaceTrains.first { it.bound == bound }
+    val fare = spaceTrainToSelect.fares.first()
+    return Triple(selectSpaceTrainWithFare(spaceTrainToSelect.number, fare.id, false), spaceTrainToSelect, fare)
 }

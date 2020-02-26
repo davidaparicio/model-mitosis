@@ -3,8 +3,10 @@ package org.craftsrecords.columbiadexpress.infrastructure.rest.controllers
 import org.craftsrecords.columbiadexpress.domain.api.RetrieveSpacePorts
 import org.craftsrecords.columbiadexpress.domain.api.SearchForSpaceTrains
 import org.craftsrecords.columbiadexpress.domain.api.SelectSpaceTrain
+import org.craftsrecords.columbiadexpress.domain.api.`by resetting the selection`
 import org.craftsrecords.columbiadexpress.domain.api.`in search`
 import org.craftsrecords.columbiadexpress.domain.api.`with the fare`
+import org.craftsrecords.columbiadexpress.domain.search.SpaceTrain.Companion.get
 import org.craftsrecords.columbiadexpress.domain.sharedkernel.Bound
 import org.craftsrecords.columbiadexpress.domain.spaceport.SpacePort
 import org.craftsrecords.columbiadexpress.domain.spi.Searches
@@ -78,20 +80,27 @@ class SearchController(private val `search for space trains`: SearchForSpaceTrai
 
 
     @GetMapping("/{searchId}/spacetrains")
-    fun retrieveSpaceTrainsForBound(@PathVariable searchId: UUID, @RequestParam bound: Bound): ResponseEntity<SpaceTrains> {
+    fun retrieveSpaceTrainsForBound(@PathVariable searchId: UUID, @RequestParam bound: Bound, @RequestParam onlySelectable: Boolean = false): ResponseEntity<SpaceTrains> {
         val domainSearch = retrieveSearch(searchId)
         val searchLink = searchLink(searchId)
-        val spaceTrains = SpaceTrains(domainSearch.spaceTrains.filter { it.bound == bound }.toResource(searchLink))
+        val spaceTrain =
+                when {
+                    onlySelectable -> domainSearch.selectableSpaceTrains(bound)
+                    else -> domainSearch.spaceTrains[bound]
+                }
+
+        val spaceTrains = SpaceTrains(spaceTrain.toResource(searchLink, !onlySelectable))
         spaceTrains
                 .add(searchLink.withRel("search"))
-                .linkToSpaceTrainsForBound(searchId, bound, SELF)
+                .add(searchLink.slash("selection").withRel("selection"))
+                .linkToSpaceTrainsForBound(searchId, bound, SELF, onlySelectable)
         return ok(spaceTrains)
     }
 
     @PostMapping("/{searchId}/spacetrains/{spaceTrainNumber}/fares/{fareId}/select")
-    fun selectSpaceTrainWithFare(@PathVariable searchId: UUID, @PathVariable spaceTrainNumber: String, @PathVariable fareId: UUID): ResponseEntity<Selection> {
+    fun selectSpaceTrainWithFare(@PathVariable searchId: UUID, @PathVariable spaceTrainNumber: String, @PathVariable fareId: UUID, @RequestParam resetSelection: Boolean = false): ResponseEntity<Selection> {
         val search =
-                `select space train` `having the number` spaceTrainNumber `with the fare` fareId `in search` searchId
+                `select space train` `having the number` spaceTrainNumber `with the fare` fareId `in search` searchId `by resetting the selection` resetSelection
         val selection = search.toSelectionResource()
         return ok(selection)
     }
@@ -103,9 +112,9 @@ class SearchController(private val `search for space trains`: SearchForSpaceTrai
         return ok(selection)
     }
 
-    private fun <R : RepresentationModel<R>> R.linkToSpaceTrainsForBound(searchId: UUID, bound: Bound, linkRelation: LinkRelation): R {
+    private fun <R : RepresentationModel<R>> R.linkToSpaceTrainsForBound(searchId: UUID, bound: Bound, linkRelation: LinkRelation, onlySelectable: Boolean = false): R {
         return this.add(SearchController::class) {
-            linkTo { retrieveSpaceTrainsForBound(searchId, bound) } withRel linkRelation
+            linkTo { retrieveSpaceTrainsForBound(searchId, bound, onlySelectable) } withRel linkRelation
         }
     }
 
@@ -123,7 +132,10 @@ class SearchController(private val `search for space trains`: SearchForSpaceTrai
                 .also { search ->
                     spaceTrains.map { it.bound }.distinct()
                             .forEach { bound ->
-                                search.linkToSpaceTrainsForBound(id, bound, of("${bound.toString().toLowerCase()}-spacetrains"))
+                                search.linkToSpaceTrainsForBound(id, bound, of("all-${bound.toString().toLowerCase()}s"))
+                                search.addIf(this.selection.hasASelectionFor(bound.oppositeWay())) {
+                                    linkTo(methodOn(SearchController::class.java).retrieveSpaceTrainsForBound(id, bound, true)).withRel("${bound.name.toLowerCase()}s-for-current-selection")
+                                }
                             }
                 }
     }
@@ -131,7 +143,7 @@ class SearchController(private val `search for space trains`: SearchForSpaceTrai
     private fun DomainSearch.toSelectionResource(): Selection {
         val searchLink = searchLink(id)
         val selectedSpaceTrain =
-                selection.selectedSpaceTrains.values
+                selection.spaceTrains
                         .map { selectedSpaceTrain ->
                             val spaceTrain = spaceTrains.first { it.number == selectedSpaceTrain.spaceTrainNumber }
                             SelectedSpaceTrain(spaceTrain.number, spaceTrain.bound, spaceTrain.origin.toResource(), spaceTrain.destination.toResource(), spaceTrain.schedule.departure, spaceTrain.schedule.arrival, spaceTrain.fares.first { it.id == selectedSpaceTrain.fareId }.toResource())
@@ -146,8 +158,12 @@ class SearchController(private val `search for space trains`: SearchForSpaceTrai
                 }
                 .also { selection ->
                     spaceTrains.map { it.bound }.distinct()
+                            .asSequence()
                             .forEach { bound ->
-                                selection.linkToSpaceTrainsForBound(id, bound, of("${bound.toString().toLowerCase()}-spacetrains"))
+                                selection.linkToSpaceTrainsForBound(id, bound, of("all-${bound.name.toLowerCase()}s"))
+                                selection.addIf(this.selection.hasASelectionFor(bound.oppositeWay())) {
+                                    linkTo(methodOn(SearchController::class.java).retrieveSpaceTrainsForBound(id, bound, true)).withRel("${bound.name.toLowerCase()}s-for-current-selection")
+                                }
                             }
                 }
     }
@@ -169,7 +185,7 @@ class SearchController(private val `search for space trains`: SearchForSpaceTrai
         return `retrieve space ports` `identified by` id
     }
 
-    private fun DomainSpaceTrain.toResource(searchLink: LinkBuilder): SpaceTrain = SpaceTrain(
+    private fun DomainSpaceTrain.toResource(searchLink: LinkBuilder, resetSelection: Boolean): SpaceTrain = SpaceTrain(
             number,
             bound,
             origin.toResource(),
@@ -177,19 +193,19 @@ class SearchController(private val `search for space trains`: SearchForSpaceTrai
             schedule.departure,
             schedule.arrival,
             schedule.duration,
-            fares.toResource(searchLink.slash("spacetrains").slash(number)))
+            fares.toResource(searchLink.slash("spacetrains").slash(number), resetSelection))
 
-    private fun DomainSpaceTrains.toResource(searchLink: LinkBuilder): List<SpaceTrain> = this.map { it.toResource(searchLink) }
+    private fun DomainSpaceTrains.toResource(searchLink: LinkBuilder, resetSelection: Boolean = false): List<SpaceTrain> = this.map { it.toResource(searchLink, resetSelection) }
 
-    private fun DomainFares.toResource(spaceTrainLink: LinkBuilder): Fares = this.map { it.toResource(spaceTrainLink) }.toSet()
+    private fun DomainFares.toResource(spaceTrainLink: LinkBuilder, resetSelection: Boolean): Fares = this.map { it.toResource(spaceTrainLink, resetSelection) }.toSet()
 
-    private fun DomainFare.toResource(spaceTrainLink: LinkBuilder? = null): Fare {
+    private fun DomainFare.toResource(spaceTrainLink: LinkBuilder? = null, resetSelection: Boolean = false): Fare {
         val fare = Fare(id, comfortClass, price)
 
         spaceTrainLink?.let {
             fare.add(spaceTrainLink.slash("fares")
                     .slash("$id")
-                    .slash("select")
+                    .slash("select?resetSelection=$resetSelection")
                     .withRel("select"))
         }
         return fare

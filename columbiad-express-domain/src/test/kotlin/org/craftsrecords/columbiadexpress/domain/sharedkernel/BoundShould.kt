@@ -5,6 +5,7 @@ import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.craftsrecords.columbiadexpress.domain.sharedkernel.Bound.INBOUND
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
+import org.junit.jupiter.params.provider.CsvSource
 import org.junit.jupiter.params.provider.ValueSource
 
 class BoundShould {
@@ -20,6 +21,12 @@ class BoundShould {
         assertThatThrownBy { Bound.fromJourneyIndex(journeyIndex) }
                 .isInstanceOf(IllegalArgumentException::class.java)
                 .hasMessage("Journey index $journeyIndex is outside the supported range [0,1]")
+    }
+
+    @ParameterizedTest
+    @CsvSource("OUTBOUND,INBOUND", "INBOUND,OUTBOUND")
+    fun `return the right opposite way`(way: Bound, opposite: Bound) {
+        assertThat(way.oppositeWay()).isEqualTo(opposite)
     }
 
 }

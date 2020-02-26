@@ -9,6 +9,10 @@ class SpaceTrainParameterResolver : TypedParameterResolver<SpaceTrain>({ paramet
             randomSpaceTrain()
         }
 
-        else -> spaceTrain()
+        parameterContext.isAnnotated(Inbound::class.java) -> {
+            inboundSpaceTrain()
+        }
+
+        else -> outboundSpaceTrain()
     }
 })

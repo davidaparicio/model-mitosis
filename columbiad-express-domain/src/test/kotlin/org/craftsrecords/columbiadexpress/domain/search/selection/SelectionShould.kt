@@ -20,4 +20,16 @@ class SelectionShould : EqualityShould<Selection> {
         val selection = Selection()
         assertThat(selection.totalPrice).isNull()
     }
+
+    @Test
+    fun `indicates there is no selection for a not selected bound`() {
+        val selection = Selection()
+        assertThat(selection.hasASelectionFor(OUTBOUND)).isFalse()
+    }
+
+    @Test
+    fun `indicates there is a selection for a selected bound`() {
+        val selection = Selection(mapOf(OUTBOUND to selectedSpaceTrain()))
+        assertThat(selection.hasASelectionFor(OUTBOUND)).isTrue()
+    }
 }
