@@ -242,7 +242,9 @@ class SearchShould : EqualityShould<Search> {
     fun `return only selectable space trains of a bound when selection is not empty`(@RoundTrip baseSearch: Search) {
         val (search, outbound, _) = baseSearch.copy(selection = Selection()).selectAnOutboundSpaceTrain()
         val (searchWithFullSelection, _, _) = search.selectAnInboundSpaceTrain()
+
         assertThat(searchWithFullSelection.selectableSpaceTrains(INBOUND))
+                .isNotEmpty
                 .allSatisfy {
                     assertThat(outbound.compatibleSpaceTrains).contains(it.number)
                 }

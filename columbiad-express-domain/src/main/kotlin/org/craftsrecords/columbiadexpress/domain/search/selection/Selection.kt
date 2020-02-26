@@ -23,6 +23,8 @@ data class Selection(private val selectedSpaceTrainsByBound: Map<Bound, Selected
                 selectedSpaceTrainsByBound + (spaceTrain.bound to SelectedSpaceTrain(spaceTrain.number, fareId, price))
         return Selection(newSelectedSpaceTrains)
     }
+
+    fun hasASelectionFor(bound: Bound): Boolean = bounds.contains(bound)
 }
 
 

@@ -83,11 +83,17 @@ class SearchController(private val `search for space trains`: SearchForSpaceTrai
     fun retrieveSpaceTrainsForBound(@PathVariable searchId: UUID, @RequestParam bound: Bound, @RequestParam onlySelectable: Boolean = false): ResponseEntity<SpaceTrains> {
         val domainSearch = retrieveSearch(searchId)
         val searchLink = searchLink(searchId)
-        val spaceTrain = domainSearch.spaceTrains[bound]
-        val spaceTrains = SpaceTrains(spaceTrain.toResource(searchLink))
+        val spaceTrain =
+                when {
+                    onlySelectable -> domainSearch.selectableSpaceTrains(bound)
+                    else -> domainSearch.spaceTrains[bound]
+                }
+
+        val spaceTrains = SpaceTrains(spaceTrain.toResource(searchLink, !onlySelectable))
         spaceTrains
                 .add(searchLink.withRel("search"))
-                .linkToSpaceTrainsForBound(searchId, bound, SELF)
+                .add(searchLink.slash("selection").withRel("selection"))
+                .linkToSpaceTrainsForBound(searchId, bound, SELF, onlySelectable)
         return ok(spaceTrains)
     }
 
@@ -106,9 +112,9 @@ class SearchController(private val `search for space trains`: SearchForSpaceTrai
         return ok(selection)
     }
 
-    private fun <R : RepresentationModel<R>> R.linkToSpaceTrainsForBound(searchId: UUID, bound: Bound, linkRelation: LinkRelation): R {
+    private fun <R : RepresentationModel<R>> R.linkToSpaceTrainsForBound(searchId: UUID, bound: Bound, linkRelation: LinkRelation, onlySelectable: Boolean = false): R {
         return this.add(SearchController::class) {
-            linkTo { retrieveSpaceTrainsForBound(searchId, bound, true) } withRel linkRelation
+            linkTo { retrieveSpaceTrainsForBound(searchId, bound, onlySelectable) } withRel linkRelation
         }
     }
 
@@ -127,6 +133,9 @@ class SearchController(private val `search for space trains`: SearchForSpaceTrai
                     spaceTrains.map { it.bound }.distinct()
                             .forEach { bound ->
                                 search.linkToSpaceTrainsForBound(id, bound, of("all-${bound.toString().toLowerCase()}s"))
+                                search.addIf(this.selection.hasASelectionFor(bound.oppositeWay())) {
+                                    linkTo(methodOn(SearchController::class.java).retrieveSpaceTrainsForBound(id, bound, true)).withRel("${bound.name.toLowerCase()}s-for-current-selection")
+                                }
                             }
                 }
     }
@@ -149,8 +158,12 @@ class SearchController(private val `search for space trains`: SearchForSpaceTrai
                 }
                 .also { selection ->
                     spaceTrains.map { it.bound }.distinct()
+                            .asSequence()
                             .forEach { bound ->
-                                selection.linkToSpaceTrainsForBound(id, bound, of("all-${bound.toString().toLowerCase()}s"))
+                                selection.linkToSpaceTrainsForBound(id, bound, of("all-${bound.name.toLowerCase()}s"))
+                                selection.addIf(this.selection.hasASelectionFor(bound.oppositeWay())) {
+                                    linkTo(methodOn(SearchController::class.java).retrieveSpaceTrainsForBound(id, bound, true)).withRel("${bound.name.toLowerCase()}s-for-current-selection")
+                                }
                             }
                 }
     }
@@ -172,7 +185,7 @@ class SearchController(private val `search for space trains`: SearchForSpaceTrai
         return `retrieve space ports` `identified by` id
     }
 
-    private fun DomainSpaceTrain.toResource(searchLink: LinkBuilder): SpaceTrain = SpaceTrain(
+    private fun DomainSpaceTrain.toResource(searchLink: LinkBuilder, resetSelection: Boolean): SpaceTrain = SpaceTrain(
             number,
             bound,
             origin.toResource(),
@@ -180,19 +193,19 @@ class SearchController(private val `search for space trains`: SearchForSpaceTrai
             schedule.departure,
             schedule.arrival,
             schedule.duration,
-            fares.toResource(searchLink.slash("spacetrains").slash(number)))
+            fares.toResource(searchLink.slash("spacetrains").slash(number), resetSelection))
 
-    private fun DomainSpaceTrains.toResource(searchLink: LinkBuilder): List<SpaceTrain> = this.map { it.toResource(searchLink) }
+    private fun DomainSpaceTrains.toResource(searchLink: LinkBuilder, resetSelection: Boolean = false): List<SpaceTrain> = this.map { it.toResource(searchLink, resetSelection) }
 
-    private fun DomainFares.toResource(spaceTrainLink: LinkBuilder): Fares = this.map { it.toResource(spaceTrainLink) }.toSet()
+    private fun DomainFares.toResource(spaceTrainLink: LinkBuilder, resetSelection: Boolean): Fares = this.map { it.toResource(spaceTrainLink, resetSelection) }.toSet()
 
-    private fun DomainFare.toResource(spaceTrainLink: LinkBuilder? = null): Fare {
+    private fun DomainFare.toResource(spaceTrainLink: LinkBuilder? = null, resetSelection: Boolean = false): Fare {
         val fare = Fare(id, comfortClass, price)
 
         spaceTrainLink?.let {
             fare.add(spaceTrainLink.slash("fares")
                     .slash("$id")
-                    .slash("select")
+                    .slash("select?resetSelection=$resetSelection")
                     .withRel("select"))
         }
         return fare

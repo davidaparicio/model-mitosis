@@ -114,10 +114,10 @@ data class Search(
                     .asSequence()
                     .filter { it.key != bound }
                     .map { getSpaceTrainWithNumber(it.value.spaceTrainNumber) }
-                    .filter { it.bound == bound }
                     .map { it.compatibleSpaceTrains }
                     .flatten()
                     .map { getSpaceTrainWithNumber(it) }
+                    .filter { it.bound == bound }
                     .toList()
         }
     }

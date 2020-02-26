@@ -15,4 +15,6 @@ enum class Bound {
             return bounds[journeyIndex]
         }
     }
+
+    fun oppositeWay(): Bound = fromJourneyIndex((ordinal + 1) % 2)
 }
