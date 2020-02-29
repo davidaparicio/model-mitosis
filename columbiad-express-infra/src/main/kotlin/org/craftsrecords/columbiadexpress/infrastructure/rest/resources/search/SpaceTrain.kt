@@ -4,7 +4,6 @@ import org.craftsrecords.columbiadexpress.domain.sharedkernel.Bound
 import org.craftsrecords.columbiadexpress.infrastructure.rest.resources.Fares
 import org.craftsrecords.columbiadexpress.infrastructure.rest.resources.Resource
 import org.craftsrecords.columbiadexpress.infrastructure.rest.resources.spaceport.SpacePort
-import org.springframework.hateoas.CollectionModel
 import org.springframework.hateoas.RepresentationModel
 import java.time.Duration
 import java.time.LocalDateTime
@@ -20,4 +19,4 @@ data class SpaceTrain(val number: String,
                       val fares: Fares) : RepresentationModel<SpaceTrain>()
 
 @Resource
-data class SpaceTrains(val spaceTrains: List<SpaceTrain>) : CollectionModel<SpaceTrains>()
+data class SpaceTrains(val spaceTrains: List<SpaceTrain>) : RepresentationModel<SpaceTrains>()
