@@ -144,7 +144,7 @@ private fun generateSpaceTrainNumber(arrivalLocation: AstronomicalBody, spaceTra
 
 private fun computeArrival(departureSchedule: LocalDateTime, spaceTrainIndex: Long) =
         departureSchedule
-                .plusHours(97 * spaceTrainIndex)
+                .plusHours(97 + spaceTrainIndex)
                 .plusMinutes((20L..840L).random())
 
 private fun generateFares(): Set<Fare> {
