@@ -28,8 +28,8 @@ class SpacePortsControllerShould(@Autowired val mvc: MockMvc) {
                 .andExpect(status().isOk)
                 .andExpect(content().contentType(APPLICATION_JSON_VALUE))
                 .andExpect(jsonPath("$._embedded.spacePorts.length()").value(10))
-                .andExpect(jsonPath("$._links.self.href").value("http://localhost/spaceports"))
-                .andExpect(jsonPath("$._links.spaceports.href").value("http://localhost/spaceports"))
+                .andExpect(jsonPath("$._links.self.href").value("http://localhost/spaceports{?withNameContaining}"))
+                .andExpect(jsonPath("$._links.self.templated").value(true))
 
     }
 
@@ -45,7 +45,8 @@ class SpacePortsControllerShould(@Autowired val mvc: MockMvc) {
                 .andExpect(content().contentType(APPLICATION_JSON_VALUE))
                 .andExpect(jsonPath("$._embedded.spacePorts[*].name").value(containsInAnyOrder("Vostochny Cosmodrome", "Baikonur Cosmodrome")))
                 .andExpect(jsonPath("$._links.self.href").value("http://localhost/spaceports?withNameContaining=$partialName"))
-                .andExpect(jsonPath("$._links.spaceports.href").value("http://localhost/spaceports"))
+                .andExpect(jsonPath("$._links.spaceports.href").value("http://localhost/spaceports{?withNameContaining}"))
+                .andExpect(jsonPath("$._links.spaceports.templated").value(true))
     }
 
     @Test
