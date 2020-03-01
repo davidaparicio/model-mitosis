@@ -260,6 +260,7 @@ class SearchControllerShould(@Autowired val mvc: MockMvc, @Autowired val searche
                 .andExpect(jsonPath("$._links.self.href").value("$location/selection"))
                 .andExpectCorrectAllBoundsLinks(location)
                 .andExpect(jsonPath("$._links.inbounds-for-current-selection.href").exists())
+                .andExpect(jsonPath("$._links.selection").exists())
                 .andExpect(jsonPath("$._links.outbounds-for-current-selection").doesNotHaveJsonPath())
                 .andExpect(jsonPath("$._links.create-booking").doesNotHaveJsonPath())
                 .andDo { selectableInbounds = JsonPath.read(it.response.contentAsString, "$._links.inbounds-for-current-selection.href") }
@@ -282,6 +283,7 @@ class SearchControllerShould(@Autowired val mvc: MockMvc, @Autowired val searche
                 .andExpect(jsonPath("$._links.self.href").value("$location/selection"))
                 .andExpectCorrectAllBoundsLinks(location)
                 .andExpect(jsonPath("$._links.inbounds-for-current-selection").exists())
+                .andExpect(jsonPath("$._links.selection").exists())
                 .andExpect(jsonPath("$._links.outbounds-for-current-selection").exists())
                 .andExpect(jsonPath("$._links.create-booking.href").exists())
                 .andDo { getSearch = JsonPath.read(it.response.contentAsString, "$._links.search.href") }

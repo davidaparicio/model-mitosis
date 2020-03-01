@@ -153,6 +153,7 @@ class SearchController(private val `search for space trains`: SearchForSpaceTrai
         return Selection(selectedSpaceTrain, selection.totalPrice)
                 .add(searchLink.withRel("search"))
                 .add(searchLink.slash("selection").withSelfRel())
+                .add(searchLink.slash("selection").withRel("selection"))
                 .addIf(isSelectionComplete()) {
                     linkTo(methodOn(BookingController::class.java).bookSomeSpaceTrainsFromTheSelectionOf(id)).withRel("create-booking")
                 }
