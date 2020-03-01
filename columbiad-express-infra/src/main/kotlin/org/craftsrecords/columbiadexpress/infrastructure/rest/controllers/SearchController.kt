@@ -69,6 +69,7 @@ class SearchController(private val `search for space trains`: SearchForSpaceTrai
         val domainSearch = `search for space trains` satisfying domainCriteria
         val search = domainSearch.toResource()
 
+        println(domainSearch.id)
         return created(search.getRequiredLink(SELF).toUri()).body(search)
     }
 
