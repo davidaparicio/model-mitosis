@@ -133,8 +133,8 @@ class SearchController(private val `search for space trains`: SearchForSpaceTrai
                     spaceTrains.map { it.bound }.distinct()
                             .forEach { bound ->
                                 search.linkToSpaceTrainsForBound(id, bound, of("all-${bound.toString().toLowerCase()}s"))
-                                search.addIf(this.selection.hasASelectionFor(bound.oppositeWay())) {
-                                    linkTo(methodOn(SearchController::class.java).retrieveSpaceTrainsForBound(id, bound, true)).withRel("${bound.name.toLowerCase()}s-for-current-selection")
+                                if (this.selection.hasASelectionFor(bound.oppositeWay())) {
+                                    search.linkToSpaceTrainsForBound(id, bound, of("${bound.name.toLowerCase()}s-for-current-selection"), onlySelectable = true)
                                 }
                             }
                 }
@@ -162,8 +162,8 @@ class SearchController(private val `search for space trains`: SearchForSpaceTrai
                             .asSequence()
                             .forEach { bound ->
                                 selection.linkToSpaceTrainsForBound(id, bound, of("all-${bound.name.toLowerCase()}s"))
-                                selection.addIf(this.selection.hasASelectionFor(bound.oppositeWay())) {
-                                    linkTo(methodOn(SearchController::class.java).retrieveSpaceTrainsForBound(id, bound, true)).withRel("${bound.name.toLowerCase()}s-for-current-selection")
+                                if (this.selection.hasASelectionFor(bound.oppositeWay())) {
+                                    selection.linkToSpaceTrainsForBound(id, bound, of("${bound.name.toLowerCase()}s-for-current-selection"), onlySelectable = true)
                                 }
                             }
                 }
