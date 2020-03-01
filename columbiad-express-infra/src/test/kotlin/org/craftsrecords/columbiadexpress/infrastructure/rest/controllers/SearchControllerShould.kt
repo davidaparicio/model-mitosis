@@ -94,7 +94,7 @@ class SearchControllerShould(@Autowired val mvc: MockMvc, @Autowired val searche
                 .andExpect(jsonPath("$.spaceTrains").doesNotHaveJsonPath())
                 .andDo { location = it.response.getHeader("Location")!! }
                 .andExpect(jsonPath("$._links.self.href").value(location))
-                .andExpect(jsonPath("$._links.current-selection.href").value("$location/selection"))
+                .andExpect(jsonPath("$._links.selection.href").value("$location/selection"))
                 .andExpect(jsonPath("$._links.all-outbounds.href").value("$location/spacetrains?bound=OUTBOUND&onlySelectable=false"))
                 .andExpect(jsonPath("$._links.all-inbounds").doesNotHaveJsonPath())
                 .andExpect(jsonPath("$._links.outbounds-for-current-selection").doesNotHaveJsonPath())
@@ -195,7 +195,7 @@ class SearchControllerShould(@Autowired val mvc: MockMvc, @Autowired val searche
                 .andExpect(jsonPath("$.spaceTrains").doesNotHaveJsonPath())
                 .andDo { location = it.response.getHeader("Location")!! }
                 .andExpect(jsonPath("$._links.self.href").value(location))
-                .andExpect(jsonPath("$._links.current-selection.href").value("$location/selection"))
+                .andExpect(jsonPath("$._links.selection.href").value("$location/selection"))
                 .andExpectCorrectAllBoundsLinks(location)
                 .andExpect(jsonPath("$._links.outbounds-for-current-selection").doesNotHaveJsonPath())
                 .andExpect(jsonPath("$._links.inbounds-for-current-selection").doesNotHaveJsonPath())

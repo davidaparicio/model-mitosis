@@ -125,7 +125,7 @@ class SearchController(private val `search for space trains`: SearchForSpaceTrai
         val searchLink = searchLink(id)
         return Search(id, criteria.toResource())
                 .add(searchLink.withSelfRel())
-                .add(searchLink.slash("selection").withRel("current-selection"))
+                .add(searchLink.slash("selection").withRel("selection"))
                 .addIf(isSelectionComplete()) {
                     linkTo(methodOn(BookingController::class.java).bookSomeSpaceTrainsFromTheSelectionOf(id)).withRel("create-booking")
                 }
