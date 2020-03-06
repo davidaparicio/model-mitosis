@@ -9,6 +9,7 @@ import org.craftsrecords.columbiadexpress.domain.sharedkernel.firstClassFare
 import org.craftsrecords.columbiadexpress.domain.sharedkernel.randomFare
 import org.craftsrecords.columbiadexpress.domain.sharedkernel.schedule
 import org.craftsrecords.columbiadexpress.domain.sharedkernel.secondClassFare
+import org.craftsrecords.columbiadexpress.domain.spaceport.AstronomicalBody
 import org.craftsrecords.columbiadexpress.domain.spaceport.AstronomicalBody.EARTH
 import org.craftsrecords.columbiadexpress.domain.spaceport.AstronomicalBody.MOON
 import org.craftsrecords.columbiadexpress.domain.spaceport.spacePort
@@ -18,8 +19,8 @@ import kotlin.random.Random.Default.nextLong
 fun spaceTrain(): SpaceTrain = SpaceTrain(
         number = "6127",
         bound = OUTBOUND,
-        origin = spacePort(EARTH),
-        destination = spacePort(MOON),
+        originId = spacePort(EARTH).id,
+        destinationId = spacePort(MOON).id,
         schedule = schedule(),
         fares = setOf(fare()))
 
@@ -27,8 +28,8 @@ fun outboundSpaceTrain(): SpaceTrain = spaceTrain()
 fun inboundSpaceTrain(): SpaceTrain = SpaceTrain(
         number = "6235",
         bound = INBOUND,
-        origin = spacePort(MOON),
-        destination = spacePort(EARTH),
+        originId = spacePort(MOON).id,
+        destinationId = spacePort(EARTH).id,
         schedule = schedule(),
         fares = setOf(fare()))
 
@@ -41,12 +42,12 @@ fun randomSpaceTrain(): SpaceTrain = spaceTrain()
 
 fun spaceTrainsFrom(criteria: Criteria): SpaceTrains {
     return criteria.journeys
-            .mapIndexed { index, journey ->
+            .mapIndexed { journeyIndex, journey ->
                 (1..2).map {
-                    SpaceTrain(number = "${journey.departureSpacePort.location}$it",
-                            bound = fromJourneyIndex(index),
-                            origin = journey.departureSpacePort,
-                            destination = journey.arrivalSpacePort,
+                    SpaceTrain(number = "${AstronomicalBody.values()[journeyIndex]}$it",
+                            bound = fromJourneyIndex(journeyIndex),
+                            originId = journey.departureSpacePortId,
+                            destinationId = journey.arrivalSpacePortId,
                             schedule = schedule(),
                             fares = setOf(firstClassFare(), secondClassFare())
                     )

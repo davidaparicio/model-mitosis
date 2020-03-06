@@ -11,9 +11,9 @@ import java.time.LocalTime
 import kotlin.random.Random
 
 fun journey(): Journey = Journey(
-        spacePort(EARTH),
+        spacePort(EARTH).id,
         LocalDateTime.of(LocalDate.now().plusDays(1), LocalTime.of(10, 0)),
-        spacePort(MOON))
+        spacePort(MOON).id)
 
 fun outboundJourney(): Journey = journey()
 fun inboundJourney(): Journey = inboundOf(outboundJourney())
@@ -23,15 +23,15 @@ fun randomJourney(): Journey {
     val departureAstronomicalBody = values().random()
 
     return Journey(
-            spacePort(departureAstronomicalBody),
+            spacePort(departureAstronomicalBody).id,
             now().plusDays(numberOfDays),
-            spacePort(values().asIterable().minus(departureAstronomicalBody).random()))
+            spacePort(values().asIterable().minus(departureAstronomicalBody).random()).id)
 }
 
 fun inboundOf(journey: Journey): Journey =
         journey.copy(
-                departureSpacePort = journey.arrivalSpacePort,
-                arrivalSpacePort = journey.departureSpacePort,
+                departureSpacePortId = journey.arrivalSpacePortId,
+                arrivalSpacePortId = journey.departureSpacePortId,
                 departureSchedule = journey.departureSchedule.plusDays(5)
         )
 

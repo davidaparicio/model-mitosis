@@ -155,7 +155,7 @@ data class Search(
     }
 
     private infix fun SpaceTrain.`corresponds to`(journeys: Journeys): Boolean {
-        return journeys.any { it.departureSpacePort == origin && it.arrivalSpacePort == destination }
+        return journeys.any { it.departureSpacePortId == originId && it.arrivalSpacePortId == destinationId }
     }
 
     override fun equals(other: Any?): Boolean {

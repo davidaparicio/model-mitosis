@@ -45,8 +45,8 @@ class CriteriaShould(private val journey: Journey) : EqualityShould<Criteria> {
     fun `have only connected journeys`(@OnEarth spacePortOnEarth: SpacePort, @OnMoon spacePortOnMoon: SpacePort) {
         val journeys =
                 listOf(
-                        Journey(spacePortOnEarth, now().plusDays(1), spacePortOnMoon),
-                        Journey(spacePortOnEarth, now().plusWeeks(1), spacePortOnMoon))
+                        Journey(spacePortOnEarth.id, now().plusDays(1), spacePortOnMoon.id),
+                        Journey(spacePortOnEarth.id, now().plusWeeks(1), spacePortOnMoon.id))
         assertThatThrownBy { Criteria(journeys) }
                 .isInstanceOf(IllegalArgumentException::class.java)
                 .hasMessage("Criteria must only have connected journeys")

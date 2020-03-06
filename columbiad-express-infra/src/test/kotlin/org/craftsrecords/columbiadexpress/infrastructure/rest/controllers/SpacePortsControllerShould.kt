@@ -11,6 +11,7 @@ import org.springframework.http.MediaType.APPLICATION_JSON_VALUE
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.content
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers.header
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 import java.util.UUID.nameUUIDFromBytes
@@ -26,6 +27,7 @@ class SpacePortsControllerShould(@Autowired val mvc: MockMvc) {
                         .accept(APPLICATION_JSON_VALUE))
                 //
                 .andExpect(status().isOk)
+                .andExpect(header().exists("Cache-Control"))
                 .andExpect(content().contentType(APPLICATION_JSON_VALUE))
                 .andExpect(jsonPath("$._embedded.spacePorts.length()").value(10))
                 .andExpect(jsonPath("$._links.self.href").value("http://localhost/spaceports{?withNameContaining}"))
@@ -56,6 +58,7 @@ class SpacePortsControllerShould(@Autowired val mvc: MockMvc) {
                 get("/spaceports/{id}", spacePortId))
                 //
                 .andExpect(status().isOk)
+                .andExpect(header().exists("Cache-Control"))
                 .andExpect(content().contentType(HAL_JSON_VALUE))
                 .andExpect(jsonPath("$.name").value("Vostochny Cosmodrome"))
                 .andExpect(jsonPath("$.location").value("EARTH"))
