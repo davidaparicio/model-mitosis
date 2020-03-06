@@ -27,6 +27,7 @@ class SpacePortsControllerShould(@Autowired val mvc: MockMvc) {
                         .accept(APPLICATION_JSON_VALUE))
                 //
                 .andExpect(status().isOk)
+                .andExpect(header().exists("Cache-Control"))
                 .andExpect(content().contentType(APPLICATION_JSON_VALUE))
                 .andExpect(jsonPath("$._embedded.spacePorts.length()").value(10))
                 .andExpect(jsonPath("$._links.self.href").value("http://localhost/spaceports{?withNameContaining}"))
