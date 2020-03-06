@@ -11,8 +11,8 @@ import kotlin.random.Random.Default.nextLong
 
 fun spaceTrain(): SpaceTrain = SpaceTrain(
         number = "6127",
-        origin = spacePort(EARTH),
-        destination = spacePort(MOON),
+        originId = spacePort(EARTH).id,
+        destinationId = spacePort(MOON).id,
         schedule = schedule(),
         fare = fare())
 

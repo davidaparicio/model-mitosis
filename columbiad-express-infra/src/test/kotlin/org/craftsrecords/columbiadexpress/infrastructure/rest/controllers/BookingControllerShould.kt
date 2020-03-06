@@ -10,7 +10,6 @@ import org.craftsrecords.columbiadexpress.domain.spi.Bookings
 import org.craftsrecords.columbiadexpress.domain.spi.Searches
 import org.craftsrecords.columbiadexpress.infrastructure.configurations.DomainConfiguration
 import org.hamcrest.Matchers.hasSize
-import org.hamcrest.Matchers.notNullValue
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
@@ -48,12 +47,8 @@ class BookingControllerShould(@Autowired val mvc: MockMvc, @Autowired val bookin
                 .andExpect(jsonPath("$._links.self.href").value(location))
                 .andExpect(jsonPath("$.spaceTrains").value(hasSize<Collection<*>>(2)))
                 .andExpect(jsonPath("$.spaceTrains[0].number").value(outboundSpaceTrain.number))
-                .andExpect(jsonPath("$.spaceTrains[0].origin.name").value(outboundSpaceTrain.origin.name))
-                .andExpect(jsonPath("$.spaceTrains[0].origin.location").value(outboundSpaceTrain.origin.location.name))
-                .andExpect(jsonPath("$.spaceTrains[0].origin._links.self.href").value(notNullValue()))
-                .andExpect(jsonPath("$.spaceTrains[0].destination.name").value(outboundSpaceTrain.destination.name))
-                .andExpect(jsonPath("$.spaceTrains[0].destination.location").value(outboundSpaceTrain.destination.location.name))
-                .andExpect(jsonPath("$.spaceTrains[0].destination._links.self.href").value(notNullValue()))
+                .andExpect(jsonPath("$.spaceTrains[0].originId").value(outboundSpaceTrain.originId))
+                .andExpect(jsonPath("$.spaceTrains[0].destinationId").value(outboundSpaceTrain.destinationId))
                 .andExpect(jsonPath("$.spaceTrains[0].departureSchedule").exists())
                 .andExpect(jsonPath("$.spaceTrains[0].arrivalSchedule").exists())
                 .andExpect(jsonPath("$.spaceTrains[0].fare.comfortClass").value(outboundFare.comfortClass.name))
@@ -61,12 +56,8 @@ class BookingControllerShould(@Autowired val mvc: MockMvc, @Autowired val bookin
                 .andExpect(jsonPath("$.spaceTrains[0].fare.price.currency").value(outboundFare.price.currency.toString()))
 
                 .andExpect(jsonPath("$.spaceTrains[1].number").value(inboundSpaceTrain.number))
-                .andExpect(jsonPath("$.spaceTrains[1].origin.name").value(inboundSpaceTrain.origin.name))
-                .andExpect(jsonPath("$.spaceTrains[1].origin.location").value(inboundSpaceTrain.origin.location.name))
-                .andExpect(jsonPath("$.spaceTrains[1].origin._links.self.href").value(notNullValue()))
-                .andExpect(jsonPath("$.spaceTrains[1].destination.name").value(inboundSpaceTrain.destination.name))
-                .andExpect(jsonPath("$.spaceTrains[1].destination.location").value(inboundSpaceTrain.destination.location.name))
-                .andExpect(jsonPath("$.spaceTrains[1].destination._links.self.href").value(notNullValue()))
+                .andExpect(jsonPath("$.spaceTrains[1].originId").value(inboundSpaceTrain.originId))
+                .andExpect(jsonPath("$.spaceTrains[1].destinationId").value(inboundSpaceTrain.destinationId))
                 .andExpect(jsonPath("$.spaceTrains[1].departureSchedule").exists())
                 .andExpect(jsonPath("$.spaceTrains[1].arrivalSchedule").exists())
                 .andExpect(jsonPath("$.spaceTrains[1].fare.comfortClass").value(inboundFare.comfortClass.name))

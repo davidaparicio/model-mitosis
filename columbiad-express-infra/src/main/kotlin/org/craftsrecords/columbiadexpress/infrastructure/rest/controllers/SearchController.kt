@@ -19,7 +19,6 @@ import org.craftsrecords.columbiadexpress.infrastructure.rest.resources.search.S
 import org.craftsrecords.columbiadexpress.infrastructure.rest.resources.search.SpaceTrain
 import org.craftsrecords.columbiadexpress.infrastructure.rest.resources.search.SpaceTrains
 import org.craftsrecords.columbiadexpress.infrastructure.rest.resources.search.toResource
-import org.craftsrecords.columbiadexpress.infrastructure.rest.resources.spaceport.toResource
 import org.springframework.hateoas.IanaLinkRelations.SELF
 import org.springframework.hateoas.LinkRelation
 import org.springframework.hateoas.LinkRelation.of
@@ -147,7 +146,7 @@ class SearchController(private val `search for space trains`: SearchForSpaceTrai
                 selection.spaceTrains
                         .map { selectedSpaceTrain ->
                             val spaceTrain = spaceTrains.first { it.number == selectedSpaceTrain.spaceTrainNumber }
-                            SelectedSpaceTrain(spaceTrain.number, spaceTrain.bound, spaceTrain.origin.toResource(), spaceTrain.destination.toResource(), spaceTrain.schedule.departure, spaceTrain.schedule.arrival, spaceTrain.fares.first { it.id == selectedSpaceTrain.fareId }.toResource())
+                            SelectedSpaceTrain(spaceTrain.number, spaceTrain.bound, spaceTrain.originId, spaceTrain.destinationId, spaceTrain.schedule.departure, spaceTrain.schedule.arrival, spaceTrain.fares.first { it.id == selectedSpaceTrain.fareId }.toResource())
                         }
                         .sortedBy { it.bound.ordinal }
 
@@ -175,9 +174,9 @@ class SearchController(private val `search for space trains`: SearchForSpaceTrai
 
     private fun Criteria.toDomainObject(): DomainCriteria =
             DomainCriteria(journeys.map {
-                DomainJourney(it.departureSpacePort.toDomainSpacePort(),
+                DomainJourney(it.departureSpacePortId.toString(),
                         parse(it.departureSchedule),
-                        it.arrivalSpacePort.toDomainSpacePort())
+                        it.arrivalSpacePortId.toString())
             })
 
 
@@ -190,8 +189,8 @@ class SearchController(private val `search for space trains`: SearchForSpaceTrai
     private fun DomainSpaceTrain.toResource(searchLink: LinkBuilder, resetSelection: Boolean): SpaceTrain = SpaceTrain(
             number,
             bound,
-            origin.toResource(),
-            destination.toResource(),
+            originId,
+            destinationId,
             schedule.departure,
             schedule.arrival,
             schedule.duration,
