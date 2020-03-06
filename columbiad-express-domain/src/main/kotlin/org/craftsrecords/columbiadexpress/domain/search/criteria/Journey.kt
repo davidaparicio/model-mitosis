@@ -1,22 +1,18 @@
 package org.craftsrecords.columbiadexpress.domain.search.criteria
 
-import org.craftsrecords.columbiadexpress.domain.spaceport.SpacePort
 import java.time.LocalDateTime
 import java.time.LocalDateTime.now
 
-data class Journey(val departureSpacePort: SpacePort,
+data class Journey(val departureSpacePortId: String,
                    val departureSchedule: LocalDateTime,
-                   val arrivalSpacePort: SpacePort) {
+                   val arrivalSpacePortId: String) {
     init {
-        require(departureSpacePort `is not on the same planet than` arrivalSpacePort)
-        { "Cannot create a Journey departing and arriving on the same AstronomicalBody" }
-
         require(departureSchedule.isAfter(now()))
         { "Cannot create a Journey with a departure scheduled in the past" }
     }
 
     infix fun `is connected to`(nextJourney: Journey): Boolean {
-        return arrivalSpacePort == nextJourney.departureSpacePort
+        return arrivalSpacePortId == nextJourney.departureSpacePortId
     }
 }
 

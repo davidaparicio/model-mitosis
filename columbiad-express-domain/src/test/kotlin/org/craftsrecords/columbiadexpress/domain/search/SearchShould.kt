@@ -26,7 +26,7 @@ class SearchShould : EqualityShould<Search> {
     @Test
     fun `not have a space train which doesn't correspond to a criteria journey`(journey: Journey, spaceTrain: SpaceTrain) {
         val criteria = Criteria(listOf(journey))
-        val invalidSpaceTrain = spaceTrain.copy(origin = journey.arrivalSpacePort, destination = journey.departureSpacePort)
+        val invalidSpaceTrain = spaceTrain.copy(originId = journey.arrivalSpacePortId, destinationId = journey.departureSpacePortId)
 
         assertThatThrownBy { Search(criteria = criteria, spaceTrains = listOf(invalidSpaceTrain)) }
                 .isInstanceOf(IllegalArgumentException::class.java)

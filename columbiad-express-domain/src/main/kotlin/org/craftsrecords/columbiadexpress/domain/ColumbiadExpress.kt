@@ -49,9 +49,18 @@ class ColumbiadExpress(override val spacePorts: SpacePorts, override val searche
     }
 
     override fun satisfying(criteria: Criteria): Search {
-        val spaceTrains = generateSpaceTrains(criteria.journeys)
+
+        val (journeys) = criteria
+        require(journeys.mustNotStayOnTheSameAstronomicalBody()) {
+            "Cannot perform a trip departing and arriving on the same AstronomicalBody"
+        }
+
+        val spaceTrains = generateSpaceTrains(journeys)
         return searches.save(Search(criteria = criteria, spaceTrains = spaceTrains))
     }
+
+    private fun Journeys.mustNotStayOnTheSameAstronomicalBody() =
+            none { spacePorts.find(it.departureSpacePortId) == spacePorts.find(it.arrivalSpacePortId) }
 
     private fun generateSpaceTrains(journeys: Journeys): SpaceTrains {
         val spaceTrains = journeys.mapIndexed { journeyIndex, journey ->
@@ -93,11 +102,12 @@ class ColumbiadExpress(override val spacePorts: SpacePorts, override val searche
 
     private fun generateSpaceTrain(journey: Journey, spaceTrainIndex: Int, firstDepartureDeltaInMinutes: Long, bound: Bound): SpaceTrain {
         val departure = computeDepartureSchedule(journey.departureSchedule, spaceTrainIndex, firstDepartureDeltaInMinutes)
-        return SpaceTrain(number = generateSpaceTrainNumber(journey.arrivalSpacePort.location, spaceTrainIndex),
+        val arrivalSpacePort = spacePorts.find(journey.arrivalSpacePortId)
+        return SpaceTrain(number = generateSpaceTrainNumber(arrivalSpacePort.location, spaceTrainIndex),
                 bound = bound,
                 schedule = Schedule(departure, computeArrival(departure, spaceTrainIndex.toLong())),
-                destination = journey.arrivalSpacePort,
-                origin = journey.departureSpacePort,
+                destinationId = journey.arrivalSpacePortId,
+                originId = journey.departureSpacePortId,
                 fares = generateFares())
     }
 
@@ -125,7 +135,7 @@ class ColumbiadExpress(override val spacePorts: SpacePorts, override val searche
                                 .map { selectedSpaceTrain ->
                                     val spaceTrain = search.getSpaceTrainWithNumber(selectedSpaceTrain.spaceTrainNumber)
                                     val fare = spaceTrain.fares.first { it.id == selectedSpaceTrain.fareId }
-                                    BookingSpaceTrain(spaceTrain.number, spaceTrain.origin, spaceTrain.destination, spaceTrain.schedule, fare)
+                                    BookingSpaceTrain(spaceTrain.number, spaceTrain.originId, spaceTrain.destinationId, spaceTrain.schedule, fare)
                                 }
                 return bookings.save(Booking(spaceTrains = spaceTrains))
             }
@@ -151,4 +161,9 @@ private fun generateFares(): Set<Fare> {
     val currency = Currency.getInstance(FRANCE)
     return setOf(Fare(comfortClass = FIRST, price = Price(BigDecimal((180..400).random()), currency)),
             Fare(comfortClass = SECOND, price = Price(BigDecimal((150..200).random()), currency)))
+}
+
+private fun SpacePorts.find(spacePortId: String): SpacePort {
+    val id = if (spacePortId.contains("/")) spacePortId.splitToSequence("/").last() else spacePortId
+    return getAllSpacePorts().first { it.id == id }
 }

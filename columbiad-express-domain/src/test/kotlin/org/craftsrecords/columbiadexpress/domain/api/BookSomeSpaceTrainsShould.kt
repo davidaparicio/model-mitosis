@@ -24,8 +24,8 @@ interface BookSomeSpaceTrainsShould {
 
         val selectedSpaceTrain = booking.spaceTrains[0]
         assertThat(selectedSpaceTrain.fare).isEqualTo(fare)
-        assertThat(selectedSpaceTrain.destination).isEqualTo(spaceTrain.destination)
-        assertThat(selectedSpaceTrain.origin).isEqualTo(spaceTrain.origin)
+        assertThat(selectedSpaceTrain.destinationId).isEqualTo(spaceTrain.destinationId)
+        assertThat(selectedSpaceTrain.originId).isEqualTo(spaceTrain.originId)
         assertThat(selectedSpaceTrain.number).isEqualTo(spaceTrain.number)
         assertThat(selectedSpaceTrain.schedule).isEqualTo(spaceTrain.schedule)
     }
