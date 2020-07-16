@@ -60,7 +60,7 @@ class ColumbiadExpress(override val spacePorts: SpacePorts, override val searche
     }
 
     private fun Journeys.mustNotStayOnTheSameAstronomicalBody() =
-            none { spacePorts.find(it.departureSpacePortId) == spacePorts.find(it.arrivalSpacePortId) }
+            none { spacePorts.find(it.departureSpacePortId).location == spacePorts.find(it.arrivalSpacePortId).location }
 
     private fun generateSpaceTrains(journeys: Journeys): SpaceTrains {
         val spaceTrains = journeys.mapIndexed { journeyIndex, journey ->
