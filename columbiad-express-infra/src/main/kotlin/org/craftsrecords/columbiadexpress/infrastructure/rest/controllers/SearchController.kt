@@ -1,24 +1,14 @@
 package org.craftsrecords.columbiadexpress.infrastructure.rest.controllers
 
-import org.craftsrecords.columbiadexpress.domain.api.RetrieveSpacePorts
-import org.craftsrecords.columbiadexpress.domain.api.SearchForSpaceTrains
-import org.craftsrecords.columbiadexpress.domain.api.SelectSpaceTrain
-import org.craftsrecords.columbiadexpress.domain.api.`by resetting the selection`
-import org.craftsrecords.columbiadexpress.domain.api.`in search`
-import org.craftsrecords.columbiadexpress.domain.api.`with the fare`
+import org.craftsrecords.columbiadexpress.domain.api.*
 import org.craftsrecords.columbiadexpress.domain.search.SpaceTrain.Companion.get
 import org.craftsrecords.columbiadexpress.domain.sharedkernel.Bound
 import org.craftsrecords.columbiadexpress.domain.spaceport.SpacePort
 import org.craftsrecords.columbiadexpress.domain.spi.Searches
 import org.craftsrecords.columbiadexpress.infrastructure.rest.resources.Fare
 import org.craftsrecords.columbiadexpress.infrastructure.rest.resources.Fares
-import org.craftsrecords.columbiadexpress.infrastructure.rest.resources.search.Criteria
+import org.craftsrecords.columbiadexpress.infrastructure.rest.resources.search.*
 import org.craftsrecords.columbiadexpress.infrastructure.rest.resources.search.Search
-import org.craftsrecords.columbiadexpress.infrastructure.rest.resources.search.SelectedSpaceTrain
-import org.craftsrecords.columbiadexpress.infrastructure.rest.resources.search.Selection
-import org.craftsrecords.columbiadexpress.infrastructure.rest.resources.search.SpaceTrain
-import org.craftsrecords.columbiadexpress.infrastructure.rest.resources.search.SpaceTrains
-import org.craftsrecords.columbiadexpress.infrastructure.rest.resources.search.toResource
 import org.springframework.hateoas.IanaLinkRelations.SELF
 import org.springframework.hateoas.LinkRelation
 import org.springframework.hateoas.LinkRelation.of
@@ -29,21 +19,16 @@ import org.springframework.hateoas.server.LinkBuilder
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn
 import org.springframework.hateoas.server.mvc.add
+import org.springframework.http.HttpStatus.BAD_REQUEST
 import org.springframework.http.HttpStatus.NOT_FOUND
 import org.springframework.http.ResponseEntity
 import org.springframework.http.ResponseEntity.created
 import org.springframework.http.ResponseEntity.ok
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RequestParam
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 import org.springframework.web.server.ResponseStatusException
 import java.net.URI
 import java.time.LocalDateTime.parse
-import java.util.UUID
+import java.util.*
 import org.craftsrecords.columbiadexpress.domain.search.Search as DomainSearch
 import org.craftsrecords.columbiadexpress.domain.search.SpaceTrain as DomainSpaceTrain
 import org.craftsrecords.columbiadexpress.domain.search.SpaceTrains as DomainSpaceTrains
@@ -51,6 +36,7 @@ import org.craftsrecords.columbiadexpress.domain.search.criteria.Criteria as Dom
 import org.craftsrecords.columbiadexpress.domain.search.criteria.Journey as DomainJourney
 import org.craftsrecords.columbiadexpress.domain.sharedkernel.Fare as DomainFare
 import org.craftsrecords.columbiadexpress.domain.sharedkernel.Fares as DomainFares
+
 
 @RestController
 @RequestMapping("/searches")
@@ -63,13 +49,15 @@ class SearchController(private val `search for space trains`: SearchForSpaceTrai
 
     @PostMapping
     fun performASearch(@RequestBody criteria: Criteria): ResponseEntity<Search> {
-        val domainCriteria = criteria.toDomainObject()
+        try {
+            val domainCriteria = criteria.toDomainObject()
+            val domainSearch = `search for space trains` satisfying domainCriteria
+            val search = domainSearch.toResource()
+            return created(search.getRequiredLink(SELF).toUri()).body(search)
+        } catch (ex: IllegalArgumentException) {
+            throw ResponseStatusException(BAD_REQUEST, ex.message, ex)
+        }
 
-        val domainSearch = `search for space trains` satisfying domainCriteria
-        val search = domainSearch.toResource()
-
-        println(domainSearch.id)
-        return created(search.getRequiredLink(SELF).toUri()).body(search)
     }
 
     @GetMapping("/{searchId}")

@@ -12,10 +12,7 @@ import org.craftsrecords.columbiadexpress.domain.spaceport.OnMoon
 import org.craftsrecords.columbiadexpress.domain.spaceport.SpacePort
 import org.craftsrecords.columbiadexpress.domain.spi.Searches
 import org.craftsrecords.columbiadexpress.infrastructure.configurations.DomainConfiguration
-import org.hamcrest.Matchers.endsWith
-import org.hamcrest.Matchers.hasSize
-import org.hamcrest.Matchers.matchesPattern
-import org.hamcrest.Matchers.notNullValue
+import org.hamcrest.Matchers.*
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
@@ -26,9 +23,7 @@ import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.ResultActions
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers.content
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers.*
 import java.time.LocalDateTime.now
 import java.time.temporal.ChronoUnit.MINUTES
 
@@ -52,6 +47,15 @@ class SearchControllerShould(@Autowired val mvc: MockMvc, @Autowired val searche
 			"departureSpacePortId" : "$departureSpacePortId",
 			"departureSchedule" : "$outboundDepartureSchedule",
 			"arrivalSpacePortId" : "$arrivalSpacePortId"
+        }]
+}
+"""
+    private val oneWayCriteriaOnSameAstronomicalBody = """
+{
+	"journeys" : [{
+			"departureSpacePortId" : "$departureSpacePortId",
+			"departureSchedule" : "$outboundDepartureSchedule",
+			"arrivalSpacePortId" : "$departureSpacePortId"
         }]
 }
 """
@@ -167,6 +171,18 @@ class SearchControllerShould(@Autowired val mvc: MockMvc, @Autowired val searche
                 .andExpect(jsonPath("$.spaceTrains[0].fares[0]._links.select.href").value(matchesPattern("$location/spacetrains/$spaceTrainNumber/fares/.*/select\\?resetSelection=${!onlySelectable}")))
                 .andExpect(jsonPath("$._links.self.href").value("$location/spacetrains?bound=INBOUND&onlySelectable=$onlySelectable"))
                 .andExpect(jsonPath("$._links.search.href").value(location))
+    }
+
+    @Test
+    fun `return an error when try to go from and to the same astronomical body`() {
+        mvc.perform(
+                post("/searches")
+                        .accept(APPLICATION_JSON_VALUE)
+                        .contentType(APPLICATION_JSON_VALUE)
+                        .content(oneWayCriteriaOnSameAstronomicalBody))
+                //
+                .andExpect(status().isBadRequest)
+                .andExpect(status().reason("Cannot perform a trip departing and arriving on the same AstronomicalBody"))
     }
 
     @Test

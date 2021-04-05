@@ -6,4 +6,5 @@ spring:
 
 server:
   port: 1865
-
+  error:
+    include-message: ALWAYS
