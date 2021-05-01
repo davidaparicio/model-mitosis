@@ -9,7 +9,10 @@ import org.junit.jupiter.api.Test
 
 class SelectionShould : EqualityShould<Selection> {
     @Test
-    fun `compute the total price of the selection`(@Random outboundSpaceTrain: SelectedSpaceTrain, @Random inboundSpaceTrain: SelectedSpaceTrain) {
+    fun `compute the total price of the selection`(
+        @Random outboundSpaceTrain: SelectedSpaceTrain,
+        @Random inboundSpaceTrain: SelectedSpaceTrain
+    ) {
         val selection = Selection(mapOf(OUTBOUND to outboundSpaceTrain, Bound.INBOUND to inboundSpaceTrain))
 
         assertThat(selection.totalPrice).isEqualTo(outboundSpaceTrain.price + inboundSpaceTrain.price)
@@ -24,12 +27,12 @@ class SelectionShould : EqualityShould<Selection> {
     @Test
     fun `indicates there is no selection for a not selected bound`() {
         val selection = Selection()
-        assertThat(selection.hasASelectionFor(OUTBOUND)).isFalse()
+        assertThat(selection.hasASelectionFor(OUTBOUND)).isFalse
     }
 
     @Test
     fun `indicates there is a selection for a selected bound`() {
         val selection = Selection(mapOf(OUTBOUND to selectedSpaceTrain()))
-        assertThat(selection.hasASelectionFor(OUTBOUND)).isTrue()
+        assertThat(selection.hasASelectionFor(OUTBOUND)).isTrue
     }
 }

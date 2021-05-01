@@ -7,15 +7,15 @@ import org.junit.jupiter.api.Test
 import java.time.Duration
 import java.time.LocalDateTime.now
 
-class ScheduleShould() : EqualityShould<Schedule> {
+class ScheduleShould : EqualityShould<Schedule> {
     @Test
     fun `not have a departure in the past`() {
         val departureInThePast = now().minusDays(2)
         val arrival = now().plusWeeks(1)
 
         assertThatThrownBy { Schedule(departureInThePast, arrival) }
-                .isInstanceOf(IllegalArgumentException::class.java)
-                .hasMessage("departure cannot be in the past")
+            .isInstanceOf(IllegalArgumentException::class.java)
+            .hasMessage("departure cannot be in the past")
     }
 
     @Test
@@ -24,8 +24,8 @@ class ScheduleShould() : EqualityShould<Schedule> {
         val arrival = departure.minusHours(1)
 
         assertThatThrownBy { Schedule(departure, arrival) }
-                .isInstanceOf(IllegalArgumentException::class.java)
-                .hasMessage("arrival cannot precede the departure")
+            .isInstanceOf(IllegalArgumentException::class.java)
+            .hasMessage("arrival cannot precede the departure")
     }
 
     @Test

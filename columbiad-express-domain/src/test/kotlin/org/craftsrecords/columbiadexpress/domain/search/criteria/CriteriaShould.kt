@@ -13,11 +13,12 @@ class CriteriaShould(private val journey: Journey) : EqualityShould<Criteria> {
 
 
     @Test
-    fun `create Criteria`(@OnEarth spacePortOnEarth: SpacePort, @OnMoon spacePortOnMoon: SpacePort) {
+    fun `create Criteria`() {
         val journeys =
-                listOf(
-                        journey,
-                        inboundOf(journey) departingAt journey.departureSchedule.plusWeeks(1))
+            listOf(
+                journey,
+                inboundOf(journey) departingAt journey.departureSchedule.plusWeeks(1)
+            )
 
         assertThatCode { Criteria(journeys) }.doesNotThrowAnyException()
     }
@@ -25,31 +26,33 @@ class CriteriaShould(private val journey: Journey) : EqualityShould<Criteria> {
     @Test
     fun `contain at least one journey`() {
         assertThatThrownBy { Criteria(emptyList()) }
-                .isInstanceOf(IllegalArgumentException::class.java)
-                .hasMessage("Criteria must contain at least one journey")
+            .isInstanceOf(IllegalArgumentException::class.java)
+            .hasMessage("Criteria must contain at least one journey")
     }
 
     @Test
     fun `have only journeys ordered by departureSchedule`() {
         val journeys =
-                listOf(
-                        journey.copy(departureSchedule = now().plusWeeks(1)),
-                        inboundOf(journey) departingAt now().plusDays(1))
+            listOf(
+                journey.copy(departureSchedule = now().plusWeeks(1)),
+                inboundOf(journey) departingAt now().plusDays(1)
+            )
 
         assertThatThrownBy { Criteria(journeys) }
-                .isInstanceOf(IllegalArgumentException::class.java)
-                .hasMessage("Criteria must only have journeys ordered by departure schedule")
+            .isInstanceOf(IllegalArgumentException::class.java)
+            .hasMessage("Criteria must only have journeys ordered by departure schedule")
     }
 
     @Test
     fun `have only connected journeys`(@OnEarth spacePortOnEarth: SpacePort, @OnMoon spacePortOnMoon: SpacePort) {
         val journeys =
-                listOf(
-                        Journey(spacePortOnEarth.id, now().plusDays(1), spacePortOnMoon.id),
-                        Journey(spacePortOnEarth.id, now().plusWeeks(1), spacePortOnMoon.id))
+            listOf(
+                Journey(spacePortOnEarth.id, now().plusDays(1), spacePortOnMoon.id),
+                Journey(spacePortOnEarth.id, now().plusWeeks(1), spacePortOnMoon.id)
+            )
         assertThatThrownBy { Criteria(journeys) }
-                .isInstanceOf(IllegalArgumentException::class.java)
-                .hasMessage("Criteria must only have connected journeys")
+            .isInstanceOf(IllegalArgumentException::class.java)
+            .hasMessage("Criteria must only have connected journeys")
     }
 
     @Test
@@ -57,7 +60,7 @@ class CriteriaShould(private val journey: Journey) : EqualityShould<Criteria> {
         val tooCloseJourney = inboundOf(journey).copy(departureSchedule = journey.departureSchedule)
 
         assertThatThrownBy { Criteria(listOf(journey, tooCloseJourney)) }
-                .isInstanceOf(IllegalArgumentException::class.java)
-                .hasMessage("An elapse time of 5 days must be respected between journeys")
+            .isInstanceOf(IllegalArgumentException::class.java)
+            .hasMessage("An elapse time of 5 days must be respected between journeys")
     }
 }

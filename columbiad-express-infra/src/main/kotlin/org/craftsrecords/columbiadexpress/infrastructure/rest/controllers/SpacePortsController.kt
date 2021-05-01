@@ -3,6 +3,7 @@ package org.craftsrecords.columbiadexpress.infrastructure.rest.controllers
 import org.craftsrecords.columbiadexpress.domain.api.RetrieveSpacePorts
 import org.craftsrecords.columbiadexpress.infrastructure.rest.resources.spaceport.SpacePort
 import org.craftsrecords.columbiadexpress.infrastructure.rest.resources.spaceport.SpacePorts
+import org.craftsrecords.columbiadexpress.infrastructure.rest.resources.spaceport.asResourcesFor
 import org.craftsrecords.columbiadexpress.infrastructure.rest.resources.spaceport.toResource
 import org.springframework.http.CacheControl
 import org.springframework.http.ResponseEntity
@@ -21,27 +22,31 @@ import javax.servlet.http.HttpServletResponse.SC_NOT_FOUND
 @RequestMapping("/spaceports")
 class SpacePortsController(private val retrieveSpacePorts: RetrieveSpacePorts) {
 
-
     companion object {
         const val WHATEVER = ""
     }
 
     @GetMapping
-    fun getSpacePorts(@RequestParam(name = "withNameContaining", required = false) partialName: String?): ResponseEntity<SpacePorts> {
+    fun getSpacePorts(
+        @RequestParam(
+            name = "withNameContaining",
+            required = false
+        ) partialName: String?
+    ): ResponseEntity<SpacePorts> {
         val spacePorts = retrieveSpacePorts `having in their name` (partialName ?: WHATEVER)
         return ok()
-                .cacheControl(CacheControl.maxAge(60, MINUTES))
-                .body(spacePorts
-                        .toResource()
-                        .addLinks(partialName))
+            .cacheControl(CacheControl.maxAge(60, MINUTES))
+            .body(
+                spacePorts.asResourcesFor(partialName)
+            )
     }
 
     @GetMapping(path = ["/{id}"])
     fun getSpacePortIdentifiedBy(@PathVariable id: String): ResponseEntity<SpacePort> {
         val spacePort = retrieveSpacePorts `identified by` id
         return ok()
-                .cacheControl(CacheControl.maxAge(60, MINUTES))
-                .body(spacePort.toResource())
+            .cacheControl(CacheControl.maxAge(60, MINUTES))
+            .body(spacePort.toResource())
     }
 
     @ExceptionHandler(NoSuchElementException::class)
