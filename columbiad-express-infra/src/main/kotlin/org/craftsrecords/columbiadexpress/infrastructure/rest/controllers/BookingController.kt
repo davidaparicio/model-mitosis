@@ -1,7 +1,7 @@
 package org.craftsrecords.columbiadexpress.infrastructure.rest.controllers
 
 import org.craftsrecords.columbiadexpress.domain.CannotBookAPartialSelection
-import org.craftsrecords.columbiadexpress.domain.api.BookSomeSpaceTrains
+import org.craftsrecords.columbiadexpress.domain.api.BookSpaceTrains
 import org.craftsrecords.columbiadexpress.domain.spi.Bookings
 import org.craftsrecords.columbiadexpress.domain.spi.Searches
 import org.craftsrecords.columbiadexpress.infrastructure.rest.resources.booking.Booking
@@ -26,18 +26,19 @@ import org.craftsrecords.columbiadexpress.domain.booking.Booking as DomainBookin
 @RestController
 @RequestMapping("/bookings")
 @ExposesResourceFor(Booking::class)
-class BookingController(private val bookSomeSpaceTrains: BookSomeSpaceTrains,
-                        private val bookings: Bookings,
-                        private val searches: Searches,
-                        private val entityLinks: EntityLinks
+class BookingController(
+    private val bookSpaceTrains: BookSpaceTrains,
+    private val bookings: Bookings,
+    private val searches: Searches,
+    private val entityLinks: EntityLinks
 ) {
 
     @PostMapping
     fun bookSomeSpaceTrainsFromTheSelectionOf(@RequestParam searchId: UUID): ResponseEntity<Booking> {
         val search = searches `find search identified by` searchId
-                ?: throw ResponseStatusException(BAD_REQUEST, "cannot find any search corresponding to id $searchId")
+            ?: throw ResponseStatusException(BAD_REQUEST, "cannot find any search corresponding to id $searchId")
         return try {
-            val domainBooking = bookSomeSpaceTrains `from the selection of` search
+            val domainBooking = bookSpaceTrains `from the selection of` search
             val booking = domainBooking.toResource()
             created(booking.getRequiredLink(SELF).toUri()).body(booking)
         } catch (exception: CannotBookAPartialSelection) {
@@ -54,6 +55,6 @@ class BookingController(private val bookSomeSpaceTrains: BookSomeSpaceTrains,
     private fun DomainBooking.toResource(): Booking {
         val bookingLink = entityLinks.linkForItemResource(Booking::class.java, id)
         return Booking(id, spaceTrains.toResource(), totalPrice)
-                .add(bookingLink.withSelfRel())
+            .add(bookingLink.withSelfRel())
     }
 }

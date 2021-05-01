@@ -1,6 +1,6 @@
 package org.craftsrecords.columbiadexpress.domain
 
-import org.craftsrecords.columbiadexpress.domain.api.BookSomeSpaceTrains
+import org.craftsrecords.columbiadexpress.domain.api.BookSpaceTrains
 import org.craftsrecords.columbiadexpress.domain.api.DomainService
 import org.craftsrecords.columbiadexpress.domain.api.RetrieveSpacePorts
 import org.craftsrecords.columbiadexpress.domain.api.SearchForSpaceTrains
@@ -33,19 +33,23 @@ import java.util.UUID
 import org.craftsrecords.columbiadexpress.domain.booking.SpaceTrain as BookingSpaceTrain
 
 @DomainService
-class ColumbiadExpress(override val spacePorts: SpacePorts, override val searches: Searches, override val bookings: Bookings) :
-        RetrieveSpacePorts,
-        SearchForSpaceTrains,
-        SelectSpaceTrain,
-        BookSomeSpaceTrains {
+class ColumbiadExpress(
+    override val spacePorts: SpacePorts,
+    override val searches: Searches,
+    override val bookings: Bookings
+) :
+    RetrieveSpacePorts,
+    SearchForSpaceTrains,
+    SelectSpaceTrain,
+    BookSpaceTrains {
     override fun `identified by`(id: String): SpacePort {
         return spacePorts.getAllSpacePorts().first { it.id == id }
     }
 
     override fun `having in their name`(partialName: String): Set<SpacePort> {
         return spacePorts.getAllSpacePorts()
-                .filter { it `has a name containing` partialName }
-                .toSet()
+            .filter { it `has a name containing` partialName }
+            .toSet()
     }
 
     override fun satisfying(criteria: Criteria): Search {
@@ -60,7 +64,7 @@ class ColumbiadExpress(override val spacePorts: SpacePorts, override val searche
     }
 
     private fun Journeys.mustNotStayOnTheSameAstronomicalBody() =
-            none { spacePorts.find(it.departureSpacePortId).location == spacePorts.find(it.arrivalSpacePortId).location }
+        none { spacePorts.find(it.departureSpacePortId).location == spacePorts.find(it.arrivalSpacePortId).location }
 
     private fun generateSpaceTrains(journeys: Journeys): SpaceTrains {
         val spaceTrains = journeys.mapIndexed { journeyIndex, journey ->
@@ -84,12 +88,13 @@ class ColumbiadExpress(override val spacePorts: SpacePorts, override val searche
         val inboundNumbers = inbounds.map { it.number }
 
         val outboundsWithCompatibilities =
-                outbounds.map {
-                    it.copy(compatibleSpaceTrains = setOf(inboundNumbers.random(), inboundNumbers.random()))
-                }
+            outbounds.map {
+                it.copy(compatibleSpaceTrains = setOf(inboundNumbers.random(), inboundNumbers.random()))
+            }
 
         val inboundsWithCompatibilities = inbounds.map { inbound ->
-            inbound.copy(compatibleSpaceTrains = outboundsWithCompatibilities
+            inbound.copy(
+                compatibleSpaceTrains = outboundsWithCompatibilities
                     .filter { outbound ->
                         outbound.compatibleSpaceTrains.contains(inbound.number)
                     }.map(SpaceTrain::number)
@@ -100,20 +105,33 @@ class ColumbiadExpress(override val spacePorts: SpacePorts, override val searche
         return outboundsWithCompatibilities + inboundsWithCompatibilities
     }
 
-    private fun generateSpaceTrain(journey: Journey, spaceTrainIndex: Int, firstDepartureDeltaInMinutes: Long, bound: Bound): SpaceTrain {
-        val departure = computeDepartureSchedule(journey.departureSchedule, spaceTrainIndex, firstDepartureDeltaInMinutes)
+    private fun generateSpaceTrain(
+        journey: Journey,
+        spaceTrainIndex: Int,
+        firstDepartureDeltaInMinutes: Long,
+        bound: Bound
+    ): SpaceTrain {
+        val departure =
+            computeDepartureSchedule(journey.departureSchedule, spaceTrainIndex, firstDepartureDeltaInMinutes)
         val arrivalSpacePort = spacePorts.find(journey.arrivalSpacePortId)
-        return SpaceTrain(number = generateSpaceTrainNumber(arrivalSpacePort.location, spaceTrainIndex),
-                bound = bound,
-                schedule = Schedule(departure, computeArrival(departure, spaceTrainIndex.toLong())),
-                destinationId = journey.arrivalSpacePortId,
-                originId = journey.departureSpacePortId,
-                fares = generateFares())
+        return SpaceTrain(
+            number = generateSpaceTrainNumber(arrivalSpacePort.location, spaceTrainIndex),
+            bound = bound,
+            schedule = Schedule(departure, computeArrival(departure, spaceTrainIndex.toLong())),
+            destinationId = journey.arrivalSpacePortId,
+            originId = journey.departureSpacePortId,
+            fares = generateFares()
+        )
     }
 
-    override fun selectFareOfSpaceTrainInSearch(spaceTrainNumber: String, fareId: UUID, searchId: UUID, resetSelection: Boolean): Search {
+    override fun selectFareOfSpaceTrainInSearch(
+        spaceTrainNumber: String,
+        fareId: UUID,
+        searchId: UUID,
+        resetSelection: Boolean
+    ): Search {
         val search = searches `find search identified by` searchId
-                ?: throw NoSuchElementException("unknown search id $searchId")
+            ?: throw NoSuchElementException("unknown search id $searchId")
         val searchWithSelection = search.selectSpaceTrainWithFare(spaceTrainNumber, fareId, resetSelection)
         return searches.save(searchWithSelection)
     }
@@ -128,15 +146,21 @@ class ColumbiadExpress(override val spacePorts: SpacePorts, override val searche
             else -> {
                 val selection = search.selection
                 val spaceTrains =
-                        selection
-                                .spaceTrainsByBound
-                                .sortedBy { it.key.ordinal }
-                                .map { it.value }
-                                .map { selectedSpaceTrain ->
-                                    val spaceTrain = search.getSpaceTrainWithNumber(selectedSpaceTrain.spaceTrainNumber)
-                                    val fare = spaceTrain.fares.first { it.id == selectedSpaceTrain.fareId }
-                                    BookingSpaceTrain(spaceTrain.number, spaceTrain.originId, spaceTrain.destinationId, spaceTrain.schedule, fare)
-                                }
+                    selection
+                        .spaceTrainsByBound
+                        .sortedBy { it.key.ordinal }
+                        .map { it.value }
+                        .map { selectedSpaceTrain ->
+                            val spaceTrain = search.getSpaceTrainWithNumber(selectedSpaceTrain.spaceTrainNumber)
+                            val fare = spaceTrain.fares.first { it.id == selectedSpaceTrain.fareId }
+                            BookingSpaceTrain(
+                                spaceTrain.number,
+                                spaceTrain.originId,
+                                spaceTrain.destinationId,
+                                spaceTrain.schedule,
+                                fare
+                            )
+                        }
                 return bookings.save(Booking(spaceTrains = spaceTrains))
             }
         }
@@ -144,23 +168,29 @@ class ColumbiadExpress(override val spacePorts: SpacePorts, override val searche
     }
 }
 
-private fun computeDepartureSchedule(criteriaDepartureSchedule: LocalDateTime, spaceTrainIndex: Int, firstDepartureDeltaInMinutes: Long) =
-        criteriaDepartureSchedule
-                .plusMinutes(firstDepartureDeltaInMinutes)
-                .plusHours(2L * (spaceTrainIndex - 1))
+private fun computeDepartureSchedule(
+    criteriaDepartureSchedule: LocalDateTime,
+    spaceTrainIndex: Int,
+    firstDepartureDeltaInMinutes: Long
+) =
+    criteriaDepartureSchedule
+        .plusMinutes(firstDepartureDeltaInMinutes)
+        .plusHours(2L * (spaceTrainIndex - 1))
 
 private fun generateSpaceTrainNumber(arrivalLocation: AstronomicalBody, spaceTrainIndex: Int) =
-        "${arrivalLocation}$spaceTrainIndex${(10..99).random()}"
+    "${arrivalLocation}$spaceTrainIndex${(10..99).random()}"
 
 private fun computeArrival(departureSchedule: LocalDateTime, spaceTrainIndex: Long) =
-        departureSchedule
-                .plusHours(97 + spaceTrainIndex)
-                .plusMinutes((20L..840L).random())
+    departureSchedule
+        .plusHours(97 + spaceTrainIndex)
+        .plusMinutes((20L..840L).random())
 
 private fun generateFares(): Set<Fare> {
     val currency = Currency.getInstance(FRANCE)
-    return setOf(Fare(comfortClass = FIRST, price = Price(BigDecimal((180..400).random()), currency)),
-            Fare(comfortClass = SECOND, price = Price(BigDecimal((150..200).random()), currency)))
+    return setOf(
+        Fare(comfortClass = FIRST, price = Price(BigDecimal((180..400).random()), currency)),
+        Fare(comfortClass = SECOND, price = Price(BigDecimal((150..200).random()), currency))
+    )
 }
 
 private fun SpacePorts.find(spacePortId: String): SpacePort {

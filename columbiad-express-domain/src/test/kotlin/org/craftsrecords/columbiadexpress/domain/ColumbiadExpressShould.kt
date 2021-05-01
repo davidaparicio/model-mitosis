@@ -1,7 +1,7 @@
 package org.craftsrecords.columbiadexpress.domain
 
-import org.craftsrecords.columbiadexpress.domain.api.BookSomeSpaceTrains
-import org.craftsrecords.columbiadexpress.domain.api.BookSomeSpaceTrainsShould
+import org.craftsrecords.columbiadexpress.domain.api.BookSpaceTrains
+import org.craftsrecords.columbiadexpress.domain.api.BookSpaceTrainsShould
 import org.craftsrecords.columbiadexpress.domain.api.RetrieveSpacePorts
 import org.craftsrecords.columbiadexpress.domain.api.RetrieveSpacePortsShould
 import org.craftsrecords.columbiadexpress.domain.api.SearchForSpaceTrains
@@ -15,10 +15,11 @@ import org.craftsrecords.columbiadexpress.domain.stubs.InMemorySearches
 import org.craftsrecords.columbiadexpress.domain.stubs.InMemorySpacePorts
 import org.junit.jupiter.api.BeforeEach
 
-class ColumbiadExpressShould(@RoundTrip val search: Search) : RetrieveSpacePortsShould, SearchForSpaceTrainsShould, SelectSpaceTrainShould, BookSomeSpaceTrainsShould {
+class ColumbiadExpressShould(@RoundTrip val search: Search) : RetrieveSpacePortsShould, SearchForSpaceTrainsShould,
+    SelectSpaceTrainShould, BookSpaceTrainsShould {
 
     private val columbiadExpress =
-            ColumbiadExpress(InMemorySpacePorts(), InMemorySearches(), InMemoryBookings())
+        ColumbiadExpress(InMemorySpacePorts(), InMemorySearches(), InMemoryBookings())
     override val retrieveSpacePorts: RetrieveSpacePorts
         get() = columbiadExpress
 
@@ -28,7 +29,7 @@ class ColumbiadExpressShould(@RoundTrip val search: Search) : RetrieveSpacePorts
     override val selectSpaceTrain: SelectSpaceTrain
         get() = columbiadExpress
 
-    override val bookSomeSpaceTrains: BookSomeSpaceTrains
+    override val bookSpaceTrains: BookSpaceTrains
         get() = columbiadExpress
 
     @BeforeEach
