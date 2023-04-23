@@ -6,7 +6,7 @@
 
     <artifactId>columbiad-express-infra</artifactId>
     <parent>
-        <groupId>org.craftsrecords</groupId>
+        <groupId>com.beyondxscratch</groupId>
         <artifactId>columbiad-express</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
@@ -29,7 +29,7 @@
                         </compilerPlugins>
                         <pluginOptions>
                             <option>
-                                all-open:annotation=org.craftsrecords.columbiadexpress.infrastructure.rest.resources.Resource
+                                all-open:annotation=com.beyondxscratch.columbiadexpress.infrastructure.rest.resources.Resource
                             </option>
                         </pluginOptions>
                     </configuration>
@@ -120,12 +120,12 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.craftsrecords</groupId>
+            <groupId>com.beyondxscratch</groupId>
             <artifactId>columbiad-express-domain</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.craftsrecords</groupId>
+            <groupId>com.beyondxscratch</groupId>
             <artifactId>columbiad-express-domain</artifactId>
             <version>${project.version}</version>
             <type>test-jar</type>

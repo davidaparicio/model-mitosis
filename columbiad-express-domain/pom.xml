@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.craftsrecords</groupId>
+        <groupId>com.beyondxscratch</groupId>
         <artifactId>columbiad-express</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
@@ -47,8 +47,8 @@
                         <plugin>all-open</plugin>
                     </compilerPlugins>
                     <pluginOptions>
-                        <option>all-open:annotation=org.craftsrecords.columbiadexpress.domain.api.DomainService</option>
-                        <option>all-open:annotation=org.craftsrecords.columbiadexpress.domain.stubs.Stub
+                        <option>all-open:annotation=com.beyondxscratch.columbiadexpress.domain.api.DomainService</option>
+                        <option>all-open:annotation=com.beyondxscratch.columbiadexpress.domain.stubs.Stub
                         </option>
                     </pluginOptions>
                 </configuration>

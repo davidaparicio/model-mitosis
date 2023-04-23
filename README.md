@@ -1,3 +1,4 @@
-# Columbiad Express
+# Model Mitosis
 
-HATEOAS Demo Application
+Build :
+> mvn clean install

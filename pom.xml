@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.craftsrecords</groupId>
+    <groupId>com.beyondxscratch</groupId>
     <artifactId>columbiad-express</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
@@ -20,10 +20,10 @@
     </modules>
 
     <properties>
-        <kotlin.version>1.5.0</kotlin.version>
+        <kotlin.version>1.8.20</kotlin.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <kotlin.compiler.incremental>true</kotlin.compiler.incremental>
-        <java.version>11</java.version>
+        <java.version>17</java.version>
         <junit-jupiter.version>5.7.1</junit-jupiter.version>
         <junit-platform.version>1.7.1</junit-platform.version>
     </properties>
@@ -81,7 +81,7 @@
                         </includes>
                         <argLine>
                             -Djunit.jupiter.extensions.autodetection.enabled=true
-                            -Djunit.jupiter.displayname.generator.default=org.craftsrecords.ShouldDisplayNameGenerator
+                            -Djunit.jupiter.displayname.generator.default=com.beyondxscratch.ShouldDisplayNameGenerator
                         </argLine>
                     </configuration>
 
