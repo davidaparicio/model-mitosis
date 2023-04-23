@@ -14,4 +14,4 @@ cache:
 
 install:jdk17:
   <<: *install
-  image: maven:3.8.0-jdk-17
+  image: maven:3.8.3-jdk-17
