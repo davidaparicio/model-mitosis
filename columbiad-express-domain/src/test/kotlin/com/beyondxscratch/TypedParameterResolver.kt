@@ -23,8 +23,7 @@ abstract class TypedParameterResolver<T>(private val resolver: (parameterContext
     }
 
     override fun supportsParameter(parameterContext: ParameterContext, extensionContext: ExtensionContext): Boolean {
-        return getParameterType(parameterContext)?.let { supportedParameterType.isSubtypeOf(it) }
-                ?: false
+        return getParameterType(parameterContext).let { supportedParameterType.isSubtypeOf(it) }
     }
 
     @ExperimentalStdlibApi
@@ -33,7 +32,7 @@ abstract class TypedParameterResolver<T>(private val resolver: (parameterContext
         return resolver(parameterContext, extensionContext)
     }
 
-    private fun getParameterType(parameterContext: ParameterContext): KType? = ktype(parameterContext.parameter.parameterizedType)
+    private fun getParameterType(parameterContext: ParameterContext): KType = ktype(parameterContext.parameter.parameterizedType)
 
     private fun ktype(javaType: Type, typeArguments: List<KType> = emptyList()): KType =
             when (javaType) {

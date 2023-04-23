@@ -10,6 +10,6 @@ import org.springframework.context.annotation.FilterType.ANNOTATION
 
 @Configuration
 @ComponentScan(
-        basePackageClasses = [com.beyondxscratch.columbiadexpress.domain.ColumbiadExpress::class],
+        basePackageClasses = [ColumbiadExpress::class],
         includeFilters = [Filter(type = ANNOTATION, value = [DomainService::class, Stub::class])])
 class DomainConfiguration

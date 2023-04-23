@@ -41,7 +41,7 @@ class BookingController(
             val domainBooking = bookSpaceTrains `from the selection of` search
             val booking = domainBooking.toResource()
             created(booking.getRequiredLink(SELF).toUri()).body(booking)
-        } catch (exception: com.beyondxscratch.columbiadexpress.domain.CannotBookAPartialSelection) {
+        } catch (exception: CannotBookAPartialSelection) {
             throw ResponseStatusException(BAD_REQUEST, exception.message)
         }
     }

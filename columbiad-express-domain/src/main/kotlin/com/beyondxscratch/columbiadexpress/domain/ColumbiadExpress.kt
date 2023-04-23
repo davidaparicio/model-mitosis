@@ -112,24 +112,24 @@ class ColumbiadExpress(
         bound: Bound
     ): SpaceTrain {
         val departure =
-            com.beyondxscratch.columbiadexpress.domain.computeDepartureSchedule(
+            computeDepartureSchedule(
                 journey.departureSchedule,
                 spaceTrainIndex,
                 firstDepartureDeltaInMinutes
             )
         val arrivalSpacePort = spacePorts.find(journey.arrivalSpacePortId)
         return SpaceTrain(
-            number = com.beyondxscratch.columbiadexpress.domain.generateSpaceTrainNumber(
+            number = generateSpaceTrainNumber(
                 arrivalSpacePort.location,
                 spaceTrainIndex
             ),
             bound = bound,
             schedule = Schedule(departure,
-                com.beyondxscratch.columbiadexpress.domain.computeArrival(departure, spaceTrainIndex.toLong())
+                computeArrival(departure, spaceTrainIndex.toLong())
             ),
             destinationId = journey.arrivalSpacePortId,
             originId = journey.departureSpacePortId,
-            fares = com.beyondxscratch.columbiadexpress.domain.generateFares()
+            fares = generateFares()
         )
     }
 
@@ -149,7 +149,7 @@ class ColumbiadExpress(
         when {
 
             !search.isSelectionComplete() -> {
-                throw com.beyondxscratch.columbiadexpress.domain.CannotBookAPartialSelection()
+                throw CannotBookAPartialSelection()
             }
 
             else -> {

@@ -165,9 +165,7 @@ data class Search(
 
         other as Search
 
-        if (id != other.id) return false
-
-        return true
+        return id == other.id
     }
 
     override fun hashCode(): Int = id.hashCode()

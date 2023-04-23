@@ -19,7 +19,7 @@ class ColumbiadExpressShould(@RoundTrip val search: Search) : RetrieveSpacePorts
     SelectSpaceTrainShould, BookSpaceTrainsShould {
 
     private val columbiadExpress =
-        com.beyondxscratch.columbiadexpress.domain.ColumbiadExpress(
+        ColumbiadExpress(
             InMemorySpacePorts(),
             InMemorySearches(),
             InMemoryBookings()

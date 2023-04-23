@@ -36,7 +36,7 @@ interface BookSpaceTrainsShould {
 
         assertThatThrownBy {
             bookSpaceTrains `from the selection of` searchWithPartialSelection
-        }.isInstanceOf(com.beyondxscratch.columbiadexpress.domain.CannotBookAPartialSelection::class.java)
+        }.isInstanceOf(CannotBookAPartialSelection::class.java)
             .hasMessage("cannot book a partial selection")
     }
 

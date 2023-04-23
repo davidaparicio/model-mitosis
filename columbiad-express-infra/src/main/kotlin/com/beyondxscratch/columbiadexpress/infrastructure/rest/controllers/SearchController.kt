@@ -39,6 +39,7 @@ import org.springframework.web.bind.annotation.RestController
 import org.springframework.web.server.ResponseStatusException
 import java.net.URI
 import java.time.LocalDateTime.parse
+import java.util.Locale
 import java.util.UUID
 import com.beyondxscratch.columbiadexpress.domain.search.Search as DomainSearch
 import com.beyondxscratch.columbiadexpress.domain.search.SpaceTrain as DomainSpaceTrain
@@ -147,12 +148,13 @@ class SearchController(
             .also { search ->
                 spaceTrains.map { it.bound }.distinct()
                     .forEach { bound ->
-                        search.linkToSpaceTrainsForBound(id, bound, of("all-${bound.toString().toLowerCase()}s"))
+                        search.linkToSpaceTrainsForBound(id, bound, of("all-${bound.toString()
+                            .lowercase(Locale.getDefault())}s"))
                         if (this.selection.hasASelectionFor(bound.oppositeWay())) {
                             search.linkToSpaceTrainsForBound(
                                 id,
                                 bound,
-                                of("${bound.name.toLowerCase()}s-for-current-selection"),
+                                of("${bound.name.lowercase(Locale.getDefault())}s-for-current-selection"),
                                 onlySelectable = true
                             )
                         }
@@ -189,12 +191,12 @@ class SearchController(
                 spaceTrains.map { it.bound }.distinct()
                     .asSequence()
                     .forEach { bound ->
-                        selection.linkToSpaceTrainsForBound(id, bound, of("all-${bound.name.toLowerCase()}s"))
+                        selection.linkToSpaceTrainsForBound(id, bound, of("all-${bound.name.lowercase(Locale.getDefault())}s"))
                         if (this.selection.hasASelectionFor(bound.oppositeWay())) {
                             selection.linkToSpaceTrainsForBound(
                                 id,
                                 bound,
-                                of("${bound.name.toLowerCase()}s-for-current-selection"),
+                                of("${bound.name.lowercase(Locale.getDefault())}s-for-current-selection"),
                                 onlySelectable = true
                             )
                         }

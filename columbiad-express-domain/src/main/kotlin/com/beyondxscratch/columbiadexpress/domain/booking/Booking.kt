@@ -21,9 +21,7 @@ data class Booking(val id: UUID = randomUUID(), val spaceTrains: List<SpaceTrain
 
         other as Booking
 
-        if (id != other.id) return false
-
-        return true
+        return id == other.id
     }
 
     override fun hashCode(): Int = id.hashCode()
