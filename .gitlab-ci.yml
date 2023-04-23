@@ -9,8 +9,9 @@ cache:
 .install: &install
   stage: build
   script:
+    - 'cd backend'
     - 'mvn $MAVEN_CLI_OPTS install'
 
-install:jdk11:
+install:jdk17:
   <<: *install
-  image: maven:3.6.0-jdk-11
+  image: maven:3.8.0-jdk-17
