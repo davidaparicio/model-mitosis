@@ -1,6 +1,0 @@
-package com.beyondxscratch.columbiadexpress.domain.booking
-
-import java.util.UUID
-
-fun booking() = Booking(id = UUID.nameUUIDFromBytes("1".toByteArray()), spaceTrains = listOf(spaceTrain(), spaceTrain()))
-fun randomBooking() = Booking(spaceTrains = listOf(randomSpaceTrain()))
