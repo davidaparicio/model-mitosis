@@ -57,28 +57,6 @@ function Schedule({ schedule }) {
   );
 }
 
-function Fare({ fare, selectFare }) {
-  const useStyles = makeStyles(theme => ({
-    fare: {
-      "&:nth-child(1)": {
-        marginBottom: theme.spacing(1)
-      }
-    }
-  }));
-  const classes = useStyles();
-  return (
-    <Button
-      color="secondary"
-      variant="text"
-      size="small"
-      className={classes.fare}
-      onClick={() => selectFare(fare._links.select.href)}
-    >
-      {fare.comfortClass} {fare.price.amount} {fare.price.currency}
-    </Button>
-  );
-}
-
 
 function SpacePort({ id, schedule }) {
   const [spacePort, setSpacePort] = useState();

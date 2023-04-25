@@ -13,7 +13,8 @@ function Search() {
 
   const useStyles = makeStyles(theme => ({
     title: {
-      color: 'white'
+      color: 'white',
+      textTransform: 'capitalize'
     },
     grid: {
       flexGrow: 1,
@@ -42,7 +43,7 @@ function Search() {
         return (
           <Grid item xs={5} key={bound}>
             <Typography variant="h6" className={classes.title}>
-              {bound.toUpperCase()}
+              {bound}
             </Typography>
             <SpaceTrains
               link={getLink(links, bound)}
