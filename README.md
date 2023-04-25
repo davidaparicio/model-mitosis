@@ -12,7 +12,7 @@ mvn clean install
 
 Launch:
 ```bash
-cd backend/columbiad-express-infra
+cd backend/mandalore-express-infra
 mvn spring-boot:run
 ```
 or directly run the `ColumbiadExpressApplication.kt` from IntelliJ
