@@ -167,7 +167,7 @@ function SpaceTrain({ spacetrain, selectFare }) {
         />
       </div>
       <div className={classes.centered}>
-        <Typography color="primary" variant="subtitle2">
+        <Typography color="secondary" variant="subtitle2">
           {spacetrain.number}
         </Typography>
         <Duration duration={spacetrain.duration} />

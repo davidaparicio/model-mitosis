@@ -14,6 +14,7 @@ function Search() {
 
   const useStyles = makeStyles(theme => ({
     title: {
+      color: 'white'
     },
     grid: {
       flexGrow: 1,
