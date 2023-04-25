@@ -6,13 +6,11 @@ import Typography from '@material-ui/core/Typography'
 import logo from './mandalore-express.png'
 import SearchForm from './SearchForm/SearchForm'
 import Search from './Search/Search'
-import { createMuiTheme } from '@material-ui/core/styles'
+import { createTheme } from '@material-ui/core/styles'
 import { ThemeProvider } from '@material-ui/styles'
 import Link from '@material-ui/core/Link'
 
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
-import Booking from './Booking/Booking'
-
 const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
@@ -32,7 +30,7 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-const theme = createMuiTheme({
+const theme = createTheme({
   palette: {
     primary: {
       main: '#414141'
@@ -43,7 +41,7 @@ const theme = createMuiTheme({
   }
 })
 
-function App () {
+function App() {
   const classes = useStyles()
   return (
     <ThemeProvider theme={theme}>
@@ -60,11 +58,8 @@ function App () {
         </AppBar>
         <Router>
           <Switch>
-            <Route path='/searches/:searchId/bound/:bound'>
+            <Route path='/searches/:searchId'>
               <Search />
-            </Route>
-            <Route path='/bookings/:bookingId'>
-              <Booking />
             </Route>
             <Route path='/'>
               <SearchForm />

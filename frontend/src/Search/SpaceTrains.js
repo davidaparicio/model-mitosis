@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { proxiedUrl } from "../utils";
-import { Paper, Typography, Button } from "@material-ui/core";
+import { Paper, Typography } from "@material-ui/core";
 import moment from "moment";
 import { makeStyles } from "@material-ui/core/styles";
 import { withRouter } from "react-router-dom";
 
-function SpaceTrains({ history, link, onSelection }) {
+function SpaceTrains({ link }) {
   const [spacetrains, setSpaceTrains] = useState();
 
   const useStyles = makeStyles(theme => ({
@@ -23,33 +23,11 @@ function SpaceTrains({ history, link, onSelection }) {
     })();
   }, [link]);
 
-  function selectFare(fareLink) {
-    (async () => {
-      const response = await fetch(proxiedUrl(fareLink), {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        }
-      });
-      const selection = await response.json();
-      if (
-        selection._links["create-booking"] === undefined &&
-        selection._links["inbounds-for-current-selection"] !== undefined
-      ) {
-        history.push(
-          `/searches/${btoa(selection._links.search.href)}/bound/inbound`
-        );
-      } else {
-        onSelection(selection._links);
-      }
-    })();
-  }
-
   return (
     <div className={classes.spacetrains}>
       {spacetrains &&
         spacetrains.map(spacetrain => (
-          <SpaceTrain key={spacetrain.number} spacetrain={spacetrain} selectFare={selectFare} />
+          <SpaceTrain key={spacetrain.number} spacetrain={spacetrain} />
         ))}
     </div>
   );
@@ -91,7 +69,7 @@ function Fare({ fare, selectFare }) {
   return (
     <Button
       color="secondary"
-      variant="contained"
+      variant="text"
       size="small"
       className={classes.fare}
       onClick={() => selectFare(fare._links.select.href)}
@@ -128,19 +106,13 @@ function SpacePort({ id, schedule }) {
   );
 }
 
-function SpaceTrain({ spacetrain, selectFare }) {
+function SpaceTrain({ spacetrain }) {
   const useStyles = makeStyles(theme => ({
     spacetrain: {
       marginBottom: theme.spacing(2),
       padding: theme.spacing(2),
       display: "flex",
       justifyContent: "space-between"
-    },
-    fare: {
-      fontWeight: 600,
-      "&:nth-child(1)": {
-        marginBottom: theme.spacing(1)
-      }
     },
     fullHeight: {
       display: "flex",
@@ -171,11 +143,6 @@ function SpaceTrain({ spacetrain, selectFare }) {
           {spacetrain.number}
         </Typography>
         <Duration duration={spacetrain.duration} />
-      </div>
-      <div className={classes.fullHeight}>
-        {spacetrain.fares.map(fare => (
-          <Fare key={fare.comfortClass} fare={fare} selectFare={selectFare} />
-        ))}
       </div>
     </Paper>
   );

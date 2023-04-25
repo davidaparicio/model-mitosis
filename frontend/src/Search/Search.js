@@ -4,12 +4,11 @@ import { proxiedUrl } from "../utils";
 import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
 import SpaceTrains from "./SpaceTrains";
-import Selection from "./Selection";
 import { withRouter } from "react-router-dom";
 import { Typography } from "@material-ui/core";
 
 function Search() {
-  const { searchId, bound } = useParams();
+  const { searchId } = useParams();
   const [links, setLinks] = useState();
 
   const useStyles = makeStyles(theme => ({
@@ -29,33 +28,28 @@ function Search() {
       const result = await response.json();
       setLinks(result._links);
     })();
-  }, [searchId, bound]);
+  }, [searchId]);
 
   return (
     <Grid
       container
-      justify="center"
+      justifyContent="center"
       alignContent="center"
       className={classes.grid}
-      spacing={2}
+      spacing={6}
     >
-      <Grid item xs={9}>
-        <Typography variant="h6" className={classes.title}>
-          Select your {bound} Space Train
-        </Typography>
-      </Grid>
-      <Grid item xs={6}>
-        {links && (
-          <SpaceTrains
-            link={getLink(links, bound)}
-            bound={bound}
-            onSelection={setLinks}
-          />
-        )}
-      </Grid>
-      <Grid item xs={3}>
-        {links && <Selection links={links} />}
-      </Grid>
+      {links && getBounds(links).map(bound => {
+        return (
+          <Grid item xs={5} key={bound}>
+            <Typography variant="h6" className={classes.title}>
+              {bound.toUpperCase()}
+            </Typography>
+            <SpaceTrains
+              link={getLink(links, bound)}
+              bound={bound}
+            />
+          </Grid>)
+      })}
     </Grid>
   );
 }
@@ -63,13 +57,15 @@ function Search() {
 function getLink(links, bound) {
   if (bound === "outbound") {
     return links["all-outbounds"].href;
+  } else {
+    return links["all-inbounds"].href;
   }
+}
 
-  if (links["inbounds-for-current-selection"] !== undefined) {
-    return links["inbounds-for-current-selection"].href;
-  }
-
-  return undefined;
+function getBounds(links) {
+  return Object.getOwnPropertyNames(links)
+    .filter(link => link.includes('all-'))
+    .map(link => link.substring(4, link.length - 1))
 }
 
 export default withRouter(Search);

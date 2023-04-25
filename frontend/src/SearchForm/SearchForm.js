@@ -16,7 +16,7 @@ import { Typography, Box } from '@material-ui/core'
 import SearchTypeChooser from './SearchTypeChooser'
 import { Alert } from '@material-ui/lab'
 
-function SearchForm ({ history }) {
+function SearchForm({ history }) {
   const [outboundDate, setOutboundDate] = useState(moment().add(1, 'd'))
   const [inboundDate, setInboundDate] = useState(moment().add(7, 'd'))
 
@@ -41,7 +41,7 @@ function SearchForm ({ history }) {
 
   const [searchType, setSearchType] = useState('oneway')
 
-  function performANewSearch () {
+  function performANewSearch() {
     const outbound = {
       departureSpacePortId: departure._links.self.href,
       departureSchedule: moment(outboundDate).format('YYYY-MM-DDTHH:mm'),
@@ -51,10 +51,10 @@ function SearchForm ({ history }) {
     const inbound =
       searchType === 'roundtrip'
         ? {
-            departureSpacePortId: arrival._links.self.href,
-            departureSchedule: moment(inboundDate).format('YYYY-MM-DDTHH:mm'),
-            arrivalSpacePortId: departure._links.self.href
-          }
+          departureSpacePortId: arrival._links.self.href,
+          departureSchedule: moment(inboundDate).format('YYYY-MM-DDTHH:mm'),
+          arrivalSpacePortId: departure._links.self.href
+        }
         : undefined
 
     const journeys = [outbound]
@@ -62,30 +62,30 @@ function SearchForm ({ history }) {
       journeys.push(inbound)
     }
     const request = { journeys }
-    ;(async () => {
-      const response = await fetch('/searches', {
-        method: 'POST',
-        body: JSON.stringify(request),
-        headers: {
-          'Content-Type': 'application/json'
+      ; (async () => {
+        const response = await fetch('/searches', {
+          method: 'POST',
+          body: JSON.stringify(request),
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        })
+        const search = await response.json()
+        if (response.status === 201) {
+          history.push(
+            `/searches/${btoa(search._links.self.href)}/bound/outbound`
+          )
+        } else {
+          setError(search.message)
         }
-      })
-      const search = await response.json()
-      if (response.status === 201) {
-        history.push(
-          `/searches/${btoa(search._links.self.href)}/bound/outbound`
-        )
-      } else {
-        setError(search.message)
-      }
-    })()
+      })()
   }
 
   return (
     <MuiPickersUtilsProvider utils={MomentUtils}>
       <Grid
         container
-        justify='center'
+        justifyContent='center'
         alignContent='center'
         className={classes.grid}
         spacing={2}
