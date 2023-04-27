@@ -49,7 +49,7 @@ function SpaceTrains({ history, link, onSelection }) {
     <div className={classes.spacetrains}>
       {spacetrains &&
         spacetrains.map(spacetrain => (
-          <SpaceTrain key={spacetrain.number} spacetrain={spacetrain} selectFare={selectFare}/>
+          <SpaceTrain key={spacetrain.number} spacetrain={spacetrain} selectFare={selectFare} />
         ))}
     </div>
   );
@@ -91,7 +91,7 @@ function Fare({ fare, selectFare }) {
   return (
     <Button
       color="secondary"
-      variant="text"
+      variant="contained"
       size="small"
       className={classes.fare}
       onClick={() => selectFare(fare._links.select.href)}
@@ -107,9 +107,9 @@ function SpacePort({ id, schedule }) {
 
   useEffect(() => {
     (async () => {
-        const response = await fetch(proxiedUrl(id));
-        const result = await response.json();
-        setSpacePort(result);
+      const response = await fetch(proxiedUrl(id));
+      const result = await response.json();
+      setSpacePort(result);
     })();
   }, [id]);
 
@@ -174,7 +174,7 @@ function SpaceTrain({ spacetrain, selectFare }) {
       </div>
       <div className={classes.fullHeight}>
         {spacetrain.fares.map(fare => (
-          <Fare key={fare.comfortClass} fare={fare} selectFare={selectFare}/>
+          <Fare key={fare.comfortClass} fare={fare} selectFare={selectFare} />
         ))}
       </div>
     </Paper>
