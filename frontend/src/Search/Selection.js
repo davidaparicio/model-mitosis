@@ -10,7 +10,6 @@ import LanguageIcon from "@material-ui/icons/Language";
 import { withRouter } from "react-router-dom";
 import { proxiedUrl } from "../utils";
 import Class from "../Commons/Class";
-import Brightness3Icon from "@material-ui/icons/Brightness3";
 
 function Selection({ history, links }) {
   const [selection, setSelection] = useState();
@@ -122,29 +121,21 @@ function SpacePort({ id }) {
     <Box display="flex" alignItems="center">
       {spacePort !== undefined && (
         <>
-          <SpacePortIcon location={spacePort.location} />
-          <div>{spacePort.name}</div>
+          <SpacePortIcon />
+          <div>{spacePort.name} - {spacePort.location}</div>
         </>
       )}
     </Box>
   );
 }
 
-function SpacePortIcon({ location }) {
+function SpacePortIcon() {
   const useStyles = makeStyles(theme => ({
-    moon: {
-      transform: "rotate(180deg)",
-      marginRight: theme.spacing(1)
-    },
     icon: {
       marginRight: theme.spacing(1)
     }
   }));
   const classes = useStyles();
-
-  if (location === "MOON") {
-    return <Brightness3Icon fontSize="small" className={classes.moon} />;
-  }
   return <LanguageIcon fontSize="small" className={classes.icon} />;
 }
 
