@@ -7,8 +7,8 @@ import com.beyondxscratch.mandaloreexpress.domain.search.Search
 import com.beyondxscratch.mandaloreexpress.domain.search.SpaceTrain.Companion.get
 import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.Bound.INBOUND
 import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.Bound.OUTBOUND
-import com.beyondxscratch.mandaloreexpress.domain.spaceport.OnEarth
-import com.beyondxscratch.mandaloreexpress.domain.spaceport.OnMoon
+import com.beyondxscratch.mandaloreexpress.domain.spaceport.OnCoruscant
+import com.beyondxscratch.mandaloreexpress.domain.spaceport.OnMandalore
 import com.beyondxscratch.mandaloreexpress.domain.spaceport.SpacePort
 import com.beyondxscratch.mandaloreexpress.domain.spi.Searches
 import com.beyondxscratch.mandaloreexpress.infrastructure.configurations.DomainConfiguration
@@ -37,12 +37,12 @@ import java.time.temporal.ChronoUnit.MINUTES
 class SearchControllerShould(
     @Autowired val mvc: MockMvc,
     @Autowired val searches: Searches,
-    @OnEarth onEarthSpacePort: SpacePort,
-    @OnMoon onMoonSpacePort: SpacePort
+    @OnCoruscant onCoruscantSpacePort: SpacePort,
+    @OnMandalore onMandaloreSpacePort: SpacePort
 ) {
 
-    private val departureSpacePortId = "http://localhost:1865/spaceports/${onEarthSpacePort.id}"
-    private val arrivalSpacePortId = "http://localhost:1865/spaceports/${onMoonSpacePort.id}"
+    private val departureSpacePortId = "http://localhost:1865/spaceports/${onCoruscantSpacePort.id}"
+    private val arrivalSpacePortId = "http://localhost:1865/spaceports/${onMandaloreSpacePort.id}"
     private val outboundDepartureSchedule =
         now().plusDays(5)
             .withHour(10)
@@ -60,7 +60,7 @@ class SearchControllerShould(
         }]
 }
 """
-    private val oneWayCriteriaOnSameAstronomicalBody = """
+    private val oneWayCriteriaOnSamePlanet = """
 {
 	"journeys" : [{
 			"departureSpacePortId" : "$departureSpacePortId",
@@ -191,11 +191,11 @@ class SearchControllerShould(
             post("/searches")
                 .accept(HAL_JSON)
                 .contentType(HAL_JSON)
-                .content(oneWayCriteriaOnSameAstronomicalBody)
+                .content(oneWayCriteriaOnSamePlanet)
         )
             //
             .andExpect(status().isBadRequest)
-            .andExpect(status().reason("Cannot perform a trip departing and arriving on the same AstronomicalBody"))
+            .andExpect(status().reason("Cannot perform a trip departing and arriving on the same Planet"))
     }
 
     @Test

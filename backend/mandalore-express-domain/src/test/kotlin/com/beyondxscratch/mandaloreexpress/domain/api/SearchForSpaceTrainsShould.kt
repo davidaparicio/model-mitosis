@@ -6,7 +6,7 @@ import com.beyondxscratch.mandaloreexpress.domain.Random
 import com.beyondxscratch.mandaloreexpress.domain.search.RoundTrip
 import com.beyondxscratch.mandaloreexpress.domain.search.criteria.Criteria
 import com.beyondxscratch.mandaloreexpress.domain.search.criteria.Journey
-import com.beyondxscratch.mandaloreexpress.domain.spaceport.OnEarth
+import com.beyondxscratch.mandaloreexpress.domain.spaceport.OnCoruscant
 import com.beyondxscratch.mandaloreexpress.domain.spaceport.SpacePort
 import org.junit.jupiter.api.Test
 import java.time.LocalDateTime.now
@@ -25,11 +25,11 @@ interface SearchForSpaceTrainsShould {
     }
 
     @Test
-    fun `throw an error if departure and arrival are on the same AstronomicalBody`(@OnEarth departure: SpacePort, @Random @OnEarth arrival: SpacePort) {
+    fun `throw an error if departure and arrival are on the same Planet`(@OnCoruscant departure: SpacePort, @Random @OnCoruscant arrival: SpacePort) {
         val criteria = Criteria(listOf(Journey(departure.id, now().plusDays(2), arrival.id)))
         assertThatThrownBy { searchForSpaceTrains satisfying criteria }
                 .isInstanceOf(IllegalArgumentException::class.java)
-                .hasMessage("Cannot perform a trip departing and arriving on the same AstronomicalBody")
+                .hasMessage("Cannot perform a trip departing and arriving on the same Planet")
     }
 
 }

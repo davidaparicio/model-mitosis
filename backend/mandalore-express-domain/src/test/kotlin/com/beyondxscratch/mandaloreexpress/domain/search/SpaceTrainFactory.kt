@@ -9,9 +9,9 @@ import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.firstClassFare
 import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.randomFare
 import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.schedule
 import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.secondClassFare
-import com.beyondxscratch.mandaloreexpress.domain.spaceport.AstronomicalBody
-import com.beyondxscratch.mandaloreexpress.domain.spaceport.AstronomicalBody.EARTH
-import com.beyondxscratch.mandaloreexpress.domain.spaceport.AstronomicalBody.MOON
+import com.beyondxscratch.mandaloreexpress.domain.spaceport.Planet
+import com.beyondxscratch.mandaloreexpress.domain.spaceport.Planet.CORUSCANT
+import com.beyondxscratch.mandaloreexpress.domain.spaceport.Planet.MANDALORE
 import com.beyondxscratch.mandaloreexpress.domain.spaceport.spacePort
 import kotlin.random.Random.Default.nextLong
 
@@ -19,8 +19,8 @@ import kotlin.random.Random.Default.nextLong
 fun spaceTrain(): SpaceTrain = SpaceTrain(
         number = "6127",
         bound = OUTBOUND,
-        originId = spacePort(EARTH).id,
-        destinationId = spacePort(MOON).id,
+        originId = spacePort(CORUSCANT).id,
+        destinationId = spacePort(MANDALORE).id,
         schedule = schedule(),
         fares = setOf(fare()))
 
@@ -28,8 +28,8 @@ fun outboundSpaceTrain(): SpaceTrain = spaceTrain()
 fun inboundSpaceTrain(): SpaceTrain = SpaceTrain(
         number = "6235",
         bound = INBOUND,
-        originId = spacePort(MOON).id,
-        destinationId = spacePort(EARTH).id,
+        originId = spacePort(MANDALORE).id,
+        destinationId = spacePort(CORUSCANT).id,
         schedule = schedule(),
         fares = setOf(fare()))
 
@@ -44,7 +44,7 @@ fun spaceTrainsFrom(criteria: Criteria): SpaceTrains {
     return criteria.journeys
             .mapIndexed { journeyIndex, journey ->
                 (1..2).map {
-                    SpaceTrain(number = "${AstronomicalBody.values()[journeyIndex]}$it",
+                    SpaceTrain(number = "${Planet.values()[journeyIndex]}$it",
                             bound = fromJourneyIndex(journeyIndex),
                             originId = journey.departureSpacePortId,
                             destinationId = journey.arrivalSpacePortId,

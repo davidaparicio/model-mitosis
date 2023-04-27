@@ -5,4 +5,4 @@ import kotlin.annotation.AnnotationTarget.VALUE_PARAMETER
 
 @Retention(RUNTIME)
 @Target(VALUE_PARAMETER)
-annotation class OnEarth
+annotation class OnMandalore

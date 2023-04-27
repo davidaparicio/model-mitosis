@@ -2,7 +2,7 @@ package com.beyondxscratch.mandaloreexpress.domain.spaceport
 
 import org.assertj.core.api.Assertions.assertThat
 import com.beyondxscratch.mandaloreexpress.domain.EqualityShould
-import com.beyondxscratch.mandaloreexpress.domain.spaceport.AstronomicalBody.EARTH
+import com.beyondxscratch.mandaloreexpress.domain.spaceport.Planet.CORUSCANT
 import org.junit.jupiter.api.Test
 
 class SpacePortShould : EqualityShould<SpacePort> {
@@ -10,7 +10,7 @@ class SpacePortShould : EqualityShould<SpacePort> {
     private val spacePort = SpacePort(
         id = "fa9f2371-5b13-40a1-bd18-42db3371f073",
         name = "Cape Canaveral Air Force Station",
-        location = EARTH
+        location = CORUSCANT
     )
 
     @Test
@@ -32,13 +32,13 @@ class SpacePortShould : EqualityShould<SpacePort> {
     }
 
     @Test
-    fun `recognize if it is on the same planet than another SpacePort`(@OnEarth anotherSpacePort: SpacePort) {
+    fun `recognize if it is on the same planet than another SpacePort`(@OnCoruscant anotherSpacePort: SpacePort) {
         val areNotOnTheSamePlanet = spacePort `is not on the same planet than` anotherSpacePort
         assertThat(areNotOnTheSamePlanet).isFalse
     }
 
     @Test
-    fun `recognize if it is not on the same planet than another SpacePort`(@OnMoon anotherSpacePort: SpacePort) {
+    fun `recognize if it is not on the same planet than another SpacePort`(@OnMandalore anotherSpacePort: SpacePort) {
         val areNotOnTheSamePlanet = spacePort `is not on the same planet than` anotherSpacePort
         assertThat(areNotOnTheSamePlanet).isTrue
     }

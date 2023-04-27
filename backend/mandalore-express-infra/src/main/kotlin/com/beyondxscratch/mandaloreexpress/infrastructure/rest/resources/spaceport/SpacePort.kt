@@ -1,6 +1,6 @@
 package com.beyondxscratch.mandaloreexpress.infrastructure.rest.resources.spaceport
 
-import com.beyondxscratch.mandaloreexpress.domain.spaceport.AstronomicalBody
+import com.beyondxscratch.mandaloreexpress.domain.spaceport.Planet
 import com.beyondxscratch.mandaloreexpress.infrastructure.rest.controllers.SpacePortsController
 import com.beyondxscratch.mandaloreexpress.infrastructure.rest.resources.Resource
 import org.springframework.hateoas.CollectionModel
@@ -13,7 +13,7 @@ import com.beyondxscratch.mandaloreexpress.domain.spaceport.SpacePort as DomainS
 const val SPACEPORTS: String = "spaceports"
 
 @Resource
-data class SpacePort(private val id: String, val name: String, val location: AstronomicalBody) :
+data class SpacePort(private val id: String, val name: String, val location: Planet) :
     RepresentationModel<SpacePort>()
 
 fun DomainSpacePort.toResource(): SpacePort {

@@ -4,15 +4,15 @@ import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.fare
 import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.randomFare
 import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.randomSchedule
 import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.schedule
-import com.beyondxscratch.mandaloreexpress.domain.spaceport.AstronomicalBody.EARTH
-import com.beyondxscratch.mandaloreexpress.domain.spaceport.AstronomicalBody.MOON
+import com.beyondxscratch.mandaloreexpress.domain.spaceport.Planet.CORUSCANT
+import com.beyondxscratch.mandaloreexpress.domain.spaceport.Planet.MANDALORE
 import com.beyondxscratch.mandaloreexpress.domain.spaceport.spacePort
 import kotlin.random.Random.Default.nextLong
 
 fun spaceTrain(): SpaceTrain = SpaceTrain(
         number = "6127",
-        originId = spacePort(EARTH).id,
-        destinationId = spacePort(MOON).id,
+        originId = spacePort(CORUSCANT).id,
+        destinationId = spacePort(MANDALORE).id,
         schedule = schedule(),
         fare = fare())
 

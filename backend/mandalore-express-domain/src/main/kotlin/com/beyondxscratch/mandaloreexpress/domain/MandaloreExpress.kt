@@ -20,7 +20,7 @@ import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.ComfortClass.SECO
 import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.Fare
 import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.Price
 import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.Schedule
-import com.beyondxscratch.mandaloreexpress.domain.spaceport.AstronomicalBody
+import com.beyondxscratch.mandaloreexpress.domain.spaceport.Planet
 import com.beyondxscratch.mandaloreexpress.domain.spaceport.SpacePort
 import com.beyondxscratch.mandaloreexpress.domain.spi.Bookings
 import com.beyondxscratch.mandaloreexpress.domain.spi.Searches
@@ -55,15 +55,15 @@ class MandaloreExpress(
     override fun satisfying(criteria: Criteria): Search {
 
         val (journeys) = criteria
-        require(journeys.mustNotStayOnTheSameAstronomicalBody()) {
-            "Cannot perform a trip departing and arriving on the same AstronomicalBody"
+        require(journeys.mustNotStayOnTheSamePlanet()) {
+            "Cannot perform a trip departing and arriving on the same Planet"
         }
 
         val spaceTrains = generateSpaceTrains(journeys)
         return searches.save(Search(criteria = criteria, spaceTrains = spaceTrains))
     }
 
-    private fun Journeys.mustNotStayOnTheSameAstronomicalBody() =
+    private fun Journeys.mustNotStayOnTheSamePlanet() =
         none { spacePorts.find(it.departureSpacePortId).location == spacePorts.find(it.arrivalSpacePortId).location }
 
     private fun generateSpaceTrains(journeys: Journeys): SpaceTrains {
@@ -186,8 +186,8 @@ private fun computeDepartureSchedule(
         .plusMinutes(firstDepartureDeltaInMinutes)
         .plusHours(2L * (spaceTrainIndex - 1))
 
-private fun generateSpaceTrainNumber(arrivalLocation: AstronomicalBody, spaceTrainIndex: Int) =
-    "${arrivalLocation}$spaceTrainIndex${(10..99).random()}"
+private fun generateSpaceTrainNumber(arrivalLocation: Planet, spaceTrainIndex: Int) =
+    "${arrivalLocation.name.substring(0, 5)}$spaceTrainIndex${(10..99).random()}"
 
 private fun computeArrival(departureSchedule: LocalDateTime, spaceTrainIndex: Long) =
     departureSchedule

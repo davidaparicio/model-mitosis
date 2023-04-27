@@ -29,7 +29,7 @@ class SpacePortsControllerShould(@Autowired val mvc: MockMvc) {
             .andExpect(status().isOk)
             .andExpect(header().exists("Cache-Control"))
             .andExpect(content().contentType(HAL_JSON_VALUE))
-            .andExpect(jsonPath("$._embedded.spacePorts.length()").value(10))
+            .andExpect(jsonPath("$._embedded.spacePorts.length()").value(7))
             .andExpect(jsonPath("$._links.self.href").value("http://localhost/spaceports{?withNameContaining}"))
             .andExpect(jsonPath("$._links.self.templated").value(true))
 
@@ -37,7 +37,7 @@ class SpacePortsControllerShould(@Autowired val mvc: MockMvc) {
 
     @Test
     fun `list all SpacePorts having a name containing a given string`() {
-        val partialName = "Cosmo"
+        val partialName = "Mos"
         mvc.perform(
             get("/spaceports")
                 .param("withNameContaining", partialName)
@@ -49,8 +49,8 @@ class SpacePortsControllerShould(@Autowired val mvc: MockMvc) {
             .andExpect(
                 jsonPath("$._embedded.spacePorts[*].name").value(
                     containsInAnyOrder(
-                        "Vostochny Cosmodrome",
-                        "Baikonur Cosmodrome"
+                        "Mos Eisley",
+                        "Mos Espa"
                     )
                 )
             )
@@ -61,7 +61,7 @@ class SpacePortsControllerShould(@Autowired val mvc: MockMvc) {
 
     @Test
     fun `give the details of a specific SpacePort`() {
-        val spacePortId = nameUUIDFromBytes("Vostochny".toByteArray()).toString()
+        val spacePortId = nameUUIDFromBytes("Mos Eisley".toByteArray()).toString()
         mvc.perform(
             get("/spaceports/{id}", spacePortId)
         )
@@ -69,8 +69,8 @@ class SpacePortsControllerShould(@Autowired val mvc: MockMvc) {
             .andExpect(status().isOk)
             .andExpect(header().exists("Cache-Control"))
             .andExpect(content().contentType(HAL_JSON_VALUE))
-            .andExpect(jsonPath("$.name").value("Vostochny Cosmodrome"))
-            .andExpect(jsonPath("$.location").value("EARTH"))
+            .andExpect(jsonPath("$.name").value("Mos Eisley"))
+            .andExpect(jsonPath("$.location").value("TATOOINE"))
             .andExpect(jsonPath("$._links.self.href").value("http://localhost/spaceports/$spacePortId"))
     }
 
