@@ -15,7 +15,7 @@ Launch:
 cd backend/mandalore-express-infra
 mvn spring-boot:run
 ```
-or directly run the `ColumbiadExpressApplication.kt` from IntelliJ
+or directly run the `MandaloreExpressApplication.kt` from IntelliJ
 
 ## Frontend
 
