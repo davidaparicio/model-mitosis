@@ -18,26 +18,26 @@ import org.junit.jupiter.api.BeforeEach
 class MandaloreExpressShould(@RoundTrip val search: Search) : RetrieveSpacePortsShould, SearchForSpaceTrainsShould,
     SelectSpaceTrainShould, BookSpaceTrainsShould {
 
-    private val columbiadExpress =
+    private val mandaloreExpress =
         MandaloreExpress(
             InMemorySpacePorts(),
             InMemorySearches(),
             InMemoryBookings()
         )
     override val retrieveSpacePorts: RetrieveSpacePorts
-        get() = columbiadExpress
+        get() = mandaloreExpress
 
     override val searchForSpaceTrains: SearchForSpaceTrains
-        get() = columbiadExpress
+        get() = mandaloreExpress
 
     override val selectSpaceTrain: SelectSpaceTrain
-        get() = columbiadExpress
+        get() = mandaloreExpress
 
     override val bookSpaceTrains: BookSpaceTrains
-        get() = columbiadExpress
+        get() = mandaloreExpress
 
     @BeforeEach
     fun setUp() {
-        columbiadExpress.searches.save(search)
+        mandaloreExpress.searches.save(search)
     }
 }
