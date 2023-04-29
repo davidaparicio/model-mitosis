@@ -17,7 +17,6 @@ class MandaloreExpressController {
     fun root(): MandaloreExpress {
         return MandaloreExpress()
                 .add(linkTo(SearchController::class.java).withRel("searches"))
-                .add(linkTo(BookingController::class.java).withRel("bookings"))
                 .add(MandaloreExpressController::class) {
                     linkTo { root() } withRel SELF
                 }

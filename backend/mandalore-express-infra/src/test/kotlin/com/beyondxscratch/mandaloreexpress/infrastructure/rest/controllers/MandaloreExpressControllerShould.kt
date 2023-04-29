@@ -25,7 +25,6 @@ class MandaloreExpressControllerShould(@Autowired val mvc: MockMvc) {
                 .andExpect(jsonPath("$._links.spaceports.href").value("$rootLocation/spaceports{?withNameContaining}"))
                 .andExpect(jsonPath("$._links.spaceports.templated").value(true))
                 .andExpect(jsonPath("$._links.searches.href").value("$rootLocation/searches"))
-                .andExpect(jsonPath("$._links.bookings.href").value("$rootLocation/bookings"))
                 .andDo(print())
     }
 }

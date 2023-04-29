@@ -5,6 +5,8 @@ import com.beyondxscratch.mandaloreexpress.infrastructure.rest.resources.spacepo
 import com.beyondxscratch.mandaloreexpress.infrastructure.rest.resources.spaceport.SpacePorts
 import com.beyondxscratch.mandaloreexpress.infrastructure.rest.resources.spaceport.asResourcesFor
 import com.beyondxscratch.mandaloreexpress.infrastructure.rest.resources.spaceport.toResource
+import jakarta.servlet.http.HttpServletResponse
+import jakarta.servlet.http.HttpServletResponse.SC_NOT_FOUND
 import org.springframework.http.CacheControl
 import org.springframework.http.ResponseEntity
 import org.springframework.http.ResponseEntity.ok
@@ -15,8 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 import java.util.concurrent.TimeUnit.MINUTES
-import jakarta.servlet.http.HttpServletResponse
-import jakarta.servlet.http.HttpServletResponse.SC_NOT_FOUND
 
 @RestController
 @RequestMapping("/spaceports")

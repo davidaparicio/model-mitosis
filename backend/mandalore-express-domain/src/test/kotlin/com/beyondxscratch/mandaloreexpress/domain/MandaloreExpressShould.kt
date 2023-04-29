@@ -4,6 +4,8 @@ import com.beyondxscratch.mandaloreexpress.domain.api.RetrieveSpacePorts
 import com.beyondxscratch.mandaloreexpress.domain.api.RetrieveSpacePortsShould
 import com.beyondxscratch.mandaloreexpress.domain.api.SearchForSpaceTrains
 import com.beyondxscratch.mandaloreexpress.domain.api.SearchForSpaceTrainsShould
+import com.beyondxscratch.mandaloreexpress.domain.RoundTrip
+import com.beyondxscratch.mandaloreexpress.domain.Search
 import com.beyondxscratch.mandaloreexpress.domain.stubs.InMemorySearches
 import com.beyondxscratch.mandaloreexpress.domain.stubs.InMemorySpacePorts
 import org.junit.jupiter.api.BeforeEach
