@@ -1,8 +1,10 @@
-package com.beyondxscratch.mandaloreexpress.domain.spaceport
+package com.beyondxscratch.mandaloreexpress.domain.search.spaceport
 
 import org.assertj.core.api.Assertions.assertThat
 import com.beyondxscratch.mandaloreexpress.domain.EqualityShould
-import com.beyondxscratch.mandaloreexpress.domain.spaceport.Planet.CORUSCANT
+import com.beyondxscratch.mandaloreexpress.domain.search.spaceport.Planet.CORUSCANT
+import com.beyondxscratch.mandaloreexpress.domain.search.spaceport.SpacePort
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
 class SpacePortShould : EqualityShould<SpacePort> {

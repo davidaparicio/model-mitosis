@@ -20,9 +20,9 @@ import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.ComfortClass.SECO
 import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.Fare
 import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.Price
 import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.Schedule
-import com.beyondxscratch.mandaloreexpress.domain.spaceport.Planet
-import com.beyondxscratch.mandaloreexpress.domain.spaceport.SpacePort
 import com.beyondxscratch.mandaloreexpress.domain.spi.Bookings
+import com.beyondxscratch.mandaloreexpress.domain.search.spaceport.Planet
+import com.beyondxscratch.mandaloreexpress.domain.search.spaceport.SpacePort
 import com.beyondxscratch.mandaloreexpress.domain.spi.Searches
 import com.beyondxscratch.mandaloreexpress.domain.spi.SpacePorts
 import java.math.BigDecimal

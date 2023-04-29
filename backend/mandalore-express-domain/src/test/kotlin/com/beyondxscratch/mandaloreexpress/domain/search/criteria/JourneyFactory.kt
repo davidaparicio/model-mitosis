@@ -1,9 +1,9 @@
 package com.beyondxscratch.mandaloreexpress.domain.search.criteria
 
-import com.beyondxscratch.mandaloreexpress.domain.spaceport.Planet.CORUSCANT
-import com.beyondxscratch.mandaloreexpress.domain.spaceport.Planet.MANDALORE
-import com.beyondxscratch.mandaloreexpress.domain.spaceport.Planet.values
-import com.beyondxscratch.mandaloreexpress.domain.spaceport.spacePort
+import com.beyondxscratch.mandaloreexpress.domain.search.spaceport.Planet.CORUSCANT
+import com.beyondxscratch.mandaloreexpress.domain.search.spaceport.Planet.MANDALORE
+import com.beyondxscratch.mandaloreexpress.domain.search.spaceport.Planet.values
+import com.beyondxscratch.mandaloreexpress.domain.search.spaceport.spacePort
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalDateTime.now

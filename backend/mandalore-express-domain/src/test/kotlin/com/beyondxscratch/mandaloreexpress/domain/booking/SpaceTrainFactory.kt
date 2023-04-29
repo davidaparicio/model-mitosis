@@ -4,9 +4,9 @@ import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.fare
 import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.randomFare
 import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.randomSchedule
 import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.schedule
-import com.beyondxscratch.mandaloreexpress.domain.spaceport.Planet.CORUSCANT
-import com.beyondxscratch.mandaloreexpress.domain.spaceport.Planet.MANDALORE
-import com.beyondxscratch.mandaloreexpress.domain.spaceport.spacePort
+import com.beyondxscratch.mandaloreexpress.domain.search.spaceport.Planet.CORUSCANT
+import com.beyondxscratch.mandaloreexpress.domain.search.spaceport.Planet.MANDALORE
+import com.beyondxscratch.mandaloreexpress.domain.search.spaceport.spacePort
 import kotlin.random.Random.Default.nextLong
 
 fun spaceTrain(): SpaceTrain = SpaceTrain(

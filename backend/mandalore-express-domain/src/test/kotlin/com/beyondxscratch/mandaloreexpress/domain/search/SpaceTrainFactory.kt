@@ -1,6 +1,10 @@
 package com.beyondxscratch.mandaloreexpress.domain.search
 
 import com.beyondxscratch.mandaloreexpress.domain.search.criteria.Criteria
+import com.beyondxscratch.mandaloreexpress.domain.search.spaceport.Planet
+import com.beyondxscratch.mandaloreexpress.domain.search.spaceport.Planet.CORUSCANT
+import com.beyondxscratch.mandaloreexpress.domain.search.spaceport.Planet.MANDALORE
+import com.beyondxscratch.mandaloreexpress.domain.search.spaceport.spacePort
 import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.Bound.Companion.fromJourneyIndex
 import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.Bound.INBOUND
 import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.Bound.OUTBOUND
@@ -9,10 +13,6 @@ import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.firstClassFare
 import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.randomFare
 import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.schedule
 import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.secondClassFare
-import com.beyondxscratch.mandaloreexpress.domain.spaceport.Planet
-import com.beyondxscratch.mandaloreexpress.domain.spaceport.Planet.CORUSCANT
-import com.beyondxscratch.mandaloreexpress.domain.spaceport.Planet.MANDALORE
-import com.beyondxscratch.mandaloreexpress.domain.spaceport.spacePort
 import kotlin.random.Random.Default.nextLong
 
 

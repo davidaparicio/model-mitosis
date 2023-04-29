@@ -1,4 +1,4 @@
-package com.beyondxscratch.mandaloreexpress.domain.spaceport
+package com.beyondxscratch.mandaloreexpress.domain.search.spaceport
 
 import kotlin.annotation.AnnotationRetention.RUNTIME
 import kotlin.annotation.AnnotationTarget.VALUE_PARAMETER

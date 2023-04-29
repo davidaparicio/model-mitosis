@@ -1,6 +1,6 @@
 package com.beyondxscratch.mandaloreexpress.domain.api
 
-import com.beyondxscratch.mandaloreexpress.domain.spaceport.SpacePort
+import com.beyondxscratch.mandaloreexpress.domain.search.spaceport.SpacePort
 import com.beyondxscratch.mandaloreexpress.domain.spi.SpacePorts
 
 

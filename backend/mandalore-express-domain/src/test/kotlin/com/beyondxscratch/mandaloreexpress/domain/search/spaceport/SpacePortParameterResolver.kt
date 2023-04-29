@@ -1,9 +1,10 @@
-package com.beyondxscratch.mandaloreexpress.domain.spaceport
+package com.beyondxscratch.mandaloreexpress.domain.search.spaceport
 
 import com.beyondxscratch.TypedParameterResolver
 import com.beyondxscratch.mandaloreexpress.domain.Random
-import com.beyondxscratch.mandaloreexpress.domain.spaceport.Planet.CORUSCANT
-import com.beyondxscratch.mandaloreexpress.domain.spaceport.Planet.MANDALORE
+import com.beyondxscratch.mandaloreexpress.domain.search.spaceport.Planet.CORUSCANT
+import com.beyondxscratch.mandaloreexpress.domain.search.spaceport.Planet.MANDALORE
+import com.beyondxscratch.mandaloreexpress.domain.search.spaceport.SpacePort
 
 class SpacePortParameterResolver : TypedParameterResolver<SpacePort>({ parameterContext, _ ->
     when {

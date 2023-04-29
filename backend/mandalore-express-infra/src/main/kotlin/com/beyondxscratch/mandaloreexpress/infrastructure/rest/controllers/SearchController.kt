@@ -8,7 +8,7 @@ import com.beyondxscratch.mandaloreexpress.domain.api.`in search`
 import com.beyondxscratch.mandaloreexpress.domain.api.`with the fare`
 import com.beyondxscratch.mandaloreexpress.domain.search.SpaceTrain.Companion.get
 import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.Bound
-import com.beyondxscratch.mandaloreexpress.domain.spaceport.SpacePort
+import com.beyondxscratch.mandaloreexpress.domain.search.spaceport.SpacePort
 import com.beyondxscratch.mandaloreexpress.domain.spi.Searches
 import com.beyondxscratch.mandaloreexpress.infrastructure.rest.resources.Fare
 import com.beyondxscratch.mandaloreexpress.infrastructure.rest.resources.Fares

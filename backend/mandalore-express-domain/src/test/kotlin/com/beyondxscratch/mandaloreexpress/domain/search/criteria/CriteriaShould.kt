@@ -1,11 +1,11 @@
 package com.beyondxscratch.mandaloreexpress.domain.search.criteria
 
+import com.beyondxscratch.mandaloreexpress.domain.EqualityShould
+import com.beyondxscratch.mandaloreexpress.domain.search.spaceport.OnCoruscant
+import com.beyondxscratch.mandaloreexpress.domain.search.spaceport.OnMandalore
+import com.beyondxscratch.mandaloreexpress.domain.search.spaceport.SpacePort
 import org.assertj.core.api.Assertions.assertThatCode
 import org.assertj.core.api.Assertions.assertThatThrownBy
-import com.beyondxscratch.mandaloreexpress.domain.EqualityShould
-import com.beyondxscratch.mandaloreexpress.domain.spaceport.OnCoruscant
-import com.beyondxscratch.mandaloreexpress.domain.spaceport.OnMandalore
-import com.beyondxscratch.mandaloreexpress.domain.spaceport.SpacePort
 import org.junit.jupiter.api.Test
 import java.time.LocalDateTime.now
 
@@ -44,7 +44,10 @@ class CriteriaShould(private val journey: Journey) : EqualityShould<Criteria> {
     }
 
     @Test
-    fun `have only connected journeys`(@OnCoruscant spacePortOnCoruscant: SpacePort, @OnMandalore spacePortOnMoon: SpacePort) {
+    fun `have only connected journeys`(
+        @OnCoruscant spacePortOnCoruscant: SpacePort,
+        @OnMandalore spacePortOnMoon: SpacePort
+    ) {
         val journeys =
             listOf(
                 Journey(spacePortOnCoruscant.id, now().plusDays(1), spacePortOnMoon.id),
