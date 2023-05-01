@@ -144,6 +144,7 @@ class MandaloreExpress(
     }
 
     override fun `from the selection of`(search: Search): Booking {
+        //TODO: make it more readable
         when {
 
             !search.isSelectionComplete() -> {
@@ -166,7 +167,8 @@ class MandaloreExpress(
                                 spaceTrain.originId,
                                 spaceTrain.destinationId,
                                 spaceTrain.schedule,
-                                setOf(fare)
+                                setOf(fare),
+                                spaceTrain.compatibleSpaceTrains
                             )
                         }
                 return bookings.save(Booking(spaceTrains = spaceTrains))

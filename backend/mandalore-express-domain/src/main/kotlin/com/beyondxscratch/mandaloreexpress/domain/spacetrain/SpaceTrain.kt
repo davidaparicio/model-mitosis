@@ -11,7 +11,6 @@ data class SpaceTrain(
     val fares: Fares,
     val compatibleSpaceTrains: Set<String> = emptySet()
 ) {
-
     init {
         require(fares.isNotEmpty()) {
             "SpaceTrain must have at least one fare"
@@ -30,5 +29,6 @@ data class SpaceTrain(
 
 }
 typealias SpaceTrains = List<SpaceTrain>
+
 
 
