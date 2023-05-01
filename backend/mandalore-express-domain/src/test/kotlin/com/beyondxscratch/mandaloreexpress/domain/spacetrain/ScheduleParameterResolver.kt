@@ -1,4 +1,4 @@
-package com.beyondxscratch.mandaloreexpress.domain
+package com.beyondxscratch.mandaloreexpress.domain.spacetrain
 
 import com.beyondxscratch.TypedParameterResolver
 import com.beyondxscratch.mandaloreexpress.domain.Random

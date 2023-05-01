@@ -1,4 +1,4 @@
-package com.beyondxscratch.mandaloreexpress.domain
+package com.beyondxscratch.mandaloreexpress.domain.spacetrain
 
 import com.beyondxscratch.mandaloreexpress.domain.EqualityShould
 import org.assertj.core.api.Assertions.assertThat

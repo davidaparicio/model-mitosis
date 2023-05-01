@@ -1,8 +1,6 @@
 package com.beyondxscratch.mandaloreexpress.domain.criteria
 
-import com.beyondxscratch.mandaloreexpress.domain.Criteria
 import com.beyondxscratch.mandaloreexpress.domain.EqualityShould
-import com.beyondxscratch.mandaloreexpress.domain.Journey
 import com.beyondxscratch.mandaloreexpress.domain.spaceport.OnCoruscant
 import com.beyondxscratch.mandaloreexpress.domain.spaceport.OnMandalore
 import com.beyondxscratch.mandaloreexpress.domain.spaceport.SpacePort

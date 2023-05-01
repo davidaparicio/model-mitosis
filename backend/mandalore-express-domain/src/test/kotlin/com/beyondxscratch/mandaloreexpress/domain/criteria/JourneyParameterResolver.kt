@@ -1,12 +1,10 @@
 package com.beyondxscratch.mandaloreexpress.domain.criteria
 
 import com.beyondxscratch.TypedParameterResolver
-import com.beyondxscratch.mandaloreexpress.domain.Inbound
-import com.beyondxscratch.mandaloreexpress.domain.Journey
-import com.beyondxscratch.mandaloreexpress.domain.Journeys
-import com.beyondxscratch.mandaloreexpress.domain.Outbound
 import com.beyondxscratch.mandaloreexpress.domain.Random
 import com.beyondxscratch.mandaloreexpress.domain.RoundTrip
+import com.beyondxscratch.mandaloreexpress.domain.spacetrain.Inbound
+import com.beyondxscratch.mandaloreexpress.domain.spacetrain.Outbound
 
 class JourneyParameterResolver : TypedParameterResolver<Journey>({ parameterContext, _ ->
     when {

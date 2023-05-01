@@ -1,6 +1,11 @@
 package com.beyondxscratch.mandaloreexpress.domain
 
-import com.beyondxscratch.mandaloreexpress.domain.Bound.values
+import com.beyondxscratch.mandaloreexpress.domain.criteria.Criteria
+import com.beyondxscratch.mandaloreexpress.domain.criteria.Journeys
+import com.beyondxscratch.mandaloreexpress.domain.spacetrain.Bound
+import com.beyondxscratch.mandaloreexpress.domain.spacetrain.Bound.values
+import com.beyondxscratch.mandaloreexpress.domain.spacetrain.SpaceTrain
+import com.beyondxscratch.mandaloreexpress.domain.spacetrain.SpaceTrains
 import java.util.UUID
 import java.util.UUID.randomUUID
 

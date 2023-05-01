@@ -1,5 +1,10 @@
 package com.beyondxscratch.mandaloreexpress.domain
 
+import com.beyondxscratch.mandaloreexpress.domain.criteria.Criteria
+import com.beyondxscratch.mandaloreexpress.domain.criteria.Journey
+import com.beyondxscratch.mandaloreexpress.domain.spacetrain.Inbound
+import com.beyondxscratch.mandaloreexpress.domain.spacetrain.Outbound
+import com.beyondxscratch.mandaloreexpress.domain.spacetrain.SpaceTrain
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatCode
 import org.assertj.core.api.Assertions.assertThatThrownBy

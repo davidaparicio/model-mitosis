@@ -1,7 +1,6 @@
 package com.beyondxscratch.mandaloreexpress.domain.criteria
 
 import com.beyondxscratch.TypedParameterResolver
-import com.beyondxscratch.mandaloreexpress.domain.Criteria
 import com.beyondxscratch.mandaloreexpress.domain.Random
 import com.beyondxscratch.mandaloreexpress.domain.RoundTrip
 

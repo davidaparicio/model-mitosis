@@ -1,4 +1,4 @@
-package com.beyondxscratch.mandaloreexpress.domain
+package com.beyondxscratch.mandaloreexpress.domain.spacetrain
 
 import java.time.LocalDateTime.now
 import kotlin.random.Random

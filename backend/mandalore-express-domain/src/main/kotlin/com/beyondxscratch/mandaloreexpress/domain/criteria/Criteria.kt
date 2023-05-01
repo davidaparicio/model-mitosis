@@ -1,4 +1,4 @@
-package com.beyondxscratch.mandaloreexpress.domain
+package com.beyondxscratch.mandaloreexpress.domain.criteria
 
 import java.time.LocalDateTime
 

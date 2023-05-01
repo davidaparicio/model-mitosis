@@ -1,6 +1,6 @@
 package com.beyondxscratch.mandaloreexpress.infrastructure.rest.resources.search
 
-import com.beyondxscratch.mandaloreexpress.domain.Bound
+import com.beyondxscratch.mandaloreexpress.domain.spacetrain.Bound
 import com.beyondxscratch.mandaloreexpress.infrastructure.rest.resources.Resource
 import org.springframework.hateoas.RepresentationModel
 import java.time.Duration

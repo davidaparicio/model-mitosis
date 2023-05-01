@@ -1,6 +1,5 @@
 package com.beyondxscratch.mandaloreexpress.domain.criteria
 
-import com.beyondxscratch.mandaloreexpress.domain.Journey
 import com.beyondxscratch.mandaloreexpress.domain.spaceport.Planet.CORUSCANT
 import com.beyondxscratch.mandaloreexpress.domain.spaceport.Planet.MANDALORE
 import com.beyondxscratch.mandaloreexpress.domain.spaceport.Planet.values

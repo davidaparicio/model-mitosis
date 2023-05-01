@@ -1,7 +1,6 @@
-package com.beyondxscratch.mandaloreexpress.domain
+package com.beyondxscratch.mandaloreexpress.domain.criteria
 
 import java.time.LocalDateTime
-import java.time.LocalDateTime.now
 
 data class Journey(
     val departureSpacePortId: String,
@@ -9,7 +8,7 @@ data class Journey(
     val arrivalSpacePortId: String
 ) {
     init {
-        require(departureSchedule.isAfter(now()))
+        require(departureSchedule.isAfter(LocalDateTime.now()))
         { "Cannot create a Journey with a departure scheduled in the past" }
     }
 

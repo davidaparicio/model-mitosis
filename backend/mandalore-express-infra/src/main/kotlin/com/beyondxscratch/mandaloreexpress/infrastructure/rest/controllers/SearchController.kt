@@ -1,8 +1,8 @@
 package com.beyondxscratch.mandaloreexpress.infrastructure.rest.controllers
 
-import com.beyondxscratch.mandaloreexpress.domain.Bound
-import com.beyondxscratch.mandaloreexpress.domain.SpaceTrain.Companion.get
 import com.beyondxscratch.mandaloreexpress.domain.api.SearchForSpaceTrains
+import com.beyondxscratch.mandaloreexpress.domain.spacetrain.Bound
+import com.beyondxscratch.mandaloreexpress.domain.spacetrain.SpaceTrain.Companion.get
 import com.beyondxscratch.mandaloreexpress.domain.spi.Searches
 import com.beyondxscratch.mandaloreexpress.infrastructure.rest.resources.search.*
 import com.beyondxscratch.mandaloreexpress.infrastructure.rest.resources.search.Search
@@ -29,11 +29,11 @@ import org.springframework.web.server.ResponseStatusException
 import java.time.LocalDateTime.parse
 import java.util.Locale
 import java.util.UUID
-import com.beyondxscratch.mandaloreexpress.domain.Criteria as DomainCriteria
-import com.beyondxscratch.mandaloreexpress.domain.Journey as DomainJourney
 import com.beyondxscratch.mandaloreexpress.domain.Search as DomainSearch
-import com.beyondxscratch.mandaloreexpress.domain.SpaceTrain as DomainSpaceTrain
-import com.beyondxscratch.mandaloreexpress.domain.SpaceTrains as DomainSpaceTrains
+import com.beyondxscratch.mandaloreexpress.domain.criteria.Criteria as DomainCriteria
+import com.beyondxscratch.mandaloreexpress.domain.criteria.Journey as DomainJourney
+import com.beyondxscratch.mandaloreexpress.domain.spacetrain.SpaceTrain as DomainSpaceTrain
+import com.beyondxscratch.mandaloreexpress.domain.spacetrain.SpaceTrains as DomainSpaceTrains
 
 
 @RestController
