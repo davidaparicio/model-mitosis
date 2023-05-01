@@ -1,13 +1,13 @@
 package com.beyondxscratch.mandaloreexpress.infrastructure.rest.resources.spaceport
 
-import com.beyondxscratch.mandaloreexpress.domain.search.spaceport.Planet
+import com.beyondxscratch.mandaloreexpress.domain.spaceport.Planet
 import com.beyondxscratch.mandaloreexpress.infrastructure.rest.controllers.SpacePortsController
 import com.beyondxscratch.mandaloreexpress.infrastructure.rest.resources.Resource
 import org.springframework.hateoas.CollectionModel
 import org.springframework.hateoas.IanaLinkRelations.SELF
 import org.springframework.hateoas.RepresentationModel
 import org.springframework.hateoas.server.mvc.add
-import com.beyondxscratch.mandaloreexpress.domain.search.spaceport.SpacePort as DomainSpacePort
+import com.beyondxscratch.mandaloreexpress.domain.spaceport.SpacePort as DomainSpacePort
 
 
 const val SPACEPORTS: String = "spaceports"

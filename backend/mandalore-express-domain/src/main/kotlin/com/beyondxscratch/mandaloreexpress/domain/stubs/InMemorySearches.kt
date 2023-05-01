@@ -1,6 +1,6 @@
 package com.beyondxscratch.mandaloreexpress.domain.stubs
 
-import com.beyondxscratch.mandaloreexpress.domain.search.Search
+import com.beyondxscratch.mandaloreexpress.domain.Search
 import com.beyondxscratch.mandaloreexpress.domain.spi.Searches
 import java.util.UUID
 

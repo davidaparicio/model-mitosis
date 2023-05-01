@@ -1,13 +1,11 @@
 package com.beyondxscratch.mandaloreexpress.domain.api
 
-import org.assertj.core.api.Assertions.assertThat
-import org.assertj.core.api.Assertions.assertThatThrownBy
+import com.beyondxscratch.mandaloreexpress.domain.Criteria
+import com.beyondxscratch.mandaloreexpress.domain.Journey
 import com.beyondxscratch.mandaloreexpress.domain.Random
-import com.beyondxscratch.mandaloreexpress.domain.search.RoundTrip
-import com.beyondxscratch.mandaloreexpress.domain.search.criteria.Criteria
-import com.beyondxscratch.mandaloreexpress.domain.search.criteria.Journey
-import com.beyondxscratch.mandaloreexpress.domain.search.spaceport.OnCoruscant
-import com.beyondxscratch.mandaloreexpress.domain.search.spaceport.SpacePort
+import com.beyondxscratch.mandaloreexpress.domain.RoundTrip
+import com.beyondxscratch.mandaloreexpress.domain.spaceport.OnCoruscant
+import com.beyondxscratch.mandaloreexpress.domain.spaceport.SpacePort
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.junit.jupiter.api.Test
@@ -27,11 +25,14 @@ interface SearchForSpaceTrainsShould {
     }
 
     @Test
-    fun `throw an error if departure and arrival are on the same Planet`(@OnCoruscant departure: SpacePort, @Random @OnCoruscant arrival: SpacePort) {
+    fun `throw an error if departure and arrival are on the same Planet`(
+        @OnCoruscant departure: SpacePort,
+        @Random @OnCoruscant arrival: SpacePort
+    ) {
         val criteria = Criteria(listOf(Journey(departure.id, now().plusDays(2), arrival.id)))
         assertThatThrownBy { searchForSpaceTrains satisfying criteria }
-                .isInstanceOf(IllegalArgumentException::class.java)
-                .hasMessage("Cannot perform a trip departing and arriving on the same Planet")
+            .isInstanceOf(IllegalArgumentException::class.java)
+            .hasMessage("Cannot perform a trip departing and arriving on the same Planet")
     }
 
 }
