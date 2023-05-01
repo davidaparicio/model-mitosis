@@ -6,9 +6,9 @@ import com.beyondxscratch.mandaloreexpress.domain.api.SelectSpaceTrain
 import com.beyondxscratch.mandaloreexpress.domain.api.`by resetting the selection`
 import com.beyondxscratch.mandaloreexpress.domain.api.`in search`
 import com.beyondxscratch.mandaloreexpress.domain.api.`with the fare`
-import com.beyondxscratch.mandaloreexpress.domain.search.SpaceTrain.Companion.get
+import com.beyondxscratch.mandaloreexpress.domain.SpaceTrain.Companion.get
 import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.Bound
-import com.beyondxscratch.mandaloreexpress.domain.search.spaceport.SpacePort
+import com.beyondxscratch.mandaloreexpress.domain.spaceport.SpacePort
 import com.beyondxscratch.mandaloreexpress.domain.spi.Searches
 import com.beyondxscratch.mandaloreexpress.infrastructure.rest.resources.Fare
 import com.beyondxscratch.mandaloreexpress.infrastructure.rest.resources.Fares
@@ -41,11 +41,11 @@ import java.net.URI
 import java.time.LocalDateTime.parse
 import java.util.Locale
 import java.util.UUID
-import com.beyondxscratch.mandaloreexpress.domain.search.Search as DomainSearch
-import com.beyondxscratch.mandaloreexpress.domain.search.SpaceTrain as DomainSpaceTrain
-import com.beyondxscratch.mandaloreexpress.domain.search.SpaceTrains as DomainSpaceTrains
-import com.beyondxscratch.mandaloreexpress.domain.search.criteria.Criteria as DomainCriteria
-import com.beyondxscratch.mandaloreexpress.domain.search.criteria.Journey as DomainJourney
+import com.beyondxscratch.mandaloreexpress.domain.Search as DomainSearch
+import com.beyondxscratch.mandaloreexpress.domain.SpaceTrain as DomainSpaceTrain
+import com.beyondxscratch.mandaloreexpress.domain.SpaceTrains as DomainSpaceTrains
+import com.beyondxscratch.mandaloreexpress.domain.criteria.Criteria as DomainCriteria
+import com.beyondxscratch.mandaloreexpress.domain.criteria.Journey as DomainJourney
 import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.Fare as DomainFare
 import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.Fares as DomainFares
 

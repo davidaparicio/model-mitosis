@@ -1,6 +1,6 @@
 package com.beyondxscratch.mandaloreexpress.domain.api
 
-import com.beyondxscratch.mandaloreexpress.domain.search.Search
+import com.beyondxscratch.mandaloreexpress.domain.Search
 import java.util.UUID
 
 interface SelectSpaceTrain {

@@ -2,9 +2,9 @@ package com.beyondxscratch.mandaloreexpress.infrastructure.rest.resources.search
 
 import com.beyondxscratch.mandaloreexpress.infrastructure.rest.resources.Resource
 import java.net.URI
-import com.beyondxscratch.mandaloreexpress.domain.search.criteria.Criteria as DomainCriteria
-import com.beyondxscratch.mandaloreexpress.domain.search.criteria.Journey as DomainJourney
-import com.beyondxscratch.mandaloreexpress.domain.search.criteria.Journeys as DomainJourneys
+import com.beyondxscratch.mandaloreexpress.domain.criteria.Criteria as DomainCriteria
+import com.beyondxscratch.mandaloreexpress.domain.criteria.Journey as DomainJourney
+import com.beyondxscratch.mandaloreexpress.domain.criteria.Journeys as DomainJourneys
 
 @Resource
 data class Criteria(val journeys: Journeys)

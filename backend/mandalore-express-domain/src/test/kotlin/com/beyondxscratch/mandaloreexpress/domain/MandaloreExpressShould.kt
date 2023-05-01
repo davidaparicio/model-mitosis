@@ -8,8 +8,6 @@ import com.beyondxscratch.mandaloreexpress.domain.api.SearchForSpaceTrains
 import com.beyondxscratch.mandaloreexpress.domain.api.SearchForSpaceTrainsShould
 import com.beyondxscratch.mandaloreexpress.domain.api.SelectSpaceTrain
 import com.beyondxscratch.mandaloreexpress.domain.api.SelectSpaceTrainShould
-import com.beyondxscratch.mandaloreexpress.domain.search.RoundTrip
-import com.beyondxscratch.mandaloreexpress.domain.search.Search
 import com.beyondxscratch.mandaloreexpress.domain.stubs.InMemoryBookings
 import com.beyondxscratch.mandaloreexpress.domain.stubs.InMemorySearches
 import com.beyondxscratch.mandaloreexpress.domain.stubs.InMemorySpacePorts

@@ -1,13 +1,13 @@
 package com.beyondxscratch.mandaloreexpress.domain.api
 
+import com.beyondxscratch.mandaloreexpress.domain.CannotBookAPartialSelection
+import com.beyondxscratch.mandaloreexpress.domain.OneWay
+import com.beyondxscratch.mandaloreexpress.domain.RoundTrip
+import com.beyondxscratch.mandaloreexpress.domain.Search
+import com.beyondxscratch.mandaloreexpress.domain.selectAnInboundSpaceTrain
+import com.beyondxscratch.mandaloreexpress.domain.selectAnOutboundSpaceTrain
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatThrownBy
-import com.beyondxscratch.mandaloreexpress.domain.CannotBookAPartialSelection
-import com.beyondxscratch.mandaloreexpress.domain.search.OneWay
-import com.beyondxscratch.mandaloreexpress.domain.search.RoundTrip
-import com.beyondxscratch.mandaloreexpress.domain.search.Search
-import com.beyondxscratch.mandaloreexpress.domain.search.selectAnInboundSpaceTrain
-import com.beyondxscratch.mandaloreexpress.domain.search.selectAnOutboundSpaceTrain
 import org.junit.jupiter.api.Test
 
 interface BookSpaceTrainsShould {

@@ -1,10 +1,10 @@
 package com.beyondxscratch.mandaloreexpress.domain.stubs
 
-import com.beyondxscratch.mandaloreexpress.domain.search.spaceport.Planet.CORUSCANT
-import com.beyondxscratch.mandaloreexpress.domain.search.spaceport.Planet.MANDALORE
-import com.beyondxscratch.mandaloreexpress.domain.search.spaceport.Planet.NEVARRO
-import com.beyondxscratch.mandaloreexpress.domain.search.spaceport.Planet.TATOOINE
-import com.beyondxscratch.mandaloreexpress.domain.search.spaceport.SpacePort
+import com.beyondxscratch.mandaloreexpress.domain.spaceport.Planet.CORUSCANT
+import com.beyondxscratch.mandaloreexpress.domain.spaceport.Planet.MANDALORE
+import com.beyondxscratch.mandaloreexpress.domain.spaceport.Planet.NEVARRO
+import com.beyondxscratch.mandaloreexpress.domain.spaceport.Planet.TATOOINE
+import com.beyondxscratch.mandaloreexpress.domain.spaceport.SpacePort
 import com.beyondxscratch.mandaloreexpress.domain.spi.SpacePorts
 import java.util.UUID.nameUUIDFromBytes
 
