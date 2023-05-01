@@ -61,6 +61,51 @@ class MandaloreExpress(
         return searches.save(Search(criteria = criteria, spaceTrains = spaceTrains))
     }
 
+    override fun selectFareOfSpaceTrainInSearch(
+        spaceTrainNumber: String,
+        fareId: UUID,
+        searchId: UUID,
+        resetSelection: Boolean
+    ): Search {
+        val search = searches `find search identified by` searchId
+            ?: throw NoSuchElementException("unknown search id $searchId")
+        val searchWithSelection = search.selectSpaceTrainWithFare(spaceTrainNumber, fareId, resetSelection)
+        return searches.save(searchWithSelection)
+    }
+
+    override fun `from the selection of`(search: Search): Booking {
+        return when {
+            !search.isSelectionComplete() -> throw CannotBookAPartialSelection()
+            else -> createBookingFrom(search)
+        }
+
+    }
+
+    private fun createBookingFrom(search: Search): Booking {
+        val spaceTrainsToBook = search.getSelectedSpaceTrainsSortedByBound()
+            .map { selectedSpaceTrain ->
+                val (spaceTrain, fareId) = selectedSpaceTrain
+                val fare = spaceTrain.getFare(fareId)
+
+                return@map SpaceTrain(
+                    spaceTrain.number,
+                    spaceTrain.bound,
+                    spaceTrain.originId,
+                    spaceTrain.destinationId,
+                    spaceTrain.schedule,
+                    setOf(fare),
+                    spaceTrain.compatibleSpaceTrains
+                )
+            }
+        return bookings.save(Booking(spaceTrains = spaceTrainsToBook))
+    }
+
+
+    private fun SpaceTrain.getFare(fareId: UUID) = this.fares.first { it.id == fareId }
+    private fun Search.getSelectedSpaceTrainsSortedByBound() =
+        this.selection.spaceTrainsByBound.sortedBy { it.key.ordinal }
+            .map { Pair(this.getSpaceTrainWithNumber(it.value.spaceTrainNumber), it.value.fareId) }
+
     private fun Journeys.mustNotStayOnTheSamePlanet() =
         none { spacePorts.find(it.departureSpacePortId).location == spacePorts.find(it.arrivalSpacePortId).location }
 
@@ -122,7 +167,8 @@ class MandaloreExpress(
                 spaceTrainIndex
             ),
             bound = bound,
-            schedule = Schedule(departure,
+            schedule = Schedule(
+                departure,
                 computeArrival(departure, spaceTrainIndex.toLong())
             ),
             destinationId = journey.arrivalSpacePortId,
@@ -131,79 +177,34 @@ class MandaloreExpress(
         )
     }
 
-    override fun selectFareOfSpaceTrainInSearch(
-        spaceTrainNumber: String,
-        fareId: UUID,
-        searchId: UUID,
-        resetSelection: Boolean
-    ): Search {
-        val search = searches `find search identified by` searchId
-            ?: throw NoSuchElementException("unknown search id $searchId")
-        val searchWithSelection = search.selectSpaceTrainWithFare(spaceTrainNumber, fareId, resetSelection)
-        return searches.save(searchWithSelection)
+
+    private fun computeDepartureSchedule(
+        criteriaDepartureSchedule: LocalDateTime,
+        spaceTrainIndex: Int,
+        firstDepartureDeltaInMinutes: Long
+    ) =
+        criteriaDepartureSchedule
+            .plusMinutes(firstDepartureDeltaInMinutes)
+            .plusHours(2L * (spaceTrainIndex - 1))
+
+    private fun computeSpaceTrainNumber(arrivalLocation: Planet, spaceTrainIndex: Int) =
+        "${arrivalLocation.name.substring(0, 5)}$spaceTrainIndex${(10..99).random()}"
+
+    private fun computeArrival(departureSchedule: LocalDateTime, spaceTrainIndex: Long) =
+        departureSchedule
+            .plusHours(97 + spaceTrainIndex)
+            .plusMinutes((20L..840L).random())
+
+    private fun computeFares(): Set<Fare> {
+        val currency = Currency.getInstance(FRANCE)
+        return setOf(
+            Fare(comfortClass = FIRST, price = Price(BigDecimal((180..400).random()), currency)),
+            Fare(comfortClass = SECOND, price = Price(BigDecimal((150..200).random()), currency))
+        )
     }
 
-    override fun `from the selection of`(search: Search): Booking {
-        //TODO: make it more readable
-        when {
-
-            !search.isSelectionComplete() -> {
-                throw CannotBookAPartialSelection()
-            }
-
-            else -> {
-                val selection = search.selection
-                val spaceTrains =
-                    selection
-                        .spaceTrainsByBound
-                        .sortedBy { it.key.ordinal }
-                        .map { it.value }
-                        .map { selectedSpaceTrain ->
-                            val spaceTrain = search.getSpaceTrainWithNumber(selectedSpaceTrain.spaceTrainNumber)
-                            val fare = spaceTrain.fares.first { it.id == selectedSpaceTrain.fareId }
-                            SpaceTrain(
-                                spaceTrain.number,
-                                spaceTrain.bound,
-                                spaceTrain.originId,
-                                spaceTrain.destinationId,
-                                spaceTrain.schedule,
-                                setOf(fare),
-                                spaceTrain.compatibleSpaceTrains
-                            )
-                        }
-                return bookings.save(Booking(spaceTrains = spaceTrains))
-            }
-        }
-
+    private fun SpacePorts.find(spacePortId: String): SpacePort {
+        val id = if (spacePortId.contains("/")) spacePortId.splitToSequence("/").last() else spacePortId
+        return getAllSpacePorts().first { it.id == id }
     }
-}
-
-private fun computeDepartureSchedule(
-    criteriaDepartureSchedule: LocalDateTime,
-    spaceTrainIndex: Int,
-    firstDepartureDeltaInMinutes: Long
-) =
-    criteriaDepartureSchedule
-        .plusMinutes(firstDepartureDeltaInMinutes)
-        .plusHours(2L * (spaceTrainIndex - 1))
-
-private fun computeSpaceTrainNumber(arrivalLocation: Planet, spaceTrainIndex: Int) =
-    "${arrivalLocation.name.substring(0, 5)}$spaceTrainIndex${(10..99).random()}"
-
-private fun computeArrival(departureSchedule: LocalDateTime, spaceTrainIndex: Long) =
-    departureSchedule
-        .plusHours(97 + spaceTrainIndex)
-        .plusMinutes((20L..840L).random())
-
-private fun computeFares(): Set<Fare> {
-    val currency = Currency.getInstance(FRANCE)
-    return setOf(
-        Fare(comfortClass = FIRST, price = Price(BigDecimal((180..400).random()), currency)),
-        Fare(comfortClass = SECOND, price = Price(BigDecimal((150..200).random()), currency))
-    )
-}
-
-private fun SpacePorts.find(spacePortId: String): SpacePort {
-    val id = if (spacePortId.contains("/")) spacePortId.splitToSequence("/").last() else spacePortId
-    return getAllSpacePorts().first { it.id == id }
 }

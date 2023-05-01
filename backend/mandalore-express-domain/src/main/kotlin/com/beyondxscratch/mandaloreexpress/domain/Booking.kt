@@ -6,7 +6,7 @@ import java.util.UUID
 import java.util.UUID.randomUUID
 
 
-data class Booking(val id: UUID = randomUUID(), val spaceTrains: List<SpaceTrain>) {//TODO: Change Type of Collection
+data class Booking(val id: UUID = randomUUID(), val spaceTrains: List<SpaceTrain>) {
 
     val totalPrice: Price get() = spaceTrains.map { it.fares.first().price }.reduce(Price::plus)
 
