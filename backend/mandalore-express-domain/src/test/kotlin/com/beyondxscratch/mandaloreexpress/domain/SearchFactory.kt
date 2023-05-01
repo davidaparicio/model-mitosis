@@ -5,8 +5,8 @@ import com.beyondxscratch.mandaloreexpress.domain.criteria.roundTripCriteria
 import com.beyondxscratch.mandaloreexpress.domain.spacetrain.Bound
 import com.beyondxscratch.mandaloreexpress.domain.spacetrain.Bound.INBOUND
 import com.beyondxscratch.mandaloreexpress.domain.spacetrain.Bound.OUTBOUND
-import com.beyondxscratch.mandaloreexpress.domain.spacetrain.Fare
 import com.beyondxscratch.mandaloreexpress.domain.spacetrain.SpaceTrain
+import com.beyondxscratch.mandaloreexpress.domain.spacetrain.fare.Fare
 import com.beyondxscratch.mandaloreexpress.domain.spacetrain.spaceTrainsFrom
 import java.util.UUID.fromString
 import java.util.UUID.randomUUID

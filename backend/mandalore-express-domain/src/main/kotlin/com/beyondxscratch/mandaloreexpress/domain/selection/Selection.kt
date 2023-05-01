@@ -1,8 +1,8 @@
 package com.beyondxscratch.mandaloreexpress.domain.selection
 
 import com.beyondxscratch.mandaloreexpress.domain.spacetrain.Bound
-import com.beyondxscratch.mandaloreexpress.domain.spacetrain.Price
 import com.beyondxscratch.mandaloreexpress.domain.spacetrain.SpaceTrain
+import com.beyondxscratch.mandaloreexpress.domain.spacetrain.fare.Price
 import java.util.UUID
 
 data class Selection(private val selectedSpaceTrainsByBound: Map<Bound, SelectedSpaceTrain> = mapOf()) : Map<Bound, SelectedSpaceTrain> by selectedSpaceTrainsByBound {

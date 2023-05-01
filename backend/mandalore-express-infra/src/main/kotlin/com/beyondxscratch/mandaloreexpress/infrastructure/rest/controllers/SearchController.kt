@@ -44,10 +44,10 @@ import java.util.UUID
 import com.beyondxscratch.mandaloreexpress.domain.Search as DomainSearch
 import com.beyondxscratch.mandaloreexpress.domain.criteria.Criteria as DomainCriteria
 import com.beyondxscratch.mandaloreexpress.domain.criteria.Journey as DomainJourney
-import com.beyondxscratch.mandaloreexpress.domain.spacetrain.Fare as DomainFare
-import com.beyondxscratch.mandaloreexpress.domain.spacetrain.Fares as DomainFares
 import com.beyondxscratch.mandaloreexpress.domain.spacetrain.SpaceTrain as DomainSpaceTrain
 import com.beyondxscratch.mandaloreexpress.domain.spacetrain.SpaceTrains as DomainSpaceTrains
+import com.beyondxscratch.mandaloreexpress.domain.spacetrain.fare.Fare as DomainFare
+import com.beyondxscratch.mandaloreexpress.domain.spacetrain.fare.Fares as DomainFares
 
 
 @RestController

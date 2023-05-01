@@ -14,13 +14,13 @@ import com.beyondxscratch.mandaloreexpress.domain.spaceport.SpacePort
 import com.beyondxscratch.mandaloreexpress.domain.spacetrain.Bound
 import com.beyondxscratch.mandaloreexpress.domain.spacetrain.Bound.INBOUND
 import com.beyondxscratch.mandaloreexpress.domain.spacetrain.Bound.OUTBOUND
-import com.beyondxscratch.mandaloreexpress.domain.spacetrain.ComfortClass.FIRST
-import com.beyondxscratch.mandaloreexpress.domain.spacetrain.ComfortClass.SECOND
-import com.beyondxscratch.mandaloreexpress.domain.spacetrain.Fare
-import com.beyondxscratch.mandaloreexpress.domain.spacetrain.Price
 import com.beyondxscratch.mandaloreexpress.domain.spacetrain.Schedule
 import com.beyondxscratch.mandaloreexpress.domain.spacetrain.SpaceTrain
 import com.beyondxscratch.mandaloreexpress.domain.spacetrain.SpaceTrains
+import com.beyondxscratch.mandaloreexpress.domain.spacetrain.fare.ComfortClass.FIRST
+import com.beyondxscratch.mandaloreexpress.domain.spacetrain.fare.ComfortClass.SECOND
+import com.beyondxscratch.mandaloreexpress.domain.spacetrain.fare.Fare
+import com.beyondxscratch.mandaloreexpress.domain.spacetrain.fare.Price
 import com.beyondxscratch.mandaloreexpress.domain.spi.Bookings
 import com.beyondxscratch.mandaloreexpress.domain.spi.Searches
 import com.beyondxscratch.mandaloreexpress.domain.spi.SpacePorts

@@ -1,7 +1,7 @@
 package com.beyondxscratch.mandaloreexpress.domain
 
-import com.beyondxscratch.mandaloreexpress.domain.spacetrain.Price
 import com.beyondxscratch.mandaloreexpress.domain.spacetrain.SpaceTrain
+import com.beyondxscratch.mandaloreexpress.domain.spacetrain.fare.Price
 import java.util.UUID
 import java.util.UUID.randomUUID
 

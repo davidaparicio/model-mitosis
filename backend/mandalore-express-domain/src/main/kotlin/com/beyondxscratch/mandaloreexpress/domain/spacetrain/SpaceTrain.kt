@@ -1,5 +1,7 @@
 package com.beyondxscratch.mandaloreexpress.domain.spacetrain
 
+import com.beyondxscratch.mandaloreexpress.domain.spacetrain.fare.Fares
+
 data class SpaceTrain(
     val number: String,
     val bound: Bound,

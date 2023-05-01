@@ -1,4 +1,4 @@
-package com.beyondxscratch.mandaloreexpress.domain.spacetrain
+package com.beyondxscratch.mandaloreexpress.domain.spacetrain.fare
 
 import java.math.BigDecimal
 import java.math.BigDecimal.TEN
