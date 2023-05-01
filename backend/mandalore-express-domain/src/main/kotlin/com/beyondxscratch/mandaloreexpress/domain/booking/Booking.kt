@@ -1,6 +1,6 @@
 package com.beyondxscratch.mandaloreexpress.domain.booking
 
-import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.Price
+import com.beyondxscratch.mandaloreexpress.domain.Price
 import java.util.UUID
 import java.util.UUID.randomUUID
 

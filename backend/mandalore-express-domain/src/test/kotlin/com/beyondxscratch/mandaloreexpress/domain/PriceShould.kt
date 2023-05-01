@@ -1,8 +1,7 @@
-package com.beyondxscratch.mandaloreexpress.domain.sharedkernel
+package com.beyondxscratch.mandaloreexpress.domain
 
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatThrownBy
-import com.beyondxscratch.mandaloreexpress.domain.EqualityShould
 import org.junit.jupiter.api.Test
 import java.math.BigDecimal
 import java.math.BigDecimal.ONE

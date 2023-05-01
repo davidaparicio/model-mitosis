@@ -1,4 +1,4 @@
-package com.beyondxscratch.mandaloreexpress.domain.sharedkernel
+package com.beyondxscratch.mandaloreexpress.domain
 
 import java.time.LocalDateTime.now
 import kotlin.random.Random

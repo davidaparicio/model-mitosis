@@ -1,7 +1,6 @@
-package com.beyondxscratch.mandaloreexpress.domain.sharedkernel
+package com.beyondxscratch.mandaloreexpress.domain
 
 import com.beyondxscratch.TypedParameterResolver
-import com.beyondxscratch.mandaloreexpress.domain.Random
 
 class FareParameterResolver : TypedParameterResolver<Fare>({ parameterContext, _ ->
     when {

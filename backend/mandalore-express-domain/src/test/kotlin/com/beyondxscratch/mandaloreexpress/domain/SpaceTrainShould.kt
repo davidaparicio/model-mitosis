@@ -1,10 +1,10 @@
 package com.beyondxscratch.mandaloreexpress.domain
 
-import org.assertj.core.api.Assertions.assertThat
-import org.assertj.core.api.Assertions.assertThatThrownBy
+import com.beyondxscratch.mandaloreexpress.domain.Bound.INBOUND
 import com.beyondxscratch.mandaloreexpress.domain.SpaceTrain.Companion.get
 import com.beyondxscratch.mandaloreexpress.domain.criteria.Criteria
-import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.Bound.INBOUND
+import org.assertj.core.api.Assertions.assertThat
+import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.junit.jupiter.api.Test
 
 class SpaceTrainShould(private val spaceTrain: SpaceTrain) : EqualityShould<SpaceTrain> {

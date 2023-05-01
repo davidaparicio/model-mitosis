@@ -1,4 +1,4 @@
-package com.beyondxscratch.mandaloreexpress.domain.sharedkernel
+package com.beyondxscratch.mandaloreexpress.domain
 
 enum class Bound {
     OUTBOUND,

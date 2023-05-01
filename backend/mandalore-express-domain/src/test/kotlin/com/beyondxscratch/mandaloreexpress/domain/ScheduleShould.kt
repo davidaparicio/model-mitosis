@@ -1,8 +1,7 @@
-package com.beyondxscratch.mandaloreexpress.domain.sharedkernel
+package com.beyondxscratch.mandaloreexpress.domain
 
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatThrownBy
-import com.beyondxscratch.mandaloreexpress.domain.EqualityShould
 import org.junit.jupiter.api.Test
 import java.time.Duration
 import java.time.LocalDateTime.now

@@ -1,10 +1,10 @@
 package com.beyondxscratch.mandaloreexpress.domain.selection
 
-import org.assertj.core.api.Assertions.assertThat
+import com.beyondxscratch.mandaloreexpress.domain.Bound
+import com.beyondxscratch.mandaloreexpress.domain.Bound.OUTBOUND
 import com.beyondxscratch.mandaloreexpress.domain.EqualityShould
 import com.beyondxscratch.mandaloreexpress.domain.Random
-import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.Bound
-import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.Bound.OUTBOUND
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
 class SelectionShould : EqualityShould<Selection> {

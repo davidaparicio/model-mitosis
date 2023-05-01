@@ -1,17 +1,14 @@
 package com.beyondxscratch.mandaloreexpress.domain
 
-import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.Bound
-import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.Fares
-import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.Schedule
-
 data class SpaceTrain(
-        val number: String,
-        val bound: Bound,
-        val originId: String,
-        val destinationId: String,
-        val schedule: Schedule,
-        val fares: Fares,
-        val compatibleSpaceTrains: Set<String> = emptySet()) {
+    val number: String,
+    val bound: Bound,
+    val originId: String,
+    val destinationId: String,
+    val schedule: Schedule,
+    val fares: Fares,
+    val compatibleSpaceTrains: Set<String> = emptySet()
+) {
 
     init {
         require(fares.isNotEmpty()) {

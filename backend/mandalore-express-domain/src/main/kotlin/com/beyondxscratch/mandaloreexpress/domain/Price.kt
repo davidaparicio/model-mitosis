@@ -1,12 +1,11 @@
-package com.beyondxscratch.mandaloreexpress.domain.sharedkernel
+package com.beyondxscratch.mandaloreexpress.domain
 
 import java.math.BigDecimal
-import java.math.BigDecimal.ZERO
 import java.util.Currency
 
 data class Price(val amount: BigDecimal, val currency: Currency) {
     init {
-        require(amount > ZERO) {
+        require(amount > BigDecimal.ZERO) {
             "Price cannot be negative"
         }
     }

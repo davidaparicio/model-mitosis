@@ -1,15 +1,13 @@
 package com.beyondxscratch.mandaloreexpress.domain
 
+import com.beyondxscratch.mandaloreexpress.domain.Bound.INBOUND
+import com.beyondxscratch.mandaloreexpress.domain.Bound.OUTBOUND
+import com.beyondxscratch.mandaloreexpress.domain.Bound.values
 import com.beyondxscratch.mandaloreexpress.domain.SpaceTrain.Companion.get
 import com.beyondxscratch.mandaloreexpress.domain.criteria.Criteria
 import com.beyondxscratch.mandaloreexpress.domain.criteria.Journey
 import com.beyondxscratch.mandaloreexpress.domain.selection.SelectedSpaceTrain
 import com.beyondxscratch.mandaloreexpress.domain.selection.Selection
-import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.Bound.INBOUND
-import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.Bound.OUTBOUND
-import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.Bound.values
-import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.Fare
-import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.price
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatCode
 import org.assertj.core.api.Assertions.assertThatThrownBy

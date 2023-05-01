@@ -1,14 +1,9 @@
 package com.beyondxscratch.mandaloreexpress.domain
 
+import com.beyondxscratch.mandaloreexpress.domain.Bound.Companion.fromJourneyIndex
+import com.beyondxscratch.mandaloreexpress.domain.Bound.INBOUND
+import com.beyondxscratch.mandaloreexpress.domain.Bound.OUTBOUND
 import com.beyondxscratch.mandaloreexpress.domain.criteria.Criteria
-import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.Bound.Companion.fromJourneyIndex
-import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.Bound.INBOUND
-import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.Bound.OUTBOUND
-import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.fare
-import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.firstClassFare
-import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.randomFare
-import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.schedule
-import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.secondClassFare
 import com.beyondxscratch.mandaloreexpress.domain.spaceport.Planet
 import com.beyondxscratch.mandaloreexpress.domain.spaceport.Planet.CORUSCANT
 import com.beyondxscratch.mandaloreexpress.domain.spaceport.Planet.MANDALORE

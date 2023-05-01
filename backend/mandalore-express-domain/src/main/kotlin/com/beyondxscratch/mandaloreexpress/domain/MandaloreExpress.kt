@@ -1,5 +1,9 @@
 package com.beyondxscratch.mandaloreexpress.domain
 
+import com.beyondxscratch.mandaloreexpress.domain.Bound.INBOUND
+import com.beyondxscratch.mandaloreexpress.domain.Bound.OUTBOUND
+import com.beyondxscratch.mandaloreexpress.domain.ComfortClass.FIRST
+import com.beyondxscratch.mandaloreexpress.domain.ComfortClass.SECOND
 import com.beyondxscratch.mandaloreexpress.domain.api.BookSpaceTrains
 import com.beyondxscratch.mandaloreexpress.domain.api.DomainService
 import com.beyondxscratch.mandaloreexpress.domain.api.RetrieveSpacePorts
@@ -9,17 +13,9 @@ import com.beyondxscratch.mandaloreexpress.domain.booking.Booking
 import com.beyondxscratch.mandaloreexpress.domain.criteria.Criteria
 import com.beyondxscratch.mandaloreexpress.domain.criteria.Journey
 import com.beyondxscratch.mandaloreexpress.domain.criteria.Journeys
-import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.Bound
-import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.Bound.INBOUND
-import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.Bound.OUTBOUND
-import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.ComfortClass.FIRST
-import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.ComfortClass.SECOND
-import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.Fare
-import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.Price
-import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.Schedule
-import com.beyondxscratch.mandaloreexpress.domain.spi.Bookings
 import com.beyondxscratch.mandaloreexpress.domain.spaceport.Planet
 import com.beyondxscratch.mandaloreexpress.domain.spaceport.SpacePort
+import com.beyondxscratch.mandaloreexpress.domain.spi.Bookings
 import com.beyondxscratch.mandaloreexpress.domain.spi.Searches
 import com.beyondxscratch.mandaloreexpress.domain.spi.SpacePorts
 import java.math.BigDecimal

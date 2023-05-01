@@ -1,6 +1,6 @@
 package com.beyondxscratch.mandaloreexpress.infrastructure.rest.resources.search
 
-import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.Bound
+import com.beyondxscratch.mandaloreexpress.domain.Bound
 import com.beyondxscratch.mandaloreexpress.infrastructure.rest.resources.Fare
 import com.beyondxscratch.mandaloreexpress.infrastructure.rest.resources.Resource
 import org.springframework.hateoas.RepresentationModel

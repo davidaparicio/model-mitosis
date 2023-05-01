@@ -1,13 +1,12 @@
 package com.beyondxscratch.mandaloreexpress.domain
 
+import com.beyondxscratch.mandaloreexpress.domain.Bound.INBOUND
+import com.beyondxscratch.mandaloreexpress.domain.Bound.OUTBOUND
+import com.beyondxscratch.mandaloreexpress.domain.Bound.values
 import com.beyondxscratch.mandaloreexpress.domain.SpaceTrain.Companion.get
 import com.beyondxscratch.mandaloreexpress.domain.criteria.Criteria
 import com.beyondxscratch.mandaloreexpress.domain.criteria.Journeys
 import com.beyondxscratch.mandaloreexpress.domain.selection.Selection
-import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.Bound
-import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.Bound.INBOUND
-import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.Bound.OUTBOUND
-import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.Bound.values
 import java.util.UUID
 import java.util.UUID.randomUUID
 

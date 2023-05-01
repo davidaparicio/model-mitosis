@@ -1,15 +1,13 @@
-package com.beyondxscratch.mandaloreexpress.domain.sharedkernel
+package com.beyondxscratch.mandaloreexpress.domain
 
 import java.time.Duration
-import java.time.Duration.between
 import java.time.LocalDateTime
-import java.time.LocalDateTime.now
 
 data class Schedule(val departure: LocalDateTime, val arrival: LocalDateTime) {
-    val duration: Duration = between(departure, arrival)
+    val duration: Duration = Duration.between(departure, arrival)
 
     init {
-        require(departure.isAfter(now())) {
+        require(departure.isAfter(LocalDateTime.now())) {
             "departure cannot be in the past"
         }
 

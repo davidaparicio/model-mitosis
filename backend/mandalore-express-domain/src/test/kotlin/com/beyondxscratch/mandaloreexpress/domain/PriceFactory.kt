@@ -1,4 +1,4 @@
-package com.beyondxscratch.mandaloreexpress.domain.sharedkernel
+package com.beyondxscratch.mandaloreexpress.domain
 
 import java.math.BigDecimal
 import java.math.BigDecimal.TEN
