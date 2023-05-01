@@ -19,6 +19,7 @@ import com.beyondxscratch.mandaloreexpress.domain.spacetrain.SpaceTrain
 import com.beyondxscratch.mandaloreexpress.domain.spacetrain.SpaceTrains
 import com.beyondxscratch.mandaloreexpress.domain.spacetrain.fare.ComfortClass.FIRST
 import com.beyondxscratch.mandaloreexpress.domain.spacetrain.fare.ComfortClass.SECOND
+import com.beyondxscratch.mandaloreexpress.domain.spacetrain.fare.Currency
 import com.beyondxscratch.mandaloreexpress.domain.spacetrain.fare.Fare
 import com.beyondxscratch.mandaloreexpress.domain.spacetrain.fare.Price
 import com.beyondxscratch.mandaloreexpress.domain.spi.Bookings
@@ -26,8 +27,6 @@ import com.beyondxscratch.mandaloreexpress.domain.spi.Searches
 import com.beyondxscratch.mandaloreexpress.domain.spi.SpacePorts
 import java.math.BigDecimal
 import java.time.LocalDateTime
-import java.util.Currency
-import java.util.Locale.FRANCE
 import java.util.UUID
 
 @DomainService
@@ -196,7 +195,8 @@ class MandaloreExpress(
             .plusMinutes((20L..840L).random())
 
     private fun computeFares(): Set<Fare> {
-        val currency = Currency.getInstance(FRANCE)
+        val currency = Currency.REPUBLIC_CREDIT
+
         return setOf(
             Fare(comfortClass = FIRST, price = Price(BigDecimal((180..400).random()), currency)),
             Fare(comfortClass = SECOND, price = Price(BigDecimal((150..200).random()), currency))
