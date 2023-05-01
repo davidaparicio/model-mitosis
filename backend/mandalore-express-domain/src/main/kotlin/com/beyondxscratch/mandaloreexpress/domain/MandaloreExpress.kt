@@ -57,26 +57,26 @@ class MandaloreExpress(
             "Cannot perform a trip departing and arriving on the same Planet"
         }
 
-        val spaceTrains = generateSpaceTrains(journeys)
+        val spaceTrains = findMatchingSpaceTrainsFor(journeys)
         return searches.save(Search(criteria = criteria, spaceTrains = spaceTrains))
     }
 
     private fun Journeys.mustNotStayOnTheSamePlanet() =
         none { spacePorts.find(it.departureSpacePortId).location == spacePorts.find(it.arrivalSpacePortId).location }
 
-    private fun generateSpaceTrains(journeys: Journeys): SpaceTrains {
+    private fun findMatchingSpaceTrainsFor(journeys: Journeys): SpaceTrains {
         val spaceTrains = journeys.mapIndexed { journeyIndex, journey ->
             val bound = Bound.fromJourneyIndex(journeyIndex)
             val firstDepartureDeltaInMinutes = (0L..60L).random()
             (1..5).map { spaceTrainIndex ->
-                generateSpaceTrain(journey, spaceTrainIndex, firstDepartureDeltaInMinutes, bound)
+                getSpaceTrain(journey, spaceTrainIndex, firstDepartureDeltaInMinutes, bound)
             }
         }.flatten()
 
-        return spaceTrains.generateCompatibilities()
+        return spaceTrains.computeCompatibilities()
     }
 
-    private fun List<SpaceTrain>.generateCompatibilities(): List<SpaceTrain> {
+    private fun List<SpaceTrain>.computeCompatibilities(): List<SpaceTrain> {
         val inbounds = filter { it.bound == INBOUND }
         if (inbounds.isEmpty()) {
             return this
@@ -103,7 +103,7 @@ class MandaloreExpress(
         return outboundsWithCompatibilities + inboundsWithCompatibilities
     }
 
-    private fun generateSpaceTrain(
+    private fun getSpaceTrain(
         journey: Journey,
         spaceTrainIndex: Int,
         firstDepartureDeltaInMinutes: Long,
@@ -117,7 +117,7 @@ class MandaloreExpress(
             )
         val arrivalSpacePort = spacePorts.find(journey.arrivalSpacePortId)
         return SpaceTrain(
-            number = generateSpaceTrainNumber(
+            number = computeSpaceTrainNumber(
                 arrivalSpacePort.location,
                 spaceTrainIndex
             ),
@@ -127,7 +127,7 @@ class MandaloreExpress(
             ),
             destinationId = journey.arrivalSpacePortId,
             originId = journey.departureSpacePortId,
-            fares = generateFares()
+            fares = computeFares()
         )
     }
 
@@ -185,7 +185,7 @@ private fun computeDepartureSchedule(
         .plusMinutes(firstDepartureDeltaInMinutes)
         .plusHours(2L * (spaceTrainIndex - 1))
 
-private fun generateSpaceTrainNumber(arrivalLocation: Planet, spaceTrainIndex: Int) =
+private fun computeSpaceTrainNumber(arrivalLocation: Planet, spaceTrainIndex: Int) =
     "${arrivalLocation.name.substring(0, 5)}$spaceTrainIndex${(10..99).random()}"
 
 private fun computeArrival(departureSchedule: LocalDateTime, spaceTrainIndex: Long) =
@@ -193,7 +193,7 @@ private fun computeArrival(departureSchedule: LocalDateTime, spaceTrainIndex: Lo
         .plusHours(97 + spaceTrainIndex)
         .plusMinutes((20L..840L).random())
 
-private fun generateFares(): Set<Fare> {
+private fun computeFares(): Set<Fare> {
     val currency = Currency.getInstance(FRANCE)
     return setOf(
         Fare(comfortClass = FIRST, price = Price(BigDecimal((180..400).random()), currency)),
