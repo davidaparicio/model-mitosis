@@ -4,6 +4,7 @@ import { Paper, Typography, Button } from "@material-ui/core";
 import moment from "moment";
 import { makeStyles } from "@material-ui/core/styles";
 import { withRouter } from "react-router-dom";
+import RepublicCredit from "../Currency/RepublicCredit";
 
 function SpaceTrains({ history, link, onSelection }) {
   const [spacetrains, setSpaceTrains] = useState();
@@ -95,13 +96,16 @@ function Fare({ fare, selectFare }) {
       size="small"
       className={classes.fare}
       onClick={() => selectFare(fare._links.select.href)}
+      endIcon={getCurrencySymbol(fare.price.currency)}
     >
-      {fare.comfortClass} {fare.price.amount} {fare.price.currency}
+      {fare.comfortClass} {fare.price.amount}
     </Button>
   );
 }
 
-
+function getCurrencySymbol(currency) {
+  return <RepublicCredit />
+}
 function SpacePort({ id, schedule }) {
   const [spacePort, setSpacePort] = useState();
 
