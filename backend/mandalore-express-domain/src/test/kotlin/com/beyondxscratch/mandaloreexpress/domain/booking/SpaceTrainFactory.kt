@@ -1,12 +1,12 @@
 package com.beyondxscratch.mandaloreexpress.domain.booking
 
-import com.beyondxscratch.mandaloreexpress.domain.fare
-import com.beyondxscratch.mandaloreexpress.domain.randomFare
-import com.beyondxscratch.mandaloreexpress.domain.randomSchedule
-import com.beyondxscratch.mandaloreexpress.domain.schedule
 import com.beyondxscratch.mandaloreexpress.domain.spaceport.Planet.CORUSCANT
 import com.beyondxscratch.mandaloreexpress.domain.spaceport.Planet.MANDALORE
 import com.beyondxscratch.mandaloreexpress.domain.spaceport.spacePort
+import com.beyondxscratch.mandaloreexpress.domain.spacetrain.fare
+import com.beyondxscratch.mandaloreexpress.domain.spacetrain.randomFare
+import com.beyondxscratch.mandaloreexpress.domain.spacetrain.randomSchedule
+import com.beyondxscratch.mandaloreexpress.domain.spacetrain.schedule
 import kotlin.random.Random.Default.nextLong
 
 fun spaceTrain(): SpaceTrain = SpaceTrain(

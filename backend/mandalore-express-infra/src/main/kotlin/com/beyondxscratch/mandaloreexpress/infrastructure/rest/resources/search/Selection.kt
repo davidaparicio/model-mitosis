@@ -1,6 +1,6 @@
 package com.beyondxscratch.mandaloreexpress.infrastructure.rest.resources.search
 
-import com.beyondxscratch.mandaloreexpress.domain.Price
+import com.beyondxscratch.mandaloreexpress.domain.spacetrain.Price
 import com.beyondxscratch.mandaloreexpress.infrastructure.rest.resources.Resource
 import org.springframework.hateoas.RepresentationModel
 

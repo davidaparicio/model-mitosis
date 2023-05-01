@@ -1,8 +1,8 @@
 com.beyondxscratch.mandaloreexpress.domain.spaceport.SpacePortParameterResolver
-com.beyondxscratch.mandaloreexpress.domain.FareParameterResolver
+com.beyondxscratch.mandaloreexpress.domain.spacetrain.FareParameterResolver
 com.beyondxscratch.mandaloreexpress.domain.criteria.JourneyParameterResolver
-com.beyondxscratch.mandaloreexpress.domain.PriceParameterResolver
-com.beyondxscratch.mandaloreexpress.domain.SpaceTrainParameterResolver
+com.beyondxscratch.mandaloreexpress.domain.spacetrain.PriceParameterResolver
+com.beyondxscratch.mandaloreexpress.domain.spacetrain.SpaceTrainParameterResolver
 com.beyondxscratch.mandaloreexpress.domain.booking.SpaceTrainParameterResolver
 com.beyondxscratch.mandaloreexpress.domain.criteria.CriteriaParameterResolver
 com.beyondxscratch.mandaloreexpress.domain.SearchParameterResolver
@@ -10,5 +10,5 @@ com.beyondxscratch.mandaloreexpress.domain.criteria.JourneysParameterResolver
 com.beyondxscratch.mandaloreexpress.domain.LinkedJourneyAndSpaceTrainParameterResolver
 com.beyondxscratch.mandaloreexpress.domain.selection.SelectedSpaceTrainParameterResolver
 com.beyondxscratch.mandaloreexpress.domain.selection.SelectionParameterResolver
-com.beyondxscratch.mandaloreexpress.domain.ScheduleParameterResolver
+com.beyondxscratch.mandaloreexpress.domain.spacetrain.ScheduleParameterResolver
 com.beyondxscratch.mandaloreexpress.domain.booking.BookingParameterResolver

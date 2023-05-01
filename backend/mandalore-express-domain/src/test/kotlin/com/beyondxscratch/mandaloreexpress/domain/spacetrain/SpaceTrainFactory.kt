@@ -1,13 +1,13 @@
-package com.beyondxscratch.mandaloreexpress.domain
+package com.beyondxscratch.mandaloreexpress.domain.spacetrain
 
-import com.beyondxscratch.mandaloreexpress.domain.Bound.Companion.fromJourneyIndex
-import com.beyondxscratch.mandaloreexpress.domain.Bound.INBOUND
-import com.beyondxscratch.mandaloreexpress.domain.Bound.OUTBOUND
 import com.beyondxscratch.mandaloreexpress.domain.criteria.Criteria
 import com.beyondxscratch.mandaloreexpress.domain.spaceport.Planet
 import com.beyondxscratch.mandaloreexpress.domain.spaceport.Planet.CORUSCANT
 import com.beyondxscratch.mandaloreexpress.domain.spaceport.Planet.MANDALORE
 import com.beyondxscratch.mandaloreexpress.domain.spaceport.spacePort
+import com.beyondxscratch.mandaloreexpress.domain.spacetrain.Bound.Companion.fromJourneyIndex
+import com.beyondxscratch.mandaloreexpress.domain.spacetrain.Bound.INBOUND
+import com.beyondxscratch.mandaloreexpress.domain.spacetrain.Bound.OUTBOUND
 import kotlin.random.Random.Default.nextLong
 
 

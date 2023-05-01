@@ -1,7 +1,7 @@
 package com.beyondxscratch.mandaloreexpress.domain.booking
 
-import com.beyondxscratch.mandaloreexpress.domain.Fare
-import com.beyondxscratch.mandaloreexpress.domain.Schedule
+import com.beyondxscratch.mandaloreexpress.domain.spacetrain.Fare
+import com.beyondxscratch.mandaloreexpress.domain.spacetrain.Schedule
 
 data class SpaceTrain(
     val number: String,

@@ -1,7 +1,5 @@
 package com.beyondxscratch.mandaloreexpress.infrastructure.rest.controllers
 
-import com.beyondxscratch.mandaloreexpress.domain.Bound
-import com.beyondxscratch.mandaloreexpress.domain.SpaceTrain.Companion.get
 import com.beyondxscratch.mandaloreexpress.domain.api.RetrieveSpacePorts
 import com.beyondxscratch.mandaloreexpress.domain.api.SearchForSpaceTrains
 import com.beyondxscratch.mandaloreexpress.domain.api.SelectSpaceTrain
@@ -9,6 +7,8 @@ import com.beyondxscratch.mandaloreexpress.domain.api.`by resetting the selectio
 import com.beyondxscratch.mandaloreexpress.domain.api.`in search`
 import com.beyondxscratch.mandaloreexpress.domain.api.`with the fare`
 import com.beyondxscratch.mandaloreexpress.domain.spaceport.SpacePort
+import com.beyondxscratch.mandaloreexpress.domain.spacetrain.Bound
+import com.beyondxscratch.mandaloreexpress.domain.spacetrain.SpaceTrain.Companion.get
 import com.beyondxscratch.mandaloreexpress.domain.spi.Searches
 import com.beyondxscratch.mandaloreexpress.infrastructure.rest.resources.Fare
 import com.beyondxscratch.mandaloreexpress.infrastructure.rest.resources.Fares
@@ -41,13 +41,13 @@ import java.net.URI
 import java.time.LocalDateTime.parse
 import java.util.Locale
 import java.util.UUID
-import com.beyondxscratch.mandaloreexpress.domain.Fare as DomainFare
-import com.beyondxscratch.mandaloreexpress.domain.Fares as DomainFares
 import com.beyondxscratch.mandaloreexpress.domain.Search as DomainSearch
-import com.beyondxscratch.mandaloreexpress.domain.SpaceTrain as DomainSpaceTrain
-import com.beyondxscratch.mandaloreexpress.domain.SpaceTrains as DomainSpaceTrains
 import com.beyondxscratch.mandaloreexpress.domain.criteria.Criteria as DomainCriteria
 import com.beyondxscratch.mandaloreexpress.domain.criteria.Journey as DomainJourney
+import com.beyondxscratch.mandaloreexpress.domain.spacetrain.Fare as DomainFare
+import com.beyondxscratch.mandaloreexpress.domain.spacetrain.Fares as DomainFares
+import com.beyondxscratch.mandaloreexpress.domain.spacetrain.SpaceTrain as DomainSpaceTrain
+import com.beyondxscratch.mandaloreexpress.domain.spacetrain.SpaceTrains as DomainSpaceTrains
 
 
 @RestController
