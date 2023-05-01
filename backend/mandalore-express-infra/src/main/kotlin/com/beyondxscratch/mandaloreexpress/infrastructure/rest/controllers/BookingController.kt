@@ -1,7 +1,7 @@
 package com.beyondxscratch.mandaloreexpress.infrastructure.rest.controllers
 
-import com.beyondxscratch.mandaloreexpress.domain.CannotBookAPartialSelection
 import com.beyondxscratch.mandaloreexpress.domain.api.BookSpaceTrains
+import com.beyondxscratch.mandaloreexpress.domain.exceptions.CannotBookAPartialSelection
 import com.beyondxscratch.mandaloreexpress.domain.spi.Bookings
 import com.beyondxscratch.mandaloreexpress.domain.spi.Searches
 import com.beyondxscratch.mandaloreexpress.infrastructure.rest.resources.booking.Booking
@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 import org.springframework.web.server.ResponseStatusException
 import java.util.UUID
-import com.beyondxscratch.mandaloreexpress.domain.booking.Booking as DomainBooking
+import com.beyondxscratch.mandaloreexpress.domain.Booking as DomainBooking
 
 @RestController
 @RequestMapping("/bookings")

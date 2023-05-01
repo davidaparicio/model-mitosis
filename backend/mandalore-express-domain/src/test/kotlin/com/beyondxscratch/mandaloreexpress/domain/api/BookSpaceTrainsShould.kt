@@ -1,9 +1,9 @@
 package com.beyondxscratch.mandaloreexpress.domain.api
 
-import com.beyondxscratch.mandaloreexpress.domain.CannotBookAPartialSelection
 import com.beyondxscratch.mandaloreexpress.domain.OneWay
 import com.beyondxscratch.mandaloreexpress.domain.RoundTrip
 import com.beyondxscratch.mandaloreexpress.domain.Search
+import com.beyondxscratch.mandaloreexpress.domain.exceptions.CannotBookAPartialSelection
 import com.beyondxscratch.mandaloreexpress.domain.selectAnInboundSpaceTrain
 import com.beyondxscratch.mandaloreexpress.domain.selectAnOutboundSpaceTrain
 import org.assertj.core.api.Assertions.assertThat
@@ -23,7 +23,7 @@ interface BookSpaceTrainsShould {
         assertThat(booking.spaceTrains).hasSize(1)
 
         val selectedSpaceTrain = booking.spaceTrains[0]
-        assertThat(selectedSpaceTrain.fare).isEqualTo(fare)
+        assertThat(selectedSpaceTrain.fares.first()).isEqualTo(fare)
         assertThat(selectedSpaceTrain.destinationId).isEqualTo(spaceTrain.destinationId)
         assertThat(selectedSpaceTrain.originId).isEqualTo(spaceTrain.originId)
         assertThat(selectedSpaceTrain.number).isEqualTo(spaceTrain.number)

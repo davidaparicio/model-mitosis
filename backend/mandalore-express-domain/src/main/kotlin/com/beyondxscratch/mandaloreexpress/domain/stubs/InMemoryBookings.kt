@@ -1,6 +1,6 @@
 package com.beyondxscratch.mandaloreexpress.domain.stubs
 
-import com.beyondxscratch.mandaloreexpress.domain.booking.Booking
+import com.beyondxscratch.mandaloreexpress.domain.Booking
 import com.beyondxscratch.mandaloreexpress.domain.spi.Bookings
 import java.util.UUID
 

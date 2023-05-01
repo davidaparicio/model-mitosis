@@ -1,7 +1,6 @@
-package com.beyondxscratch.mandaloreexpress.domain.booking
+package com.beyondxscratch.mandaloreexpress.domain
 
 import com.beyondxscratch.TypedParameterResolver
-import com.beyondxscratch.mandaloreexpress.domain.Random
 
 class BookingParameterResolver : TypedParameterResolver<Booking>({ parameterContext, _ ->
     when {

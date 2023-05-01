@@ -5,10 +5,10 @@ import com.beyondxscratch.mandaloreexpress.domain.api.DomainService
 import com.beyondxscratch.mandaloreexpress.domain.api.RetrieveSpacePorts
 import com.beyondxscratch.mandaloreexpress.domain.api.SearchForSpaceTrains
 import com.beyondxscratch.mandaloreexpress.domain.api.SelectSpaceTrain
-import com.beyondxscratch.mandaloreexpress.domain.booking.Booking
 import com.beyondxscratch.mandaloreexpress.domain.criteria.Criteria
 import com.beyondxscratch.mandaloreexpress.domain.criteria.Journey
 import com.beyondxscratch.mandaloreexpress.domain.criteria.Journeys
+import com.beyondxscratch.mandaloreexpress.domain.exceptions.CannotBookAPartialSelection
 import com.beyondxscratch.mandaloreexpress.domain.spaceport.Planet
 import com.beyondxscratch.mandaloreexpress.domain.spaceport.SpacePort
 import com.beyondxscratch.mandaloreexpress.domain.spacetrain.Bound
@@ -29,7 +29,6 @@ import java.time.LocalDateTime
 import java.util.Currency
 import java.util.Locale.FRANCE
 import java.util.UUID
-import com.beyondxscratch.mandaloreexpress.domain.booking.SpaceTrain as BookingSpaceTrain
 
 @DomainService
 class MandaloreExpress(
@@ -161,12 +160,13 @@ class MandaloreExpress(
                         .map { selectedSpaceTrain ->
                             val spaceTrain = search.getSpaceTrainWithNumber(selectedSpaceTrain.spaceTrainNumber)
                             val fare = spaceTrain.fares.first { it.id == selectedSpaceTrain.fareId }
-                            BookingSpaceTrain(
+                            SpaceTrain(
                                 spaceTrain.number,
+                                spaceTrain.bound,
                                 spaceTrain.originId,
                                 spaceTrain.destinationId,
                                 spaceTrain.schedule,
-                                fare
+                                setOf(fare)
                             )
                         }
                 return bookings.save(Booking(spaceTrains = spaceTrains))
