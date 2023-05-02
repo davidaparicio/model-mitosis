@@ -14,6 +14,7 @@ import com.beyondxscratch.mandaloreexpress.infrastructure.rest.resources.Fare
 import com.beyondxscratch.mandaloreexpress.infrastructure.rest.resources.Fares
 import com.beyondxscratch.mandaloreexpress.infrastructure.rest.resources.search.*
 import com.beyondxscratch.mandaloreexpress.infrastructure.rest.resources.search.Search
+import com.beyondxscratch.mandaloreexpress.infrastructure.rest.resources.toResource
 import org.springframework.hateoas.IanaLinkRelations.SELF
 import org.springframework.hateoas.LinkRelation
 import org.springframework.hateoas.LinkRelation.of
@@ -180,7 +181,7 @@ class SearchController(
                 }
                 .sortedBy { it.bound.ordinal }
 
-        return Selection(selectedSpaceTrain, selection.totalPrice)
+        return Selection(selectedSpaceTrain, selection.totalPrice?.toResource())
             .add(searchLink.withRel("search"))
             .add(searchLink.slash("selection").withSelfRel())
             .add(searchLink.slash("selection").withRel("selection"))
@@ -243,7 +244,7 @@ class SearchController(
         this.map { it.toResource(spaceTrainLink, resetSelection) }.toSet()
 
     private fun DomainFare.toResource(spaceTrainLink: LinkBuilder? = null, resetSelection: Boolean = false): Fare {
-        val fare = Fare(id, comfortClass, price)
+        val fare = Fare(id, comfortClass, price.toResource())
 
         spaceTrainLink?.let {
             fare.add(

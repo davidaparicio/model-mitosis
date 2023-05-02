@@ -5,53 +5,59 @@ import com.beyondxscratch.mandaloreexpress.domain.spacetrain.fare.Currency.CALAM
 import com.beyondxscratch.mandaloreexpress.domain.spacetrain.fare.Currency.REPUBLIC_CREDIT
 import org.assertj.core.api.Assertions.*
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.params.ParameterizedTest
-import org.junit.jupiter.params.provider.EnumSource
 import java.math.BigDecimal
 import java.math.BigDecimal.*
 
 class PriceShould : EqualityShould<Price> {
-    @Test
-    fun `not be null`() {
-        assertThatThrownBy { Price(ZERO, REPUBLIC_CREDIT) }
-                .isInstanceOf(IllegalArgumentException::class.java)
-                .hasMessage("Price must be strictly positive")
-    }
 
     @Test
-    fun `not be strictly negative`() {
-        assertThatThrownBy { Price(BigDecimal(-3), REPUBLIC_CREDIT) }
-                .isInstanceOf(IllegalArgumentException::class.java)
-                .hasMessage("Price must be strictly positive")
-    }
-
-    @Test
-    fun `not be added to another price if currency don't match`() {
-        assertThatThrownBy { Price(TEN, REPUBLIC_CREDIT) + Price(TEN, CALAMARI_FLAN) }
-                .isInstanceOf(IllegalArgumentException::class.java)
-                .hasMessage("Cannot sum prices with different currencies")
+    fun `not be added to another price if currency don't match`(amount: Amount) {
+        assertThatThrownBy { Price(amount, REPUBLIC_CREDIT) + Price(amount, CALAMARI_FLAN) }
+            .isInstanceOf(IllegalArgumentException::class.java)
+            .hasMessage("Cannot sum prices with different currencies")
     }
 
     @Test
     fun `sum prices`() {
         val currency = REPUBLIC_CREDIT
-        val price = Price(TEN, currency) + Price(ONE, currency)
-        assertThat(price.amount).isEqualTo(BigDecimal(11))
-        assertThat(price.currency).isEqualTo(currency)
+        val tenCredits = Price(Amount(TEN), currency)
+        val oneCredit = Price(Amount(ONE), currency)
 
+        val elevenCredits = Price(Amount(BigDecimal(11)), currency)
+
+        assertThat(tenCredits + oneCredit).isEqualTo(elevenCredits)
     }
 
-    @ParameterizedTest
-    @EnumSource(value = Currency::class, names = ["REPUBLIC_CREDIT", "CALAMARI_FLAN"])
-    fun `accept Republican Credits and Calamari Flans`(currency: Currency) {
-        assertThatCode { Price(TEN, currency) }.doesNotThrowAnyException()
+    @Test
+    fun `not sum prices on different currencies`() {
+        val tenCredits = Price(Amount(TEN), REPUBLIC_CREDIT)
+        val oneCalamariFlan = Price(Amount(ONE), CALAMARI_FLAN)
+
+        assertThatThrownBy { tenCredits + oneCalamariFlan }
+            .isInstanceOf(IllegalArgumentException::class.java)
+            .hasMessage("Cannot sum prices with different currencies")
     }
 
-    @ParameterizedTest
-    @EnumSource(value = Currency::class, names = ["IMPERIAL_CREDIT", "WUPIUPI"])
-    fun `refuse Imperial Credits and Outer Rim currencies`(currency: Currency) {
-        assertThatThrownBy { Price(TEN, currency) }
-                .isInstanceOf(IllegalArgumentException::class.java)
-                .hasMessage("Republic credits will do fine.")
+    @Test
+    fun `apply a discount`() {
+        val currency = REPUBLIC_CREDIT
+
+        val tenCredits = Price(Amount(TEN), currency)
+        val oneCreditDiscount = Discount(Amount(ONE), currency)
+        val nineCredits = Price(Amount(BigDecimal(9)), currency)
+
+        val discountedPrice = tenCredits.apply(oneCreditDiscount)
+
+        assertThat(discountedPrice).isEqualTo(nineCredits)
+    }
+
+    @Test
+    fun `not apply a discount with the wrong currency`(amount: Amount) {
+        val credits = Price(amount, REPUBLIC_CREDIT)
+        val calamariFlanDiscount = Discount(amount, CALAMARI_FLAN)
+
+        assertThatThrownBy { credits.apply(calamariFlanDiscount) }
+            .isInstanceOf(IllegalArgumentException::class.java)
+            .hasMessage("Cannot sum prices with different currencies")
     }
 }

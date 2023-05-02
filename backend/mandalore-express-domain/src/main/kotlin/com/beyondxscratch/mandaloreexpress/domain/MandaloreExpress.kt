@@ -17,6 +17,7 @@ import com.beyondxscratch.mandaloreexpress.domain.spacetrain.Bound.OUTBOUND
 import com.beyondxscratch.mandaloreexpress.domain.spacetrain.Schedule
 import com.beyondxscratch.mandaloreexpress.domain.spacetrain.SpaceTrain
 import com.beyondxscratch.mandaloreexpress.domain.spacetrain.SpaceTrains
+import com.beyondxscratch.mandaloreexpress.domain.spacetrain.fare.Amount
 import com.beyondxscratch.mandaloreexpress.domain.spacetrain.fare.ComfortClass.FIRST
 import com.beyondxscratch.mandaloreexpress.domain.spacetrain.fare.ComfortClass.SECOND
 import com.beyondxscratch.mandaloreexpress.domain.spacetrain.fare.Currency
@@ -198,8 +199,8 @@ class MandaloreExpress(
         val currency = Currency.REPUBLIC_CREDIT
 
         return setOf(
-            Fare(comfortClass = FIRST, price = Price(BigDecimal((180..400).random()), currency)),
-            Fare(comfortClass = SECOND, price = Price(BigDecimal((150..200).random()), currency))
+            Fare(comfortClass = FIRST, price = Price(Amount(BigDecimal((180..400).random())), currency)),
+            Fare(comfortClass = SECOND, price = Price(Amount(BigDecimal((150..200).random())), currency))
         )
     }
 

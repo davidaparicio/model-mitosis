@@ -441,13 +441,13 @@ class SearchControllerShould(
                             .andExpect(jsonPath("$.spaceTrains[$index].originId").value(spaceTrain.originId))
                             .andExpect(jsonPath("$.spaceTrains[$index].destinationId").value(spaceTrain.destinationId))
                             .andExpect(jsonPath("$.spaceTrains[$index].fare.comfortClass").value(fare.comfortClass.toString()))
-                            .andExpect(jsonPath("$.spaceTrains[$index].fare.price.amount").value(fare.price.amount))
+                            .andExpect(jsonPath("$.spaceTrains[$index].fare.price.amount").value(fare.price.amount.value))
                             .andExpect(jsonPath("$.spaceTrains[$index].fare.price.currency").value(fare.price.currency.toString()))
 
                     }
             }
 
-            .andExpect(jsonPath("$.totalPrice.amount").value(outBoundFare.price.amount + inBoundFare.price.amount))
+            .andExpect(jsonPath("$.totalPrice.amount").value(outBoundFare.price.amount.value + inBoundFare.price.amount.value))
             .andExpect(jsonPath("$.totalPrice.currency").value(outBoundFare.price.currency.toString()))
             .andExpect(jsonPath("$._links.search.href").value(location))
             .andExpect(jsonPath("$._links.self.href").value("$location/selection"))

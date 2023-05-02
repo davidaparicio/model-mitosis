@@ -57,7 +57,7 @@ class BookingControllerShould(
             .andExpect(jsonPath("$.spaceTrains[0].departureSchedule").exists())
             .andExpect(jsonPath("$.spaceTrains[0].arrivalSchedule").exists())
             .andExpect(jsonPath("$.spaceTrains[0].fare.comfortClass").value(outboundFare.comfortClass.name))
-            .andExpect(jsonPath("$.spaceTrains[0].fare.price.amount").value(outboundFare.price.amount))
+            .andExpect(jsonPath("$.spaceTrains[0].fare.price.amount").value(outboundFare.price.amount.value))
             .andExpect(jsonPath("$.spaceTrains[0].fare.price.currency").value(outboundFare.price.currency.toString()))
 
             .andExpect(jsonPath("$.spaceTrains[1].number").value(inboundSpaceTrain.number))
@@ -66,7 +66,7 @@ class BookingControllerShould(
             .andExpect(jsonPath("$.spaceTrains[1].departureSchedule").exists())
             .andExpect(jsonPath("$.spaceTrains[1].arrivalSchedule").exists())
             .andExpect(jsonPath("$.spaceTrains[1].fare.comfortClass").value(inboundFare.comfortClass.name))
-            .andExpect(jsonPath("$.spaceTrains[1].fare.price.amount").value(inboundFare.price.amount))
+            .andExpect(jsonPath("$.spaceTrains[1].fare.price.amount").value(inboundFare.price.amount.value))
             .andExpect(jsonPath("$.spaceTrains[1].fare.price.currency").value(inboundFare.price.currency.toString()))
     }
 

@@ -1,7 +1,6 @@
 package com.beyondxscratch.mandaloreexpress.infrastructure.rest.resources
 
 import com.beyondxscratch.mandaloreexpress.domain.spacetrain.fare.ComfortClass
-import com.beyondxscratch.mandaloreexpress.domain.spacetrain.fare.Price
 import org.springframework.hateoas.RepresentationModel
 import org.springframework.hateoas.server.LinkBuilder
 import java.util.UUID
@@ -16,7 +15,7 @@ typealias Fares = Set<Fare>
 fun DomainFares.toResource(spaceTrainLink: LinkBuilder): Fares = this.map { it.toResource(spaceTrainLink) }.toSet()
 
 fun DomainFare.toResource(spaceTrainLink: LinkBuilder? = null): Fare {
-    val fare = Fare(id, comfortClass, price)
+    val fare = Fare(id, comfortClass, price.toResource())
 
     spaceTrainLink?.let {
         fare.add(spaceTrainLink.slash("fares")

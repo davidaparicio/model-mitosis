@@ -5,5 +5,5 @@ import java.math.BigDecimal
 import java.math.BigDecimal.TEN
 import kotlin.random.Random
 
-fun price(): Price = Price(Amount(TEN), REPUBLIC_CREDIT)
-fun randomPrice(): Price = price().copy(amount = Amount(BigDecimal(Random.nextDouble(500.0, 1000.0))))
+fun discount(): Discount = Discount(Amount(TEN), REPUBLIC_CREDIT)
+fun randomDiscount(): Discount =  discount().copy(amount = Amount(BigDecimal(Random.nextDouble(500.0, 1000.0))))
