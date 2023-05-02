@@ -10,7 +10,7 @@ data class Price(val amount: Amount, val currency: Currency) {
         return Price(amount + anotherPrice.amount, currency)
     }
 
-    fun apply(discount: Discount): Price {
+    fun apply(discount: Discount): Price { //TODO:it should be in the Fare
         require(currency == discount.currency) {
             "Cannot sum prices with different currencies"
         }
