@@ -85,9 +85,6 @@ function Fare({ fare, selectFare }) {
     fare: {
       "&:nth-child(1)": {
         marginBottom: theme.spacing(1)
-      },
-      "& .MuiButton-endIcon": {
-        marginLeft: "2px"
       }
     },
   }));
@@ -99,9 +96,8 @@ function Fare({ fare, selectFare }) {
       size="small"
       className={classes.fare}
       onClick={() => selectFare(fare._links.select.href)}
-      endIcon={getCurrencySymbol(fare.price.currency)}
     >
-      {fare.comfortClass} {fare.price.amount}
+      {fare.comfortClass} {fare.price.amount} {getCurrencySymbol(fare.price.currency)}
     </Button>
   );
 }
