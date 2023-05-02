@@ -85,8 +85,11 @@ function Fare({ fare, selectFare }) {
     fare: {
       "&:nth-child(1)": {
         marginBottom: theme.spacing(1)
+      },
+      "& .MuiButton-endIcon": {
+        marginLeft: "2px"
       }
-    }
+    },
   }));
   const classes = useStyles();
   return (
