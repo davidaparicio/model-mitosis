@@ -5,7 +5,8 @@ import com.beyondxscratch.mandaloreexpress.domain.spacetrain.fare.ComfortClass.S
 import com.beyondxscratch.mandaloreexpress.domain.spacetrain.fare.ComfortClass.values
 import java.util.UUID.nameUUIDFromBytes
 
-fun fare(): Fare = Fare(nameUUIDFromBytes("fare1".toByteArray()), FIRST, price())
+fun fare(): Fare = Fare(nameUUIDFromBytes("fare1".toByteArray()), FIRST, tenRepCreditsPrice(), oneRepCreditDiscount())
 fun firstClassFare() = fare()
-fun secondClassFare() = Fare(nameUUIDFromBytes("fare2".toByteArray()), SECOND, price())
-fun randomFare(): Fare = Fare(comfortClass = values().random(), price = randomPrice())
+fun secondClassFare() = Fare(nameUUIDFromBytes("fare2".toByteArray()), SECOND, tenRepCreditsPrice(), oneRepCreditDiscount())
+fun randomFare(): Fare = Fare(comfortClass = values().random(), basePrice = randomPrice())
+fun fareWithoutDiscount() = Fare(nameUUIDFromBytes("fare1".toByteArray()), FIRST, tenRepCreditsPrice())

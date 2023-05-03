@@ -199,8 +199,8 @@ class MandaloreExpress(
         val currency = Currency.REPUBLIC_CREDIT
 
         return setOf(
-            Fare(comfortClass = FIRST, price = Price(Amount(BigDecimal((180..400).random())), currency)),
-            Fare(comfortClass = SECOND, price = Price(Amount(BigDecimal((150..200).random())), currency))
+            Fare(comfortClass = FIRST, basePrice =  Price(Amount(BigDecimal((180..400).random())), currency)),
+            Fare(comfortClass = SECOND, basePrice =  Price(Amount(BigDecimal((150..200).random())), currency))
         )
     }
 

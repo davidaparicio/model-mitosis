@@ -9,3 +9,5 @@ import kotlin.random.Random
 fun discount(): Discount = Discount(Amount(TEN), REPUBLIC_CREDIT)
 fun randomDiscount(): Discount = discount().copy(amount = Amount(BigDecimal(Random.nextDouble(500.0, 1000.0))))
 fun oneRepCreditDiscount(): Discount = Discount(Amount(ONE), REPUBLIC_CREDIT)
+
+fun tenRepCreditDiscount(): Discount = Discount(Amount(TEN), REPUBLIC_CREDIT)

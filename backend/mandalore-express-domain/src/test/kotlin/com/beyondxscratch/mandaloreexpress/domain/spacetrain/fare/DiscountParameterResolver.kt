@@ -9,6 +9,8 @@ class DiscountParameterResolver : TypedParameterResolver<Discount>({ parameterCo
 
         parameterContext.isAnnotated(OneRepCredit::class.java) -> oneRepCreditDiscount()
 
+        parameterContext.isAnnotated(TenRepCredit::class.java) -> tenRepCreditDiscount()
+
 
         else -> discount()
     }

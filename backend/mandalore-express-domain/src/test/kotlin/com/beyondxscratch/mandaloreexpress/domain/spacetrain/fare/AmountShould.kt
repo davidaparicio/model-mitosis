@@ -42,4 +42,27 @@ class AmountShould : EqualityShould<Amount> {
         assertThat(ten - one).isEqualTo(nine)
     }
 
+    @Test
+    fun `compare amount to find the highest`() {
+        val ten = Amount(BigDecimal.TEN)
+        val one = Amount(BigDecimal.ONE)
+
+        assertThat(ten > one).isEqualTo(true)
+    }
+
+    @Test
+    fun `compare amount to find the lowest`() {
+        val ten = Amount(BigDecimal.TEN)
+        val one = Amount(BigDecimal.ONE)
+
+        assertThat(one < ten).isEqualTo(true)
+    }
+
+    @Test
+    fun `compare amount equality`() {
+        val ten = Amount(BigDecimal.TEN)
+
+        assertThat(ten >= ten).isEqualTo(true)
+        assertThat(ten <= ten).isEqualTo(true)
+    }
 }
