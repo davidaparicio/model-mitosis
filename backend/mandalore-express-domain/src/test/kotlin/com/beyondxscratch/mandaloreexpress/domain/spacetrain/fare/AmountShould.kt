@@ -6,7 +6,7 @@ import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.junit.jupiter.api.Test
 import java.math.BigDecimal
 
-class AmountShould: EqualityShould<Amount> {
+class AmountShould : EqualityShould<Amount> {
 
     @Test
     fun `not be null`() {
@@ -23,7 +23,7 @@ class AmountShould: EqualityShould<Amount> {
     }
 
     @Test
-    fun `should add amounts`() {
+    fun `add amounts`() {
         val ten = Amount(BigDecimal.TEN)
         val one = Amount(BigDecimal.ONE)
 
@@ -33,7 +33,7 @@ class AmountShould: EqualityShould<Amount> {
     }
 
     @Test
-    fun `should subtract amounts`() {
+    fun `subtract amounts`() {
         val ten = Amount(BigDecimal.TEN)
         val one = Amount(BigDecimal.ONE)
 
