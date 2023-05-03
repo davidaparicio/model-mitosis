@@ -18,9 +18,11 @@ import com.beyondxscratch.mandaloreexpress.domain.spacetrain.Schedule
 import com.beyondxscratch.mandaloreexpress.domain.spacetrain.SpaceTrain
 import com.beyondxscratch.mandaloreexpress.domain.spacetrain.SpaceTrains
 import com.beyondxscratch.mandaloreexpress.domain.spacetrain.fare.Amount
+import com.beyondxscratch.mandaloreexpress.domain.spacetrain.fare.ComfortClass
 import com.beyondxscratch.mandaloreexpress.domain.spacetrain.fare.ComfortClass.FIRST
 import com.beyondxscratch.mandaloreexpress.domain.spacetrain.fare.ComfortClass.SECOND
-import com.beyondxscratch.mandaloreexpress.domain.spacetrain.fare.Currency
+import com.beyondxscratch.mandaloreexpress.domain.spacetrain.fare.Currency.REPUBLIC_CREDIT
+import com.beyondxscratch.mandaloreexpress.domain.spacetrain.fare.Discount
 import com.beyondxscratch.mandaloreexpress.domain.spacetrain.fare.Fare
 import com.beyondxscratch.mandaloreexpress.domain.spacetrain.fare.Price
 import com.beyondxscratch.mandaloreexpress.domain.spi.Bookings
@@ -29,6 +31,7 @@ import com.beyondxscratch.mandaloreexpress.domain.spi.SpacePorts
 import java.math.BigDecimal
 import java.time.LocalDateTime
 import java.util.UUID
+import kotlin.random.Random
 
 @DomainService
 class MandaloreExpress(
@@ -196,12 +199,35 @@ class MandaloreExpress(
             .plusMinutes((20L..840L).random())
 
     private fun computeFares(): Set<Fare> {
-        val currency = Currency.REPUBLIC_CREDIT
+
 
         return setOf(
-            Fare(comfortClass = FIRST, basePrice =  Price(Amount(BigDecimal((180..400).random())), currency)),
-            Fare(comfortClass = SECOND, basePrice =  Price(Amount(BigDecimal((150..200).random())), currency))
+            computeFare(FIRST),
+            computeFare(SECOND)
         )
+    }
+
+    private fun computeFare(comfortClass: ComfortClass): Fare {
+
+        val amountRange = when (comfortClass) {
+            FIRST -> 180..400
+            else -> 150..200
+        }
+
+        val basePrice = Price(Amount(BigDecimal(amountRange.random())), REPUBLIC_CREDIT)
+        return Fare(
+            comfortClass = comfortClass,
+            basePrice = basePrice,
+            discount = basePrice.generateDiscount()
+        )
+    }
+
+    private fun Price.generateDiscount(): Discount? {
+        val shouldHaveADiscount = Random.nextBoolean()
+
+        return if (!shouldHaveADiscount) {
+            Discount(Amount(BigDecimal((1..this.amount.value.intValueExact() - 10).random())), this.currency)
+        } else null
     }
 
     private fun SpacePorts.find(spacePortId: String): SpacePort {

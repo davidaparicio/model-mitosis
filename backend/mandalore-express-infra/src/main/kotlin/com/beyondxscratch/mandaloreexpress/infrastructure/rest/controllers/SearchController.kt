@@ -244,7 +244,7 @@ class SearchController(
         this.map { it.toResource(spaceTrainLink, resetSelection) }.toSet()
 
     private fun DomainFare.toResource(spaceTrainLink: LinkBuilder? = null, resetSelection: Boolean = false): Fare {
-        val fare = Fare(id, comfortClass, price.toResource())
+        val fare = Fare(id, comfortClass, price.toResource(), basePrice.toResource(), discount?.toResource())
 
         spaceTrainLink?.let {
             fare.add(

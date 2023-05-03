@@ -9,14 +9,20 @@ import com.beyondxscratch.mandaloreexpress.domain.spacetrain.fare.Fare as Domain
 import com.beyondxscratch.mandaloreexpress.domain.spacetrain.fare.Fares as DomainFares
 
 @Resource
-data class Fare(private val id: UUID, val comfortClass: ComfortClass, val price: Price) : RepresentationModel<Fare>()
+data class Fare(
+    private val id: UUID,
+    val comfortClass: ComfortClass,
+    val price: Price,
+    val basePrice: Price,
+    val discount: Discount? = null
+) : RepresentationModel<Fare>()
 
 typealias Fares = Set<Fare>
 
 fun DomainFares.toResource(spaceTrainLink: LinkBuilder): Fares = this.map { it.toResource(spaceTrainLink) }.toSet()
 
 fun DomainFare.toResource(spaceTrainLink: LinkBuilder? = null): Fare {
-    val fare = Fare(id, comfortClass, price.toResource())
+    val fare = Fare(id, comfortClass, price.toResource(), basePrice.toResource(), discount?.toResource())
 
     spaceTrainLink?.let {
         fare.add(spaceTrainLink.slash("fares")
