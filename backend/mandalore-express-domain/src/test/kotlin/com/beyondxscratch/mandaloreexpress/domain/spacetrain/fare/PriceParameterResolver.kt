@@ -9,6 +9,10 @@ class PriceParameterResolver : TypedParameterResolver<Price>({ parameterContext,
             randomPrice()
         }
 
+        parameterContext.isAnnotated(TenRepCredit::class.java) -> tenRepCreditsPrice()
+        parameterContext.isAnnotated(OneRepCredit::class.java) -> oneRepCreditPrice()
+        parameterContext.isAnnotated(OneCalamariFlan::class.java) -> oneCalamariFlanPrice()
+
         else -> price()
 
     }

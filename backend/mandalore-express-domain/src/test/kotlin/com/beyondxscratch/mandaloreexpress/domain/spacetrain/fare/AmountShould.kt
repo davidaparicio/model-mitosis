@@ -17,27 +17,27 @@ class AmountShould: EqualityShould<Amount> {
 
     @Test
     fun `not be strictly negative`() {
-        assertThatThrownBy { Amount(BigDecimal(-3)) }
+        assertThatThrownBy { amount(-3) }
             .isInstanceOf(IllegalArgumentException::class.java)
             .hasMessage("Amount must be strictly positive")
     }
 
     @Test
-    fun `should add amounts`(){
+    fun `should add amounts`() {
         val ten = Amount(BigDecimal.TEN)
         val one = Amount(BigDecimal.ONE)
 
-        val eleven = Amount(BigDecimal(11))
+        val eleven = amount(11)
 
         assertThat(ten + one).isEqualTo(eleven)
     }
 
     @Test
-    fun `should subtract amounts`(){
+    fun `should subtract amounts`() {
         val ten = Amount(BigDecimal.TEN)
         val one = Amount(BigDecimal.ONE)
 
-        val nine = Amount(BigDecimal(9))
+        val nine = amount(9)
 
         assertThat(ten - one).isEqualTo(nine)
     }

@@ -5,9 +5,10 @@ import com.beyondxscratch.mandaloreexpress.domain.Random
 
 class DiscountParameterResolver : TypedParameterResolver<Discount>({ parameterContext, _ ->
     when {
-        parameterContext.isAnnotated(Random::class.java) -> {
-            randomDiscount()
-        }
+        parameterContext.isAnnotated(Random::class.java) -> randomDiscount()
+
+        parameterContext.isAnnotated(OneRepCredit::class.java) -> oneRepCreditDiscount()
+
 
         else -> discount()
     }
