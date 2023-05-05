@@ -46,7 +46,7 @@ do {
         Typing "Of course! Proceeding immediately"
 
         $branchName = Get-Date -Format "yyyy-MM-dd-HHmm"
-        git checkout -b $branchName 2b26e8a4 2>&1 > $null
+        git checkout -b $branchName ad06049fd4b4826fb20c602e5a8f9f7b64ceb443 2>&1 > $null
 
         $sound=[uri]"C:\Users\Julien\IdeaProjects\model-mitosis\Chat3PO\everything-in-search-domain.mp3"
         $player.Open($sound)
