@@ -16,7 +16,7 @@ function Typing($sentence) {
 function EverythingInSearchDomain() {
 
     Write-Host "Chat3PO> " -NoNewLine -ForegroundColor Yellow
-    $part1="Most assuredly, the task was not without its challenges. The very software upon which we relied, Intellij, "
+    $part1="My goodness! The task was not without its challenges. The very software upon which we relied, Intellij, "
     $part2="was most uncooperative, causing no small amount of frustration and delay"
     foreach ($char in $part1.ToCharArray()) {
         Write-Host -NoNewline $char
