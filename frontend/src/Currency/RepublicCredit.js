@@ -8,13 +8,15 @@ import {makeStyles} from "@material-ui/core/styles";
 function RepublicCredit() {
     const useStyles = makeStyles(theme => ({
         republicCredit: {
-            marginLeft: "2px",
-            fontSize: "1.3em"
+            fontSize: "1.3em",
+            width: "0.6em",
+            height: "1em",
+            verticalAlign: "bottom"
         }
     }));
     const classes = useStyles();
     return (
-        <SvgIcon className={classes.republicCredit}>
+        <SvgIcon className={classes.republicCredit} viewBox="0 0 10 24">
             <path id="r1"
                   d="M1.24,0V4.35H0v5H1.26v4.33h.92V9.33H4.06v4.36H5V9.33H7.16L1.63,22.39H5.06l7.1-18H5V0H4.06V4.35H2.2V0Z"/>
         </SvgIcon>

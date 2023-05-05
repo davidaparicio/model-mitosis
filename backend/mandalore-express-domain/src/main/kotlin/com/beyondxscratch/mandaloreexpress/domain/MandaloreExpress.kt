@@ -218,14 +218,13 @@ class MandaloreExpress(
         return Fare(
             comfortClass = comfortClass,
             basePrice = basePrice,
-            discount = basePrice.generateDiscount()
+            discount = basePrice.generateDiscount(comfortClass)
         )
     }
 
-    private fun Price.generateDiscount(): Discount? {
-        val shouldHaveADiscount = Random.nextBoolean()
-
-        return if (!shouldHaveADiscount) {
+    private fun Price.generateDiscount(comfortClass : ComfortClass): Discount? {
+        val shouldHaveADiscount = comfortClass == FIRST
+        return if (shouldHaveADiscount) {
             Discount(Amount(BigDecimal((1..this.amount.value.intValueExact() - 10).random())), this.currency)
         } else null
     }

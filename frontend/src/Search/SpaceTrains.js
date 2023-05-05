@@ -83,22 +83,38 @@ function Schedule({ schedule }) {
 function Fare({ fare, selectFare }) {
   const useStyles = makeStyles(theme => ({
     fare: {
+      textAlign: "right",
       "&:nth-child(1)": {
-        marginBottom: theme.spacing(1)
+        marginBottom: theme.spacing(1.5)
       }
     },
+    price: {
+      width:"100%",
+      marginBottom: theme.spacing(0.5),
+      fontWeight: "800"
+
+    },
+    discount:{
+      fontSize: "0.8em",
+      verticalAlign: "baseline",
+      marginTop: "0em",
+      marginBottom: 0
+    }
   }));
   const classes = useStyles();
   return (
-    <Button
-      color="secondary"
-      variant="contained"
-      size="small"
-      className={classes.fare}
-      onClick={() => selectFare(fare._links.select.href)}
-    >
-      {fare.comfortClass} {fare.price.amount} {getCurrencySymbol(fare.price.currency)}
-    </Button>
+      <div className={classes.fare}>
+        <Button
+            color="secondary"
+            variant="contained"
+            size="small"
+            className={classes.price}
+            onClick={() => selectFare(fare._links.select.href)}
+        >
+          {fare.comfortClass} {fare.price.amount}{getCurrencySymbol(fare.price.currency)}
+        </Button>
+        {fare.discount && <p className={classes.discount}>Discounted from {fare.basePrice.amount}{getCurrencySymbol(fare.price.currency)}</p>}
+      </div>
   );
 }
 
