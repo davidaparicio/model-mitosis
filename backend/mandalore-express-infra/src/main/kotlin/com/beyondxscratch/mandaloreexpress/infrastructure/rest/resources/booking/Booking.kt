@@ -1,7 +1,7 @@
 package com.beyondxscratch.mandaloreexpress.infrastructure.rest.resources.booking
 
-import com.beyondxscratch.mandaloreexpress.domain.spacetrain.fare.Price
 import com.beyondxscratch.mandaloreexpress.infrastructure.rest.resources.Resource
+import com.beyondxscratch.mandaloreexpress.infrastructure.rest.resources.fare.Price
 import org.springframework.hateoas.RepresentationModel
 import java.util.UUID
 

@@ -12,6 +12,7 @@ import moment from "moment";
 import ExploreIcon from "@material-ui/icons/Explore";
 import Class from "../Commons/Class";
 import FlightIcon from "@material-ui/icons/Flight";
+import {getCurrencySymbol} from "../Commons/Currency";
 
 function Booking({ history }) {
   const { bookingId } = useParams();
@@ -43,7 +44,7 @@ function Booking({ history }) {
   return (
     <Grid
       container
-      justify="center"
+      justifyContent="center"
       alignContent="center"
       className={classes.grid}
       spacing={2}
@@ -56,8 +57,7 @@ function Booking({ history }) {
               <SpaceTrain key={spacetrain.number} spacetrain={spacetrain} />
             ))}
             <Typography variant="h6" className={classes.totalPrice}>
-              Total Price: {booking.totalPrice.amount}{" "}
-              {booking.totalPrice.currency}
+              Total Price: {booking.totalPrice.amount}{getCurrencySymbol(booking.totalPrice.currency)}
             </Typography>
 
             <Button
@@ -159,7 +159,7 @@ function Description({ number, fare }) {
         />
       </Box>
       <Typography variant="subtitle2">
-        {fare.price.amount} {fare.price.currency}
+        {fare.price.amount}{getCurrencySymbol(fare.price.currency)}
       </Typography>
     </Box>
   );

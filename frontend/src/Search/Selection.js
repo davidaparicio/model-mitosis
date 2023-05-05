@@ -10,6 +10,7 @@ import LanguageIcon from "@material-ui/icons/Language";
 import { withRouter } from "react-router-dom";
 import { proxiedUrl } from "../utils";
 import Class from "../Commons/Class";
+import {getCurrencySymbol} from "../Commons/Currency";
 
 function Selection({ history, links }) {
   const [selection, setSelection] = useState();
@@ -66,8 +67,8 @@ function Selection({ history, links }) {
           <div>
             {selection.totalPrice && (
               <Typography variant="h5" className={classes.totalPrice}>
-                Total Price: {selection.totalPrice.amount}{" "}
-                {selection.totalPrice.currency}
+                Total Price: {selection.totalPrice.amount}
+                {getCurrencySymbol(selection.totalPrice.currency)}
               </Typography>
             )}
             <Button
@@ -193,7 +194,7 @@ function Price({ price }) {
   const classes = useStyles();
   return (
     <div className={classes.price}>
-      {price.amount} {price.currency}
+      {price.amount}{getCurrencySymbol(price.currency)}
     </div>
   );
 }

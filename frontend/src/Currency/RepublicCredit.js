@@ -8,10 +8,10 @@ import {makeStyles} from "@material-ui/core/styles";
 function RepublicCredit() {
     const useStyles = makeStyles(theme => ({
         republicCredit: {
-            fontSize: "1.3em",
-            width: "0.6em",
-            height: "1em",
-            verticalAlign: "bottom"
+            fontSize: "1em",
+            width: "0.8em",
+            height: "1.3em",
+            verticalAlign: "text-bottom"
         }
     }));
     const classes = useStyles();

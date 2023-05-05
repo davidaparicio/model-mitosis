@@ -68,6 +68,9 @@ class BookingControllerShould(
             .andExpect(jsonPath("$.spaceTrains[1].fare.comfortClass").value(inboundFare.comfortClass.name))
             .andExpect(jsonPath("$.spaceTrains[1].fare.price.amount").value(inboundFare.price.amount.value))
             .andExpect(jsonPath("$.spaceTrains[1].fare.price.currency").value(inboundFare.price.currency.toString()))
+
+            .andExpect(jsonPath("$.totalPrice.amount").isNumber)
+            .andExpect(jsonPath("$.totalPrice.currency").value("REPUBLIC_CREDIT"))
     }
 
     @Test

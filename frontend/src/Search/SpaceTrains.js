@@ -4,13 +4,12 @@ import { Paper, Typography, Button } from "@material-ui/core";
 import moment from "moment";
 import { makeStyles } from "@material-ui/core/styles";
 import { withRouter } from "react-router-dom";
-import RepublicCredit from "../Currency/RepublicCredit";
+import {getCurrencySymbol} from "../Commons/Currency";
 
 function SpaceTrains({ history, link, onSelection }) {
   const [spacetrains, setSpaceTrains] = useState();
 
-  const useStyles = makeStyles(theme => ({
-    spacetrains: {}
+  const useStyles = makeStyles(() => ({
   }));
   const classes = useStyles();
 
@@ -111,16 +110,13 @@ function Fare({ fare, selectFare }) {
             className={classes.price}
             onClick={() => selectFare(fare._links.select.href)}
         >
-          {fare.comfortClass} {fare.price.amount}{getCurrencySymbol(fare.price.currency)}
+          {fare.comfortClass} {fare.price.amount} {getCurrencySymbol(fare.price.currency)}
         </Button>
         {fare.discount && <p className={classes.discount}>Discounted from {fare.basePrice.amount}{getCurrencySymbol(fare.price.currency)}</p>}
       </div>
   );
 }
 
-function getCurrencySymbol(currency) {
-  return <RepublicCredit />
-}
 function SpacePort({ id, schedule }) {
   const [spacePort, setSpacePort] = useState();
 

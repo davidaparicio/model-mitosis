@@ -6,6 +6,7 @@ import com.beyondxscratch.mandaloreexpress.domain.spi.Bookings
 import com.beyondxscratch.mandaloreexpress.domain.spi.Searches
 import com.beyondxscratch.mandaloreexpress.infrastructure.rest.resources.booking.Booking
 import com.beyondxscratch.mandaloreexpress.infrastructure.rest.resources.booking.toResource
+import com.beyondxscratch.mandaloreexpress.infrastructure.rest.resources.fare.toResource
 import org.springframework.hateoas.IanaLinkRelations.SELF
 import org.springframework.hateoas.server.EntityLinks
 import org.springframework.hateoas.server.ExposesResourceFor
@@ -54,7 +55,7 @@ class BookingController(
 
     private fun DomainBooking.toResource(): Booking {
         val bookingLink = entityLinks.linkForItemResource(Booking::class.java, id)
-        return Booking(id, spaceTrains.toResource(), totalPrice)
+        return Booking(id, spaceTrains.toResource(), totalPrice.toResource())
             .add(bookingLink.withSelfRel())
     }
 }
