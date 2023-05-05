@@ -1,10 +1,9 @@
 package com.beyondxscratch.mandaloreexpress.infrastructure.rest.controllers
 
-import com.beyondxscratch.mandaloreexpress.domain.api.BookSpaceTrains
-import com.beyondxscratch.mandaloreexpress.domain.api.SearchForSpaceTrains
-import com.beyondxscratch.mandaloreexpress.domain.exceptions.CannotBookAPartialSelection
-import com.beyondxscratch.mandaloreexpress.domain.spi.Bookings
-import com.beyondxscratch.mandaloreexpress.domain.spi.Searches
+import com.beyondxscratch.mandaloreexpress.domain.search.api.BookSpaceTrains
+import com.beyondxscratch.mandaloreexpress.domain.search.api.SearchForSpaceTrains
+import com.beyondxscratch.mandaloreexpress.domain.search.exceptions.CannotBookAPartialSelection
+import com.beyondxscratch.mandaloreexpress.domain.search.spi.Bookings
 import com.beyondxscratch.mandaloreexpress.infrastructure.rest.resources.booking.Booking
 import com.beyondxscratch.mandaloreexpress.infrastructure.rest.resources.booking.toResource
 import com.beyondxscratch.mandaloreexpress.infrastructure.rest.resources.fare.toResource
@@ -23,7 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 import org.springframework.web.server.ResponseStatusException
 import java.util.UUID
-import com.beyondxscratch.mandaloreexpress.domain.Booking as DomainBooking
+import com.beyondxscratch.mandaloreexpress.domain.search.Booking as DomainBooking
 
 @RestController
 @RequestMapping("/bookings")
