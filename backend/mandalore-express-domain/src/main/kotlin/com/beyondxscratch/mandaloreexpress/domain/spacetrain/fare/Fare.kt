@@ -7,10 +7,9 @@ data class Fare(
     val comfortClass: ComfortClass,
     val basePrice: Price,
     val discount: Discount? = null
-    //TODO: Add Amenities
 ) {
 
-    val price: Price get() = discount?.let { basePrice.apply(it) } ?: basePrice
+    val price: Price get() = basePrice.apply(discount)
 
     init {
         discount?.let {

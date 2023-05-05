@@ -3,6 +3,7 @@ package com.beyondxscratch.mandaloreexpress.domain.spacetrain.fare
 import com.beyondxscratch.mandaloreexpress.domain.EqualityShould
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatThrownBy
+import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 
 class PriceShould : EqualityShould<Price> {
@@ -53,5 +54,11 @@ class PriceShould : EqualityShould<Price> {
         assertThatThrownBy { oneCalamariFlan.apply(oneRepCreditDiscount) }
             .isInstanceOf(IllegalArgumentException::class.java)
             .hasMessage("Cannot sum prices with different currencies")
+    }
+
+    @Test
+    fun `return basePrise if there is no discount`(@OneCalamariFlan oneCalamariFlan: Price) {
+
+        assertThat (oneCalamariFlan.apply(null)).isEqualTo(oneCalamariFlan)
     }
 }
