@@ -47,7 +47,7 @@ do {
 
         $branchName = Get-Date -Format "yyyy-MM-dd-HHmm"
         git checkout -b $branchName ad06049fd4b4826fb20c602e5a8f9f7b64ceb443 2>&1 > $null
-
+        Start-Sleep -Milliseconds 500
         $sound=[uri]"C:\Users\Julien\IdeaProjects\model-mitosis\Chat3PO\everything-in-search-domain.mp3"
         $player.Open($sound)
         $player.Play()
