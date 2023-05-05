@@ -1,6 +1,6 @@
 package com.beyondxscratch.mandaloreexpress.infrastructure.rest.controllers
 
-import com.beyondxscratch.mandaloreexpress.domain.search.Booking
+import com.beyondxscratch.mandaloreexpress.domain.booking.Booking
 import com.beyondxscratch.mandaloreexpress.domain.annotations.OneWay
 import com.beyondxscratch.mandaloreexpress.domain.annotations.RoundTrip
 import com.beyondxscratch.mandaloreexpress.domain.search.Search

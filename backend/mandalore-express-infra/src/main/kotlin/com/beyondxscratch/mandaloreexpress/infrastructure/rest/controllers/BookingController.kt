@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 import org.springframework.web.server.ResponseStatusException
 import java.util.UUID
-import com.beyondxscratch.mandaloreexpress.domain.search.Booking as DomainBooking
+import com.beyondxscratch.mandaloreexpress.domain.booking.Booking as DomainBooking
 
 @RestController
 @RequestMapping("/bookings")

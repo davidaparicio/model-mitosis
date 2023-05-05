@@ -1,6 +1,6 @@
 package com.beyondxscratch.mandaloreexpress.domain.search.spi
 
-import com.beyondxscratch.mandaloreexpress.domain.search.Booking
+import com.beyondxscratch.mandaloreexpress.domain.booking.Booking
 import java.util.UUID
 
 interface Bookings {
