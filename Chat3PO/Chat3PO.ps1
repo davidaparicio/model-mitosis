@@ -52,8 +52,18 @@ do {
         $player.Open($sound)
         $player.Play()
         EverythingInSearchDomain
-    }else{
-        Write-Host "nothing"
+    }elseif($param.ToLower().Contains("split")){
+        $sound=[uri]"C:\Users\Julien\IdeaProjects\model-mitosis\Chat3PO\split-1.mp3"
+        $player.Open($sound)
+        $player.Play()
+        Typing "Oh dear! It's not like these advanced civilizations have spent centuries developing cutting-edge artificial intelligence to handle their complex systems."
+        $sound=[uri]"C:\Users\Julien\IdeaProjects\model-mitosis\Chat3PO\split-2.mp3"
+        $player.Open($sound)
+        $player.Play()
+        Typing "No, no, no. They keep those pesky developers around just to make their lives more difficult. Because who needs advanced technology when you can just rely on human error and bugs to keep things interesting, am I right?"
+
+    } else{
+        Write-Host "..."
     }
 
 } while ($true)
