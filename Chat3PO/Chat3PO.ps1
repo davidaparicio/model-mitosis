@@ -40,11 +40,16 @@ do {
     $param = $Host.UI.ReadLine()
 
     if ($param.ToLower().Contains("everything")) {
-        $sound=[uri]"C:\Users\Julien\IdeaProjects\model-mitosis\Chat3PO\everything-in-search-domain.mp3"
+        $sound=[uri]"C:\Users\Julien\IdeaProjects\model-mitosis\Chat3PO\of-course.mp3"
         $player.Open($sound)
+        $player.Play()
+        Typing "Of course! Proceeding immediately"
+
         $branchName = Get-Date -Format "yyyy-MM-dd-HHmm"
         git checkout -b $branchName 2b26e8a4 2>&1 > $null
 
+        $sound=[uri]"C:\Users\Julien\IdeaProjects\model-mitosis\Chat3PO\everything-in-search-domain.mp3"
+        $player.Open($sound)
         $player.Play()
         EverythingInSearchDomain
     }else{
