@@ -1,7 +1,7 @@
 Add-Type -AssemblyName presentationCore
 $player = New-Object System.Windows.Media.MediaPlayer
 
-Set-Location C:\Users\Julien\IdeaProjects\model-mitosis\backend
+Set-Location $PSScriptRoot\backend
 Clear-Host
 function Typing($sentence) {
 
@@ -30,7 +30,7 @@ function EverythingInSearchDomain() {
     Write-Host
 }
 
-$sound=[uri]"C:\Users\Julien\IdeaProjects\model-mitosis\Chat3PO\hello-master.mp3"
+$sound=[uri]"$PSScriptRoot\hello-master.mp3"
 $player.Open($sound)
 $player.Play()
 Typing "Hello master, how may I be of service to you today?"
@@ -40,30 +40,30 @@ do {
     $param = $Host.UI.ReadLine()
 
     if ($param.ToLower().Contains("everything")) {
-        $sound=[uri]"C:\Users\Julien\IdeaProjects\model-mitosis\Chat3PO\of-course.mp3"
+        $sound=[uri]"$PSScriptRoot\of-course.mp3"
         $player.Open($sound)
         $player.Play()
         Typing "Of course! Proceeding immediately"
 
-        $branchName = Get-Date -Format "yyyy-MM-dd-HHmm"
-        git checkout -b $branchName ad06049fd4b4826fb20c602e5a8f9f7b64ceb443 2>&1 > $null
+        # $branchName = Get-Date -Format "yyyy-MM-dd-HHmm"
+        git checkout Chat3PO-search-domain 2>&1 > $null
         Start-Sleep -Milliseconds 500
-        $sound=[uri]"C:\Users\Julien\IdeaProjects\model-mitosis\Chat3PO\everything-in-search-domain.mp3"
+        $sound=[uri]"$PSScriptRoot\everything-in-search-domain.mp3"
         $player.Open($sound)
         $player.Play()
         EverythingInSearchDomain
     }elseif($param.ToLower().Contains("split")){
-        $sound=[uri]"C:\Users\Julien\IdeaProjects\model-mitosis\Chat3PO\split-1.mp3"
+        $sound=[uri]"$PSScriptRoot\split-1.mp3"
         $player.Open($sound)
         $player.Play()
         Typing "Oh dear! It's not like these advanced civilizations have spent centuries developing cutting-edge artificial intelligence to handle their complex systems."
-        $sound=[uri]"C:\Users\Julien\IdeaProjects\model-mitosis\Chat3PO\split-2.mp3"
+        $sound=[uri]"$PSScriptRoot\split-2.mp3"
         $player.Open($sound)
         $player.Play()
         Typing "No, no, no. They keep those pesky developers around just to make their lives more difficult. Because who needs advanced technology when you can just rely on human error and bugs to keep things interesting, am I right?"
 
     } else{
-        Write-Host "..."
+       Typing "..."
     }
 
 } while ($true)
