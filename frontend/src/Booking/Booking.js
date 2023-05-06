@@ -12,7 +12,7 @@ import moment from "moment";
 import ExploreIcon from "@material-ui/icons/Explore";
 import Class from "../Commons/Class";
 import FlightIcon from "@material-ui/icons/Flight";
-import {getCurrencySymbol} from "../Commons/Currency";
+import { getCurrencySymbol } from "../Commons/Currency";
 
 function Booking({ history }) {
   const { bookingId } = useParams();
@@ -62,8 +62,8 @@ function Booking({ history }) {
 
             <Button
               size="large"
-              color="primary"
-              variant="outlined"
+              color="secondary"
+              variant="contained"
               fullWidth
               onClick={() => history.push("/")}
             >
@@ -143,7 +143,7 @@ function Description({ number, fare }) {
   }));
   const classes = useStyles();
   return (
-    <Box display="flex" alignItems="center" justifyContent="space-between">
+    <Box display="flex" alignItems="flex-end" justifyContent="space-between">
       <Box display="flex" alignItems="baseline">
         <FlightIcon className={classes.marginRight} />
         <Typography
@@ -158,10 +158,42 @@ function Description({ number, fare }) {
           className={classes.marginRight}
         />
       </Box>
-      <Typography variant="subtitle2">
-        {fare.price.amount}{getCurrencySymbol(fare.price.currency)}
-      </Typography>
+      <Box display="flex" flexDirection="column" alignItems="flex-end">
+        {fare.discount && <>
+          <Price basePrice price={fare.basePrice} />
+          <Discount discount={fare.discount} />
+        </>}
+        <Price price={fare.price} />
+      </Box>
     </Box>
+  );
+}
+function Discount({ discount }) {
+  return (
+    <div>
+      <Typography variant="body2" color="secondary">
+        {-discount.amount}{getCurrencySymbol(discount.currency)}
+      </Typography>
+    </div>
+  );
+}
+
+function Price({ basePrice, price }) {
+  const useStyles = makeStyles(theme => ({
+    basePrice: {
+      textDecoration: "line-through"
+    },
+    price: {
+      fontWeight: "600"
+    }
+  }));
+  const classes = useStyles();
+  return (
+    <div>
+      <Typography className={basePrice ? classes.basePrice : classes.price} variant={basePrice ? "body2" : "body1"}>
+        {!basePrice && "Price: "}{price.amount}{getCurrencySymbol(price.currency)}
+      </Typography>
+    </div>
   );
 }
 

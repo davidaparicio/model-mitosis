@@ -10,7 +10,8 @@ import LanguageIcon from "@material-ui/icons/Language";
 import { withRouter } from "react-router-dom";
 import { proxiedUrl } from "../utils";
 import Class from "../Commons/Class";
-import {getCurrencySymbol} from "../Commons/Currency";
+import { getCurrencySymbol } from "../Commons/Currency";
+import Divider from '@material-ui/core/Divider';
 
 function Selection({ history, links }) {
   const [selection, setSelection] = useState();
@@ -47,7 +48,7 @@ function Selection({ history, links }) {
       padding: theme.spacing(2)
     },
     totalPrice: {
-      marginTop: theme.spacing(3),
+      marginTop: theme.spacing(1),
       marginBottom: theme.spacing(2),
       textAlign: "right"
     }
@@ -90,10 +91,11 @@ function Selection({ history, links }) {
 
 function SpaceTrain({ spacetrain }) {
   return (
-    <Box mb={5}>
+    <Box mb={2}>
       <Bound spacetrain={spacetrain} />
       <Schedule schedule={spacetrain.departureSchedule} />
       <Fare fare={spacetrain.fare} />
+      <Divider />
     </Box>
   );
 }
@@ -182,19 +184,39 @@ function Fare({ fare }) {
   return (
     <div className={classes.fare}>
       <Class comfortClass={fare.comfortClass} />
-      <Price price={fare.price} />
+      <Box display="flex" flexDirection="column" alignItems="flex-end">
+        {fare.discount && <>
+          <Price basePrice price={fare.basePrice} />
+          <Discount discount={fare.discount} />
+        </>}
+        <Price price={fare.price} />
+      </Box>
     </div>
   );
 }
 
-function Price({ price }) {
+function Price({ basePrice, price }) {
   const useStyles = makeStyles(theme => ({
-    price: {}
+    basePrice: {
+      textDecoration: "line-through"
+    }
   }));
   const classes = useStyles();
   return (
-    <div className={classes.price}>
-      {price.amount}{getCurrencySymbol(price.currency)}
+    <div>
+      <Typography className={basePrice && classes.basePrice} variant={basePrice ? "caption" : "body1"}>
+        {!basePrice && "Price: "}{price.amount}{getCurrencySymbol(price.currency)}
+      </Typography>
+    </div>
+  );
+}
+
+function Discount({ discount }) {
+  return (
+    <div>
+      <Typography variant="caption" color="secondary">
+        {-discount.amount}{getCurrencySymbol(discount.currency)}
+      </Typography>
     </div>
   );
 }
