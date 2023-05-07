@@ -57,6 +57,7 @@
                     <pluginOptions>
                         <option>all-open:annotation=com.beyondxscratch.mandaloreexpress.annotations.DomainService</option>
                         <option>all-open:annotation=com.beyondxscratch.mandaloreexpress.annotations.Stub</option>
+                        <option>all-open:annotation=com.beyondxscratch.mandaloreexpress.annotations.AntiCorruptionLayer</option>
                     </pluginOptions>
                 </configuration>
                 <dependencies>
