@@ -31,7 +31,6 @@ import com.beyondxscratch.mandaloreexpress.domain.spi.SpacePorts
 import java.math.BigDecimal
 import java.time.LocalDateTime
 import java.util.UUID
-import kotlin.random.Random
 
 @DomainService
 class MandaloreExpress(
@@ -104,7 +103,6 @@ class MandaloreExpress(
     }
 
 
-    private fun SpaceTrain.getFare(fareId: UUID) = this.fares.first { it.id == fareId }
     private fun Search.getSelectedSpaceTrainsSortedByBound() =
         this.selection.spaceTrainsByBound.sortedBy { it.key.ordinal }
             .map { Pair(this.getSpaceTrainWithNumber(it.value.spaceTrainNumber), it.value.fareId) }

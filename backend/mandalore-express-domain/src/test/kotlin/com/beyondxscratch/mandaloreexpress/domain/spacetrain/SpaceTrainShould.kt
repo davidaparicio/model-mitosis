@@ -7,8 +7,10 @@ import com.beyondxscratch.mandaloreexpress.domain.criteria.Criteria
 import com.beyondxscratch.mandaloreexpress.domain.spacetrain.Bound.INBOUND
 import com.beyondxscratch.mandaloreexpress.domain.spacetrain.SpaceTrain.Companion.get
 import org.assertj.core.api.Assertions.assertThat
+import org.assertj.core.api.Assertions.assertThatCode
 import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.junit.jupiter.api.Test
+import java.util.UUID
 
 class SpaceTrainShould(private val spaceTrain: SpaceTrain) : EqualityShould<SpaceTrain> {
 
@@ -38,5 +40,16 @@ class SpaceTrainShould(private val spaceTrain: SpaceTrain) : EqualityShould<Spac
     fun `return no inbound space trains in case of a one way`(@OneWay criteria: Criteria) {
         val spaceTrains = spaceTrainsFrom(criteria)
         assertThat(spaceTrains[INBOUND]).isEmpty()
+    }
+
+    @Test
+    fun `return the fare corresponding to a given id if present`() {
+        val fare = spaceTrain.fares.first()
+        assertThat(spaceTrain.getFare(fare.id)).isEqualTo(fare)
+    }
+
+    @Test
+    fun `return NoSuchElementException for a fare id not belonging to the space train`() {
+        assertThatCode { spaceTrain.getFare(UUID.randomUUID()) }.isInstanceOf(NoSuchElementException::class.java)
     }
 }

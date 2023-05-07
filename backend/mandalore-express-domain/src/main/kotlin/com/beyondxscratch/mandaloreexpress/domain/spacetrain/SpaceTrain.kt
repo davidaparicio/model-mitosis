@@ -1,6 +1,7 @@
 package com.beyondxscratch.mandaloreexpress.domain.spacetrain
 
 import com.beyondxscratch.mandaloreexpress.domain.spacetrain.fare.Fares
+import java.util.UUID
 
 data class SpaceTrain(
     val number: String,
@@ -21,6 +22,7 @@ data class SpaceTrain(
         }
     }
 
+    fun getFare(fareId: UUID) = this.fares.first { it.id == fareId }
     private fun isNotCompatibleWithItself() = !compatibleSpaceTrains.contains(number)
 
     companion object {
