@@ -1,10 +1,10 @@
 package com.beyondxscratch.mandaloreexpress.domain.booking
 
+import com.beyondxscratch.mandaloreexpress.annotations.DomainService
 import com.beyondxscratch.mandaloreexpress.domain.booking.api.BookSpaceTrains
 import com.beyondxscratch.mandaloreexpress.domain.booking.spi.Bookings
 import com.beyondxscratch.mandaloreexpress.domain.booking.spi.IsSelectionComplete
 import com.beyondxscratch.mandaloreexpress.domain.booking.spi.RetrieveSelection
-import com.beyondxscratch.mandaloreexpress.annotations.DomainService
 import java.util.*
 
 @DomainService

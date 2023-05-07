@@ -30,28 +30,21 @@ import com.beyondxscratch.mandaloreexpress.domain.booking.Booking as DomainBooki
 class BookingController(
     private val bookSpaceTrains: BookSpaceTrains,
     private val bookings: Bookings,
-    private val searchForSpaceTrains: SearchForSpaceTrains,
     private val entityLinks: EntityLinks
 ) {
 
     @PostMapping
     fun bookSomeSpaceTrainsFromTheSelectionOf(@RequestParam searchId: UUID): ResponseEntity<Booking> {
-        val search = retrieveSearch(searchId)
         return try {
-            val domainBooking = bookSpaceTrains `from the selection of` search
+            val domainBooking = bookSpaceTrains `from the selection of` searchId
             val booking = domainBooking.toResource()
             created(booking.getRequiredLink(SELF).toUri()).body(booking)
+        } catch (exception: NoSuchElementException) {
+            throw ResponseStatusException(BAD_REQUEST, "cannot find any search corresponding to id $searchId")
         } catch (exception: CannotBookAPartialSelection) {
             throw ResponseStatusException(BAD_REQUEST, exception.message)
         }
     }
-
-    private fun retrieveSearch(searchId: UUID) =
-        try {
-            searchForSpaceTrains `identified by` searchId
-        } catch (error: NoSuchElementException) {
-            throw ResponseStatusException(BAD_REQUEST, "cannot find any search corresponding to id $searchId")
-        }
 
     @GetMapping("/{bookingId}")
     fun retrieveAnExistingBooking(@PathVariable bookingId: UUID): Booking {
