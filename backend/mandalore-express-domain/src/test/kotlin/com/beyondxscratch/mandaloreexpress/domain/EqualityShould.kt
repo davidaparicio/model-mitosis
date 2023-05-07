@@ -1,5 +1,6 @@
 package com.beyondxscratch.mandaloreexpress.domain
 
+import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.Random
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
