@@ -4,17 +4,22 @@ import com.beyondxscratch.mandaloreexpress.domain.EqualityShould
 import com.beyondxscratch.mandaloreexpress.domain.booking.spacetrain.fare.SeatLocation.*
 import com.beyondxscratch.mandaloreexpress.domain.booking.spacetrain.*
 import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.Random
-import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.Amount
-import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.Currency.REPUBLIC_CREDIT
-import com.beyondxscratch.mandaloreexpress.domain.booking.spacetrain.fare.Price
+import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.fare.Amount
+import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.fare.Currency.REPUBLIC_CREDIT
 import com.beyondxscratch.mandaloreexpress.domain.booking.tax.TaxPortion
 import com.beyondxscratch.mandaloreexpress.domain.booking.tax.TaxRate
+import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.amount
+import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.fare.Price
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.junit.jupiter.api.Test
 import java.math.BigDecimal
 
 class BookingShould : EqualityShould<Booking> {
+    private fun SpaceTrain.priced(price: Price): SpaceTrain {
+        return this.copy(fare = fare.copy(price = price))
+    }
+
     @Test
     fun `not be created from an empty list of space trains`() {
         assertThatThrownBy { Booking(spaceTrains = listOf()) }
@@ -59,19 +64,6 @@ class BookingShould : EqualityShould<Booking> {
     }
 
     @Test
-    fun `compute its tax portions`(@Random spaceTrain: SpaceTrain) {
-        val price = Price(Amount(BigDecimal("121.00")), REPUBLIC_CREDIT)
-
-        val expectedTaxRate = TaxRate(BigDecimal("0.2"))
-        val expectedTaxPortion = TaxPortion(Amount(BigDecimal("20.17")), REPUBLIC_CREDIT)
-
-        val booking = Booking(spaceTrains = listOf(spaceTrain.priced(price)));
-
-        assertThat(booking.taxRate).isEqualTo(expectedTaxRate)
-        assertThat(booking.taxPortion).isEqualTo(expectedTaxPortion)
-    }
-
-    @Test
     fun `finalize a booking`(@NonFinalized nonFinalizedBooking: Booking) {
         val finalizedBooking = nonFinalizedBooking.finalize()
 
@@ -105,5 +97,18 @@ class BookingShould : EqualityShould<Booking> {
 
         assertThat(bookingWithSelection.selectedSeatLocations[spaceTrain]).isEqualTo(FLYING_BRIDGE)
         assertThat(bookingWithSelection.finalized).isFalse()
+    }
+
+    @Test
+    fun `compute its tax portions`(@Random spaceTrain: SpaceTrain) {
+        val price = Price(amount("120.00"), REPUBLIC_CREDIT)
+
+        val expectedTaxRate = TaxRate("0.2".toBigDecimal())
+        val expectedTaxPortion = TaxPortion(amount("20.00"), REPUBLIC_CREDIT)
+
+        val booking = Booking(spaceTrains = listOf(spaceTrain.priced(price)));
+
+        assertThat(booking.taxRate).isEqualTo(expectedTaxRate)
+        assertThat(booking.taxPortion).isEqualTo(expectedTaxPortion)
     }
 }

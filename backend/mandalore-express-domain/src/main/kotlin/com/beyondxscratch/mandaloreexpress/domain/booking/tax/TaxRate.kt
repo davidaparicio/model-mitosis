@@ -2,6 +2,7 @@ package com.beyondxscratch.mandaloreexpress.domain.booking.tax
 
 import java.math.BigDecimal
 import java.math.BigDecimal.ZERO
+import java.math.RoundingMode
 
 data class TaxRate(val value: BigDecimal){
     init {

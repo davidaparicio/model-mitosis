@@ -14,4 +14,3 @@ com.beyondxscratch.mandaloreexpress.domain.sharedkernel.ScheduleParameterResolve
 com.beyondxscratch.mandaloreexpress.domain.booking.BookingParameterResolver
 com.beyondxscratch.mandaloreexpress.domain.booking.spacetrain.SpaceTrainParameterResolver
 com.beyondxscratch.mandaloreexpress.domain.booking.spacetrain.fare.FareParameterResolver
-com.beyondxscratch.mandaloreexpress.domain.booking.spacetrain.fare.PriceParameterResolver

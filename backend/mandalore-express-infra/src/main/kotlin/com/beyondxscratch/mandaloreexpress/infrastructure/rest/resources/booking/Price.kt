@@ -1,6 +1,6 @@
 package com.beyondxscratch.mandaloreexpress.infrastructure.rest.resources.booking
 
-import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.Currency
+import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.fare.Currency
 import com.beyondxscratch.mandaloreexpress.infrastructure.rest.resources.Resource
 import java.math.BigDecimal
 import com.beyondxscratch.mandaloreexpress.domain.booking.spacetrain.fare.Price as DomainPrice

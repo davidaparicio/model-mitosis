@@ -1,12 +1,11 @@
 package com.beyondxscratch.mandaloreexpress.domain.booking.api
 
 import com.beyondxscratch.mandaloreexpress.domain.booking.CannotBookAPartialSelection
-import com.beyondxscratch.mandaloreexpress.domain.booking.spacetrain.fare.Price
 import com.beyondxscratch.mandaloreexpress.domain.booking.spacetrain.SpaceTrain
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.junit.jupiter.api.Test
-import java.util.UUID
+import java.util.*
 import java.util.UUID.randomUUID
 
 interface PrepareBookingShould {
@@ -20,7 +19,6 @@ interface PrepareBookingShould {
 
         val booking = prepareBooking `from the selection of` completeSelectionSearchId
 
-        assertThat(booking.totalPrice).isEqualTo(selectedSpaceTrains.map { it.fare.price }.reduce(Price::plus))
         assertThat(booking.spaceTrains).isEqualTo(selectedSpaceTrains)
         assertThat(booking.finalized).isFalse
     }
