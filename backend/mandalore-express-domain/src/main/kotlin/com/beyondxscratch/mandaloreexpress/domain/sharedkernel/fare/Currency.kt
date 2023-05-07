@@ -1,4 +1,4 @@
-package com.beyondxscratch.mandaloreexpress.domain.sharedkernel
+package com.beyondxscratch.mandaloreexpress.domain.sharedkernel.fare
 
 enum class Currency {
     IMPERIAL_CREDIT,

@@ -9,9 +9,9 @@ import com.beyondxscratch.mandaloreexpress.domain.search.api.`with the fare`
 import com.beyondxscratch.mandaloreexpress.domain.search.spaceport.SpacePort
 import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.Bound
 import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.SpaceTrain.Companion.get
-import com.beyondxscratch.mandaloreexpress.infrastructure.rest.resources.search.Fare
-import com.beyondxscratch.mandaloreexpress.infrastructure.rest.resources.search.Fares
-import com.beyondxscratch.mandaloreexpress.infrastructure.rest.resources.search.toResource
+import com.beyondxscratch.mandaloreexpress.infrastructure.rest.resources.fare.Fare
+import com.beyondxscratch.mandaloreexpress.infrastructure.rest.resources.fare.Fares
+import com.beyondxscratch.mandaloreexpress.infrastructure.rest.resources.fare.toResource
 import com.beyondxscratch.mandaloreexpress.infrastructure.rest.resources.search.*
 import com.beyondxscratch.mandaloreexpress.infrastructure.rest.resources.search.Search
 import org.springframework.hateoas.IanaLinkRelations.SELF
@@ -46,8 +46,8 @@ import com.beyondxscratch.mandaloreexpress.domain.search.criteria.Criteria as Do
 import com.beyondxscratch.mandaloreexpress.domain.search.criteria.Journey as DomainJourney
 import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.SpaceTrain as DomainSpaceTrain
 import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.SpaceTrains as DomainSpaceTrains
-import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.fare.Fare as DomainFare
-import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.fare.Fares as DomainFares
+import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.fare.Fare as DomainFare
+import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.fare.Fares as DomainFares
 
 
 @RestController

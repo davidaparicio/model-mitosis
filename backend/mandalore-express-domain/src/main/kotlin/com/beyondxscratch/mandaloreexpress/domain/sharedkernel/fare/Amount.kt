@@ -1,4 +1,4 @@
-package com.beyondxscratch.mandaloreexpress.domain.sharedkernel
+package com.beyondxscratch.mandaloreexpress.domain.sharedkernel.fare
 
 import java.math.BigDecimal
 import java.math.RoundingMode
@@ -13,8 +13,6 @@ data class Amount(val value: BigDecimal) {
     operator fun plus(amount: Amount): Amount = Amount(value + amount.value)
 
     operator fun minus(amount: Amount): Amount = Amount(value - amount.value)
-
-    operator fun times(scalar: BigDecimal) : Amount = Amount(value * scalar)
 
     operator fun compareTo(amount: Amount): Int = value.compareTo(amount.value)
 }

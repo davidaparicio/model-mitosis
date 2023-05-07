@@ -5,6 +5,7 @@ import com.beyondxscratch.mandaloreexpress.domain.booking.api.PrepareBooking
 import com.beyondxscratch.mandaloreexpress.domain.booking.spi.Bookings
 import com.beyondxscratch.mandaloreexpress.infrastructure.rest.resources.booking.Booking
 import com.beyondxscratch.mandaloreexpress.infrastructure.rest.resources.booking.toResource
+import com.beyondxscratch.mandaloreexpress.infrastructure.rest.resources.fare.toResource
 import org.springframework.hateoas.IanaLinkRelations.SELF
 import org.springframework.hateoas.server.EntityLinks
 import org.springframework.hateoas.server.ExposesResourceFor

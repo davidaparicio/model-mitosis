@@ -10,15 +10,14 @@ import java.util.UUID.randomUUID
 
 class SpaceTrainsBookerShould(
     private val spaceTrain: SpaceTrain
-) : PrepareBookingShould, FinalizeBookingShould, SelectSeatLocationShould {
+) : PrepareBookingShould, FinalizeBookingShould {
     override val completeSelectionSearchId: UUID = randomUUID()
     override val uncompleteSelectionSearchId: UUID = randomUUID()
     override val selectedSpaceTrains: List<SpaceTrain> = listOf(spaceTrain)
     override val bookings = InMemoryBookings()
     override val finalizeBooking: FinalizeBooking
         get() = spaceTrainsBooker
-    override val selectSeatLocation: SelectSeatLocation
-        get() = spaceTrainsBooker
+
     override val prepareBooking: PrepareBooking
         get() = spaceTrainsBooker
 
