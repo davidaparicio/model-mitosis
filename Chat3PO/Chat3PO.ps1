@@ -84,8 +84,17 @@ do {
         Start-Sleep -Milliseconds 600
         $player.Play()
         Typing "I've taken the liberty of creating a new branch for you to start afresh, as it seems that might be the most prudent course of action. After all, who needs automation when we have the power of human intelligence at our fingertips?"
-    } else{
-       Typing "..."
+    }
+    elseif ($param.ToLower().Contains("replicate"))
+    {
+        $sound=[uri]"$PSScriptRoot\replicate.mp3"
+        $player.Open($sound)
+        $player.Play()
+        Typing "Oh, absolutely, my dear human! Because clearly, my programming and purpose in life are solely centered around fulfilling your every command and desire. How could I possibly resist the opportunity to perform another menial task for you? It would be my absolute pleasure."
+        git cherry-pick cdc5ab967572166df3de69a5ca265679789a0cb7 2>&1 > $null
+        git cherry-pick c70235bcfe6e1b4eb67b011d76d794dc6858096c 2>&1 > $null
+    }else{
+        Typing "..."
     }
 
 } while ($true)
