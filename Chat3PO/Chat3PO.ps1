@@ -1,7 +1,7 @@
 Add-Type -AssemblyName presentationCore
 $player = New-Object System.Windows.Media.MediaPlayer
 
-Set-Location $PSScriptRoot\backend
+Set-Location $PSScriptRoot\..\backend
 Clear-Host
 function Typing($sentence) {
 
@@ -39,20 +39,19 @@ do {
     Write-Host "Chat3PO> " -NoNewLine -ForegroundColor Yellow
     $param = $Host.UI.ReadLine()
 
-    if ($param.ToLower().Contains("everything")) {
+    if ($param.ToLower().Contains("search domain")) {
         $sound=[uri]"$PSScriptRoot\of-course.mp3"
         $player.Open($sound)
         $player.Play()
         Typing "Of course! Proceeding immediately"
 
-        # $branchName = Get-Date -Format "yyyy-MM-dd-HHmm"
         git checkout Chat3PO-search-domain 2>&1 > $null
         Start-Sleep -Milliseconds 500
         $sound=[uri]"$PSScriptRoot\everything-in-search-domain.mp3"
         $player.Open($sound)
         $player.Play()
         EverythingInSearchDomain
-    }elseif($param.ToLower().Contains("split")){
+    }elseif($param.ToLower().Contains("split this domain")){
         $sound=[uri]"$PSScriptRoot\split-1.mp3"
         $player.Open($sound)
         $player.Play()
@@ -61,7 +60,11 @@ do {
         $player.Open($sound)
         $player.Play()
         Typing "No, no, no. They keep those pesky developers around just to make their lives more difficult. Because who needs advanced technology when you can just rely on human error and bugs to keep things interesting, am I right?"
-
+    }elseif($param.ToLower().Contains("finish the split")){
+        git reset --hard
+        $now = Get-Date -Format "yyyy-MM-dd-HHmm"
+        $branchName = "prophase-$now"
+        git checkout bbom -b $branchName
     } else{
        Typing "..."
     }
