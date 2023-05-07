@@ -69,19 +69,19 @@ do {
         $player.Open($sound)
         $player.Play()
         Typing "What basis should I, a mere droid, use to make such a pivotal decision? Shall I rely on a game of chance, perhaps? Or maybe consult the latest gossip droid for their opinion? Oh, the possibilities are endless!"
-        Start-Sleep -Milliseconds 50
+        Start-Sleep -Milliseconds 1000
         $sound=[uri]"$PSScriptRoot\finish-the-split-3.mp3"
         $player.Open($sound)
         $player.Play()
         Typing "Well, well, well... Might I suggest a novel idea? Why not try using that fleshy, organic brain of yours for a change?"
-        Start-Sleep -Milliseconds 50
+        Start-Sleep -Milliseconds 600
         git reset --hard
         $now = Get-Date -Format "yyyy-MM-dd-HHmm"
         $branchName = "prophase-$now"
         git checkout bbom -b $branchName
         $sound=[uri]"$PSScriptRoot\finish-the-split-4.mp3"
         $player.Open($sound)
-        Start-Sleep -Milliseconds 50
+        Start-Sleep -Milliseconds 600
         $player.Play()
         Typing "I've taken the liberty of creating a new branch for you to start afresh, as it seems that might be the most prudent course of action. After all, who needs automation when we have the power of human intelligence at our fingertips?"
     } else{
