@@ -130,12 +130,12 @@ function SpaceTrain({ spacetrain }) {
         schedule={spacetrain.arrivalSchedule}
         arrival
       />
-      <Description number={spacetrain.number} fare={spacetrain.fare} />
+      <Description number={spacetrain.number} selectedFare={spacetrain.selectedFare} />
     </Box>
   );
 }
 
-function Description({ number, fare }) {
+function Description({ number, selectedFare }) {
   const useStyles = makeStyles(theme => ({
     marginRight: {
       marginRight: theme.spacing(1)
@@ -154,12 +154,12 @@ function Description({ number, fare }) {
           {number}
         </Typography>
         <Class
-          comfortClass={fare.comfortClass}
+          comfortClass={selectedFare.comfortClass}
           className={classes.marginRight}
         />
       </Box>
       <Box display="flex" flexDirection="column" alignItems="flex-end">
-        <Price price={fare.price} />
+        <Price price={selectedFare.price} />
       </Box>
     </Box>
   );

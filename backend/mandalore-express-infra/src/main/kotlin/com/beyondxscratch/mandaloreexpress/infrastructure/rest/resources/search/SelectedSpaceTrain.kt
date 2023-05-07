@@ -2,7 +2,6 @@ package com.beyondxscratch.mandaloreexpress.infrastructure.rest.resources.search
 
 import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.Bound
 import com.beyondxscratch.mandaloreexpress.infrastructure.rest.resources.Resource
-import com.beyondxscratch.mandaloreexpress.infrastructure.rest.resources.fare.Fare
 import org.springframework.hateoas.RepresentationModel
 import java.time.LocalDateTime
 
@@ -13,4 +12,5 @@ data class SelectedSpaceTrain(val number: String,
                               val destinationId: String,
                               val departureSchedule: LocalDateTime,
                               val arrivalSchedule: LocalDateTime,
-                              val fare: Fare) : RepresentationModel<SelectedSpaceTrain>()
+                              val fareOption: FareOption
+) : RepresentationModel<SelectedSpaceTrain>()

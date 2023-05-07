@@ -149,11 +149,11 @@ class SearchControllerShould(
             .andExpect(jsonPath("$.spaceTrains[0].departureSchedule").exists())
             .andExpect(jsonPath("$.spaceTrains[0].arrivalSchedule").exists())
             .andExpect(jsonPath("$.spaceTrains[0].duration").exists())
-            .andExpect(jsonPath("$.spaceTrains[0].fares").value(hasSize<Collection<*>>(2)))
-            .andExpect(jsonPath("$.spaceTrains[0].fares[0].comfortClass").value("FIRST"))
-            .andExpect(jsonPath("$.spaceTrains[0].fares[0].price.amount").value(notNullValue()))
-            .andExpect(jsonPath("$.spaceTrains[0].fares[0].price.currency").value("REPUBLIC_CREDIT"))
-            .andExpect(jsonPath("$.spaceTrains[0].fares[0]._links.select.href").value(matchesPattern("$location/spacetrains/$spaceTrainNumber/fares/.*/select\\?resetSelection=${!onlySelectable}")))
+            .andExpect(jsonPath("$.spaceTrains[0].fareOptions").value(hasSize<Collection<*>>(2)))
+            .andExpect(jsonPath("$.spaceTrains[0].fareOptions[0].comfortClass").value("FIRST"))
+            .andExpect(jsonPath("$.spaceTrains[0].fareOptions[0].price.amount").value(notNullValue()))
+            .andExpect(jsonPath("$.spaceTrains[0].fareOptions[0].price.currency").value("REPUBLIC_CREDIT"))
+            .andExpect(jsonPath("$.spaceTrains[0].fareOptions[0]._links.select.href").value(matchesPattern("$location/spacetrains/$spaceTrainNumber/fareoptions/.*/select\\?resetSelection=${!onlySelectable}")))
             .andExpect(jsonPath("$._links.self.href").value("$location/spacetrains?bound=OUTBOUND&onlySelectable=$onlySelectable"))
             .andExpect(jsonPath("$._links.search.href").value(location))
     }
@@ -176,11 +176,11 @@ class SearchControllerShould(
             .andExpect(jsonPath("$.spaceTrains[0].originId").value(arrivalSpacePortId))
             .andExpect(jsonPath("$.spaceTrains[0].number").value(notNullValue()))
             .andExpect(jsonPath("$.spaceTrains[0].destinationId").value(departureSpacePortId))
-            .andExpect(jsonPath("$.spaceTrains[0].fares").value(hasSize<Collection<*>>(2)))
-            .andExpect(jsonPath("$.spaceTrains[0].fares[0].comfortClass").value("FIRST"))
-            .andExpect(jsonPath("$.spaceTrains[0].fares[0].price.amount").value(notNullValue()))
-            .andExpect(jsonPath("$.spaceTrains[0].fares[0].price.currency").value("REPUBLIC_CREDIT"))
-            .andExpect(jsonPath("$.spaceTrains[0].fares[0]._links.select.href").value(matchesPattern("$location/spacetrains/$spaceTrainNumber/fares/.*/select\\?resetSelection=${!onlySelectable}")))
+            .andExpect(jsonPath("$.spaceTrains[0].fareOptions").value(hasSize<Collection<*>>(2)))
+            .andExpect(jsonPath("$.spaceTrains[0].fareOptions[0].comfortClass").value("FIRST"))
+            .andExpect(jsonPath("$.spaceTrains[0].fareOptions[0].price.amount").value(notNullValue()))
+            .andExpect(jsonPath("$.spaceTrains[0].fareOptions[0].price.currency").value("REPUBLIC_CREDIT"))
+            .andExpect(jsonPath("$.spaceTrains[0].fareOptions[0]._links.select.href").value(matchesPattern("$location/spacetrains/$spaceTrainNumber/fareoptions/.*/select\\?resetSelection=${!onlySelectable}")))
             .andExpect(jsonPath("$._links.self.href").value("$location/spacetrains?bound=INBOUND&onlySelectable=$onlySelectable"))
             .andExpect(jsonPath("$._links.search.href").value(location))
     }
@@ -278,10 +278,10 @@ class SearchControllerShould(
             .andExpect(jsonPath("$.spaceTrains").value(hasSize<Collection<*>>(search.spaceTrains[OUTBOUND].size)))
             .andExpect(jsonPath("$._links.selection").exists())
             .andExpect(jsonPath("$._links.self.href").value(allOutbounds))
-            .andExpect(jsonPath("$.spaceTrains[0].fares[0]._links.select.href").value(endsWith("resetSelection=true")))
+            .andExpect(jsonPath("$.spaceTrains[0].fareOptions[0]._links.select.href").value(endsWith("resetSelection=true")))
             .andDo {
                 firstOutboundSelect =
-                    JsonPath.read(it.response.contentAsString, "$.spaceTrains[0].fares[0]._links.select.href")
+                    JsonPath.read(it.response.contentAsString, "$.spaceTrains[0].fareOptions[0]._links.select.href")
             }
 
         mvc.perform(
@@ -311,10 +311,10 @@ class SearchControllerShould(
             .andExpect(jsonPath("$.spaceTrains").value(hasSize<Collection<*>>(search.spaceTrains.first().compatibleSpaceTrains.size)))
             .andExpect(jsonPath("$._links.selection").exists())
             .andExpect(jsonPath("$._links.self.href").value(selectableInbounds))
-            .andExpect(jsonPath("$.spaceTrains[0].fares[0]._links.select.href").value(endsWith("resetSelection=false")))
+            .andExpect(jsonPath("$.spaceTrains[0].fareOptions[0]._links.select.href").value(endsWith("resetSelection=false")))
             .andDo {
                 firstInboundSelect =
-                    JsonPath.read(it.response.contentAsString, "$.spaceTrains[0].fares[0]._links.select.href")
+                    JsonPath.read(it.response.contentAsString, "$.spaceTrains[0].fareOptions[0]._links.select.href")
             }
 
         mvc.perform(
@@ -352,10 +352,10 @@ class SearchControllerShould(
             .andExpect(jsonPath("$._links.outbounds-for-current-selection").doesNotHaveJsonPath())
             .andExpect(jsonPath("$._links.inbounds-for-current-selection").doesNotHaveJsonPath())
             .andExpect(jsonPath("$._links.create-booking").doesNotHaveJsonPath())
-            .andExpect(jsonPath("$.spaceTrains[1].fares[0]._links.select.href").value(endsWith("resetSelection=true")))
+            .andExpect(jsonPath("$.spaceTrains[1].fareOptions[0]._links.select.href").value(endsWith("resetSelection=true")))
             .andDo {
                 otherInboundSelect =
-                    JsonPath.read(it.response.contentAsString, "$.spaceTrains[1].fares[0]._links.select.href")
+                    JsonPath.read(it.response.contentAsString, "$.spaceTrains[1].fareOptions[0]._links.select.href")
             }
 
 
@@ -385,10 +385,10 @@ class SearchControllerShould(
             .andExpect(jsonPath("$.spaceTrains").value(hasSize<Collection<*>>(search.spaceTrains[INBOUND][1].compatibleSpaceTrains.size)))
             .andExpect(jsonPath("$._links.selection").exists())
             .andExpect(jsonPath("$._links.self.href").value(selectableOutbounds))
-            .andExpect(jsonPath("$.spaceTrains[0].fares[0]._links.select.href").value(endsWith("resetSelection=false")))
+            .andExpect(jsonPath("$.spaceTrains[0].fareOptions[0]._links.select.href").value(endsWith("resetSelection=false")))
             .andDo {
                 otherOutboundSelect =
-                    JsonPath.read(it.response.contentAsString, "$.spaceTrains[0].fares[0]._links.select.href")
+                    JsonPath.read(it.response.contentAsString, "$.spaceTrains[0].fareOptions[0]._links.select.href")
             }
 
         mvc.perform(
@@ -408,7 +408,7 @@ class SearchControllerShould(
     }
 
     @Test
-    fun `select space trains with fares`(@RoundTrip search: Search) {
+    fun `select space trains with fare options`(@RoundTrip search: Search) {
         val outBoundSpaceTrain = search.spaceTrains.first { it.bound == OUTBOUND }
         val outBoundFare = outBoundSpaceTrain.fareOptions.first()
         val inBoundSpaceTrain = search.spaceTrains.first { it.bound == INBOUND }
@@ -419,14 +419,14 @@ class SearchControllerShould(
             arrayListOf(outBoundSpaceTrain to outBoundFare, inBoundSpaceTrain to inBoundFare)
 
         mvc.perform(
-            post("/searches/${search.id}/spacetrains/${inBoundSpaceTrain.number}/fares/${inBoundFare.id}/select")
+            post("/searches/${search.id}/spacetrains/${inBoundSpaceTrain.number}/fareoptions/${inBoundFare.id}/select")
                 .accept(HAL_JSON)
         )
             .andExpect(jsonPath("$._links.create-booking").doesNotHaveJsonPath())
             .andExpectCorrectAllBoundsLinks(location)
 
         mvc.perform(
-            post("/searches/${search.id}/spacetrains/${outBoundSpaceTrain.number}/fares/${outBoundFare.id}/select")
+            post("/searches/${search.id}/spacetrains/${outBoundSpaceTrain.number}/fareoptions/${outBoundFare.id}/select")
                 .accept(HAL_JSON)
         )
             //
@@ -440,9 +440,9 @@ class SearchControllerShould(
                             .andExpect(jsonPath("$.spaceTrains[$index].number").value(spaceTrain.number))
                             .andExpect(jsonPath("$.spaceTrains[$index].originId").value(spaceTrain.originId))
                             .andExpect(jsonPath("$.spaceTrains[$index].destinationId").value(spaceTrain.destinationId))
-                            .andExpect(jsonPath("$.spaceTrains[$index].fare.comfortClass").value(fare.comfortClass.toString()))
-                            .andExpect(jsonPath("$.spaceTrains[$index].fare.price.amount").value(fare.price.amount.value))
-                            .andExpect(jsonPath("$.spaceTrains[$index].fare.price.currency").value(fare.price.currency.toString()))
+                            .andExpect(jsonPath("$.spaceTrains[$index].fareOption.comfortClass").value(fare.comfortClass.toString()))
+                            .andExpect(jsonPath("$.spaceTrains[$index].fareOption.price.amount").value(fare.price.amount.value))
+                            .andExpect(jsonPath("$.spaceTrains[$index].fareOption.price.currency").value(fare.price.currency.toString()))
 
                     }
             }

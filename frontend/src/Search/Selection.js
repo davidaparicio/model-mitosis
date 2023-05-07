@@ -94,7 +94,7 @@ function SpaceTrain({ spacetrain }) {
     <Box mb={2}>
       <Bound spacetrain={spacetrain} />
       <Schedule schedule={spacetrain.departureSchedule} />
-      <Fare fare={spacetrain.fare} />
+      <FareOption fareOption={spacetrain.fareOption} />
       <Divider />
     </Box>
   );
@@ -172,9 +172,9 @@ function Schedule({ schedule }) {
   );
 }
 
-function Fare({ fare }) {
+function FareOption({ fareOption }) {
   const useStyles = makeStyles(theme => ({
-    fare: {
+    fareOption: {
       display: "flex",
       justifyContent: "space-between",
       marginBottom: theme.spacing(1)
@@ -182,10 +182,10 @@ function Fare({ fare }) {
   }));
   const classes = useStyles();
   return (
-    <div className={classes.fare}>
-      <Class comfortClass={fare.comfortClass} />
+    <div className={classes.fareOption}>
+      <Class comfortClass={fareOption.comfortClass} />
       <Box display="flex" flexDirection="column" alignItems="flex-end">
-        <Price price={fare.price} />
+        <Price price={fareOption.price} />
       </Box>
     </div>
   );
@@ -196,7 +196,7 @@ function Price({ price }) {
   const classes = useStyles();
   return (
     <div>
-      <Typography  variant={"body1"}>
+      <Typography variant={"body1"}>
         {"Price: "}{price.amount}{getCurrencySymbol(price.currency)}
       </Typography>
     </div>

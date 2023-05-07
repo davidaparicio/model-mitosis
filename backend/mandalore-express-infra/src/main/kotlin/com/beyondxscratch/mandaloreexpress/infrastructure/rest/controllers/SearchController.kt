@@ -9,9 +9,9 @@ import com.beyondxscratch.mandaloreexpress.domain.search.api.`with the fare`
 import com.beyondxscratch.mandaloreexpress.domain.search.spaceport.SpacePort
 import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.Bound
 import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.SpaceTrain.Companion.get
-import com.beyondxscratch.mandaloreexpress.infrastructure.rest.resources.fare.Fare
-import com.beyondxscratch.mandaloreexpress.infrastructure.rest.resources.fare.Fares
-import com.beyondxscratch.mandaloreexpress.infrastructure.rest.resources.fare.toResource
+import com.beyondxscratch.mandaloreexpress.infrastructure.rest.resources.price.toResource
+import com.beyondxscratch.mandaloreexpress.infrastructure.rest.resources.search.FareOption
+import com.beyondxscratch.mandaloreexpress.infrastructure.rest.resources.search.FareOptions
 import com.beyondxscratch.mandaloreexpress.infrastructure.rest.resources.search.*
 import com.beyondxscratch.mandaloreexpress.infrastructure.rest.resources.search.Search
 import org.springframework.hateoas.IanaLinkRelations.SELF
@@ -46,8 +46,8 @@ import com.beyondxscratch.mandaloreexpress.domain.search.criteria.Criteria as Do
 import com.beyondxscratch.mandaloreexpress.domain.search.criteria.Journey as DomainJourney
 import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.SpaceTrain as DomainSpaceTrain
 import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.SpaceTrains as DomainSpaceTrains
-import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.fare.FareOption as DomainFare
-import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.fare.FareOptions as DomainFares
+import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.fare.FareOption as DomainFareOption
+import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.fare.FareOptions as DomainFareOptions
 
 
 @RestController
@@ -102,7 +102,7 @@ class SearchController(
         return ok(spaceTrains)
     }
 
-    @PostMapping("/{searchId}/spacetrains/{spaceTrainNumber}/fares/{fareId}/select")
+    @PostMapping("/{searchId}/spacetrains/{spaceTrainNumber}/fareoptions/{fareId}/select")
     fun selectSpaceTrainWithFare(
         @PathVariable searchId: UUID,
         @PathVariable spaceTrainNumber: String,
@@ -242,21 +242,21 @@ class SearchController(
         resetSelection: Boolean = false
     ): List<SpaceTrain> = this.map { it.toResource(searchLink, resetSelection) }
 
-    private fun DomainFares.toResource(spaceTrainLink: LinkBuilder, resetSelection: Boolean): Fares =
+    private fun DomainFareOptions.toResource(spaceTrainLink: LinkBuilder, resetSelection: Boolean): FareOptions =
         this.map { it.toResource(spaceTrainLink, resetSelection) }.toSet()
 
-    private fun DomainFare.toResource(spaceTrainLink: LinkBuilder? = null, resetSelection: Boolean = false): Fare {
-        val fare = Fare(id, comfortClass, price.toResource())
+    private fun DomainFareOption.toResource(spaceTrainLink: LinkBuilder? = null, resetSelection: Boolean = false): FareOption {
+        val fareOption = FareOption(id, comfortClass, price.toResource())
 
         spaceTrainLink?.let {
-            fare.add(
-                spaceTrainLink.slash("fares")
+            fareOption.add(
+                spaceTrainLink.slash("fareoptions")
                     .slash("$id")
                     .slash("select?resetSelection=$resetSelection")
                     .withRel("select")
             )
         }
-        return fare
+        return fareOption
     }
 }
 

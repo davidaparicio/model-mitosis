@@ -4,7 +4,7 @@ import { Paper, Typography, Button } from "@material-ui/core";
 import moment from "moment";
 import { makeStyles } from "@material-ui/core/styles";
 import { withRouter } from "react-router-dom";
-import {getCurrencySymbol} from "../Commons/Currency";
+import { getCurrencySymbol } from "../Commons/Currency";
 
 function SpaceTrains({ history, link, onSelection }) {
   const [spacetrains, setSpaceTrains] = useState();
@@ -79,16 +79,16 @@ function Schedule({ schedule }) {
   );
 }
 
-function Fare({ fare, selectFare }) {
+function FareOption({ fareOption, selectFareOption }) {
   const useStyles = makeStyles(theme => ({
-    fare: {
+    fareOption: {
       textAlign: "right",
       "&:nth-child(1)": {
         marginBottom: theme.spacing(1.5)
       }
     },
     price: {
-      width:"100%",
+      width: "100%",
       marginBottom: theme.spacing(0.5),
       fontWeight: "800"
 
@@ -96,17 +96,17 @@ function Fare({ fare, selectFare }) {
   }));
   const classes = useStyles();
   return (
-      <div className={classes.fare}>
-        <Button
-            color="secondary"
-            variant="contained"
-            size="small"
-            className={classes.price}
-            onClick={() => selectFare(fare._links.select.href)}
-        >
-          {fare.comfortClass} {fare.price.amount} {getCurrencySymbol(fare.price.currency)}
-        </Button>
-      </div>
+    <div className={classes.fareOption}>
+      <Button
+        color="secondary"
+        variant="contained"
+        size="small"
+        className={classes.price}
+        onClick={() => selectFareOption(fareOption._links.select.href)}
+      >
+        {fareOption.comfortClass} {fareOption.price.amount} {getCurrencySymbol(fareOption.price.currency)}
+      </Button>
+    </div>
   );
 }
 
@@ -181,8 +181,8 @@ function SpaceTrain({ spacetrain, selectFare }) {
         <Duration duration={spacetrain.duration} />
       </div>
       <div className={classes.fullHeight}>
-        {spacetrain.fares.map(fare => (
-          <Fare key={fare.comfortClass} fare={fare} selectFare={selectFare} />
+        {spacetrain.fareOptions.map(fareOption => (
+          <FareOption key={fareOption.comfortClass} fareOption={fareOption} selectFareOption={selectFare} />
         ))}
       </div>
     </Paper>
