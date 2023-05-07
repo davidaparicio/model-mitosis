@@ -1,14 +1,12 @@
 package com.beyondxscratch.mandaloreexpress.domain.anticorruptionlayer
 
 import com.beyondxscratch.mandaloreexpress.annotations.AntiCorruptionLayer
-import com.beyondxscratch.mandaloreexpress.domain.booking.spacetrain.fare.ComfortClass
-import com.beyondxscratch.mandaloreexpress.domain.booking.spacetrain.fare.Fare as BookingFare
+import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.fare.*
 import com.beyondxscratch.mandaloreexpress.domain.booking.spacetrain.SpaceTrain
 import com.beyondxscratch.mandaloreexpress.domain.booking.spi.IsSelectionComplete
 import com.beyondxscratch.mandaloreexpress.domain.booking.spi.RetrieveSelection
-import com.beyondxscratch.mandaloreexpress.domain.search.Search
-import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.fare.Fare as SearchFare
 import com.beyondxscratch.mandaloreexpress.domain.search.api.SearchForSpaceTrains
+import com.beyondxscratch.mandaloreexpress.domain.search.Search
 import java.util.UUID
 
 @AntiCorruptionLayer
@@ -35,19 +33,10 @@ class SearchSelectionForBooking(private val searchForSpaceTrains: SearchForSpace
                     spaceTrain.originId,
                     spaceTrain.destinationId,
                     spaceTrain.schedule,
-                    convertToBookingFare(fare),
+                    Fare(id = fare.id, comfortClass = ComfortClass.valueOf(fare.comfortClass.name), price = fare.price)
                 )
             }
 
-    private fun convertToBookingFare(fare: SearchFare): BookingFare {
-        val comfortClass = ComfortClass.valueOf(fare.comfortClass.name)
-
-        return BookingFare(
-            id = fare.id,
-            comfortClass = comfortClass,
-            price = fare.price,
-        )
-    }
 
     private fun Search.getSelectedSpaceTrainsSortedByBound() =
         selection.spaceTrainsByBound.sortedBy { it.key.ordinal }

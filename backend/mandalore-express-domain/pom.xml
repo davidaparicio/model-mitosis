@@ -12,6 +12,11 @@
     <artifactId>mandalore-express-domain</artifactId>
     <dependencies>
         <dependency>
+            <groupId>org.jetbrains.kotlin</groupId>
+            <artifactId>kotlin-reflect</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
             <groupId>com.beyondxscratch</groupId>
             <artifactId>mandalore-express-annotations</artifactId>
             <version>${project.version}</version>

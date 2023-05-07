@@ -22,5 +22,6 @@ fun randomBooking() = Booking(spaceTrains = listOf(randomSpaceTrain()))
 fun Booking.havingSpaceTrains(vararg spaceTrains: SpaceTrain): Booking {
     return this.copy(
         spaceTrains = spaceTrains.asList(),
-        selectedSeatLocations = spaceTrains.associateWith { ANY })
+        selectedSeatLocations = spaceTrains.associateWith { ANY }
+    )
 }
