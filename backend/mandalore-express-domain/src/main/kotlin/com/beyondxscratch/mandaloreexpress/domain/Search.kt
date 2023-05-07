@@ -171,39 +171,43 @@ data class Search(
     }
 
     override fun hashCode(): Int = id.hashCode()
-}
 
-private fun List<SpaceTrain>.haveSymmetricCompatibilities(): Boolean {
-    return all { spaceTrain ->
-        spaceTrain.compatibleSpaceTrains
-            .all { compatibleNumber -> first { it.number == compatibleNumber }.compatibleSpaceTrains.contains(spaceTrain.number) }
+    private fun List<SpaceTrain>.haveSymmetricCompatibilities(): Boolean {
+        return all { spaceTrain ->
+            spaceTrain.compatibleSpaceTrains
+                .all { compatibleNumber ->
+                    first { it.number == compatibleNumber }.compatibleSpaceTrains.contains(
+                        spaceTrain.number
+                    )
+                }
+        }
+
     }
 
-}
+    private fun List<SpaceTrain>.areCompatibleWithKnownOnes(): Boolean {
+        val spaceTrainByBound = groupBy { it.bound }
 
-private fun List<SpaceTrain>.areCompatibleWithKnownOnes(): Boolean {
-    val spaceTrainByBound = groupBy { it.bound }
+        val outboundSpaceTrains = spaceTrainByBound[OUTBOUND] ?: return true
+        val outboundSpaceTrainsCompatibilities = outboundSpaceTrains.map {
+            it.compatibleSpaceTrains
+        }.flatten()
 
-    val outboundSpaceTrains = spaceTrainByBound[OUTBOUND] ?: return true
-    val outboundSpaceTrainsCompatibilities = outboundSpaceTrains.map {
-        it.compatibleSpaceTrains
-    }.flatten()
+        val inboundSpaceTrains = spaceTrainByBound[INBOUND] ?: return true
+        val inboundSpaceTrainCompatibilities = inboundSpaceTrains.map { it.compatibleSpaceTrains }.flatten()
 
-    val inboundSpaceTrains = spaceTrainByBound[INBOUND] ?: return true
-    val inboundSpaceTrainCompatibilities = inboundSpaceTrains.map { it.compatibleSpaceTrains }.flatten()
+        return outboundSpaceTrainsCompatibilities.all { outboundCompatibility -> inboundSpaceTrains.any { outboundCompatibility == it.number } }
+            .and(inboundSpaceTrainCompatibilities.all { inboundCompatibility -> outboundSpaceTrains.any { inboundCompatibility == it.number } })
+    }
 
-    return outboundSpaceTrainsCompatibilities.all { outboundCompatibility -> inboundSpaceTrains.any { outboundCompatibility == it.number } }
-        .and(inboundSpaceTrainCompatibilities.all { inboundCompatibility -> outboundSpaceTrains.any { inboundCompatibility == it.number } })
-}
+    private fun Criteria.isOneWay(): Boolean = journeys.size == 1
 
-private fun Criteria.isOneWay(): Boolean = journeys.size == 1
-
-private fun List<SpaceTrain>.areNotCompatibleWithOtherSpaceTrainOnTheSameBound(): Boolean {
-    return groupBy { it.bound }.values
-        .all { spaceTrainsOnTheSameBound ->
-            spaceTrainsOnTheSameBound
-                .map { it.compatibleSpaceTrains }
-                .flatten()
-                .none { aCompatibleSpaceTrainNumber -> spaceTrainsOnTheSameBound.any { it.number == aCompatibleSpaceTrainNumber } }
-        }
+    private fun List<SpaceTrain>.areNotCompatibleWithOtherSpaceTrainOnTheSameBound(): Boolean {
+        return groupBy { it.bound }.values
+            .all { spaceTrainsOnTheSameBound ->
+                spaceTrainsOnTheSameBound
+                    .map { it.compatibleSpaceTrains }
+                    .flatten()
+                    .none { aCompatibleSpaceTrainNumber -> spaceTrainsOnTheSameBound.any { it.number == aCompatibleSpaceTrainNumber } }
+            }
+    }
 }
