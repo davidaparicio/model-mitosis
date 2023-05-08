@@ -4,12 +4,15 @@ import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatThrownBy
 import com.beyondxscratch.mandaloreexpress.domain.Random
 import com.beyondxscratch.mandaloreexpress.domain.RoundTrip
+import com.beyondxscratch.mandaloreexpress.domain.Search
 import com.beyondxscratch.mandaloreexpress.domain.criteria.Criteria
 import com.beyondxscratch.mandaloreexpress.domain.criteria.Journey
 import com.beyondxscratch.mandaloreexpress.domain.spaceport.OnCoruscant
 import com.beyondxscratch.mandaloreexpress.domain.spaceport.SpacePort
 import org.junit.jupiter.api.Test
 import java.time.LocalDateTime.now
+import java.util.*
+import java.util.UUID.randomUUID
 
 interface SearchForSpaceTrainsShould {
 
@@ -32,4 +35,18 @@ interface SearchForSpaceTrainsShould {
                 .hasMessage("Cannot perform a trip departing and arriving on the same Planet")
     }
 
+    @Test
+    fun `find the search with the given id`(@RoundTrip searchSaved: Search) {
+        val searchFound = searchForSpaceTrains `identified by` searchSaved.id
+        assertThat(searchFound).isEqualTo(searchSaved)
+    }
+
+    @Test
+    fun `throw NoSuchElementException for an unknown search Id`() {
+        val unknownId = randomUUID()
+
+        assertThatThrownBy { searchForSpaceTrains `identified by` unknownId }
+            .isInstanceOf(NoSuchElementException::class.java)
+            .hasMessage("Unknown search $unknownId")
+    }
 }
