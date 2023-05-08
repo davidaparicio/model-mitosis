@@ -1,46 +1,29 @@
 package com.beyondxscratch.mandaloreexpress.domain.booking
 
 import com.beyondxscratch.mandaloreexpress.domain.booking.api.BookSpaceTrains
-import com.beyondxscratch.mandaloreexpress.domain.booking.spacetrain.SpaceTrain
 import com.beyondxscratch.mandaloreexpress.domain.booking.spi.Bookings
-import com.beyondxscratch.mandaloreexpress.domain.search.Search
+import com.beyondxscratch.mandaloreexpress.domain.booking.spi.IsSelectionComplete
+import com.beyondxscratch.mandaloreexpress.domain.booking.spi.RetrieveSelection
 import com.beyondxscratch.mandaloreexpress.annotations.DomainService
-import com.beyondxscratch.mandaloreexpress.domain.booking.spacetrain.fare.SelectedFare
+import java.util.*
 
 @DomainService
 class SpaceTrainsBooker(
+    override val isSelectionComplete: IsSelectionComplete,
+    override val retrieveSelection: RetrieveSelection,
     override val bookings: Bookings
 ) :
     BookSpaceTrains {
 
-    override fun `from the selection of`(search: Search): Booking {
+    override fun `from the selection of`(searchId: UUID): Booking {
         return when {
-            !search.isSelectionComplete() -> throw CannotBookAPartialSelection()
+            !(isSelectionComplete of searchId) -> throw CannotBookAPartialSelection()
             else -> {
-                val spaceTrainsToBook = convertSelectedSpaceTrainsFrom(search)
+                val spaceTrainsToBook = retrieveSelection from searchId
                 bookings.save(Booking(spaceTrains = spaceTrainsToBook))
             }
         }
 
     }
 
-    private fun convertSelectedSpaceTrainsFrom(search: Search) =
-        search.getSelectedSpaceTrainsSortedByBound()
-            .map { selectedSpaceTrain ->
-                val (spaceTrain, fareId) = selectedSpaceTrain
-                val selectedFareOption = spaceTrain.getFare(fareId)
-
-                return@map SpaceTrain(
-                    spaceTrain.number,
-                    spaceTrain.originId,
-                    spaceTrain.destinationId,
-                    spaceTrain.schedule,
-                    SelectedFare(selectedFareOption.id, selectedFareOption.comfortClass, selectedFareOption.price)
-                )
-            }
-
-
-    private fun Search.getSelectedSpaceTrainsSortedByBound() =
-        this.selection.spaceTrainsByBound.sortedBy { it.key.ordinal }
-            .map { Pair(this.getSpaceTrainWithNumber(it.value.spaceTrainNumber), it.value.fareId) }
 }
