@@ -78,13 +78,16 @@ class MandaloreExpress(
     override fun `from the selection of`(search: Search): Booking {
         return when {
             !search.isSelectionComplete() -> throw CannotBookAPartialSelection()
-            else -> createBookingFrom(search)
+            else -> {
+                val spaceTrainsToBook = convertSelectedSpaceTrainsFrom(search)
+                bookings.save(Booking(spaceTrains = spaceTrainsToBook))
+            }
         }
 
     }
 
-    private fun createBookingFrom(search: Search): Booking {
-        val spaceTrainsToBook = search.getSelectedSpaceTrainsSortedByBound()
+    private fun convertSelectedSpaceTrainsFrom(search: Search) =
+        search.getSelectedSpaceTrainsSortedByBound()
             .map { selectedSpaceTrain ->
                 val (spaceTrain, fareId) = selectedSpaceTrain
                 val fare = spaceTrain.getFare(fareId)
@@ -95,12 +98,10 @@ class MandaloreExpress(
                     spaceTrain.originId,
                     spaceTrain.destinationId,
                     spaceTrain.schedule,
-                    setOf(fare),
+                    setOf<Fare>(fare),
                     spaceTrain.compatibleSpaceTrains
                 )
             }
-        return bookings.save(Booking(spaceTrains = spaceTrainsToBook))
-    }
 
 
     private fun Search.getSelectedSpaceTrainsSortedByBound() =
