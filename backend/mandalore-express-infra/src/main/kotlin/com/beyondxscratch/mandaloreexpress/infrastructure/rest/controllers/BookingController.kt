@@ -1,6 +1,7 @@
 package com.beyondxscratch.mandaloreexpress.infrastructure.rest.controllers
 
 import com.beyondxscratch.mandaloreexpress.domain.api.BookSpaceTrains
+import com.beyondxscratch.mandaloreexpress.domain.api.SearchForSpaceTrains
 import com.beyondxscratch.mandaloreexpress.domain.exceptions.CannotBookAPartialSelection
 import com.beyondxscratch.mandaloreexpress.domain.spi.Bookings
 import com.beyondxscratch.mandaloreexpress.domain.spi.Searches
@@ -30,14 +31,13 @@ import com.beyondxscratch.mandaloreexpress.domain.Booking as DomainBooking
 class BookingController(
     private val bookSpaceTrains: BookSpaceTrains,
     private val bookings: Bookings,
-    private val searches: Searches,
+    private val searchForSpaceTrains: SearchForSpaceTrains,
     private val entityLinks: EntityLinks
 ) {
 
     @PostMapping
     fun bookSomeSpaceTrainsFromTheSelectionOf(@RequestParam searchId: UUID): ResponseEntity<Booking> {
-        val search = searches `find search identified by` searchId
-            ?: throw ResponseStatusException(BAD_REQUEST, "cannot find any search corresponding to id $searchId")
+        val search = retrieveSearch(searchId)
         return try {
             val domainBooking = bookSpaceTrains `from the selection of` search
             val booking = domainBooking.toResource()
@@ -46,6 +46,13 @@ class BookingController(
             throw ResponseStatusException(BAD_REQUEST, exception.message)
         }
     }
+
+    private fun retrieveSearch(searchId: UUID) =
+        try {
+            searchForSpaceTrains `identified by` searchId
+        } catch (error: NoSuchElementException) {
+            throw ResponseStatusException(BAD_REQUEST, "cannot find any search corresponding to id $searchId")
+        }
 
     @GetMapping("/{bookingId}")
     fun retrieveAnExistingBooking(@PathVariable bookingId: UUID): Booking {

@@ -58,7 +58,6 @@ class SearchController(
     private val `search for space trains`: SearchForSpaceTrains,
     private val `retrieve space ports`: RetrieveSpacePorts,
     private val `select space train`: SelectSpaceTrain,
-    private val searches: Searches,
     private val entityLinks: EntityLinks
 ) {
 
@@ -135,8 +134,12 @@ class SearchController(
         }
     }
 
-    private fun retrieveSearch(searchId: UUID) = (searches `find search identified by` searchId
-        ?: throw ResponseStatusException(NOT_FOUND, "unknown search id $searchId"))
+    private fun retrieveSearch(searchId: UUID) =
+        try {
+            `search for space trains` `identified by` searchId
+        } catch (error: NoSuchElementException) {
+            throw ResponseStatusException(NOT_FOUND, "unknown search id $searchId")
+        }
 
     private fun DomainSearch.toResource(): Search {
         val searchLink = searchLink(id)
