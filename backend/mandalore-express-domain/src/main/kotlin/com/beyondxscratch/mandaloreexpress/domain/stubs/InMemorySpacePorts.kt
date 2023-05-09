@@ -1,5 +1,6 @@
 package com.beyondxscratch.mandaloreexpress.domain.stubs
 
+import com.beyondxscratch.mandaloreexpress.annotations.Stub
 import com.beyondxscratch.mandaloreexpress.domain.spaceport.Planet.CORUSCANT
 import com.beyondxscratch.mandaloreexpress.domain.spaceport.Planet.MANDALORE
 import com.beyondxscratch.mandaloreexpress.domain.spaceport.Planet.NEVARRO

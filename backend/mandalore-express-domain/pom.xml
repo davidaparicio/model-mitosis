@@ -10,6 +10,13 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
     <artifactId>mandalore-express-domain</artifactId>
+    <dependencies>
+        <dependency>
+            <groupId>com.beyondxscratch</groupId>
+            <artifactId>mandalore-express-annotations</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+    </dependencies>
 
     <build>
         <plugins>
@@ -32,6 +39,7 @@
                                         <include>org.jetbrains:annotations</include>
                                         <!-- and test dependencies-->
                                         <include>*:*:*:*:test</include>
+                                        <include>com.beyondxscratch:mandalore-express-annotations</include>
                                     </includes>
                                 </bannedDependencies>
                             </rules>
@@ -47,9 +55,8 @@
                         <plugin>all-open</plugin>
                     </compilerPlugins>
                     <pluginOptions>
-                        <option>all-open:annotation=com.beyondxscratch.mandaloreexpress.domain.api.DomainService</option>
-                        <option>all-open:annotation=com.beyondxscratch.mandaloreexpress.domain.stubs.Stub
-                        </option>
+                        <option>all-open:annotation=com.beyondxscratch.mandaloreexpress.annotations.DomainService</option>
+                        <option>all-open:annotation=com.beyondxscratch.mandaloreexpress.annotations.Stub</option>
                     </pluginOptions>
                 </configuration>
                 <dependencies>

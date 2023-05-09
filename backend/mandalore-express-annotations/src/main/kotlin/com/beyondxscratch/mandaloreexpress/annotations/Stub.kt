@@ -1,4 +1,4 @@
-package com.beyondxscratch.mandaloreexpress.domain.stubs
+package com.beyondxscratch.mandaloreexpress.annotations
 
 import java.lang.annotation.Inherited
 

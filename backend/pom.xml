@@ -17,6 +17,7 @@
     <modules>
         <module>mandalore-express-domain</module>
         <module>mandalore-express-infra</module>
+        <module>mandalore-express-annotations</module>
     </modules>
 
     <properties>

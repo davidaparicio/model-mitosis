@@ -1,7 +1,7 @@
 package com.beyondxscratch.mandaloreexpress.domain
 
+import com.beyondxscratch.mandaloreexpress.annotations.DomainService
 import com.beyondxscratch.mandaloreexpress.domain.api.BookSpaceTrains
-import com.beyondxscratch.mandaloreexpress.domain.api.DomainService
 import com.beyondxscratch.mandaloreexpress.domain.api.RetrieveSpacePorts
 import com.beyondxscratch.mandaloreexpress.domain.api.SearchForSpaceTrains
 import com.beyondxscratch.mandaloreexpress.domain.api.SelectSpaceTrain
