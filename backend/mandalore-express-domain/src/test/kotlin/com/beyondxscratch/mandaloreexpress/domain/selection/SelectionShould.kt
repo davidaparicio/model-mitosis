@@ -2,8 +2,10 @@ package com.beyondxscratch.mandaloreexpress.domain.selection
 
 import com.beyondxscratch.mandaloreexpress.domain.EqualityShould
 import com.beyondxscratch.mandaloreexpress.domain.Random
-import com.beyondxscratch.mandaloreexpress.domain.spacetrain.Bound
-import com.beyondxscratch.mandaloreexpress.domain.spacetrain.Bound.OUTBOUND
+import com.beyondxscratch.mandaloreexpress.domain.search.selection.SelectedSpaceTrain
+import com.beyondxscratch.mandaloreexpress.domain.search.selection.Selection
+import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.Bound
+import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.Bound.OUTBOUND
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 

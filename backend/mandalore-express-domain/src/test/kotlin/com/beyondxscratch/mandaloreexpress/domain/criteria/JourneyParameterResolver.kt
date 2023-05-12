@@ -3,6 +3,8 @@ package com.beyondxscratch.mandaloreexpress.domain.criteria
 import com.beyondxscratch.TypedParameterResolver
 import com.beyondxscratch.mandaloreexpress.domain.Random
 import com.beyondxscratch.mandaloreexpress.domain.RoundTrip
+import com.beyondxscratch.mandaloreexpress.domain.search.criteria.Journey
+import com.beyondxscratch.mandaloreexpress.domain.search.criteria.Journeys
 import com.beyondxscratch.mandaloreexpress.domain.spacetrain.Inbound
 import com.beyondxscratch.mandaloreexpress.domain.spacetrain.Outbound
 

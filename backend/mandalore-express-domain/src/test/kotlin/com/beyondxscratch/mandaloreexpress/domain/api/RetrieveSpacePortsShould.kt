@@ -1,5 +1,6 @@
 package com.beyondxscratch.mandaloreexpress.domain.api
 
+import com.beyondxscratch.mandaloreexpress.domain.search.api.RetrieveSpacePorts
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 

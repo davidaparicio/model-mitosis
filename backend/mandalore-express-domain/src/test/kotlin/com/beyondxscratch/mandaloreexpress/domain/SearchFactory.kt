@@ -2,11 +2,12 @@ package com.beyondxscratch.mandaloreexpress.domain
 
 import com.beyondxscratch.mandaloreexpress.domain.criteria.oneWayCriteria
 import com.beyondxscratch.mandaloreexpress.domain.criteria.roundTripCriteria
-import com.beyondxscratch.mandaloreexpress.domain.spacetrain.Bound
-import com.beyondxscratch.mandaloreexpress.domain.spacetrain.Bound.INBOUND
-import com.beyondxscratch.mandaloreexpress.domain.spacetrain.Bound.OUTBOUND
-import com.beyondxscratch.mandaloreexpress.domain.spacetrain.SpaceTrain
-import com.beyondxscratch.mandaloreexpress.domain.spacetrain.fare.Fare
+import com.beyondxscratch.mandaloreexpress.domain.search.Search
+import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.Bound
+import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.Bound.INBOUND
+import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.Bound.OUTBOUND
+import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.SpaceTrain
+import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.fare.Fare
 import com.beyondxscratch.mandaloreexpress.domain.spacetrain.spaceTrainsFrom
 import java.util.UUID.fromString
 import java.util.UUID.randomUUID

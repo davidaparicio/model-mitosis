@@ -2,8 +2,9 @@ package com.beyondxscratch.mandaloreexpress.domain.api
 
 import com.beyondxscratch.mandaloreexpress.domain.OneWay
 import com.beyondxscratch.mandaloreexpress.domain.RoundTrip
-import com.beyondxscratch.mandaloreexpress.domain.Search
-import com.beyondxscratch.mandaloreexpress.domain.exceptions.CannotBookAPartialSelection
+import com.beyondxscratch.mandaloreexpress.domain.booking.CannotBookAPartialSelection
+import com.beyondxscratch.mandaloreexpress.domain.booking.api.BookSpaceTrains
+import com.beyondxscratch.mandaloreexpress.domain.search.Search
 import com.beyondxscratch.mandaloreexpress.domain.selectAnInboundSpaceTrain
 import com.beyondxscratch.mandaloreexpress.domain.selectAnOutboundSpaceTrain
 import org.assertj.core.api.Assertions.assertThat

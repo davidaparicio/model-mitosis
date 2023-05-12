@@ -1,6 +1,7 @@
 package com.beyondxscratch.mandaloreexpress.domain.spacetrain
 
-import com.beyondxscratch.mandaloreexpress.domain.spacetrain.Bound.INBOUND
+import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.Bound
+import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.Bound.INBOUND
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.junit.jupiter.api.Test
