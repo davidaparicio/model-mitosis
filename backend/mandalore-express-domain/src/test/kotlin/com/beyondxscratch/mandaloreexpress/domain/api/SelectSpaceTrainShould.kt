@@ -1,8 +1,12 @@
 package com.beyondxscratch.mandaloreexpress.domain.api
 
 import com.beyondxscratch.mandaloreexpress.domain.RoundTrip
-import com.beyondxscratch.mandaloreexpress.domain.Search
-import com.beyondxscratch.mandaloreexpress.domain.selection.SelectedSpaceTrain
+import com.beyondxscratch.mandaloreexpress.domain.search.Search
+import com.beyondxscratch.mandaloreexpress.domain.search.api.SelectSpaceTrain
+import com.beyondxscratch.mandaloreexpress.domain.search.api.`by resetting the selection`
+import com.beyondxscratch.mandaloreexpress.domain.search.api.`in search`
+import com.beyondxscratch.mandaloreexpress.domain.search.api.`with the fare`
+import com.beyondxscratch.mandaloreexpress.domain.search.selection.SelectedSpaceTrain
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.assertj.core.data.MapEntry.entry
@@ -16,7 +20,7 @@ interface SelectSpaceTrainShould {
     @Test
     fun `select a space train with a specific fare in an existing search`(@RoundTrip search: Search) {
         val spaceTrain = search.spaceTrains.first()
-        val fare = spaceTrain.fares.first()
+        val fare = spaceTrain.fareOptions.first()
 
         val result = selectSpaceTrain `having the number` spaceTrain.number `with the fare` fare.id `in search` search.id `by resetting the selection` false
         assertThat(result.selection)

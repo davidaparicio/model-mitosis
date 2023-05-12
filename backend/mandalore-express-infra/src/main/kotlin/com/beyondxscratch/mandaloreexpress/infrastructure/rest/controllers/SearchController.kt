@@ -1,20 +1,19 @@
 package com.beyondxscratch.mandaloreexpress.infrastructure.rest.controllers
 
-import com.beyondxscratch.mandaloreexpress.domain.api.RetrieveSpacePorts
-import com.beyondxscratch.mandaloreexpress.domain.api.SearchForSpaceTrains
-import com.beyondxscratch.mandaloreexpress.domain.api.SelectSpaceTrain
-import com.beyondxscratch.mandaloreexpress.domain.api.`by resetting the selection`
-import com.beyondxscratch.mandaloreexpress.domain.api.`in search`
-import com.beyondxscratch.mandaloreexpress.domain.api.`with the fare`
-import com.beyondxscratch.mandaloreexpress.domain.spaceport.SpacePort
-import com.beyondxscratch.mandaloreexpress.domain.spacetrain.Bound
-import com.beyondxscratch.mandaloreexpress.domain.spacetrain.SpaceTrain.Companion.get
-import com.beyondxscratch.mandaloreexpress.domain.spi.Searches
+import com.beyondxscratch.mandaloreexpress.domain.search.api.RetrieveSpacePorts
+import com.beyondxscratch.mandaloreexpress.domain.search.api.SearchForSpaceTrains
+import com.beyondxscratch.mandaloreexpress.domain.search.api.SelectSpaceTrain
+import com.beyondxscratch.mandaloreexpress.domain.search.api.`by resetting the selection`
+import com.beyondxscratch.mandaloreexpress.domain.search.api.`in search`
+import com.beyondxscratch.mandaloreexpress.domain.search.api.`with the fare`
+import com.beyondxscratch.mandaloreexpress.domain.search.spaceport.SpacePort
+import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.Bound
+import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.SpaceTrain.Companion.get
 import com.beyondxscratch.mandaloreexpress.infrastructure.rest.resources.fare.Fare
 import com.beyondxscratch.mandaloreexpress.infrastructure.rest.resources.fare.Fares
+import com.beyondxscratch.mandaloreexpress.infrastructure.rest.resources.fare.toResource
 import com.beyondxscratch.mandaloreexpress.infrastructure.rest.resources.search.*
 import com.beyondxscratch.mandaloreexpress.infrastructure.rest.resources.search.Search
-import com.beyondxscratch.mandaloreexpress.infrastructure.rest.resources.fare.toResource
 import org.springframework.hateoas.IanaLinkRelations.SELF
 import org.springframework.hateoas.LinkRelation
 import org.springframework.hateoas.LinkRelation.of
@@ -42,13 +41,13 @@ import java.net.URI
 import java.time.LocalDateTime.parse
 import java.util.Locale
 import java.util.UUID
-import com.beyondxscratch.mandaloreexpress.domain.Search as DomainSearch
-import com.beyondxscratch.mandaloreexpress.domain.criteria.Criteria as DomainCriteria
-import com.beyondxscratch.mandaloreexpress.domain.criteria.Journey as DomainJourney
-import com.beyondxscratch.mandaloreexpress.domain.spacetrain.SpaceTrain as DomainSpaceTrain
-import com.beyondxscratch.mandaloreexpress.domain.spacetrain.SpaceTrains as DomainSpaceTrains
-import com.beyondxscratch.mandaloreexpress.domain.spacetrain.fare.Fare as DomainFare
-import com.beyondxscratch.mandaloreexpress.domain.spacetrain.fare.Fares as DomainFares
+import com.beyondxscratch.mandaloreexpress.domain.search.Search as DomainSearch
+import com.beyondxscratch.mandaloreexpress.domain.search.criteria.Criteria as DomainCriteria
+import com.beyondxscratch.mandaloreexpress.domain.search.criteria.Journey as DomainJourney
+import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.SpaceTrain as DomainSpaceTrain
+import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.SpaceTrains as DomainSpaceTrains
+import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.fare.FareOption as DomainFare
+import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.fare.FareOptions as DomainFares
 
 
 @RestController
@@ -179,7 +178,7 @@ class SearchController(
                         spaceTrain.destinationId,
                         spaceTrain.schedule.departure,
                         spaceTrain.schedule.arrival,
-                        spaceTrain.fares.first { it.id == selectedSpaceTrain.fareId }.toResource()
+                        spaceTrain.fareOptions.first { it.id == selectedSpaceTrain.fareId }.toResource()
                     )
                 }
                 .sortedBy { it.bound.ordinal }
@@ -235,7 +234,7 @@ class SearchController(
         schedule.departure,
         schedule.arrival,
         schedule.duration,
-        fares.toResource(searchLink.slash("spacetrains").slash(number), resetSelection)
+        fareOptions.toResource(searchLink.slash("spacetrains").slash(number), resetSelection)
     )
 
     private fun DomainSpaceTrains.toResource(

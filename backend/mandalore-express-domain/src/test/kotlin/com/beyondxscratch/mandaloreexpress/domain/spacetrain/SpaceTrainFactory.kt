@@ -1,13 +1,15 @@
 package com.beyondxscratch.mandaloreexpress.domain.spacetrain
 
-import com.beyondxscratch.mandaloreexpress.domain.criteria.Criteria
-import com.beyondxscratch.mandaloreexpress.domain.spaceport.Planet
-import com.beyondxscratch.mandaloreexpress.domain.spaceport.Planet.CORUSCANT
-import com.beyondxscratch.mandaloreexpress.domain.spaceport.Planet.MANDALORE
+import com.beyondxscratch.mandaloreexpress.domain.search.criteria.Criteria
+import com.beyondxscratch.mandaloreexpress.domain.search.spaceport.Planet
+import com.beyondxscratch.mandaloreexpress.domain.search.spaceport.Planet.CORUSCANT
+import com.beyondxscratch.mandaloreexpress.domain.search.spaceport.Planet.MANDALORE
+import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.Bound.Companion.fromJourneyIndex
+import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.Bound.INBOUND
+import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.Bound.OUTBOUND
+import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.SpaceTrain
+import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.SpaceTrains
 import com.beyondxscratch.mandaloreexpress.domain.spaceport.spacePort
-import com.beyondxscratch.mandaloreexpress.domain.spacetrain.Bound.Companion.fromJourneyIndex
-import com.beyondxscratch.mandaloreexpress.domain.spacetrain.Bound.INBOUND
-import com.beyondxscratch.mandaloreexpress.domain.spacetrain.Bound.OUTBOUND
 import com.beyondxscratch.mandaloreexpress.domain.spacetrain.fare.fare
 import com.beyondxscratch.mandaloreexpress.domain.spacetrain.fare.firstClassFare
 import com.beyondxscratch.mandaloreexpress.domain.spacetrain.fare.randomFare
@@ -21,7 +23,7 @@ fun spaceTrain(): SpaceTrain = SpaceTrain(
         originId = spacePort(CORUSCANT).id,
         destinationId = spacePort(MANDALORE).id,
         schedule = schedule(),
-        fares = setOf(fare()))
+        fareOptions = setOf(fare()))
 
 fun outboundSpaceTrain(): SpaceTrain = spaceTrain()
 fun inboundSpaceTrain(): SpaceTrain = SpaceTrain(
@@ -30,12 +32,12 @@ fun inboundSpaceTrain(): SpaceTrain = SpaceTrain(
         originId = spacePort(MANDALORE).id,
         destinationId = spacePort(CORUSCANT).id,
         schedule = schedule(),
-        fares = setOf(fare()))
+        fareOptions = setOf(fare()))
 
 fun randomSpaceTrain(): SpaceTrain = spaceTrain()
         .copy(
                 number = nextLong(1, 1000).toString(),
-                fares = setOf(randomFare(), randomFare()),
+                fareOptions = setOf(randomFare(), randomFare()),
                 compatibleSpaceTrains = setOf(nextLong(1001, 2000).toString())
         )
 
@@ -48,7 +50,7 @@ fun spaceTrainsFrom(criteria: Criteria): SpaceTrains {
                             originId = journey.departureSpacePortId,
                             destinationId = journey.arrivalSpacePortId,
                             schedule = schedule(),
-                            fares = setOf(firstClassFare(), secondClassFare())
+                            fareOptions = setOf(firstClassFare(), secondClassFare())
                     )
                 }
             }

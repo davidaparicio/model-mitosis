@@ -3,9 +3,10 @@ package com.beyondxscratch.mandaloreexpress.domain.spacetrain
 import com.beyondxscratch.mandaloreexpress.domain.EqualityShould
 import com.beyondxscratch.mandaloreexpress.domain.OneWay
 import com.beyondxscratch.mandaloreexpress.domain.RoundTrip
-import com.beyondxscratch.mandaloreexpress.domain.criteria.Criteria
-import com.beyondxscratch.mandaloreexpress.domain.spacetrain.Bound.INBOUND
-import com.beyondxscratch.mandaloreexpress.domain.spacetrain.SpaceTrain.Companion.get
+import com.beyondxscratch.mandaloreexpress.domain.search.criteria.Criteria
+import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.Bound.INBOUND
+import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.SpaceTrain
+import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.SpaceTrain.Companion.get
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatCode
 import org.assertj.core.api.Assertions.assertThatThrownBy
@@ -16,7 +17,7 @@ class SpaceTrainShould(private val spaceTrain: SpaceTrain) : EqualityShould<Spac
 
     @Test
     fun `have at least one fare`() {
-        assertThatThrownBy { spaceTrain.copy(fares = setOf()) }
+        assertThatThrownBy { spaceTrain.copy(fareOptions = setOf()) }
                 .isInstanceOf(IllegalArgumentException::class.java)
                 .hasMessage("SpaceTrain must have at least one fare")
     }
@@ -44,7 +45,7 @@ class SpaceTrainShould(private val spaceTrain: SpaceTrain) : EqualityShould<Spac
 
     @Test
     fun `return the fare corresponding to a given id if present`() {
-        val fare = spaceTrain.fares.first()
+        val fare = spaceTrain.fareOptions.first()
         assertThat(spaceTrain.getFare(fare.id)).isEqualTo(fare)
     }
 

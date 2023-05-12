@@ -1,5 +1,6 @@
 package com.beyondxscratch.mandaloreexpress.domain.spacetrain.fare
 
+import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.fare.Amount
 import java.math.BigDecimal
 import java.math.BigDecimal.TEN
 import kotlin.random.Random

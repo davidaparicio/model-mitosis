@@ -1,6 +1,7 @@
 package com.beyondxscratch.mandaloreexpress.domain
 
-import com.beyondxscratch.mandaloreexpress.domain.spacetrain.SpaceTrain
+import com.beyondxscratch.mandaloreexpress.domain.booking.Booking
+import com.beyondxscratch.mandaloreexpress.domain.booking.spacetrain.SpaceTrain
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.junit.jupiter.api.Test
@@ -16,6 +17,6 @@ class BookingShould : EqualityShould<Booking> {
     @Test
     fun `compute its total price`(@Random spaceTrain: SpaceTrain, @Random anotherSpaceTrain: SpaceTrain) {
         val booking = Booking(spaceTrains = listOf(spaceTrain, anotherSpaceTrain))
-        assertThat(booking.totalPrice).isEqualTo(spaceTrain.fares.first().price + anotherSpaceTrain.fares.first().price)
+        assertThat(booking.totalPrice).isEqualTo(spaceTrain.selectedFare.price + anotherSpaceTrain.selectedFare.price)
     }
 }
