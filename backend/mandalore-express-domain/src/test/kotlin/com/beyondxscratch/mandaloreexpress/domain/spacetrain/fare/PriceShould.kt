@@ -36,29 +36,4 @@ class PriceShould : EqualityShould<Price> {
             .isInstanceOf(IllegalArgumentException::class.java)
             .hasMessage("Cannot sum prices with different currencies")
     }
-
-    @Test
-    fun `apply a discount`(@TenRepCredit tenRepCredits: Price, @OneRepCredit oneRepCreditDiscount: Discount) {
-
-        val nineCredits = tenRepCredits.copy(amount = amount(9))
-
-        assertThat(tenRepCredits.apply(oneRepCreditDiscount)).isEqualTo(nineCredits)
-    }
-
-    @Test
-    fun `not apply a discount with the wrong currency`(
-        @OneCalamariFlan oneCalamariFlan: Price,
-        @OneRepCredit oneRepCreditDiscount: Discount
-    ) {
-
-        assertThatThrownBy { oneCalamariFlan.apply(oneRepCreditDiscount) }
-            .isInstanceOf(IllegalArgumentException::class.java)
-            .hasMessage("Cannot sum prices with different currencies")
-    }
-
-    @Test
-    fun `return basePrise if there is no discount`(@OneCalamariFlan oneCalamariFlan: Price) {
-
-        assertThat (oneCalamariFlan.apply(null)).isEqualTo(oneCalamariFlan)
-    }
 }

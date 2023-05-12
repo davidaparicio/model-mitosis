@@ -22,7 +22,6 @@ import com.beyondxscratch.mandaloreexpress.domain.spacetrain.fare.ComfortClass
 import com.beyondxscratch.mandaloreexpress.domain.spacetrain.fare.ComfortClass.FIRST
 import com.beyondxscratch.mandaloreexpress.domain.spacetrain.fare.ComfortClass.SECOND
 import com.beyondxscratch.mandaloreexpress.domain.spacetrain.fare.Currency.REPUBLIC_CREDIT
-import com.beyondxscratch.mandaloreexpress.domain.spacetrain.fare.Discount
 import com.beyondxscratch.mandaloreexpress.domain.spacetrain.fare.Fare
 import com.beyondxscratch.mandaloreexpress.domain.spacetrain.fare.Price
 import com.beyondxscratch.mandaloreexpress.domain.spi.Bookings
@@ -213,19 +212,11 @@ class MandaloreExpress(
             else -> 150..200
         }
 
-        val basePrice = Price(Amount(BigDecimal(amountRange.random())), REPUBLIC_CREDIT)
+        val price = Price(Amount(BigDecimal(amountRange.random())), REPUBLIC_CREDIT)
         return Fare(
             comfortClass = comfortClass,
-            basePrice = basePrice,
-            discount = basePrice.generateDiscount(comfortClass)
+            price = price,
         )
-    }
-
-    private fun Price.generateDiscount(comfortClass : ComfortClass): Discount? {
-        val shouldHaveADiscount = comfortClass == FIRST
-        return if (shouldHaveADiscount) {
-            Discount(Amount(BigDecimal((1..this.amount.value.intValueExact() - 10).random())), this.currency)
-        } else null
     }
 
     private fun SpacePorts.find(spacePortId: String): SpacePort {

@@ -185,37 +185,19 @@ function Fare({ fare }) {
     <div className={classes.fare}>
       <Class comfortClass={fare.comfortClass} />
       <Box display="flex" flexDirection="column" alignItems="flex-end">
-        {fare.discount && <>
-          <Price basePrice price={fare.basePrice} />
-          <Discount discount={fare.discount} />
-        </>}
         <Price price={fare.price} />
       </Box>
     </div>
   );
 }
 
-function Price({ basePrice, price }) {
-  const useStyles = makeStyles(theme => ({
-    basePrice: {
-      textDecoration: "line-through"
-    }
-  }));
+function Price({ price }) {
+  const useStyles = makeStyles(theme => ({}));
   const classes = useStyles();
   return (
     <div>
-      <Typography className={basePrice && classes.basePrice} variant={basePrice ? "caption" : "body1"}>
-        {!basePrice && "Price: "}{price.amount}{getCurrencySymbol(price.currency)}
-      </Typography>
-    </div>
-  );
-}
-
-function Discount({ discount }) {
-  return (
-    <div>
-      <Typography variant="caption" color="secondary">
-        {-discount.amount}{getCurrencySymbol(discount.currency)}
+      <Typography  variant={"body1"}>
+        {"Price: "}{price.amount}{getCurrencySymbol(price.currency)}
       </Typography>
     </div>
   );

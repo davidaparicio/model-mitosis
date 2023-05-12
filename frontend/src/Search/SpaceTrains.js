@@ -92,12 +92,6 @@ function Fare({ fare, selectFare }) {
       marginBottom: theme.spacing(0.5),
       fontWeight: "800"
 
-    },
-    discount:{
-      fontSize: "0.8em",
-      verticalAlign: "baseline",
-      marginTop: "0em",
-      marginBottom: 0
     }
   }));
   const classes = useStyles();
@@ -112,7 +106,6 @@ function Fare({ fare, selectFare }) {
         >
           {fare.comfortClass} {fare.price.amount} {getCurrencySymbol(fare.price.currency)}
         </Button>
-        {fare.discount && <p className={classes.discount}>Discounted from {fare.basePrice.amount}{getCurrencySymbol(fare.price.currency)}</p>}
       </div>
   );
 }

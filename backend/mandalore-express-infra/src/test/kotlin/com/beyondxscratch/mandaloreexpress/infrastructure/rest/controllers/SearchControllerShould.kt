@@ -153,10 +153,6 @@ class SearchControllerShould(
             .andExpect(jsonPath("$.spaceTrains[0].fares[0].comfortClass").value("FIRST"))
             .andExpect(jsonPath("$.spaceTrains[0].fares[0].price.amount").value(notNullValue()))
             .andExpect(jsonPath("$.spaceTrains[0].fares[0].price.currency").value("REPUBLIC_CREDIT"))
-            .andExpect(jsonPath("$.spaceTrains[0].fares[0].basePrice.amount").value(notNullValue()))
-            .andExpect(jsonPath("$.spaceTrains[0].fares[0].basePrice.currency").value("REPUBLIC_CREDIT"))
-            .andExpect(jsonPath("$.spaceTrains[0].fares[0].discount.amount").value(notNullValue()))
-            .andExpect(jsonPath("$.spaceTrains[0].fares[0].discount.currency").value("REPUBLIC_CREDIT"))
             .andExpect(jsonPath("$.spaceTrains[0].fares[0]._links.select.href").value(matchesPattern("$location/spacetrains/$spaceTrainNumber/fares/.*/select\\?resetSelection=${!onlySelectable}")))
             .andExpect(jsonPath("$._links.self.href").value("$location/spacetrains?bound=OUTBOUND&onlySelectable=$onlySelectable"))
             .andExpect(jsonPath("$._links.search.href").value(location))
@@ -184,10 +180,6 @@ class SearchControllerShould(
             .andExpect(jsonPath("$.spaceTrains[0].fares[0].comfortClass").value("FIRST"))
             .andExpect(jsonPath("$.spaceTrains[0].fares[0].price.amount").value(notNullValue()))
             .andExpect(jsonPath("$.spaceTrains[0].fares[0].price.currency").value("REPUBLIC_CREDIT"))
-            .andExpect(jsonPath("$.spaceTrains[0].fares[0].basePrice.amount").value(notNullValue()))
-            .andExpect(jsonPath("$.spaceTrains[0].fares[0].basePrice.currency").value("REPUBLIC_CREDIT"))
-            .andExpect(jsonPath("$.spaceTrains[0].fares[0].discount.amount").value(notNullValue()))
-            .andExpect(jsonPath("$.spaceTrains[0].fares[0].discount.currency").value("REPUBLIC_CREDIT"))
             .andExpect(jsonPath("$.spaceTrains[0].fares[0]._links.select.href").value(matchesPattern("$location/spacetrains/$spaceTrainNumber/fares/.*/select\\?resetSelection=${!onlySelectable}")))
             .andExpect(jsonPath("$._links.self.href").value("$location/spacetrains?bound=INBOUND&onlySelectable=$onlySelectable"))
             .andExpect(jsonPath("$._links.search.href").value(location))
@@ -451,10 +443,6 @@ class SearchControllerShould(
                             .andExpect(jsonPath("$.spaceTrains[$index].fare.comfortClass").value(fare.comfortClass.toString()))
                             .andExpect(jsonPath("$.spaceTrains[$index].fare.price.amount").value(fare.price.amount.value))
                             .andExpect(jsonPath("$.spaceTrains[$index].fare.price.currency").value(fare.price.currency.toString()))
-                            .andExpect(jsonPath("$.spaceTrains[$index].fare.basePrice.amount").value(fare.basePrice.amount.value))
-                            .andExpect(jsonPath("$.spaceTrains[$index].fare.basePrice.currency").value(fare.basePrice.currency.toString()))
-                            .andExpect(jsonPath("$.spaceTrains[$index].fare.discount.amount").value(fare.discount?.amount?.value))
-                            .andExpect(jsonPath("$.spaceTrains[$index].fare.discount.currency").value(fare.discount?.currency.toString()))
 
                     }
             }

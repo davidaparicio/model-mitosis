@@ -1,23 +1,10 @@
 package com.beyondxscratch.mandaloreexpress.domain.spacetrain.fare
 
-import java.util.UUID
+import java.util.*
 
 data class Fare(
     val id: UUID = UUID.randomUUID(),
     val comfortClass: ComfortClass,
-    val basePrice: Price,
-    val discount: Discount? = null
-) {
-
-    val price: Price get() = basePrice.apply(discount)
-
-    init {
-        discount?.let {
-            require(basePrice.amount >= it.amount) {
-                "Cannot have a discount higher than the base price"
-            }
-        }
-    }
-}
-
+    val price: Price,
+)
 typealias Fares = Set<Fare>

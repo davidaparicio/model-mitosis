@@ -3,7 +3,6 @@ com.beyondxscratch.mandaloreexpress.domain.spacetrain.fare.FareParameterResolver
 com.beyondxscratch.mandaloreexpress.domain.criteria.JourneyParameterResolver
 com.beyondxscratch.mandaloreexpress.domain.spacetrain.fare.PriceParameterResolver
 com.beyondxscratch.mandaloreexpress.domain.spacetrain.fare.AmountParameterResolver
-com.beyondxscratch.mandaloreexpress.domain.spacetrain.fare.DiscountParameterResolver
 com.beyondxscratch.mandaloreexpress.domain.spacetrain.SpaceTrainParameterResolver
 com.beyondxscratch.mandaloreexpress.domain.criteria.CriteriaParameterResolver
 com.beyondxscratch.mandaloreexpress.domain.SearchParameterResolver
