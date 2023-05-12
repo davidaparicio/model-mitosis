@@ -1,10 +1,10 @@
 package com.beyondxscratch.mandaloreexpress.infrastructure.rest.resources.booking
 
-import com.beyondxscratch.mandaloreexpress.infrastructure.rest.resources.fare.Fare
 import com.beyondxscratch.mandaloreexpress.infrastructure.rest.resources.Resource
+import com.beyondxscratch.mandaloreexpress.infrastructure.rest.resources.fare.Fare
 import com.beyondxscratch.mandaloreexpress.infrastructure.rest.resources.fare.toResource
 import java.time.LocalDateTime
-import com.beyondxscratch.mandaloreexpress.domain.spacetrain.SpaceTrain as DomainSpaceTrain
+import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.SpaceTrain as DomainSpaceTrain
 
 
 @Resource

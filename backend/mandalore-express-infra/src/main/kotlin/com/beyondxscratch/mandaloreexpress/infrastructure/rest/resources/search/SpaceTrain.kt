@@ -1,8 +1,8 @@
 package com.beyondxscratch.mandaloreexpress.infrastructure.rest.resources.search
 
-import com.beyondxscratch.mandaloreexpress.domain.spacetrain.Bound
-import com.beyondxscratch.mandaloreexpress.infrastructure.rest.resources.fare.Fares
+import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.Bound
 import com.beyondxscratch.mandaloreexpress.infrastructure.rest.resources.Resource
+import com.beyondxscratch.mandaloreexpress.infrastructure.rest.resources.fare.Fares
 import org.springframework.hateoas.RepresentationModel
 import java.time.Duration
 import java.time.LocalDateTime
