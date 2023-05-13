@@ -9,10 +9,10 @@ import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.Currency.REPUBLIC
 import com.beyondxscratch.mandaloreexpress.domain.booking.spacetrain.fare.Price
 import com.beyondxscratch.mandaloreexpress.domain.booking.tax.TaxPortion
 import com.beyondxscratch.mandaloreexpress.domain.booking.tax.TaxRate
-import org.assertj.core.api.Assertions.assertThat
-import org.assertj.core.api.Assertions.assertThatThrownBy
+import org.assertj.core.api.Assertions.*
 import org.junit.jupiter.api.Test
 import java.math.BigDecimal
+import java.time.LocalDateTime.now
 
 class BookingShould : EqualityShould<Booking> {
     @Test
@@ -51,6 +51,13 @@ class BookingShould : EqualityShould<Booking> {
             .hasMessage("SelectedSeatLocations are incompatible with the SpaceTrains")
     }
 
+    @Test
+    fun `allow a schedule in the past`(@Finalized baseBooking: Booking) {
+        val lastWeek = now().minusWeeks(1)
+
+        assertThatCode { baseBooking.copy(spaceTrains = listOf(spaceTrain().departing(lastWeek))) }
+            .doesNotThrowAnyException()
+    }
 
     @Test
     fun `compute its total price`(@Random spaceTrain: SpaceTrain, @Random anotherSpaceTrain: SpaceTrain) {
