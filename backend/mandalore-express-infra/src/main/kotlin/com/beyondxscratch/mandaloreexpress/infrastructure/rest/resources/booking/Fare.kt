@@ -2,10 +2,8 @@ package com.beyondxscratch.mandaloreexpress.infrastructure.rest.resources.bookin
 
 import com.beyondxscratch.mandaloreexpress.domain.booking.spacetrain.fare.ComfortClass
 import com.beyondxscratch.mandaloreexpress.infrastructure.rest.resources.Resource
-import com.beyondxscratch.mandaloreexpress.infrastructure.rest.resources.sharedkernel.Price
-import com.beyondxscratch.mandaloreexpress.infrastructure.rest.resources.sharedkernel.toResource
 import org.springframework.hateoas.RepresentationModel
-import java.util.*
+import java.util.UUID
 import com.beyondxscratch.mandaloreexpress.domain.booking.spacetrain.fare.Fare as DomainFare
 
 @Resource
