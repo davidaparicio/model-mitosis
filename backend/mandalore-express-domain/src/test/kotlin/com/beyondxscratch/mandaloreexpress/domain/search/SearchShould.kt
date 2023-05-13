@@ -13,7 +13,7 @@ import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.Outbound
 import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.SpaceTrain
 import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.SpaceTrain.Companion.get
 import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.fare.Fare
-import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.fare.price
+import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.fare.price
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatCode
 import org.assertj.core.api.Assertions.assertThatThrownBy

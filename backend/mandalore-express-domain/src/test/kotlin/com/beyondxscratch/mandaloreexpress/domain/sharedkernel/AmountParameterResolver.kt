@@ -1,7 +1,6 @@
-package com.beyondxscratch.mandaloreexpress.domain.sharedkernel.fare
+package com.beyondxscratch.mandaloreexpress.domain.sharedkernel
 
 import com.beyondxscratch.TypedParameterResolver
-import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.Random
 
 class AmountParameterResolver : TypedParameterResolver<Amount>({ parameterContext, _ ->
     when {

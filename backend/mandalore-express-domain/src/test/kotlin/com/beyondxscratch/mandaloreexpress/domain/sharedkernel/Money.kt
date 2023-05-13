@@ -1,4 +1,4 @@
-package com.beyondxscratch.mandaloreexpress.domain.sharedkernel.fare
+package com.beyondxscratch.mandaloreexpress.domain.sharedkernel
 
 annotation class OneRepCredit
 annotation class OneCalamariFlan

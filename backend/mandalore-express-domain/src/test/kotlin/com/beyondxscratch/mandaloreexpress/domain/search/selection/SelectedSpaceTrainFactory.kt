@@ -1,7 +1,7 @@
 package com.beyondxscratch.mandaloreexpress.domain.search.selection
 
-import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.fare.price
-import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.fare.randomPrice
+import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.fare.price
+import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.fare.randomPrice
 import java.util.UUID.nameUUIDFromBytes
 import java.util.UUID.randomUUID
 

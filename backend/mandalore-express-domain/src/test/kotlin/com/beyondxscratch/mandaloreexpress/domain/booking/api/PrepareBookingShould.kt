@@ -1,8 +1,8 @@
 package com.beyondxscratch.mandaloreexpress.domain.booking.api
 
 import com.beyondxscratch.mandaloreexpress.domain.booking.CannotBookAPartialSelection
+import com.beyondxscratch.mandaloreexpress.domain.booking.spacetrain.fare.Price
 import com.beyondxscratch.mandaloreexpress.domain.booking.spacetrain.SpaceTrain
-import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.fare.Price
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.junit.jupiter.api.Test

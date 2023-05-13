@@ -1,6 +1,10 @@
-package com.beyondxscratch.mandaloreexpress.domain.sharedkernel.fare
+package com.beyondxscratch.mandaloreexpress.domain.booking.spacetrain.fare
 
 import com.beyondxscratch.mandaloreexpress.domain.EqualityShould
+import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.OneCalamariFlan
+import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.OneRepCredit
+import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.TenRepCredit
+import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.amount
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.junit.jupiter.api.Test
