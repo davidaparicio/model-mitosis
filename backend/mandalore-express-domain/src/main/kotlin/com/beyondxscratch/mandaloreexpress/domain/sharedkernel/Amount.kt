@@ -14,10 +14,9 @@ data class Amount(val value: BigDecimal) {
 
     operator fun minus(amount: Amount): Amount = Amount(value - amount.value)
 
+    operator fun times(taxRatio: BigDecimal) : Amount = Amount(value * taxRatio)
+
     operator fun compareTo(amount: Amount): Int = value.compareTo(amount.value)
-    operator fun times(taxRatio: BigDecimal): Amount {
-        return Amount(value * taxRatio)
-    }
 }
 
 private operator fun BigDecimal.times(value: BigDecimal) : BigDecimal =

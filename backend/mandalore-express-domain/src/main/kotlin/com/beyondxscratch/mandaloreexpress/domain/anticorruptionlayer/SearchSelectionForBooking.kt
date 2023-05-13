@@ -9,8 +9,10 @@ import com.beyondxscratch.mandaloreexpress.domain.booking.spi.IsSelectionComplet
 import com.beyondxscratch.mandaloreexpress.domain.booking.spi.RetrieveSelection
 import com.beyondxscratch.mandaloreexpress.domain.search.Search
 import com.beyondxscratch.mandaloreexpress.domain.search.api.SearchForSpaceTrains
+import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.Schedule
 import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.fare.FareOption
 import java.util.UUID
+import com.beyondxscratch.mandaloreexpress.domain.booking.spacetrain.Schedule as BookingSchedule
 
 @AntiCorruptionLayer
 class SearchSelectionForBooking(private val searchForSpaceTrains: SearchForSpaceTrains) : RetrieveSelection,
@@ -35,10 +37,14 @@ class SearchSelectionForBooking(private val searchForSpaceTrains: SearchForSpace
                     spaceTrain.number,
                     spaceTrain.originId,
                     spaceTrain.destinationId,
-                    spaceTrain.schedule,
+                    convertToBookingSchedule(spaceTrain.schedule),
                     convertToBookingFare(selectedFareOption),
                 )
             }
+
+    private fun convertToBookingSchedule(schedule: Schedule) : BookingSchedule{
+        return BookingSchedule(schedule.departure, schedule.arrival)
+    }
 
     private fun convertToBookingFare(fare: FareOption): SelectedFare {
         val(id,comfortClass, price) = fare

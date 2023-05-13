@@ -1,5 +1,6 @@
 package com.beyondxscratch.mandaloreexpress.domain.anticorruptionlayer
 
+import com.beyondxscratch.mandaloreexpress.domain.booking.spacetrain.Schedule
 import com.beyondxscratch.mandaloreexpress.domain.booking.spacetrain.SpaceTrain
 import com.beyondxscratch.mandaloreexpress.domain.booking.spacetrain.fare.ComfortClass
 import com.beyondxscratch.mandaloreexpress.domain.booking.spacetrain.fare.Price
@@ -28,7 +29,7 @@ class SearchSelectionForBookingShould(
                 spacetrain.number,
                 spacetrain.originId,
                 spacetrain.destinationId,
-                spacetrain.schedule,
+                Schedule(spacetrain.schedule.departure, spacetrain.schedule.arrival),
                 SelectedFare(fareOption.id, ComfortClass.valueOf(comfortClass.name), Price(price.amount, price.currency))
             )
         }

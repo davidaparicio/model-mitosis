@@ -12,7 +12,6 @@ import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.fare.fareOpt
 import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.fare.firstClassFareOption
 import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.fare.randomFareOption
 import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.fare.secondClassFareOption
-import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.schedule
 import kotlin.random.Random.Default.nextLong
 
 
