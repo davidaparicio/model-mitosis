@@ -52,11 +52,20 @@ class BookingShould : EqualityShould<Booking> {
     }
 
     @Test
-    fun `allow a schedule in the past`(@Finalized baseBooking: Booking) {
+    fun `allow spacetrains departing in the past when finalized`(@Finalized baseBooking: Booking) {
         val lastWeek = now().minusWeeks(1)
 
         assertThatCode { baseBooking.copy(spaceTrains = listOf(spaceTrain().departing(lastWeek))) }
             .doesNotThrowAnyException()
+    }
+
+    @Test
+    fun `can not create new booking with spacetrains departing in the past`(@NonFinalized baseBooking: Booking){
+        val spaceTrain = spaceTrain().departing(now().minusDays(2))
+
+        assertThatThrownBy{Booking(spaceTrains = listOf(spaceTrain))}
+            .isInstanceOf(IllegalArgumentException::class.java)
+            .hasMessage("SpaceTrains cannot depart in the past for a new Booking")
     }
 
     @Test

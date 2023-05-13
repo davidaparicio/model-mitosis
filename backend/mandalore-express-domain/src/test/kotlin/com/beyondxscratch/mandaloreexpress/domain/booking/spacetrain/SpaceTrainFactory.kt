@@ -4,8 +4,6 @@ import com.beyondxscratch.mandaloreexpress.domain.booking.spacetrain.fare.fare
 import com.beyondxscratch.mandaloreexpress.domain.booking.spacetrain.fare.firstClassFare
 import com.beyondxscratch.mandaloreexpress.domain.booking.spacetrain.fare.randomFare
 import com.beyondxscratch.mandaloreexpress.domain.booking.spacetrain.fare.Price
-import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.randomSchedule
-import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.schedule
 import java.time.LocalDateTime
 import kotlin.random.Random.Default.nextLong
 

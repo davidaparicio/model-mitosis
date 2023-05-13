@@ -16,7 +16,7 @@ import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.SpaceTrain
 import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.SpaceTrains
 import com.beyondxscratch.mandaloreexpress.domain.search.spi.Searches
 import com.beyondxscratch.mandaloreexpress.domain.search.spi.SpacePorts
-import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.Schedule
+import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.Schedule
 import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.Amount
 import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.fare.ComfortClass
 import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.fare.ComfortClass.FIRST
