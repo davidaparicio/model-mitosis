@@ -1,6 +1,5 @@
-package com.beyondxscratch.mandaloreexpress.domain.sharedkernel
+package com.beyondxscratch.mandaloreexpress.domain.money
 
-import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.Amount
 import java.math.BigDecimal
 import java.math.BigDecimal.TEN
 import kotlin.random.Random

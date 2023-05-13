@@ -4,7 +4,7 @@ import com.beyondxscratch.TypedParameterResolver
 import com.beyondxscratch.mandaloreexpress.domain.search.RoundTrip
 import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.Inbound
 import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.Outbound
-import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.Random
+import com.beyondxscratch.mandaloreexpress.domain.Random
 
 class JourneyParameterResolver : TypedParameterResolver<Journey>({ parameterContext, _ ->
     when {

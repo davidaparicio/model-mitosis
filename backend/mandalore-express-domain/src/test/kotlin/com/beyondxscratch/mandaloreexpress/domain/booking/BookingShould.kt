@@ -3,9 +3,9 @@ package com.beyondxscratch.mandaloreexpress.domain.booking
 import com.beyondxscratch.mandaloreexpress.domain.EqualityShould
 import com.beyondxscratch.mandaloreexpress.domain.booking.spacetrain.fare.SeatLocation.*
 import com.beyondxscratch.mandaloreexpress.domain.booking.spacetrain.*
-import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.Random
-import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.Amount
-import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.Currency.REPUBLIC_CREDIT
+import com.beyondxscratch.mandaloreexpress.domain.Random
+import com.beyondxscratch.mandaloreexpress.domain.money.Amount
+import com.beyondxscratch.mandaloreexpress.domain.money.Currency.REPUBLIC_CREDIT
 import com.beyondxscratch.mandaloreexpress.domain.booking.spacetrain.fare.Price
 import com.beyondxscratch.mandaloreexpress.domain.booking.tax.TaxPortion
 import com.beyondxscratch.mandaloreexpress.domain.booking.tax.TaxRate

@@ -3,7 +3,7 @@ package com.beyondxscratch.mandaloreexpress.domain.search.selection
 import com.beyondxscratch.mandaloreexpress.domain.EqualityShould
 import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.Bound
 import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.Bound.OUTBOUND
-import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.Random
+import com.beyondxscratch.mandaloreexpress.domain.Random
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 

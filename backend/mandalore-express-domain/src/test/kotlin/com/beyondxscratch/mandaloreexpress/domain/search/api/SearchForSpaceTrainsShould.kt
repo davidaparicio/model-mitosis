@@ -6,7 +6,7 @@ import com.beyondxscratch.mandaloreexpress.domain.search.criteria.Criteria
 import com.beyondxscratch.mandaloreexpress.domain.search.criteria.Journey
 import com.beyondxscratch.mandaloreexpress.domain.search.spaceport.OnCoruscant
 import com.beyondxscratch.mandaloreexpress.domain.search.spaceport.SpacePort
-import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.Random
+import com.beyondxscratch.mandaloreexpress.domain.Random
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.junit.jupiter.api.Test

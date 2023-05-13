@@ -1,10 +1,10 @@
 package com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.fare
 
 import com.beyondxscratch.mandaloreexpress.domain.EqualityShould
-import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.OneCalamariFlan
-import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.OneRepCredit
-import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.TenRepCredit
-import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.amount
+import com.beyondxscratch.mandaloreexpress.domain.money.OneCalamariFlan
+import com.beyondxscratch.mandaloreexpress.domain.money.OneRepCredit
+import com.beyondxscratch.mandaloreexpress.domain.money.TenRepCredit
+import com.beyondxscratch.mandaloreexpress.domain.money.amount
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.junit.jupiter.api.Test
