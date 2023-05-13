@@ -3,7 +3,7 @@ package com.beyondxscratch.mandaloreexpress.domain.search.spaceport
 import com.beyondxscratch.TypedParameterResolver
 import com.beyondxscratch.mandaloreexpress.domain.search.spaceport.Planet.CORUSCANT
 import com.beyondxscratch.mandaloreexpress.domain.search.spaceport.Planet.MANDALORE
-import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.Random
+import com.beyondxscratch.mandaloreexpress.domain.Random
 
 class SpacePortParameterResolver : TypedParameterResolver<SpacePort>({ parameterContext, _ ->
     when {

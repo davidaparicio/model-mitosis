@@ -8,7 +8,7 @@ import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.Outbound
 import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.SpaceTrain
 import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.outboundSpaceTrain
 import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.spaceTrain
-import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.Random
+import com.beyondxscratch.mandaloreexpress.domain.Random
 
 class SearchParameterResolver : TypedParameterResolver<Search>({ parameterContext, _ ->
     when {

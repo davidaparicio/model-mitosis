@@ -2,7 +2,7 @@ package com.beyondxscratch.mandaloreexpress.domain.search.criteria
 
 import com.beyondxscratch.TypedParameterResolver
 import com.beyondxscratch.mandaloreexpress.domain.search.RoundTrip
-import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.Random
+import com.beyondxscratch.mandaloreexpress.domain.Random
 
 class CriteriaParameterResolver : TypedParameterResolver<Criteria>({ parameterContext, _ ->
     when {
