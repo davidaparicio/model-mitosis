@@ -1,4 +1,4 @@
-package com.beyondxscratch.mandaloreexpress.domain.sharedkernel
+package com.beyondxscratch.mandaloreexpress.domain.search.spacetrain
 
 import java.time.Duration
 import java.time.LocalDateTime

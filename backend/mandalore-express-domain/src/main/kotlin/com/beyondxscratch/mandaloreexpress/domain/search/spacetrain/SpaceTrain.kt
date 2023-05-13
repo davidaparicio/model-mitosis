@@ -1,6 +1,5 @@
 package com.beyondxscratch.mandaloreexpress.domain.search.spacetrain
 
-import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.Schedule
 import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.fare.Fares
 import java.util.UUID
 
