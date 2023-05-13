@@ -2,7 +2,10 @@ package com.beyondxscratch.mandaloreexpress.domain.booking
 
 import com.beyondxscratch.mandaloreexpress.domain.EqualityShould
 import com.beyondxscratch.mandaloreexpress.domain.booking.spacetrain.SpaceTrain
+import com.beyondxscratch.mandaloreexpress.domain.booking.spacetrain.departing
 import com.beyondxscratch.mandaloreexpress.domain.booking.spacetrain.fare.Price
+import com.beyondxscratch.mandaloreexpress.domain.booking.spacetrain.priced
+import com.beyondxscratch.mandaloreexpress.domain.booking.spacetrain.spaceTrain
 import com.beyondxscratch.mandaloreexpress.domain.booking.spacetrain.withFirstClass
 import com.beyondxscratch.mandaloreexpress.domain.booking.spacetrain.withSecondClass
 import com.beyondxscratch.mandaloreexpress.domain.booking.tax.TaxPortion
@@ -10,19 +13,25 @@ import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.Currency.REPUBLIC
 import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.Random
 import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.amount
 import org.assertj.core.api.Assertions.assertThat
+import org.assertj.core.api.Assertions.assertThatCode
 import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.junit.jupiter.api.Test
+import java.time.LocalDateTime.now
 
 class BookingShould : EqualityShould<Booking> {
-    private fun SpaceTrain.priced(price: Price): SpaceTrain {
-        return this.copy(fare = fare.copy(price = price))
-    }
-
     @Test
     fun `not be created from an empty list of space trains`() {
         assertThatThrownBy { Booking(spaceTrains = listOf()) }
             .isInstanceOf(IllegalArgumentException::class.java)
             .hasMessage("cannot book nothing")
+    }
+
+    @Test
+    fun `allow a schedule in the past`(@Finalized baseBooking: Booking) {
+        val lastWeek = now().minusWeeks(1)
+
+        assertThatCode { baseBooking.copy(spaceTrains = listOf(spaceTrain().departing(lastWeek))) }
+            .doesNotThrowAnyException()
     }
 
     @Test
