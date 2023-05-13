@@ -2,6 +2,7 @@ package com.beyondxscratch.mandaloreexpress.domain.anticorruptionlayer
 
 import com.beyondxscratch.mandaloreexpress.annotations.AntiCorruptionLayer
 import com.beyondxscratch.mandaloreexpress.domain.booking.spacetrain.fare.ComfortClass
+import com.beyondxscratch.mandaloreexpress.domain.booking.spacetrain.fare.Price
 import com.beyondxscratch.mandaloreexpress.domain.booking.spacetrain.fare.Fare as BookingFare
 import com.beyondxscratch.mandaloreexpress.domain.booking.spacetrain.SpaceTrain
 import com.beyondxscratch.mandaloreexpress.domain.booking.spi.IsSelectionComplete
@@ -40,12 +41,11 @@ class SearchSelectionForBooking(private val searchForSpaceTrains: SearchForSpace
             }
 
     private fun convertToBookingFare(fare: SearchFare): BookingFare {
-        val comfortClass = ComfortClass.valueOf(fare.comfortClass.name)
-
+        val(id,comfortClass, price) = fare
         return BookingFare(
-            id = fare.id,
-            comfortClass = comfortClass,
-            price = fare.price,
+            id = id,
+            comfortClass = ComfortClass.valueOf(comfortClass.name),
+            price = Price(price.amount, price.currency),
         )
     }
 

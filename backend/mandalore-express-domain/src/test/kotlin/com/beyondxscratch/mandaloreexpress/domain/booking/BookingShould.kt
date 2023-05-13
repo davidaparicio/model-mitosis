@@ -2,15 +2,17 @@ package com.beyondxscratch.mandaloreexpress.domain.booking
 
 import com.beyondxscratch.mandaloreexpress.domain.EqualityShould
 import com.beyondxscratch.mandaloreexpress.domain.booking.spacetrain.fare.SeatLocation.*
-import com.beyondxscratch.mandaloreexpress.domain.booking.spacetrain.SpaceTrain
-import com.beyondxscratch.mandaloreexpress.domain.booking.spacetrain.numbered
-import com.beyondxscratch.mandaloreexpress.domain.booking.spacetrain.spaceTrain
-import com.beyondxscratch.mandaloreexpress.domain.booking.spacetrain.withFirstClass
+import com.beyondxscratch.mandaloreexpress.domain.booking.spacetrain.*
 import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.Random
+import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.Amount
+import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.Currency.REPUBLIC_CREDIT
+import com.beyondxscratch.mandaloreexpress.domain.booking.spacetrain.fare.Price
+import com.beyondxscratch.mandaloreexpress.domain.booking.tax.TaxPortion
+import com.beyondxscratch.mandaloreexpress.domain.booking.tax.TaxRate
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.junit.jupiter.api.Test
-import java.util.NoSuchElementException
+import java.math.BigDecimal
 
 class BookingShould : EqualityShould<Booking> {
     @Test
@@ -54,6 +56,19 @@ class BookingShould : EqualityShould<Booking> {
     fun `compute its total price`(@Random spaceTrain: SpaceTrain, @Random anotherSpaceTrain: SpaceTrain) {
         val booking = Booking(spaceTrains = listOf(spaceTrain, anotherSpaceTrain))
         assertThat(booking.totalPrice).isEqualTo(spaceTrain.fare.price + anotherSpaceTrain.fare.price)
+    }
+
+    @Test
+    fun `compute its tax portions`(@Random spaceTrain: SpaceTrain) {
+        val price = Price(Amount(BigDecimal("121.00")), REPUBLIC_CREDIT)
+
+        val expectedTaxRate = TaxRate(BigDecimal("0.2"))
+        val expectedTaxPortion = TaxPortion(Amount(BigDecimal("20.17")), REPUBLIC_CREDIT)
+
+        val booking = Booking(spaceTrains = listOf(spaceTrain.priced(price)));
+
+        assertThat(booking.taxRate).isEqualTo(expectedTaxRate)
+        assertThat(booking.taxPortion).isEqualTo(expectedTaxPortion)
     }
 
     @Test

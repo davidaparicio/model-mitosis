@@ -3,6 +3,7 @@ package com.beyondxscratch.mandaloreexpress.domain.booking.spacetrain
 import com.beyondxscratch.mandaloreexpress.domain.booking.spacetrain.fare.fare
 import com.beyondxscratch.mandaloreexpress.domain.booking.spacetrain.fare.firstClassFare
 import com.beyondxscratch.mandaloreexpress.domain.booking.spacetrain.fare.randomFare
+import com.beyondxscratch.mandaloreexpress.domain.booking.spacetrain.fare.Price
 import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.randomSchedule
 import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.schedule
 import kotlin.random.Random.Default.nextLong
@@ -28,4 +29,8 @@ fun SpaceTrain.withFirstClass(): SpaceTrain {
 
 fun SpaceTrain.numbered(number: String): SpaceTrain {
     return this.copy(number = number)
+}
+
+fun SpaceTrain.priced(price: Price): SpaceTrain {
+    return this.copy(fare = fare.copy(price = price))
 }
