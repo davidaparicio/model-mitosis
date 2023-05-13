@@ -35,6 +35,15 @@ class BookingShould : EqualityShould<Booking> {
     }
 
     @Test
+    fun `can not create new booking with spacetrains departing in the past`(@NonFinalized baseBooking: Booking){
+        val spaceTrain = spaceTrain().departing(now().minusDays(2))
+
+        assertThatThrownBy{Booking(spaceTrains = listOf(spaceTrain))}
+            .isInstanceOf(IllegalArgumentException::class.java)
+            .hasMessage("SpaceTrains cannot depart in the past for a new Booking")
+    }
+
+    @Test
     fun `compute its total price`(@Random spaceTrain: SpaceTrain, @Random anotherSpaceTrain: SpaceTrain) {
         val booking = Booking(spaceTrains = listOf(spaceTrain, anotherSpaceTrain))
         assertThat(booking.totalPrice).isEqualTo(spaceTrain.fare.price + anotherSpaceTrain.fare.price)

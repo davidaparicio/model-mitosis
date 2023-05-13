@@ -2,9 +2,11 @@ package com.beyondxscratch.mandaloreexpress.domain.anticorruptionlayer
 
 import com.beyondxscratch.mandaloreexpress.annotations.AntiCorruptionLayer
 import com.beyondxscratch.mandaloreexpress.domain.booking.spacetrain.fare.ComfortClass
-import com.beyondxscratch.mandaloreexpress.domain.booking.spacetrain.fare.Fare as BookingFare
-import com.beyondxscratch.mandaloreexpress.domain.booking.spacetrain.SpaceTrain
 import com.beyondxscratch.mandaloreexpress.domain.booking.spacetrain.fare.Price
+import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.Schedule
+import com.beyondxscratch.mandaloreexpress.domain.booking.spacetrain.fare.Fare as BookingFare
+import com.beyondxscratch.mandaloreexpress.domain.booking.spacetrain.Schedule as BookingSchedule
+import com.beyondxscratch.mandaloreexpress.domain.booking.spacetrain.SpaceTrain
 import com.beyondxscratch.mandaloreexpress.domain.booking.spi.IsSelectionComplete
 import com.beyondxscratch.mandaloreexpress.domain.booking.spi.RetrieveSelection
 import com.beyondxscratch.mandaloreexpress.domain.search.Search
@@ -35,10 +37,14 @@ class SearchSelectionForBooking(private val searchForSpaceTrains: SearchForSpace
                     spaceTrain.number,
                     spaceTrain.originId,
                     spaceTrain.destinationId,
-                    spaceTrain.schedule,
+                    convertToBookingSchedule(spaceTrain.schedule),
                     convertToBookingFare(fare),
                 )
             }
+
+    private fun convertToBookingSchedule(schedule: Schedule) : BookingSchedule{
+        return BookingSchedule(schedule.departure, schedule.arrival)
+    }
 
     private fun convertToBookingFare(fare: SearchFare): BookingFare {
         val(id,comfortClass, price) = fare
