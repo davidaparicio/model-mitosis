@@ -3,6 +3,7 @@ package com.beyondxscratch.mandaloreexpress.domain.booking
 import com.beyondxscratch.mandaloreexpress.domain.booking.spacetrain.SpaceTrain
 import com.beyondxscratch.mandaloreexpress.domain.booking.spacetrain.fare.Price
 import com.beyondxscratch.mandaloreexpress.domain.booking.tax.TaxPortion
+import java.time.LocalDateTime.now
 import java.util.UUID
 import java.util.UUID.randomUUID
 
@@ -19,7 +20,14 @@ data class Booking(
         require(spaceTrains.isNotEmpty()) {
             "cannot book nothing"
         }
+
+        require(hasNoDepartureInThePastWhenNewBooking()){
+            "SpaceTrains cannot depart in the past for a new Booking"
+        }
     }
+
+    private fun hasNoDepartureInThePastWhenNewBooking() = finalized ||  spaceTrains.all { it.schedule.departure.isAfter(now()) }
+
 
     fun finalize(): Booking {
         return copy(finalized = true);

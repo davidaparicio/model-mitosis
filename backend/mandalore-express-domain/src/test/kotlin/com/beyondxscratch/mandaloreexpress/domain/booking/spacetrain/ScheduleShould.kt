@@ -1,4 +1,4 @@
-package com.beyondxscratch.mandaloreexpress.domain.sharedkernel
+package com.beyondxscratch.mandaloreexpress.domain.booking.spacetrain
 
 import com.beyondxscratch.mandaloreexpress.domain.EqualityShould
 import org.assertj.core.api.Assertions.assertThat
@@ -8,16 +8,6 @@ import java.time.Duration
 import java.time.LocalDateTime.now
 
 class ScheduleShould : EqualityShould<Schedule> {
-    @Test
-    fun `not have a departure in the past`() {
-        val departureInThePast = now().minusDays(2)
-        val arrival = now().plusWeeks(1)
-
-        assertThatThrownBy { Schedule(departureInThePast, arrival) }
-            .isInstanceOf(IllegalArgumentException::class.java)
-            .hasMessage("departure cannot be in the past")
-    }
-
     @Test
     fun `not arrive before its departure schedule`() {
         val departure = now().plusDays(2)
