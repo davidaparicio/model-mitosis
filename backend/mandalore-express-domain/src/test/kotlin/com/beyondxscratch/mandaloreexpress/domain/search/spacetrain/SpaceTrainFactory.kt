@@ -8,10 +8,10 @@ import com.beyondxscratch.mandaloreexpress.domain.search.spaceport.spacePort
 import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.Bound.Companion.fromJourneyIndex
 import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.Bound.INBOUND
 import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.Bound.OUTBOUND
-import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.fare.fare
-import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.fare.firstClassFare
-import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.fare.randomFare
-import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.fare.secondClassFare
+import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.fare.fare
+import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.fare.firstClassFare
+import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.fare.randomFare
+import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.fare.secondClassFare
 import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.schedule
 import kotlin.random.Random.Default.nextLong
 

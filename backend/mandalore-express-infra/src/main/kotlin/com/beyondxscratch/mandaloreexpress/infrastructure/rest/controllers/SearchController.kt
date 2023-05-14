@@ -46,8 +46,8 @@ import com.beyondxscratch.mandaloreexpress.domain.search.criteria.Criteria as Do
 import com.beyondxscratch.mandaloreexpress.domain.search.criteria.Journey as DomainJourney
 import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.SpaceTrain as DomainSpaceTrain
 import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.SpaceTrains as DomainSpaceTrains
-import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.fare.Fare as DomainFare
-import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.fare.Fares as DomainFares
+import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.fare.Fare as DomainFare
+import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.fare.Fares as DomainFares
 
 
 @RestController
