@@ -1,12 +1,11 @@
 package com.beyondxscratch.mandaloreexpress.infrastructure.rest.controllers
 
 import com.beyondxscratch.mandaloreexpress.domain.booking.CannotBookAPartialSelection
-import com.beyondxscratch.mandaloreexpress.domain.booking.api.BookSpaceTrains
+import com.beyondxscratch.mandaloreexpress.domain.booking.api.PrepareBooking
 import com.beyondxscratch.mandaloreexpress.domain.booking.spi.Bookings
-import com.beyondxscratch.mandaloreexpress.domain.search.api.SearchForSpaceTrains
 import com.beyondxscratch.mandaloreexpress.infrastructure.rest.resources.booking.Booking
 import com.beyondxscratch.mandaloreexpress.infrastructure.rest.resources.booking.toResource
-import com.beyondxscratch.mandaloreexpress.infrastructure.rest.resources.fare.toResource
+import com.beyondxscratch.mandaloreexpress.infrastructure.rest.resources.sharedkernel.toResource
 import org.springframework.hateoas.IanaLinkRelations.SELF
 import org.springframework.hateoas.server.EntityLinks
 import org.springframework.hateoas.server.ExposesResourceFor
@@ -28,7 +27,7 @@ import com.beyondxscratch.mandaloreexpress.domain.booking.Booking as DomainBooki
 @RequestMapping("/bookings")
 @ExposesResourceFor(Booking::class)
 class BookingController(
-    private val bookSpaceTrains: BookSpaceTrains,
+    private val prepareBooking: PrepareBooking,
     private val bookings: Bookings,
     private val entityLinks: EntityLinks
 ) {
@@ -36,7 +35,7 @@ class BookingController(
     @PostMapping
     fun bookSomeSpaceTrainsFromTheSelectionOf(@RequestParam searchId: UUID): ResponseEntity<Booking> {
         return try {
-            val domainBooking = bookSpaceTrains `from the selection of` searchId
+            val domainBooking = prepareBooking `from the selection of` searchId
             val booking = domainBooking.toResource()
             created(booking.getRequiredLink(SELF).toUri()).body(booking)
         } catch (exception: NoSuchElementException) {

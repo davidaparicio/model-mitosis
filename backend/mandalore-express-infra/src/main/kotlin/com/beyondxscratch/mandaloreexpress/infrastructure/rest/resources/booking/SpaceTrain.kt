@@ -1,8 +1,6 @@
 package com.beyondxscratch.mandaloreexpress.infrastructure.rest.resources.booking
 
 import com.beyondxscratch.mandaloreexpress.infrastructure.rest.resources.Resource
-import com.beyondxscratch.mandaloreexpress.infrastructure.rest.resources.fare.Fare
-import com.beyondxscratch.mandaloreexpress.infrastructure.rest.resources.fare.toResource
 import java.time.LocalDateTime
 import com.beyondxscratch.mandaloreexpress.domain.booking.spacetrain.SpaceTrain as DomainSpaceTrain
 
@@ -13,7 +11,8 @@ data class SpaceTrain(val number: String,
                       val destinationId: String,
                       val departureSchedule: LocalDateTime,
                       val arrivalSchedule: LocalDateTime,
-                      val fare: Fare)
+                      val fare: Fare
+)
 
 fun List<DomainSpaceTrain>.toResource(): List<SpaceTrain> = map { it.toResource() }
 

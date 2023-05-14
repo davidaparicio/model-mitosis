@@ -9,11 +9,12 @@ import com.beyondxscratch.mandaloreexpress.domain.search.api.`with the fare`
 import com.beyondxscratch.mandaloreexpress.domain.search.spaceport.SpacePort
 import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.Bound
 import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.SpaceTrain.Companion.get
-import com.beyondxscratch.mandaloreexpress.infrastructure.rest.resources.fare.Fare
-import com.beyondxscratch.mandaloreexpress.infrastructure.rest.resources.fare.Fares
-import com.beyondxscratch.mandaloreexpress.infrastructure.rest.resources.fare.toResource
+import com.beyondxscratch.mandaloreexpress.infrastructure.rest.resources.search.Fare
+import com.beyondxscratch.mandaloreexpress.infrastructure.rest.resources.search.Fares
+import com.beyondxscratch.mandaloreexpress.infrastructure.rest.resources.search.toResource
 import com.beyondxscratch.mandaloreexpress.infrastructure.rest.resources.search.*
 import com.beyondxscratch.mandaloreexpress.infrastructure.rest.resources.search.Search
+import com.beyondxscratch.mandaloreexpress.infrastructure.rest.resources.sharedkernel.toResource
 import org.springframework.hateoas.IanaLinkRelations.SELF
 import org.springframework.hateoas.LinkRelation
 import org.springframework.hateoas.LinkRelation.of
