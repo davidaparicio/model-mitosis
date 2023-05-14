@@ -1,4 +1,4 @@
-package com.beyondxscratch.mandaloreexpress.infrastructure.rest.resources.fare
+package com.beyondxscratch.mandaloreexpress.infrastructure.rest.resources.sharedkernel
 
 import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.fare.Currency
 import com.beyondxscratch.mandaloreexpress.infrastructure.rest.resources.Resource
