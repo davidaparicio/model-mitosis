@@ -1,4 +1,4 @@
-package com.beyondxscratch.mandaloreexpress.domain.sharedkernel.fare
+package com.beyondxscratch.mandaloreexpress.domain.booking.spacetrain.fare
 
 import com.beyondxscratch.TypedParameterResolver
 import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.Random

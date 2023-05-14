@@ -6,30 +6,30 @@ import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.fare.Price
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.junit.jupiter.api.Test
-import java.util.*
-import java.util.UUID.*
-import kotlin.NoSuchElementException
+import java.util.UUID
+import java.util.UUID.randomUUID
 
-interface BookSpaceTrainsShould {
-    val bookSpaceTrains: BookSpaceTrains
+interface PrepareBookingShould {
+    val prepareBooking: PrepareBooking
     val completeSelectionSearchId: UUID
     val uncompleteSelectionSearchId: UUID
     val selectedSpaceTrains: List<SpaceTrain>
 
     @Test
-    fun `book some space trains from the selection of`() {
+    fun `prepare booking from the selection of`() {
 
-        val booking = bookSpaceTrains `from the selection of` completeSelectionSearchId
+        val booking = prepareBooking `from the selection of` completeSelectionSearchId
 
         assertThat(booking.totalPrice).isEqualTo(selectedSpaceTrains.map { it.fare.price }.reduce(Price::plus))
         assertThat(booking.spaceTrains).isEqualTo(selectedSpaceTrains)
+        assertThat(booking.finalized).isFalse
     }
 
     @Test
-    fun `not book from an incomplete selection`() {
+    fun `not prepare booking from an incomplete selection`() {
 
         assertThatThrownBy {
-            bookSpaceTrains `from the selection of` uncompleteSelectionSearchId
+            prepareBooking `from the selection of` uncompleteSelectionSearchId
         }.isInstanceOf(CannotBookAPartialSelection::class.java)
             .hasMessage("cannot book a partial selection")
     }
@@ -39,7 +39,7 @@ interface BookSpaceTrainsShould {
 
         val unknownId = randomUUID()
         assertThatThrownBy {
-            bookSpaceTrains `from the selection of` unknownId
+            prepareBooking `from the selection of` unknownId
         }.isInstanceOf(NoSuchElementException::class.java)
             .hasMessage("Unknown search $unknownId")
     }

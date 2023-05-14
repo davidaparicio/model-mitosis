@@ -1,4 +1,4 @@
-package com.beyondxscratch.mandaloreexpress.domain.sharedkernel.fare
+package com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.fare
 
 import com.beyondxscratch.mandaloreexpress.domain.EqualityShould
 
