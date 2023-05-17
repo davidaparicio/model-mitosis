@@ -1,18 +1,27 @@
 package com.beyondxscratch.mandaloreexpress.domain.booking
 
 import com.beyondxscratch.mandaloreexpress.domain.EqualityShould
-import com.beyondxscratch.mandaloreexpress.domain.booking.spacetrain.fare.SeatLocation.*
-import com.beyondxscratch.mandaloreexpress.domain.booking.spacetrain.*
-import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.Random
-import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.Amount
-import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.Currency.REPUBLIC_CREDIT
+import com.beyondxscratch.mandaloreexpress.domain.booking.spacetrain.SpaceTrain
+import com.beyondxscratch.mandaloreexpress.domain.booking.spacetrain.departing
 import com.beyondxscratch.mandaloreexpress.domain.booking.spacetrain.fare.Price
+import com.beyondxscratch.mandaloreexpress.domain.booking.spacetrain.fare.SeatLocation.ANY
+import com.beyondxscratch.mandaloreexpress.domain.booking.spacetrain.fare.SeatLocation.CARGO_BAY
+import com.beyondxscratch.mandaloreexpress.domain.booking.spacetrain.fare.SeatLocation.FLYING_BRIDGE
+import com.beyondxscratch.mandaloreexpress.domain.booking.spacetrain.numbered
+import com.beyondxscratch.mandaloreexpress.domain.booking.spacetrain.priced
+import com.beyondxscratch.mandaloreexpress.domain.booking.spacetrain.spaceTrain
+import com.beyondxscratch.mandaloreexpress.domain.booking.spacetrain.withFirstClass
 import com.beyondxscratch.mandaloreexpress.domain.booking.tax.TaxPortion
 import com.beyondxscratch.mandaloreexpress.domain.booking.tax.TaxRate
-import org.assertj.core.api.Assertions.*
+import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.Amount
+import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.Currency.REPUBLIC_CREDIT
+import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.Random
+import org.assertj.core.api.Assertions.assertThat
+import org.assertj.core.api.Assertions.assertThatCode
+import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.junit.jupiter.api.Test
 import java.math.BigDecimal
-import java.time.LocalDateTime.now
+import java.time.LocalDateTime
 
 class BookingShould : EqualityShould<Booking> {
     @Test
@@ -49,14 +58,6 @@ class BookingShould : EqualityShould<Booking> {
         assertThatThrownBy { booking.selectSeatLocationFor(spaceTrainNumber, CARGO_BAY) }
             .isInstanceOf(IllegalArgumentException::class.java)
             .hasMessage("SelectedSeatLocations are incompatible with the SpaceTrains")
-    }
-
-    @Test
-    fun `allow a schedule in the past`(@Finalized baseBooking: Booking) {
-        val lastWeek = now().minusWeeks(1)
-
-        assertThatCode { baseBooking.copy(spaceTrains = listOf(spaceTrain().departing(lastWeek))) }
-            .doesNotThrowAnyException()
     }
 
     @Test
@@ -112,5 +113,13 @@ class BookingShould : EqualityShould<Booking> {
 
         assertThat(bookingWithSelection.selectedSeatLocations[spaceTrain]).isEqualTo(FLYING_BRIDGE)
         assertThat(bookingWithSelection.finalized).isFalse()
+    }
+
+    @Test
+    fun `allow a schedule in the past`(@Finalized baseBooking: Booking) {
+        val lastWeek = LocalDateTime.now().minusWeeks(1)
+
+        assertThatCode { baseBooking.copy(spaceTrains = listOf(spaceTrain().departing(lastWeek))) }
+            .doesNotThrowAnyException()
     }
 }

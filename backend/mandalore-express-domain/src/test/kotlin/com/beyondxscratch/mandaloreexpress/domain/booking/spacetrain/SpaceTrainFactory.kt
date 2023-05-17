@@ -1,12 +1,11 @@
 package com.beyondxscratch.mandaloreexpress.domain.booking.spacetrain
 
+import com.beyondxscratch.mandaloreexpress.domain.booking.spacetrain.fare.Price
 import com.beyondxscratch.mandaloreexpress.domain.booking.spacetrain.fare.fare
 import com.beyondxscratch.mandaloreexpress.domain.booking.spacetrain.fare.firstClassFare
 import com.beyondxscratch.mandaloreexpress.domain.booking.spacetrain.fare.randomFare
-import com.beyondxscratch.mandaloreexpress.domain.booking.spacetrain.fare.Price
-import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.randomSchedule
-import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.schedule
 import java.time.LocalDateTime
+import kotlin.random.Random
 import kotlin.random.Random.Default.nextLong
 
 fun spaceTrain(): SpaceTrain = SpaceTrain(
@@ -24,9 +23,19 @@ fun randomSpaceTrain(): SpaceTrain = spaceTrain()
         fare = randomFare()
     )
 
+inline fun <reified T> schedule() : T = T::class.constructors.first().call(departure, departure.plusDays(7))
+inline fun <reified T> randomSchedule() : T = T::class.constructors.first().call(departure, departure.plusDays(
+    Random.nextLong(8, 20)))
 fun SpaceTrain.withFirstClass(): SpaceTrain {
     return this.copy(fare = firstClassFare())
 }
+
+val departure = LocalDateTime.now()
+    .plusDays(1)
+    .withHour(10)
+    .withMinute(0)
+    .withSecond(0)
+    .withNano(0)
 
 fun SpaceTrain.numbered(number: String): SpaceTrain {
     return this.copy(number = number)
