@@ -13,6 +13,8 @@ import ExploreIcon from "@material-ui/icons/Explore";
 import Class from "../Commons/Class";
 import FlightIcon from "@material-ui/icons/Flight";
 import { getCurrencySymbol } from "../Commons/Currency";
+import AirlineSeatReclineNormal from "@material-ui/icons/AirlineSeatReclineNormal";
+import SeatLocation from "./SeatLocation";
 
 function Booking({ history }) {
   const { bookingId } = useParams();
@@ -158,6 +160,7 @@ function Description({ number, fare }) {
           className={classes.marginRight}
         />
       </Box>
+      <SelectedSeatLocation seatLocation={ fare.comfortClass === "FIRST" ? 'OBSERVATION_DECK' : 'CARGO_BAY' } className={classes.marginRight}/>
       <Box display="flex" flexDirection="column" alignItems="flex-end">
         <Price price={fare.price} />
       </Box>
@@ -178,6 +181,24 @@ function Price({ price }) {
         {"Price: "}{price.amount}{getCurrencySymbol(price.currency)}
       </Typography>
     </div>
+  );
+}
+
+function SelectedSeatLocation({seatLocation, className}) {
+  const useStyles = makeStyles(theme => ({
+    icon: {
+      verticalAlign: "text-bottom"
+    }
+  }));
+  const classes = useStyles();
+  const label = SeatLocation[seatLocation].label
+  return (
+      <div>
+        <AirlineSeatReclineNormal className={classes.icon + " " + className}/>
+        <Typography color="secondary" variant="body2" component="span">
+          {label}
+        </Typography>
+      </div>
   );
 }
 
