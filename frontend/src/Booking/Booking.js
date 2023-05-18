@@ -9,8 +9,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import FlightLandIcon from "@material-ui/icons/FlightLand";
 import moment from "moment";
-import ExploreIcon from "@material-ui/icons/Explore";
-import Class from "../Commons/Class";
+import FindInPageIcon from '@material-ui/icons/FindInPage';import Class from "../Commons/Class";
 import FlightIcon from "@material-ui/icons/Flight";
 import { getCurrencySymbol } from "../Commons/Currency";
 import AirlineSeatReclineNormal from "@material-ui/icons/AirlineSeatReclineNormal";
@@ -69,7 +68,7 @@ function Booking({ history }) {
               fullWidth
               onClick={() => history.push("/")}
             >
-              Back
+              Finalize Booking
             </Button>
           </Paper>
         )}
@@ -160,7 +159,7 @@ function Description({ number, fare }) {
           className={classes.marginRight}
         />
       </Box>
-      <SelectedSeatLocation seatLocation={ fare.comfortClass === "FIRST" ? 'OBSERVATION_DECK' : 'CARGO_BAY' } className={classes.marginRight}/>
+      <SelectedSeatLocation seatLocation={ fare.comfortClass === "FIRST" ? 'OBSERVATION_DECK' : 'CARGO_BAY' }/>
       <Box display="flex" flexDirection="column" alignItems="flex-end">
         <Price price={fare.price} />
       </Box>
@@ -184,20 +183,31 @@ function Price({ price }) {
   );
 }
 
-function SelectedSeatLocation({seatLocation, className}) {
+function SelectedSeatLocation({seatLocation}) {
   const useStyles = makeStyles(theme => ({
     icon: {
       verticalAlign: "text-bottom"
+    },
+    marginRight: {
+      marginRight: theme.spacing(1)
     }
   }));
   const classes = useStyles();
   const label = SeatLocation[seatLocation].label
   return (
       <div>
-        <AirlineSeatReclineNormal className={classes.icon + " " + className}/>
-        <Typography color="secondary" variant="body2" component="span">
+        <AirlineSeatReclineNormal className={[classes.icon, classes.marginRight]}/>
+        <Typography color="secondary" variant="body2" component="span" className={classes.marginRight}>
           {label}
         </Typography>
+
+        <Button
+            color="secondary"
+            size="small"
+            variant="contained"
+        >
+          Choose another location
+        </Button>
       </div>
   );
 }
@@ -218,9 +228,9 @@ function Title() {
 
   return (
     <div className={classes.title}>
-      <ExploreIcon className={classes.icon} color="primary" />
+      <FindInPageIcon className={classes.icon} color="primary" />
       <Typography variant="h5">
-        Ready to take-off? Your trip is booked!
+        Review your booking
       </Typography>
     </div>
   );
