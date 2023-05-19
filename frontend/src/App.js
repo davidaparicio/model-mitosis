@@ -12,6 +12,7 @@ import Link from '@material-ui/core/Link'
 
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import Booking from './Booking/Booking'
+import SelectSeatLocation from "./Booking/SelectSeatLocation";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -62,6 +63,9 @@ function App () {
           <Switch>
             <Route path='/searches/:searchId/bound/:bound'>
               <Search />
+            </Route>
+            <Route path='/bookings/:bookingId/space-train/:spaceTrainNumber/seat-location'> {/* Just to access the mockup */}
+              <SelectSeatLocation />
             </Route>
             <Route path='/bookings/:bookingId'>
               <Booking />

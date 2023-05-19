@@ -3,31 +3,31 @@ import React from "react";
 const SeatLocation = {
     ANY: {
         label: 'Anywhere',
-        icon: ''
+        illustration: '/seat-locations/any.png'
     },
     OBSERVATION_DECK: {
         label: 'Observation Deck',
-        icon: ''
+        illustration: '/seat-locations/observation_deck.png'
     },
     CARGO_BAY: {
         label: 'Cargo Bay',
-        icon: ''
+        illustration: '/seat-locations/cargo_bay.png'
     },
     PRIVATE_CABIN: {
         label: 'Private Cabin',
-        icon: ''
+        illustration: '/seat-locations/private_cabin.png'
     },
     FLYING_BRIDGE: {
         label: 'Flying Bridge',
-        icon: ''
+        illustration: '/seat-locations/flying_bridge.png'
     },
     SHARED_CABIN: {
         label: 'Shared Cabin',
-        icon: ''
+        illustration: '/seat-locations/shared_cabin.png'
     },
     TORPEDO_STORAGE_COMPARTMENT: {
         label: 'Torpedo Storage Compartment',
-        icon: ''
+        illustration: '/seat-locations/proton_torpedo_storage.png'
     }
 
 }
