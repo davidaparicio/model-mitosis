@@ -52,7 +52,7 @@ class BookingController(
 
     private fun DomainBooking.toResource(): Booking {
         val bookingLink = entityLinks.linkForItemResource(Booking::class.java, id)
-        return Booking(id, spaceTrains.toResource(), totalPrice.toResource())
+        return Booking(id, spaceTrains.toResource(), totalPrice.toResource(), taxPortion.toResource())
             .add(bookingLink.withSelfRel())
     }
 }

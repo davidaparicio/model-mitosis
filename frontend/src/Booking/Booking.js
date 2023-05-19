@@ -58,6 +58,9 @@ function Booking({ history }) {
             {booking.spaceTrains.map(spacetrain => (
               <SpaceTrain key={spacetrain.number} spacetrain={spacetrain} />
             ))}
+            <Typography className={classes.totalPrice}>
+              Taxes: {booking.taxPortion.amount}{getCurrencySymbol(booking.taxPortion.currency)}
+            </Typography>
             <Typography variant="h6" className={classes.totalPrice}>
               Total Price: {booking.totalPrice.amount}{getCurrencySymbol(booking.totalPrice.currency)}
             </Typography>
