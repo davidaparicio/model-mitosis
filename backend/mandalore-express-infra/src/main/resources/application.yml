@@ -5,6 +5,6 @@ spring:
     default-property-inclusion: non_null
 
 server:
-  port: 1865
+  port: 1860
   error:
     include-message: ALWAYS
