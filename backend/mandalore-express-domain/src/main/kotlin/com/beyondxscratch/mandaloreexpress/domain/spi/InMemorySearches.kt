@@ -1,4 +1,4 @@
-package com.beyondxscratch.mandaloreexpress.domain.stubs
+package com.beyondxscratch.mandaloreexpress.domain.spi
 
 import com.beyondxscratch.mandaloreexpress.annotations.Stub
 import com.beyondxscratch.mandaloreexpress.domain.Search

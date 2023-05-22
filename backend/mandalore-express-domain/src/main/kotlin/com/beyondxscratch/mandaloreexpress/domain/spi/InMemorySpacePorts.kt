@@ -1,4 +1,4 @@
-package com.beyondxscratch.mandaloreexpress.domain.stubs
+package com.beyondxscratch.mandaloreexpress.domain.spi
 
 import com.beyondxscratch.mandaloreexpress.annotations.Stub
 import com.beyondxscratch.mandaloreexpress.domain.spaceport.Planet.CORUSCANT
@@ -6,7 +6,6 @@ import com.beyondxscratch.mandaloreexpress.domain.spaceport.Planet.MANDALORE
 import com.beyondxscratch.mandaloreexpress.domain.spaceport.Planet.NEVARRO
 import com.beyondxscratch.mandaloreexpress.domain.spaceport.Planet.TATOOINE
 import com.beyondxscratch.mandaloreexpress.domain.spaceport.SpacePort
-import com.beyondxscratch.mandaloreexpress.domain.spi.SpacePorts
 import java.util.UUID.nameUUIDFromBytes
 
 @Stub

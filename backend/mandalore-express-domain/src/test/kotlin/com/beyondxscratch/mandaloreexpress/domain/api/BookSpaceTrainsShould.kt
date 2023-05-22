@@ -3,7 +3,6 @@ package com.beyondxscratch.mandaloreexpress.domain.api
 import com.beyondxscratch.mandaloreexpress.domain.OneWay
 import com.beyondxscratch.mandaloreexpress.domain.RoundTrip
 import com.beyondxscratch.mandaloreexpress.domain.Search
-import com.beyondxscratch.mandaloreexpress.domain.exceptions.CannotBookAPartialSelection
 import com.beyondxscratch.mandaloreexpress.domain.selectAnInboundSpaceTrain
 import com.beyondxscratch.mandaloreexpress.domain.selectAnOutboundSpaceTrain
 import org.assertj.core.api.Assertions.assertThat
@@ -36,7 +35,7 @@ interface BookSpaceTrainsShould {
 
         assertThatThrownBy {
             bookSpaceTrains `from the selection of` searchWithPartialSelection
-        }.isInstanceOf(CannotBookAPartialSelection::class.java)
+        }.isInstanceOf(IllegalStateException::class.java)
             .hasMessage("cannot book a partial selection")
     }
 

@@ -8,7 +8,6 @@ import com.beyondxscratch.mandaloreexpress.domain.api.SelectSpaceTrain
 import com.beyondxscratch.mandaloreexpress.domain.criteria.Criteria
 import com.beyondxscratch.mandaloreexpress.domain.criteria.Journey
 import com.beyondxscratch.mandaloreexpress.domain.criteria.Journeys
-import com.beyondxscratch.mandaloreexpress.domain.exceptions.CannotBookAPartialSelection
 import com.beyondxscratch.mandaloreexpress.domain.spaceport.Planet
 import com.beyondxscratch.mandaloreexpress.domain.spaceport.SpacePort
 import com.beyondxscratch.mandaloreexpress.domain.spacetrain.Bound
@@ -27,6 +26,7 @@ import com.beyondxscratch.mandaloreexpress.domain.spacetrain.fare.Price
 import com.beyondxscratch.mandaloreexpress.domain.spi.Bookings
 import com.beyondxscratch.mandaloreexpress.domain.spi.Searches
 import com.beyondxscratch.mandaloreexpress.domain.spi.SpacePorts
+import java.lang.IllegalStateException
 import java.math.BigDecimal
 import java.time.LocalDateTime
 import java.util.UUID
@@ -76,7 +76,7 @@ class MandaloreExpress(
 
     override fun `from the selection of`(search: Search): Booking {
         return when {
-            !search.isSelectionComplete() -> throw CannotBookAPartialSelection()
+            !search.isSelectionComplete() -> throw IllegalStateException("cannot book a partial selection")
             else -> {
                 val spaceTrainsToBook = convertSelectedSpaceTrainsFrom(search)
                 bookings.save(Booking(spaceTrains = spaceTrainsToBook))

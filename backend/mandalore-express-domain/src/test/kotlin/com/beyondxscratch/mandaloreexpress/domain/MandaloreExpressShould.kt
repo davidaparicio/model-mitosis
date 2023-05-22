@@ -8,9 +8,9 @@ import com.beyondxscratch.mandaloreexpress.domain.api.SearchForSpaceTrains
 import com.beyondxscratch.mandaloreexpress.domain.api.SearchForSpaceTrainsShould
 import com.beyondxscratch.mandaloreexpress.domain.api.SelectSpaceTrain
 import com.beyondxscratch.mandaloreexpress.domain.api.SelectSpaceTrainShould
-import com.beyondxscratch.mandaloreexpress.domain.stubs.InMemoryBookings
-import com.beyondxscratch.mandaloreexpress.domain.stubs.InMemorySearches
-import com.beyondxscratch.mandaloreexpress.domain.stubs.InMemorySpacePorts
+import com.beyondxscratch.mandaloreexpress.domain.spi.InMemoryBookings
+import com.beyondxscratch.mandaloreexpress.domain.spi.InMemorySearches
+import com.beyondxscratch.mandaloreexpress.domain.spi.InMemorySpacePorts
 import org.junit.jupiter.api.BeforeEach
 
 class MandaloreExpressShould(@RoundTrip val search: Search) : RetrieveSpacePortsShould, SearchForSpaceTrainsShould,

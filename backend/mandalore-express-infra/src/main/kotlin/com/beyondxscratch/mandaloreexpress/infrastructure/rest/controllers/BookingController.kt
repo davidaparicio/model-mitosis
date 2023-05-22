@@ -2,7 +2,6 @@ package com.beyondxscratch.mandaloreexpress.infrastructure.rest.controllers
 
 import com.beyondxscratch.mandaloreexpress.domain.api.BookSpaceTrains
 import com.beyondxscratch.mandaloreexpress.domain.api.SearchForSpaceTrains
-import com.beyondxscratch.mandaloreexpress.domain.exceptions.CannotBookAPartialSelection
 import com.beyondxscratch.mandaloreexpress.domain.spi.Bookings
 import com.beyondxscratch.mandaloreexpress.domain.spi.Searches
 import com.beyondxscratch.mandaloreexpress.infrastructure.rest.resources.booking.Booking
@@ -42,7 +41,7 @@ class BookingController(
             val domainBooking = bookSpaceTrains `from the selection of` search
             val booking = domainBooking.toResource()
             created(booking.getRequiredLink(SELF).toUri()).body(booking)
-        } catch (exception: CannotBookAPartialSelection) {
+        } catch (exception: IllegalStateException) {
             throw ResponseStatusException(BAD_REQUEST, exception.message)
         }
     }
