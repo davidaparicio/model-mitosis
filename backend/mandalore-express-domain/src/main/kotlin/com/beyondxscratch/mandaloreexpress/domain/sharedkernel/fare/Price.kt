@@ -1,5 +1,10 @@
 package com.beyondxscratch.mandaloreexpress.domain.sharedkernel.fare
 
+import com.beyondxscratch.mandaloreexpress.domain.booking.tax.TaxPortion
+import com.beyondxscratch.mandaloreexpress.domain.booking.tax.TaxRate
+import com.beyondxscratch.mandaloreexpress.domain.booking.spacetrain.fare.div
+import java.math.BigDecimal
+
 
 data class Price(val amount: Amount, val currency: Currency) {
 
@@ -8,5 +13,10 @@ data class Price(val amount: Amount, val currency: Currency) {
             "Cannot sum prices with different currencies"
         }
         return Price(amount + anotherPrice.amount, currency)
+    }
+
+    fun getTaxPortionOf(taxRate: TaxRate): TaxPortion {
+        val ratio = BigDecimal.ONE - BigDecimal.ONE / (BigDecimal.ONE + taxRate.value)
+        return TaxPortion(amount * ratio, currency)
     }
 }
