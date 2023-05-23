@@ -20,7 +20,13 @@ data class Booking(val id: UUID = randomUUID(),
         require(spaceTrains.isNotEmpty()) {
             "cannot book nothing"
         }
-        /*requireSeatLocationsCompatible*/
+        require(selectedSeatLocationsCompatibleWithSpaceTrains()) {
+            "SelectedSeatLocations are incompatible with the SpaceTrains"
+        }
+    }
+
+    private fun selectedSeatLocationsCompatibleWithSpaceTrains(): Boolean {
+        return selectedSeatLocations.all { (spacetrain, seatlocation) -> spacetrain.fare isCompatibleWith seatlocation }
     }
 
     fun finalize(): Booking {

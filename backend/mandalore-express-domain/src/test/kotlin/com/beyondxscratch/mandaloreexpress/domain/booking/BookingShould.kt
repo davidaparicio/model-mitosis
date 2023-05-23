@@ -59,6 +59,16 @@ class BookingShould : EqualityShould<Booking> {
         assertThat(bookingWithSelection.selectedSeatLocations[spaceTrain]).isEqualTo(firstClassLocation)
         assertThat(bookingWithSelection.finalized).isFalse()
     }
+    @Test
+    fun `not select a seatlocation incompatible with the comfortClass`() {
+        val spaceTrainNumber = "12"
+        val secondClassLocation = CARGO_BAY
 
-    /*testIncompatibleSeatLocation*/
+        val spaceTrain = spaceTrain().numbered(spaceTrainNumber).withFirstClass()
+        val booking = Booking(spaceTrains = listOf(spaceTrain))
+
+        assertThatThrownBy { booking.selectSeatLocationFor(spaceTrainNumber, secondClassLocation) }
+            .isInstanceOf(IllegalArgumentException::class.java)
+            .hasMessage("SelectedSeatLocations are incompatible with the SpaceTrains")
+    }
 }
