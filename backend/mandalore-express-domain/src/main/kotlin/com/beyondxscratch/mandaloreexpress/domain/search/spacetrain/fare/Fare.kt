@@ -1,6 +1,5 @@
 package com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.fare
 
-import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.fare.Price
 import java.util.*
 
 data class Fare(

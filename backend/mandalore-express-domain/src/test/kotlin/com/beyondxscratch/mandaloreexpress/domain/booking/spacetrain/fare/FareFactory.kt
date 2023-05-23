@@ -1,8 +1,8 @@
 package com.beyondxscratch.mandaloreexpress.domain.booking.spacetrain.fare
 
 import com.beyondxscratch.mandaloreexpress.domain.booking.spacetrain.fare.ComfortClass.*
-import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.fare.Amount
-import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.fare.Currency
+import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.Amount
+import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.Currency
 import java.math.BigDecimal
 import java.util.UUID.nameUUIDFromBytes
 import kotlin.random.Random

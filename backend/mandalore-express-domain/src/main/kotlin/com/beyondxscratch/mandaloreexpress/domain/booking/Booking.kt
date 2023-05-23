@@ -2,9 +2,9 @@ package com.beyondxscratch.mandaloreexpress.domain.booking
 
 import com.beyondxscratch.mandaloreexpress.domain.booking.spacetrain.fare.SeatLocation
 import com.beyondxscratch.mandaloreexpress.domain.booking.spacetrain.SpaceTrain
+import com.beyondxscratch.mandaloreexpress.domain.booking.spacetrain.fare.Price
 import com.beyondxscratch.mandaloreexpress.domain.booking.tax.TaxPortion
 import com.beyondxscratch.mandaloreexpress.domain.booking.tax.TaxRate
-import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.fare.Price
 import java.math.BigDecimal
 import java.util.UUID
 import java.util.UUID.randomUUID

@@ -1,6 +1,5 @@
 package com.beyondxscratch.mandaloreexpress.domain.booking.spacetrain.fare
 
-import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.fare.Price
 import java.math.BigDecimal
 import java.math.RoundingMode
 import java.util.UUID

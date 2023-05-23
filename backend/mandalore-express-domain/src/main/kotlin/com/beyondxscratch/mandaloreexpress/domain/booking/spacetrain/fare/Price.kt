@@ -1,8 +1,9 @@
-package com.beyondxscratch.mandaloreexpress.domain.sharedkernel.fare
+package com.beyondxscratch.mandaloreexpress.domain.booking.spacetrain.fare
 
 import com.beyondxscratch.mandaloreexpress.domain.booking.tax.TaxPortion
 import com.beyondxscratch.mandaloreexpress.domain.booking.tax.TaxRate
-import com.beyondxscratch.mandaloreexpress.domain.booking.spacetrain.fare.div
+import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.Amount
+import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.Currency
 import java.math.BigDecimal
 
 
