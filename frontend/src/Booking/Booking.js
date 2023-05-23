@@ -13,6 +13,7 @@ import ExploreIcon from "@material-ui/icons/Explore";
 import Class from "../Commons/Class";
 import FlightIcon from "@material-ui/icons/Flight";
 import { getCurrencySymbol } from "../Commons/Currency";
+import Alert from '@material-ui/lab/Alert'
 
 function Booking({ history }) {
   const { bookingId } = useParams();
@@ -29,6 +30,9 @@ function Booking({ history }) {
     totalPrice: {
       textAlign: "right",
       marginBottom: theme.spacing(2)
+    },
+    error: {
+      marginBottom: theme.spacing(4)
     }
   }));
   const classes = useStyles();
@@ -53,12 +57,16 @@ function Booking({ history }) {
         {booking && (
           <Paper className={classes.booking}>
             <Title />
-            {booking.spaceTrains.map(spacetrain => (
+            {booking?.spaceTrains?.map(spacetrain => (
               <SpaceTrain key={spacetrain.number} spacetrain={spacetrain} />
-            ))}
-            <Typography variant="h6" className={classes.totalPrice}>
-              Total Price: {booking.totalPrice.amount}{getCurrencySymbol(booking.totalPrice.currency)}
-            </Typography>
+            )) || <Alert className={classes.error} severity="error">{booking.message}</Alert>}
+            {
+              booking.totalPrice && (
+                <Typography variant="h6" className={classes.totalPrice}>
+                  Total Price: {booking.totalPrice.amount}{getCurrencySymbol(booking.totalPrice.currency)}
+                </Typography>
+              )
+            }
 
             <Button
               size="large"
