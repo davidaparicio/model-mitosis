@@ -1,6 +1,4 @@
-package com.beyondxscratch.mandaloreexpress.domain.sharedkernel.fare
-
-import com.beyondxscratch.mandaloreexpress.domain.booking.spacetrain.fare.SeatLocation
+package com.beyondxscratch.mandaloreexpress.domain.booking.spacetrain.fare
 
 enum class ComfortClass(val compatibleSeatLocations: List<SeatLocation>) {
     FIRST(

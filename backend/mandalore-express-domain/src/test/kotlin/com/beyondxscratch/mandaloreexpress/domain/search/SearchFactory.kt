@@ -7,7 +7,7 @@ import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.Bound.INBOUN
 import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.Bound.OUTBOUND
 import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.SpaceTrain
 import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.spaceTrainsFrom
-import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.fare.Fare
+import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.fare.Fare
 import java.util.UUID.fromString
 import java.util.UUID.randomUUID
 

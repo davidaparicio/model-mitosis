@@ -1,8 +1,9 @@
 package com.beyondxscratch.mandaloreexpress.domain.sharedkernel.fare
 
-import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.fare.ComfortClass.FIRST
-import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.fare.ComfortClass.SECOND
-import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.fare.ComfortClass.values
+import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.fare.Fare
+import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.fare.ComfortClass.FIRST
+import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.fare.ComfortClass.SECOND
+import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.fare.ComfortClass.values
 import java.util.UUID.nameUUIDFromBytes
 
 fun fare(): Fare = Fare(nameUUIDFromBytes("fare1".toByteArray()), FIRST, tenRepCreditsPrice())

@@ -1,7 +1,7 @@
-package com.beyondxscratch.mandaloreexpress.domain.sharedkernel.fare
+package com.beyondxscratch.mandaloreexpress.domain.booking.spacetrain.fare
 
-import com.beyondxscratch.mandaloreexpress.domain.booking.spacetrain.fare.SeatLocation
-import java.util.*
+import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.fare.Price
+import java.util.UUID
 
 data class Fare(
     val id: UUID = UUID.randomUUID(),
@@ -12,4 +12,3 @@ data class Fare(
         return seatLocation in comfortClass.compatibleSeatLocations
     }
 }
-typealias Fares = Set<Fare>
