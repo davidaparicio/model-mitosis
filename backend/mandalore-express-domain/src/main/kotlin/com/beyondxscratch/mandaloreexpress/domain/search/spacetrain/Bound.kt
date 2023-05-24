@@ -1,4 +1,4 @@
-package com.beyondxscratch.mandaloreexpress.domain.spacetrain
+package com.beyondxscratch.mandaloreexpress.domain.search.spacetrain
 
 enum class Bound {
     OUTBOUND,

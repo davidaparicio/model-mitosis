@@ -1,4 +1,4 @@
-package com.beyondxscratch.mandaloreexpress.domain.spaceport
+package com.beyondxscratch.mandaloreexpress.domain.search.spaceport
 
 data class SpacePort(val id: String, val name: String, val location: Planet) {
 

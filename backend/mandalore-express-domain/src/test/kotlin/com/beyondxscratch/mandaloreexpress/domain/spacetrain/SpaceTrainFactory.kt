@@ -1,15 +1,15 @@
 package com.beyondxscratch.mandaloreexpress.domain.spacetrain
 
-import com.beyondxscratch.mandaloreexpress.domain.criteria.Criteria
+import com.beyondxscratch.mandaloreexpress.domain.search.criteria.Criteria
 import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.SpaceTrain
 import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.SpaceTrains
-import com.beyondxscratch.mandaloreexpress.domain.spaceport.Planet
-import com.beyondxscratch.mandaloreexpress.domain.spaceport.Planet.CORUSCANT
-import com.beyondxscratch.mandaloreexpress.domain.spaceport.Planet.MANDALORE
+import com.beyondxscratch.mandaloreexpress.domain.search.spaceport.Planet
+import com.beyondxscratch.mandaloreexpress.domain.search.spaceport.Planet.CORUSCANT
+import com.beyondxscratch.mandaloreexpress.domain.search.spaceport.Planet.MANDALORE
 import com.beyondxscratch.mandaloreexpress.domain.spaceport.spacePort
-import com.beyondxscratch.mandaloreexpress.domain.spacetrain.Bound.Companion.fromJourneyIndex
-import com.beyondxscratch.mandaloreexpress.domain.spacetrain.Bound.INBOUND
-import com.beyondxscratch.mandaloreexpress.domain.spacetrain.Bound.OUTBOUND
+import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.Bound.Companion.fromJourneyIndex
+import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.Bound.INBOUND
+import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.Bound.OUTBOUND
 import com.beyondxscratch.mandaloreexpress.domain.spacetrain.fare.fare
 import com.beyondxscratch.mandaloreexpress.domain.spacetrain.fare.firstClassFare
 import com.beyondxscratch.mandaloreexpress.domain.spacetrain.fare.randomFare

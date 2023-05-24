@@ -6,8 +6,8 @@ import com.beyondxscratch.mandaloreexpress.domain.search.api.SelectSpaceTrain
 import com.beyondxscratch.mandaloreexpress.domain.search.api.`by resetting the selection`
 import com.beyondxscratch.mandaloreexpress.domain.search.api.`in search`
 import com.beyondxscratch.mandaloreexpress.domain.search.api.`with the fare`
-import com.beyondxscratch.mandaloreexpress.domain.spaceport.SpacePort
-import com.beyondxscratch.mandaloreexpress.domain.spacetrain.Bound
+import com.beyondxscratch.mandaloreexpress.domain.search.spaceport.SpacePort
+import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.Bound
 import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.SpaceTrain.Companion.get
 import com.beyondxscratch.mandaloreexpress.infrastructure.rest.resources.fare.Fare
 import com.beyondxscratch.mandaloreexpress.infrastructure.rest.resources.fare.Fares
@@ -42,8 +42,8 @@ import java.time.LocalDateTime.parse
 import java.util.Locale
 import java.util.UUID
 import com.beyondxscratch.mandaloreexpress.domain.search.Search as DomainSearch
-import com.beyondxscratch.mandaloreexpress.domain.criteria.Criteria as DomainCriteria
-import com.beyondxscratch.mandaloreexpress.domain.criteria.Journey as DomainJourney
+import com.beyondxscratch.mandaloreexpress.domain.search.criteria.Criteria as DomainCriteria
+import com.beyondxscratch.mandaloreexpress.domain.search.criteria.Journey as DomainJourney
 import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.SpaceTrain as DomainSpaceTrain
 import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.SpaceTrains as DomainSpaceTrains
 import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.fare.Fare as DomainFare

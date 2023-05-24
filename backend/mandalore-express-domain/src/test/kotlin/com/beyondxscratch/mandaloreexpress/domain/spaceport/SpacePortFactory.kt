@@ -1,7 +1,9 @@
 package com.beyondxscratch.mandaloreexpress.domain.spaceport
 
-import com.beyondxscratch.mandaloreexpress.domain.spaceport.Planet.CORUSCANT
-import com.beyondxscratch.mandaloreexpress.domain.spaceport.Planet.values
+import com.beyondxscratch.mandaloreexpress.domain.search.spaceport.Planet
+import com.beyondxscratch.mandaloreexpress.domain.search.spaceport.Planet.CORUSCANT
+import com.beyondxscratch.mandaloreexpress.domain.search.spaceport.Planet.values
+import com.beyondxscratch.mandaloreexpress.domain.search.spaceport.SpacePort
 import com.beyondxscratch.mandaloreexpress.domain.search.spi.InMemorySpacePorts
 import java.util.UUID.randomUUID
 
