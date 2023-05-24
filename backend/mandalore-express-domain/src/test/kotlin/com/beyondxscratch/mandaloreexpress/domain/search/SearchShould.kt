@@ -16,7 +16,7 @@ import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.SpaceTrain
 import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.SpaceTrain.Companion.get
 import com.beyondxscratch.mandaloreexpress.domain.selectAnInboundSpaceTrain
 import com.beyondxscratch.mandaloreexpress.domain.selectAnOutboundSpaceTrain
-import com.beyondxscratch.mandaloreexpress.domain.spacetrain.fare.Fare
+import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.fare.Fare
 import com.beyondxscratch.mandaloreexpress.domain.spacetrain.fare.price
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatCode

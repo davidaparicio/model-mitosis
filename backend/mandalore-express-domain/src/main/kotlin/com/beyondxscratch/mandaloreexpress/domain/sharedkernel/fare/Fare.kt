@@ -1,4 +1,4 @@
-package com.beyondxscratch.mandaloreexpress.domain.spacetrain.fare
+package com.beyondxscratch.mandaloreexpress.domain.sharedkernel.fare
 
 import java.util.*
 

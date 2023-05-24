@@ -2,7 +2,7 @@ package com.beyondxscratch.mandaloreexpress.domain.search.spacetrain
 
 import com.beyondxscratch.mandaloreexpress.domain.spacetrain.Bound
 import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.Schedule
-import com.beyondxscratch.mandaloreexpress.domain.spacetrain.fare.Fares
+import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.fare.Fares
 import java.util.UUID
 
 data class SpaceTrain(
