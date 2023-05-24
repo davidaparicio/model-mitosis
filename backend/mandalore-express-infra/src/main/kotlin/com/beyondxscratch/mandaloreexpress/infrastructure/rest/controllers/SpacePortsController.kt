@@ -1,6 +1,6 @@
 package com.beyondxscratch.mandaloreexpress.infrastructure.rest.controllers
 
-import com.beyondxscratch.mandaloreexpress.domain.api.RetrieveSpacePorts
+import com.beyondxscratch.mandaloreexpress.domain.search.api.RetrieveSpacePorts
 import com.beyondxscratch.mandaloreexpress.infrastructure.rest.resources.spaceport.SpacePort
 import com.beyondxscratch.mandaloreexpress.infrastructure.rest.resources.spaceport.SpacePorts
 import com.beyondxscratch.mandaloreexpress.infrastructure.rest.resources.spaceport.asResourcesFor

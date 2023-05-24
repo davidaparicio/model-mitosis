@@ -1,4 +1,4 @@
-package com.beyondxscratch.mandaloreexpress.domain.api
+package com.beyondxscratch.mandaloreexpress.domain.booking.api
 
 import com.beyondxscratch.mandaloreexpress.domain.booking.Booking
 import com.beyondxscratch.mandaloreexpress.domain.search.Search
