@@ -1,7 +1,7 @@
 package com.beyondxscratch.mandaloreexpress.domain.selection
 
 import com.beyondxscratch.mandaloreexpress.domain.spacetrain.Bound
-import com.beyondxscratch.mandaloreexpress.domain.spacetrain.SpaceTrain
+import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.SpaceTrain
 import com.beyondxscratch.mandaloreexpress.domain.spacetrain.fare.Price
 import java.util.UUID
 

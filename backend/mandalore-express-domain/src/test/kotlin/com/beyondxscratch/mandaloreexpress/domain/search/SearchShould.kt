@@ -1,5 +1,8 @@
-package com.beyondxscratch.mandaloreexpress.domain
+package com.beyondxscratch.mandaloreexpress.domain.search
 
+import com.beyondxscratch.mandaloreexpress.domain.EqualityShould
+import com.beyondxscratch.mandaloreexpress.domain.OneWay
+import com.beyondxscratch.mandaloreexpress.domain.RoundTrip
 import com.beyondxscratch.mandaloreexpress.domain.criteria.Criteria
 import com.beyondxscratch.mandaloreexpress.domain.criteria.Journey
 import com.beyondxscratch.mandaloreexpress.domain.selection.SelectedSpaceTrain
@@ -9,8 +12,10 @@ import com.beyondxscratch.mandaloreexpress.domain.spacetrain.Bound.OUTBOUND
 import com.beyondxscratch.mandaloreexpress.domain.spacetrain.Bound.values
 import com.beyondxscratch.mandaloreexpress.domain.spacetrain.Inbound
 import com.beyondxscratch.mandaloreexpress.domain.spacetrain.Outbound
-import com.beyondxscratch.mandaloreexpress.domain.spacetrain.SpaceTrain
-import com.beyondxscratch.mandaloreexpress.domain.spacetrain.SpaceTrain.Companion.get
+import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.SpaceTrain
+import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.SpaceTrain.Companion.get
+import com.beyondxscratch.mandaloreexpress.domain.selectAnInboundSpaceTrain
+import com.beyondxscratch.mandaloreexpress.domain.selectAnOutboundSpaceTrain
 import com.beyondxscratch.mandaloreexpress.domain.spacetrain.fare.Fare
 import com.beyondxscratch.mandaloreexpress.domain.spacetrain.fare.price
 import org.assertj.core.api.Assertions.assertThat

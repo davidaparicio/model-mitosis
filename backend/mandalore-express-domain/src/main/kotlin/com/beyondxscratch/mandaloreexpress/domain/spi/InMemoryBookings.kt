@@ -1,19 +1,16 @@
 package com.beyondxscratch.mandaloreexpress.domain.spi
 
 import com.beyondxscratch.mandaloreexpress.annotations.Stub
-import com.beyondxscratch.mandaloreexpress.domain.Booking
-import com.beyondxscratch.mandaloreexpress.domain.spacetrain.Bound
+import com.beyondxscratch.mandaloreexpress.domain.booking.Booking
 import com.beyondxscratch.mandaloreexpress.domain.spacetrain.Bound.OUTBOUND
 import com.beyondxscratch.mandaloreexpress.domain.spacetrain.Schedule
-import com.beyondxscratch.mandaloreexpress.domain.spacetrain.SpaceTrain
+import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.SpaceTrain
 import com.beyondxscratch.mandaloreexpress.domain.spacetrain.fare.Amount
 import com.beyondxscratch.mandaloreexpress.domain.spacetrain.fare.ComfortClass
-import com.beyondxscratch.mandaloreexpress.domain.spacetrain.fare.Currency
 import com.beyondxscratch.mandaloreexpress.domain.spacetrain.fare.Currency.REPUBLIC_CREDIT
 import com.beyondxscratch.mandaloreexpress.domain.spacetrain.fare.Fare
 import com.beyondxscratch.mandaloreexpress.domain.spacetrain.fare.Price
 import java.math.BigDecimal
-import java.time.LocalDateTime
 import java.time.LocalDateTime.now
 import java.util.UUID
 

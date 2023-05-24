@@ -1,7 +1,7 @@
 package com.beyondxscratch.mandaloreexpress.domain.api
 
 import com.beyondxscratch.mandaloreexpress.domain.RoundTrip
-import com.beyondxscratch.mandaloreexpress.domain.Search
+import com.beyondxscratch.mandaloreexpress.domain.search.Search
 import com.beyondxscratch.mandaloreexpress.domain.selection.SelectedSpaceTrain
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatThrownBy

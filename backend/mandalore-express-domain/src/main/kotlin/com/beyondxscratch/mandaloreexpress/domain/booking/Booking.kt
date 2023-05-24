@@ -1,6 +1,6 @@
-package com.beyondxscratch.mandaloreexpress.domain
+package com.beyondxscratch.mandaloreexpress.domain.booking
 
-import com.beyondxscratch.mandaloreexpress.domain.spacetrain.SpaceTrain
+import com.beyondxscratch.mandaloreexpress.domain.booking.spacetrain.SpaceTrain
 import com.beyondxscratch.mandaloreexpress.domain.spacetrain.fare.Price
 import java.util.UUID
 import java.util.UUID.randomUUID
@@ -8,7 +8,7 @@ import java.util.UUID.randomUUID
 
 data class Booking(val id: UUID = randomUUID(), val spaceTrains: List<SpaceTrain>) {
 
-    val totalPrice: Price get() = spaceTrains.map { it.fares.first().price }.reduce(Price::plus)
+    val totalPrice: Price get() = spaceTrains.map { it.fare.price }.reduce(Price::plus)
 
     init {
         require(spaceTrains.isNotEmpty()) {

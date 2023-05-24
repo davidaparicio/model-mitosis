@@ -4,8 +4,9 @@ import com.beyondxscratch.TypedParameterResolver
 import com.beyondxscratch.mandaloreexpress.domain.criteria.Journey
 import com.beyondxscratch.mandaloreexpress.domain.criteria.journey
 import com.beyondxscratch.mandaloreexpress.domain.criteria.outboundJourney
+import com.beyondxscratch.mandaloreexpress.domain.search.Search
 import com.beyondxscratch.mandaloreexpress.domain.spacetrain.Outbound
-import com.beyondxscratch.mandaloreexpress.domain.spacetrain.SpaceTrain
+import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.SpaceTrain
 import com.beyondxscratch.mandaloreexpress.domain.spacetrain.outboundSpaceTrain
 import com.beyondxscratch.mandaloreexpress.domain.spacetrain.spaceTrain
 

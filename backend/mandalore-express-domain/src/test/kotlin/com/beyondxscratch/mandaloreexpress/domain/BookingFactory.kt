@@ -1,5 +1,6 @@
 package com.beyondxscratch.mandaloreexpress.domain
 
+import com.beyondxscratch.mandaloreexpress.domain.booking.Booking
 import com.beyondxscratch.mandaloreexpress.domain.spacetrain.randomSpaceTrain
 import com.beyondxscratch.mandaloreexpress.domain.spacetrain.spaceTrain
 import java.util.UUID
