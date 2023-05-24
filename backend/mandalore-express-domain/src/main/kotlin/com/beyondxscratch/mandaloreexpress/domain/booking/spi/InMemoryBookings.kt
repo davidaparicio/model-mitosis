@@ -3,7 +3,7 @@ package com.beyondxscratch.mandaloreexpress.domain.booking.spi
 import com.beyondxscratch.mandaloreexpress.annotations.Stub
 import com.beyondxscratch.mandaloreexpress.domain.booking.Booking
 import com.beyondxscratch.mandaloreexpress.domain.booking.spacetrain.SpaceTrain
-import com.beyondxscratch.mandaloreexpress.domain.spacetrain.Schedule
+import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.Schedule
 import com.beyondxscratch.mandaloreexpress.domain.spacetrain.fare.Amount
 import com.beyondxscratch.mandaloreexpress.domain.spacetrain.fare.ComfortClass
 import com.beyondxscratch.mandaloreexpress.domain.spacetrain.fare.Currency.REPUBLIC_CREDIT

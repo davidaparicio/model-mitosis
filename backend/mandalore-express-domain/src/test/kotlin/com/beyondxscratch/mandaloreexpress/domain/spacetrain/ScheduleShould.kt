@@ -1,6 +1,7 @@
 package com.beyondxscratch.mandaloreexpress.domain.spacetrain
 
 import com.beyondxscratch.mandaloreexpress.domain.EqualityShould
+import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.Schedule
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.junit.jupiter.api.Test
