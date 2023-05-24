@@ -2,7 +2,7 @@ package com.beyondxscratch.mandaloreexpress.infrastructure.rest.controllers
 
 import com.beyondxscratch.mandaloreexpress.domain.booking.api.BookSpaceTrains
 import com.beyondxscratch.mandaloreexpress.domain.search.api.SearchForSpaceTrains
-import com.beyondxscratch.mandaloreexpress.domain.spi.Bookings
+import com.beyondxscratch.mandaloreexpress.domain.booking.spi.Bookings
 import com.beyondxscratch.mandaloreexpress.infrastructure.rest.resources.booking.Booking
 import com.beyondxscratch.mandaloreexpress.infrastructure.rest.resources.booking.toResource
 import com.beyondxscratch.mandaloreexpress.infrastructure.rest.resources.fare.toResource

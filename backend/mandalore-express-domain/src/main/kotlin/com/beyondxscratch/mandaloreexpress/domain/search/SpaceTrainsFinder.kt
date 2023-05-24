@@ -22,8 +22,8 @@ import com.beyondxscratch.mandaloreexpress.domain.spacetrain.fare.ComfortClass.S
 import com.beyondxscratch.mandaloreexpress.domain.spacetrain.fare.Currency.REPUBLIC_CREDIT
 import com.beyondxscratch.mandaloreexpress.domain.spacetrain.fare.Fare
 import com.beyondxscratch.mandaloreexpress.domain.spacetrain.fare.Price
-import com.beyondxscratch.mandaloreexpress.domain.spi.Searches
-import com.beyondxscratch.mandaloreexpress.domain.spi.SpacePorts
+import com.beyondxscratch.mandaloreexpress.domain.search.spi.Searches
+import com.beyondxscratch.mandaloreexpress.domain.search.spi.SpacePorts
 import java.math.BigDecimal
 import java.time.LocalDateTime
 import java.util.*

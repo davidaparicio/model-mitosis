@@ -6,8 +6,8 @@ import com.beyondxscratch.mandaloreexpress.domain.RoundTrip
 import com.beyondxscratch.mandaloreexpress.domain.search.Search
 import com.beyondxscratch.mandaloreexpress.domain.selectAnInboundSpaceTrain
 import com.beyondxscratch.mandaloreexpress.domain.selectAnOutboundSpaceTrain
-import com.beyondxscratch.mandaloreexpress.domain.spi.Bookings
-import com.beyondxscratch.mandaloreexpress.domain.spi.Searches
+import com.beyondxscratch.mandaloreexpress.domain.booking.spi.Bookings
+import com.beyondxscratch.mandaloreexpress.domain.search.spi.Searches
 import com.beyondxscratch.mandaloreexpress.infrastructure.configurations.DomainConfiguration
 import org.hamcrest.Matchers.hasSize
 import org.junit.jupiter.api.Test
