@@ -1,17 +1,16 @@
 package com.beyondxscratch.mandaloreexpress.domain.booking
 
 import com.beyondxscratch.mandaloreexpress.annotations.DomainService
-import com.beyondxscratch.mandaloreexpress.domain.search.Search
 import com.beyondxscratch.mandaloreexpress.domain.booking.api.BookSpaceTrains
-import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.SpaceTrain
-import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.fare.Fare
+import com.beyondxscratch.mandaloreexpress.domain.booking.spacetrain.SpaceTrain
 import com.beyondxscratch.mandaloreexpress.domain.booking.spi.Bookings
+import com.beyondxscratch.mandaloreexpress.domain.search.Search
 
 @DomainService
 class SpaceTrainsBooker(
     override val bookings: Bookings
-) :
-    BookSpaceTrains {
+) : BookSpaceTrains {
+
     override fun `from the selection of`(search: Search): Booking {
         return when {
             !search.isSelectionComplete() -> throw IllegalStateException("cannot book a partial selection")
@@ -20,6 +19,7 @@ class SpaceTrainsBooker(
                 bookings.save(Booking(spaceTrains = spaceTrainsToBook))
             }
         }
+
     }
 
     private fun convertSelectedSpaceTrainsFrom(search: Search) =
@@ -30,12 +30,10 @@ class SpaceTrainsBooker(
 
                 return@map SpaceTrain(
                     spaceTrain.number,
-                    spaceTrain.bound,
                     spaceTrain.originId,
                     spaceTrain.destinationId,
                     spaceTrain.schedule,
-                    setOf<Fare>(fare),
-                    spaceTrain.compatibleSpaceTrains
+                    fare
                 )
             }
 
@@ -43,4 +41,5 @@ class SpaceTrainsBooker(
     private fun Search.getSelectedSpaceTrainsSortedByBound() =
         this.selection.spaceTrainsByBound.sortedBy { it.key.ordinal }
             .map { Pair(this.getSpaceTrainWithNumber(it.value.spaceTrainNumber), it.value.fareId) }
+
 }
