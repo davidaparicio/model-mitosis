@@ -1,4 +1,4 @@
-package com.beyondxscratch.mandaloreexpress.domain.spaceport
+package com.beyondxscratch.mandaloreexpress.domain.search.spaceport
 
 enum class Planet {
     CORUSCANT, NEVARRO, TATOOINE, MANDALORE;

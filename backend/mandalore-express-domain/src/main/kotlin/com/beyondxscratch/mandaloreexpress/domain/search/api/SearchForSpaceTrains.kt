@@ -1,7 +1,7 @@
 package com.beyondxscratch.mandaloreexpress.domain.search.api
 
 import com.beyondxscratch.mandaloreexpress.domain.search.Search
-import com.beyondxscratch.mandaloreexpress.domain.criteria.Criteria
+import com.beyondxscratch.mandaloreexpress.domain.search.criteria.Criteria
 import com.beyondxscratch.mandaloreexpress.domain.search.spi.Searches
 import java.util.*
 

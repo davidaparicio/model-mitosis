@@ -3,6 +3,7 @@ package com.beyondxscratch.mandaloreexpress.domain.criteria
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatThrownBy
 import com.beyondxscratch.mandaloreexpress.domain.EqualityShould
+import com.beyondxscratch.mandaloreexpress.domain.search.criteria.Journey
 import org.junit.jupiter.api.Test
 import java.time.LocalDateTime.now
 

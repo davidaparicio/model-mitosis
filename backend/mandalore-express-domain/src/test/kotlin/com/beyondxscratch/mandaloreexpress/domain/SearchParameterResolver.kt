@@ -1,7 +1,7 @@
 package com.beyondxscratch.mandaloreexpress.domain
 
 import com.beyondxscratch.TypedParameterResolver
-import com.beyondxscratch.mandaloreexpress.domain.criteria.Journey
+import com.beyondxscratch.mandaloreexpress.domain.search.criteria.Journey
 import com.beyondxscratch.mandaloreexpress.domain.criteria.journey
 import com.beyondxscratch.mandaloreexpress.domain.criteria.outboundJourney
 import com.beyondxscratch.mandaloreexpress.domain.search.Search

@@ -1,19 +1,19 @@
 package com.beyondxscratch.mandaloreexpress.domain.search
 
 import com.beyondxscratch.mandaloreexpress.annotations.DomainService
-import com.beyondxscratch.mandaloreexpress.domain.criteria.Criteria
-import com.beyondxscratch.mandaloreexpress.domain.criteria.Journey
-import com.beyondxscratch.mandaloreexpress.domain.criteria.Journeys
+import com.beyondxscratch.mandaloreexpress.domain.search.criteria.Criteria
+import com.beyondxscratch.mandaloreexpress.domain.search.criteria.Journey
+import com.beyondxscratch.mandaloreexpress.domain.search.criteria.Journeys
 import com.beyondxscratch.mandaloreexpress.domain.search.api.RetrieveSpacePorts
 import com.beyondxscratch.mandaloreexpress.domain.search.api.SearchForSpaceTrains
 import com.beyondxscratch.mandaloreexpress.domain.search.api.SelectSpaceTrain
 import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.SpaceTrain
 import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.SpaceTrains
-import com.beyondxscratch.mandaloreexpress.domain.spaceport.Planet
-import com.beyondxscratch.mandaloreexpress.domain.spaceport.SpacePort
-import com.beyondxscratch.mandaloreexpress.domain.spacetrain.Bound
-import com.beyondxscratch.mandaloreexpress.domain.spacetrain.Bound.INBOUND
-import com.beyondxscratch.mandaloreexpress.domain.spacetrain.Bound.OUTBOUND
+import com.beyondxscratch.mandaloreexpress.domain.search.spaceport.Planet
+import com.beyondxscratch.mandaloreexpress.domain.search.spaceport.SpacePort
+import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.Bound
+import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.Bound.INBOUND
+import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.Bound.OUTBOUND
 import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.Schedule
 import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.fare.Amount
 import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.fare.ComfortClass
