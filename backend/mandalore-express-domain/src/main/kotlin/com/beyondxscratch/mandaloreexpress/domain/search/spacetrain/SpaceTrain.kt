@@ -1,7 +1,7 @@
 package com.beyondxscratch.mandaloreexpress.domain.search.spacetrain
 
 import com.beyondxscratch.mandaloreexpress.domain.spacetrain.Bound
-import com.beyondxscratch.mandaloreexpress.domain.spacetrain.Schedule
+import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.Schedule
 import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.fare.FareOptions
 import java.util.*
 

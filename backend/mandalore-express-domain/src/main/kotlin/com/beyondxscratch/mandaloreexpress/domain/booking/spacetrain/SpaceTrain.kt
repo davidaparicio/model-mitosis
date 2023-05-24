@@ -1,6 +1,6 @@
 package com.beyondxscratch.mandaloreexpress.domain.booking.spacetrain
 
-import com.beyondxscratch.mandaloreexpress.domain.spacetrain.Schedule
+import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.Schedule
 import com.beyondxscratch.mandaloreexpress.domain.booking.spacetrain.fare.SelectedFare
 
 data class SpaceTrain(
