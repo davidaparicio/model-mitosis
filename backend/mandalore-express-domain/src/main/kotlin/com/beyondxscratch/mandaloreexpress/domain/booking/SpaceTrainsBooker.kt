@@ -2,10 +2,9 @@ package com.beyondxscratch.mandaloreexpress.domain.booking
 
 import com.beyondxscratch.mandaloreexpress.annotations.DomainService
 import com.beyondxscratch.mandaloreexpress.domain.booking.api.BookSpaceTrains
-import com.beyondxscratch.mandaloreexpress.domain.search.Search
-import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.SpaceTrain
-import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.fare.Fare
+import com.beyondxscratch.mandaloreexpress.domain.booking.spacetrain.SpaceTrain
 import com.beyondxscratch.mandaloreexpress.domain.booking.spi.Bookings
+import com.beyondxscratch.mandaloreexpress.domain.search.Search
 
 @DomainService
 class SpaceTrainsBooker(
@@ -31,12 +30,10 @@ class SpaceTrainsBooker(
 
                 return@map SpaceTrain(
                     spaceTrain.number,
-                    spaceTrain.bound,
                     spaceTrain.originId,
                     spaceTrain.destinationId,
                     spaceTrain.schedule,
-                    setOf<Fare>(fare),
-                    spaceTrain.compatibleSpaceTrains
+                    fare
                 )
             }
 
