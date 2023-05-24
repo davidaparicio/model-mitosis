@@ -4,11 +4,11 @@ import com.beyondxscratch.mandaloreexpress.annotations.Stub
 import com.beyondxscratch.mandaloreexpress.domain.booking.Booking
 import com.beyondxscratch.mandaloreexpress.domain.booking.spacetrain.SpaceTrain
 import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.Schedule
-import com.beyondxscratch.mandaloreexpress.domain.spacetrain.fare.Amount
-import com.beyondxscratch.mandaloreexpress.domain.spacetrain.fare.ComfortClass
-import com.beyondxscratch.mandaloreexpress.domain.spacetrain.fare.Currency.REPUBLIC_CREDIT
+import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.fare.Amount
+import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.fare.ComfortClass
+import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.fare.Currency.REPUBLIC_CREDIT
 import com.beyondxscratch.mandaloreexpress.domain.booking.spacetrain.fare.SelectedFare
-import com.beyondxscratch.mandaloreexpress.domain.spacetrain.fare.Price
+import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.fare.Price
 import java.math.BigDecimal
 import java.time.LocalDateTime.now
 import java.util.UUID

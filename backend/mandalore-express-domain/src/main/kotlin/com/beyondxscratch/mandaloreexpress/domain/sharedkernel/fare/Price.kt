@@ -1,4 +1,4 @@
-package com.beyondxscratch.mandaloreexpress.domain.spacetrain.fare
+package com.beyondxscratch.mandaloreexpress.domain.sharedkernel.fare
 
 
 data class Price(val amount: Amount, val currency: Currency) {

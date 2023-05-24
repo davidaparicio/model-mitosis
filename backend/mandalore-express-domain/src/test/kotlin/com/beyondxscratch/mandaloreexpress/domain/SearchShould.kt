@@ -1,8 +1,10 @@
-package com.beyondxscratch.mandaloreexpress.domain
+package com.beyondxscratch.mandaloreexpress.domain.search
 
+import com.beyondxscratch.mandaloreexpress.domain.EqualityShould
+import com.beyondxscratch.mandaloreexpress.domain.OneWay
+import com.beyondxscratch.mandaloreexpress.domain.RoundTrip
 import com.beyondxscratch.mandaloreexpress.domain.criteria.Criteria
 import com.beyondxscratch.mandaloreexpress.domain.criteria.Journey
-import com.beyondxscratch.mandaloreexpress.domain.search.Search
 import com.beyondxscratch.mandaloreexpress.domain.selection.SelectedSpaceTrain
 import com.beyondxscratch.mandaloreexpress.domain.selection.Selection
 import com.beyondxscratch.mandaloreexpress.domain.spacetrain.Bound.INBOUND
@@ -13,6 +15,8 @@ import com.beyondxscratch.mandaloreexpress.domain.spacetrain.Outbound
 import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.SpaceTrain
 import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.SpaceTrain.Companion.get
 import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.fare.FareOption
+import com.beyondxscratch.mandaloreexpress.domain.selectAnInboundSpaceTrain
+import com.beyondxscratch.mandaloreexpress.domain.selectAnOutboundSpaceTrain
 import com.beyondxscratch.mandaloreexpress.domain.spacetrain.fare.price
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatCode
