@@ -1,12 +1,12 @@
 package com.beyondxscratch.mandaloreexpress.domain.search
 
-import com.beyondxscratch.mandaloreexpress.domain.criteria.Criteria
-import com.beyondxscratch.mandaloreexpress.domain.criteria.Journeys
-import com.beyondxscratch.mandaloreexpress.domain.selection.Selection
-import com.beyondxscratch.mandaloreexpress.domain.spacetrain.Bound
-import com.beyondxscratch.mandaloreexpress.domain.spacetrain.Bound.INBOUND
-import com.beyondxscratch.mandaloreexpress.domain.spacetrain.Bound.OUTBOUND
-import com.beyondxscratch.mandaloreexpress.domain.spacetrain.Bound.values
+import com.beyondxscratch.mandaloreexpress.domain.search.criteria.Criteria
+import com.beyondxscratch.mandaloreexpress.domain.search.criteria.Journeys
+import com.beyondxscratch.mandaloreexpress.domain.search.selection.Selection
+import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.Bound
+import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.Bound.INBOUND
+import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.Bound.OUTBOUND
+import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.Bound.values
 import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.SpaceTrain
 import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.SpaceTrain.Companion.get
 import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.SpaceTrains

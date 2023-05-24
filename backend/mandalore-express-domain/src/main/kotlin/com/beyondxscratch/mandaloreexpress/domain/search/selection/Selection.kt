@@ -1,6 +1,6 @@
-package com.beyondxscratch.mandaloreexpress.domain.selection
+package com.beyondxscratch.mandaloreexpress.domain.search.selection
 
-import com.beyondxscratch.mandaloreexpress.domain.spacetrain.Bound
+import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.Bound
 import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.SpaceTrain
 import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.fare.Price
 import java.util.UUID

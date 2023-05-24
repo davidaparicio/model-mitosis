@@ -1,9 +1,11 @@
 package com.beyondxscratch.mandaloreexpress.domain.criteria
 
 import com.beyondxscratch.mandaloreexpress.domain.EqualityShould
+import com.beyondxscratch.mandaloreexpress.domain.search.criteria.Criteria
+import com.beyondxscratch.mandaloreexpress.domain.search.criteria.Journey
 import com.beyondxscratch.mandaloreexpress.domain.spaceport.OnCoruscant
 import com.beyondxscratch.mandaloreexpress.domain.spaceport.OnMandalore
-import com.beyondxscratch.mandaloreexpress.domain.spaceport.SpacePort
+import com.beyondxscratch.mandaloreexpress.domain.search.spaceport.SpacePort
 import org.assertj.core.api.Assertions.assertThatCode
 import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.junit.jupiter.api.Test

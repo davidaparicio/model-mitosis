@@ -5,11 +5,11 @@ import org.assertj.core.api.Assertions.assertThatThrownBy
 import com.beyondxscratch.mandaloreexpress.domain.Random
 import com.beyondxscratch.mandaloreexpress.domain.RoundTrip
 import com.beyondxscratch.mandaloreexpress.domain.search.Search
-import com.beyondxscratch.mandaloreexpress.domain.criteria.Criteria
-import com.beyondxscratch.mandaloreexpress.domain.criteria.Journey
+import com.beyondxscratch.mandaloreexpress.domain.search.criteria.Criteria
+import com.beyondxscratch.mandaloreexpress.domain.search.criteria.Journey
 import com.beyondxscratch.mandaloreexpress.domain.search.api.SearchForSpaceTrains
 import com.beyondxscratch.mandaloreexpress.domain.spaceport.OnCoruscant
-import com.beyondxscratch.mandaloreexpress.domain.spaceport.SpacePort
+import com.beyondxscratch.mandaloreexpress.domain.search.spaceport.SpacePort
 import org.junit.jupiter.api.Test
 import java.time.LocalDateTime.now
 import java.util.*
