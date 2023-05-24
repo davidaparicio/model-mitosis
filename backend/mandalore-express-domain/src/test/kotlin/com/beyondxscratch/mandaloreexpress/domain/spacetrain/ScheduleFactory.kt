@@ -1,5 +1,6 @@
 package com.beyondxscratch.mandaloreexpress.domain.spacetrain
 
+import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.Schedule
 import java.time.LocalDateTime.now
 import kotlin.random.Random
 
