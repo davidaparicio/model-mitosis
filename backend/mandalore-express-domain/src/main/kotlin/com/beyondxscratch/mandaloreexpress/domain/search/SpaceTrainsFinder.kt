@@ -1,4 +1,4 @@
-package com.beyondxscratch.mandaloreexpress.domain
+package com.beyondxscratch.mandaloreexpress.domain.search
 
 import com.beyondxscratch.mandaloreexpress.annotations.DomainService
 import com.beyondxscratch.mandaloreexpress.domain.booking.api.BookSpaceTrains
@@ -9,7 +9,6 @@ import com.beyondxscratch.mandaloreexpress.domain.booking.Booking
 import com.beyondxscratch.mandaloreexpress.domain.criteria.Criteria
 import com.beyondxscratch.mandaloreexpress.domain.criteria.Journey
 import com.beyondxscratch.mandaloreexpress.domain.criteria.Journeys
-import com.beyondxscratch.mandaloreexpress.domain.search.Search
 import com.beyondxscratch.mandaloreexpress.domain.spaceport.Planet
 import com.beyondxscratch.mandaloreexpress.domain.spaceport.SpacePort
 import com.beyondxscratch.mandaloreexpress.domain.spacetrain.Bound
@@ -34,7 +33,7 @@ import java.time.LocalDateTime
 import java.util.UUID
 
 @DomainService
-class MandaloreExpress(
+class SpaceTrainsFinder(
     override val spacePorts: SpacePorts,
     override val searches: Searches,
     override val bookings: Bookings
