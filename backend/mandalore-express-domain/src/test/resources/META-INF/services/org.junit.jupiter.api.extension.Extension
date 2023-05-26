@@ -13,3 +13,4 @@ com.beyondxscratch.mandaloreexpress.domain.search.selection.SelectionParameterRe
 com.beyondxscratch.mandaloreexpress.domain.sharedkernel.ScheduleParameterResolver
 com.beyondxscratch.mandaloreexpress.domain.booking.BookingParameterResolver
 com.beyondxscratch.mandaloreexpress.domain.booking.spacetrain.SpaceTrainParameterResolver
+com.beyondxscratch.mandaloreexpress.domain.booking.tax.TaxPortionParameterResolver

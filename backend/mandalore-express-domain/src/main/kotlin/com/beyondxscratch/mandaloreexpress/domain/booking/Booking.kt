@@ -2,13 +2,9 @@ package com.beyondxscratch.mandaloreexpress.domain.booking
 
 import com.beyondxscratch.mandaloreexpress.domain.booking.spacetrain.SpaceTrain
 import com.beyondxscratch.mandaloreexpress.domain.booking.tax.TaxPortion
-import com.beyondxscratch.mandaloreexpress.domain.booking.tax.TaxRate
 import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.fare.Price
-import java.math.BigDecimal
 import java.util.UUID
 import java.util.UUID.randomUUID
-
-private val TAX_RATE : TaxRate = TaxRate(BigDecimal("0.2"))
 
 data class Booking(
     val id: UUID = randomUUID(),
@@ -17,8 +13,7 @@ data class Booking(
     ) {
 
     val totalPrice: Price get() = spaceTrains.map { it.fare.price }.reduce(Price::plus)
-    val taxRate : TaxRate = TAX_RATE
-    val taxPortion : TaxPortion get() = TODO("Compute the tax portion")
+    val taxPortion : TaxPortion get() = spaceTrains.map{ it.fare.taxPortion }.reduce(TaxPortion::plus) // /!\ IncompatibleInstructionsException /!\
 
     init {
         require(spaceTrains.isNotEmpty()) {

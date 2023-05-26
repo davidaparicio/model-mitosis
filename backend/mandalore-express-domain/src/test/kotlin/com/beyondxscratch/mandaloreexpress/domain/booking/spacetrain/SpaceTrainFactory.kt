@@ -5,6 +5,7 @@ import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.firstClassFare
 import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.randomFare
 import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.randomSchedule
 import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.schedule
+import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.secondClassFare
 import kotlin.random.Random.Default.nextLong
 
 fun spaceTrain(): SpaceTrain = SpaceTrain(
@@ -24,6 +25,10 @@ fun randomSpaceTrain(): SpaceTrain = spaceTrain()
 
 fun SpaceTrain.withFirstClass(): SpaceTrain {
     return this.copy(fare = firstClassFare())
+}
+
+fun SpaceTrain.withSecondClass(): SpaceTrain {
+    return this.copy(fare = secondClassFare())
 }
 
 fun SpaceTrain.numbered(number: String): SpaceTrain {

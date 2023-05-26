@@ -18,4 +18,4 @@ data class Amount(val value: BigDecimal) {
 }
 
 private operator fun BigDecimal.times(value: BigDecimal) : BigDecimal =
-    this.multiply(value).setScale(this.scale(), RoundingMode.HALF_UP)
+    this.multiply(value).setScale(2, RoundingMode.HALF_UP)

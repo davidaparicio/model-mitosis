@@ -2,8 +2,9 @@ package com.beyondxscratch.mandaloreexpress.domain.booking
 
 import com.beyondxscratch.mandaloreexpress.domain.EqualityShould
 import com.beyondxscratch.mandaloreexpress.domain.booking.spacetrain.SpaceTrain
+import com.beyondxscratch.mandaloreexpress.domain.booking.spacetrain.withFirstClass
+import com.beyondxscratch.mandaloreexpress.domain.booking.spacetrain.withSecondClass
 import com.beyondxscratch.mandaloreexpress.domain.booking.tax.TaxPortion
-import com.beyondxscratch.mandaloreexpress.domain.booking.tax.TaxRate
 import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.Random
 import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.amount
 import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.fare.Currency.REPUBLIC_CREDIT
@@ -38,15 +39,19 @@ class BookingShould : EqualityShould<Booking> {
     }
 
     @Test
-    fun `compute its tax portions`(@Random spaceTrain: SpaceTrain) {
-        val price = Price(amount("120.00"), REPUBLIC_CREDIT)
+    fun `compute its tax portions`(@Random spaceTrain: SpaceTrain, @Random anotherSpaceTrain: SpaceTrain) {
+        val firstClassPrice = Price(amount("120.00"), REPUBLIC_CREDIT)
+        val secondClassPrice = Price(amount("55.00"), REPUBLIC_CREDIT)
 
-        val expectedTaxRate = TaxRate("0.2".toBigDecimal())
-        val expectedTaxPortion = TaxPortion(amount("20.00"), REPUBLIC_CREDIT)
+        val expectedTaxPortion = TaxPortion(amount("25.00"), REPUBLIC_CREDIT)
 
-        val booking = Booking(spaceTrains = listOf(spaceTrain.priced(price)));
+        val booking = Booking(
+            spaceTrains = listOf(
+                spaceTrain.withFirstClass().priced(firstClassPrice),
+                anotherSpaceTrain.withSecondClass().priced(secondClassPrice)
+            )
+        )
 
-        assertThat(booking.taxRate).isEqualTo(expectedTaxRate)
         assertThat(booking.taxPortion).isEqualTo(expectedTaxPortion)
     }
 }
