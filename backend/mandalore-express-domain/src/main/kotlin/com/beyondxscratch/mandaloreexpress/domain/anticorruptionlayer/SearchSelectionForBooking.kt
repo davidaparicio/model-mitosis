@@ -4,12 +4,12 @@ import com.beyondxscratch.mandaloreexpress.annotations.AntiCorruptionLayer
 import com.beyondxscratch.mandaloreexpress.domain.booking.spacetrain.fare.ComfortClass
 import com.beyondxscratch.mandaloreexpress.domain.booking.spacetrain.fare.Fare as BookingFare
 import com.beyondxscratch.mandaloreexpress.domain.booking.spacetrain.SpaceTrain
+import com.beyondxscratch.mandaloreexpress.domain.booking.spacetrain.fare.Price
 import com.beyondxscratch.mandaloreexpress.domain.booking.spi.IsSelectionComplete
 import com.beyondxscratch.mandaloreexpress.domain.booking.spi.RetrieveSelection
 import com.beyondxscratch.mandaloreexpress.domain.search.Search
 import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.fare.Fare as SearchFare
 import com.beyondxscratch.mandaloreexpress.domain.search.api.SearchForSpaceTrains
-import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.fare.Price
 import java.util.UUID
 
 @AntiCorruptionLayer

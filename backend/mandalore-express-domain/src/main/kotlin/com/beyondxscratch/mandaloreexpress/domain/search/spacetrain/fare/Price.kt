@@ -1,4 +1,7 @@
-package com.beyondxscratch.mandaloreexpress.domain.sharedkernel.fare
+package com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.fare
+
+import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.fare.Amount
+import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.fare.Currency
 
 
 data class Price(val amount: Amount, val currency: Currency) {

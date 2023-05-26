@@ -23,7 +23,7 @@ import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.fare.Comfort
 import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.fare.ComfortClass.SECOND
 import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.fare.Currency.REPUBLIC_CREDIT
 import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.fare.Fare
-import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.fare.Price
+import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.fare.Price
 import java.math.BigDecimal
 import java.time.LocalDateTime
 import java.util.UUID

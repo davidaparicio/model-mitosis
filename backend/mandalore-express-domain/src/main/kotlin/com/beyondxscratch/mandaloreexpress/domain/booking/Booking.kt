@@ -4,7 +4,7 @@ import com.beyondxscratch.mandaloreexpress.domain.booking.spacetrain.fare.SeatLo
 import com.beyondxscratch.mandaloreexpress.domain.booking.spacetrain.SpaceTrain
 import com.beyondxscratch.mandaloreexpress.domain.booking.tax.TaxPortion
 import com.beyondxscratch.mandaloreexpress.domain.booking.tax.TaxRate
-import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.fare.Price
+import com.beyondxscratch.mandaloreexpress.domain.booking.spacetrain.fare.Price
 import java.math.BigDecimal
 import java.util.UUID
 import java.util.UUID.randomUUID
@@ -20,7 +20,7 @@ data class Booking(
 
     val totalPrice: Price get() = spaceTrains.map { it.fare.price }.reduce(Price::plus)
     val taxRate : TaxRate = TAX_RATE
-    val taxPortion : TaxPortion get() = TODO("totalPrice.getTaxPortionOf(taxRate)") // /!\ IncompatibleInstructionsException /!\
+    val taxPortion : TaxPortion get() = totalPrice.getTaxPortionOf(taxRate)
 
     init {
         require(spaceTrains.isNotEmpty()) {

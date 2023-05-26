@@ -3,17 +3,15 @@ package com.beyondxscratch.mandaloreexpress.domain.booking
 import com.beyondxscratch.mandaloreexpress.domain.EqualityShould
 import com.beyondxscratch.mandaloreexpress.domain.booking.spacetrain.fare.SeatLocation.*
 import com.beyondxscratch.mandaloreexpress.domain.booking.spacetrain.*
+import com.beyondxscratch.mandaloreexpress.domain.booking.spacetrain.fare.Price
 import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.Random
-import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.fare.Amount
 import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.fare.Currency.REPUBLIC_CREDIT
 import com.beyondxscratch.mandaloreexpress.domain.booking.tax.TaxPortion
 import com.beyondxscratch.mandaloreexpress.domain.booking.tax.TaxRate
 import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.amount
-import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.fare.Price
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.junit.jupiter.api.Test
-import java.math.BigDecimal
 
 class BookingShould : EqualityShould<Booking> {
     private fun SpaceTrain.priced(price: Price): SpaceTrain {
