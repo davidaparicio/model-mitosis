@@ -20,7 +20,7 @@ data class Booking(
 
     val totalPrice: Price get() = spaceTrains.map { it.fare.price }.reduce(Price::plus)
     val taxRate : TaxRate = TAX_RATE
-    val taxPortion : TaxPortion get() = TODO("Compute the tax portion")
+    val taxPortion : TaxPortion get() = TODO("totalPrice.getTaxPortionOf(taxRate)") // /!\ IncompatibleInstructionsException /!\
 
     init {
         require(spaceTrains.isNotEmpty()) {
