@@ -8,6 +8,7 @@ import com.beyondxscratch.mandaloreexpress.domain.search.api.SearchForSpaceTrain
 import com.beyondxscratch.mandaloreexpress.domain.api.SearchForSpaceTrainsShould
 import com.beyondxscratch.mandaloreexpress.domain.search.api.SelectSpaceTrain
 import com.beyondxscratch.mandaloreexpress.domain.api.SelectSpaceTrainShould
+import com.beyondxscratch.mandaloreexpress.domain.search.SpaceTrainsFinder
 import com.beyondxscratch.mandaloreexpress.domain.spi.InMemoryBookings
 import com.beyondxscratch.mandaloreexpress.domain.spi.InMemorySearches
 import com.beyondxscratch.mandaloreexpress.domain.spi.InMemorySpacePorts
@@ -17,7 +18,7 @@ class MandaloreExpressShould(@RoundTrip val search: Search) : RetrieveSpacePorts
     SelectSpaceTrainShould, BookSpaceTrainsShould {
 
     private val mandaloreExpress =
-        MandaloreExpress(
+        SpaceTrainsFinder(
             InMemorySpacePorts(),
             InMemorySearches(),
             InMemoryBookings()
