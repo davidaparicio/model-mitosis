@@ -2,7 +2,7 @@ package com.beyondxscratch.mandaloreexpress.domain.spaceport
 
 import com.beyondxscratch.mandaloreexpress.domain.spaceport.Planet.CORUSCANT
 import com.beyondxscratch.mandaloreexpress.domain.spaceport.Planet.values
-import com.beyondxscratch.mandaloreexpress.domain.spi.InMemorySpacePorts
+import com.beyondxscratch.mandaloreexpress.domain.search.spi.InMemorySpacePorts
 import java.util.UUID.randomUUID
 
 private val spacePorts = InMemorySpacePorts()

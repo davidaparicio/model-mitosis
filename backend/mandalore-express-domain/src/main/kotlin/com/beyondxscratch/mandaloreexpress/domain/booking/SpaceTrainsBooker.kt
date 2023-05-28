@@ -6,7 +6,7 @@ import com.beyondxscratch.mandaloreexpress.domain.Search
 import com.beyondxscratch.mandaloreexpress.domain.booking.api.BookSpaceTrains
 import com.beyondxscratch.mandaloreexpress.domain.spacetrain.SpaceTrain
 import com.beyondxscratch.mandaloreexpress.domain.spacetrain.fare.Fare
-import com.beyondxscratch.mandaloreexpress.domain.spi.Bookings
+import com.beyondxscratch.mandaloreexpress.domain.booking.spi.Bookings
 
 @DomainService
 class SpaceTrainsBooker(

@@ -1,8 +1,8 @@
-package com.beyondxscratch.mandaloreexpress.domain.spi
+package com.beyondxscratch.mandaloreexpress.domain.search.spi
 
 import com.beyondxscratch.mandaloreexpress.annotations.Stub
 import com.beyondxscratch.mandaloreexpress.domain.Search
-import com.beyondxscratch.mandaloreexpress.domain.spi.Searches
+import com.beyondxscratch.mandaloreexpress.domain.search.spi.Searches
 import java.util.UUID
 
 @Stub

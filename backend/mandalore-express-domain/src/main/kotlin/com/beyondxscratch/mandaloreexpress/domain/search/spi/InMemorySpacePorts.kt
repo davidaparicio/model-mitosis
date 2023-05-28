@@ -1,4 +1,4 @@
-package com.beyondxscratch.mandaloreexpress.domain.spi
+package com.beyondxscratch.mandaloreexpress.domain.search.spi
 
 import com.beyondxscratch.mandaloreexpress.annotations.Stub
 import com.beyondxscratch.mandaloreexpress.domain.spaceport.Planet.CORUSCANT
