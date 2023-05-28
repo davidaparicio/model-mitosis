@@ -1,15 +1,13 @@
 package com.beyondxscratch.mandaloreexpress.domain.search
 
 import com.beyondxscratch.mandaloreexpress.annotations.DomainService
-import com.beyondxscratch.mandaloreexpress.domain.Booking
 import com.beyondxscratch.mandaloreexpress.domain.Search
-import com.beyondxscratch.mandaloreexpress.domain.booking.api.BookSpaceTrains
-import com.beyondxscratch.mandaloreexpress.domain.search.api.RetrieveSpacePorts
-import com.beyondxscratch.mandaloreexpress.domain.search.api.SearchForSpaceTrains
-import com.beyondxscratch.mandaloreexpress.domain.search.api.SelectSpaceTrain
 import com.beyondxscratch.mandaloreexpress.domain.criteria.Criteria
 import com.beyondxscratch.mandaloreexpress.domain.criteria.Journey
 import com.beyondxscratch.mandaloreexpress.domain.criteria.Journeys
+import com.beyondxscratch.mandaloreexpress.domain.search.api.RetrieveSpacePorts
+import com.beyondxscratch.mandaloreexpress.domain.search.api.SearchForSpaceTrains
+import com.beyondxscratch.mandaloreexpress.domain.search.api.SelectSpaceTrain
 import com.beyondxscratch.mandaloreexpress.domain.spaceport.Planet
 import com.beyondxscratch.mandaloreexpress.domain.spaceport.SpacePort
 import com.beyondxscratch.mandaloreexpress.domain.spacetrain.Bound
@@ -25,24 +23,20 @@ import com.beyondxscratch.mandaloreexpress.domain.spacetrain.fare.ComfortClass.S
 import com.beyondxscratch.mandaloreexpress.domain.spacetrain.fare.Currency.REPUBLIC_CREDIT
 import com.beyondxscratch.mandaloreexpress.domain.spacetrain.fare.Fare
 import com.beyondxscratch.mandaloreexpress.domain.spacetrain.fare.Price
-import com.beyondxscratch.mandaloreexpress.domain.spi.Bookings
 import com.beyondxscratch.mandaloreexpress.domain.spi.Searches
 import com.beyondxscratch.mandaloreexpress.domain.spi.SpacePorts
-import java.lang.IllegalStateException
 import java.math.BigDecimal
 import java.time.LocalDateTime
-import java.util.UUID
+import java.util.*
 
 @DomainService
 class SpaceTrainsFinder(
     override val spacePorts: SpacePorts,
     override val searches: Searches,
-    override val bookings: Bookings
 ) :
     RetrieveSpacePorts,
     SearchForSpaceTrains,
-    SelectSpaceTrain,
-    BookSpaceTrains {
+    SelectSpaceTrain {
     override fun `identified by`(id: String): SpacePort {
         return spacePorts.getAllSpacePorts().first { it.id == id }
     }
@@ -75,39 +69,6 @@ class SpaceTrainsFinder(
         val searchWithSelection = search.selectSpaceTrainWithFare(spaceTrainNumber, fareId, resetSelection)
         return searches.save(searchWithSelection)
     }
-
-    override fun `from the selection of`(search: Search): Booking {
-        return when {
-            !search.isSelectionComplete() -> throw IllegalStateException("cannot book a partial selection")
-            else -> {
-                val spaceTrainsToBook = convertSelectedSpaceTrainsFrom(search)
-                bookings.save(Booking(spaceTrains = spaceTrainsToBook))
-            }
-        }
-
-    }
-
-    private fun convertSelectedSpaceTrainsFrom(search: Search) =
-        search.getSelectedSpaceTrainsSortedByBound()
-            .map { selectedSpaceTrain ->
-                val (spaceTrain, fareId) = selectedSpaceTrain
-                val fare = spaceTrain.getFare(fareId)
-
-                return@map SpaceTrain(
-                    spaceTrain.number,
-                    spaceTrain.bound,
-                    spaceTrain.originId,
-                    spaceTrain.destinationId,
-                    spaceTrain.schedule,
-                    setOf<Fare>(fare),
-                    spaceTrain.compatibleSpaceTrains
-                )
-            }
-
-
-    private fun Search.getSelectedSpaceTrainsSortedByBound() =
-        this.selection.spaceTrainsByBound.sortedBy { it.key.ordinal }
-            .map { Pair(this.getSpaceTrainWithNumber(it.value.spaceTrainNumber), it.value.fareId) }
 
     private fun Journeys.mustNotStayOnTheSamePlanet() =
         none { spacePorts.find(it.departureSpacePortId).location == spacePorts.find(it.arrivalSpacePortId).location }
