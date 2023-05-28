@@ -1,7 +1,7 @@
 package com.beyondxscratch.mandaloreexpress.domain.api
 
 import com.beyondxscratch.mandaloreexpress.domain.RoundTrip
-import com.beyondxscratch.mandaloreexpress.domain.Search
+import com.beyondxscratch.mandaloreexpress.domain.search.Search
 import com.beyondxscratch.mandaloreexpress.domain.search.api.SelectSpaceTrain
 import com.beyondxscratch.mandaloreexpress.domain.search.api.`by resetting the selection`
 import com.beyondxscratch.mandaloreexpress.domain.search.api.`in search`

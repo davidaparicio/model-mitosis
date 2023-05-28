@@ -10,6 +10,7 @@ import com.beyondxscratch.mandaloreexpress.domain.search.api.SelectSpaceTrain
 import com.beyondxscratch.mandaloreexpress.domain.api.SelectSpaceTrainShould
 import com.beyondxscratch.mandaloreexpress.domain.search.SpaceTrainsFinder
 import com.beyondxscratch.mandaloreexpress.domain.booking.spi.InMemoryBookings
+import com.beyondxscratch.mandaloreexpress.domain.search.Search
 import com.beyondxscratch.mandaloreexpress.domain.search.spi.InMemorySearches
 import com.beyondxscratch.mandaloreexpress.domain.search.spi.InMemorySpacePorts
 import org.junit.jupiter.api.BeforeEach

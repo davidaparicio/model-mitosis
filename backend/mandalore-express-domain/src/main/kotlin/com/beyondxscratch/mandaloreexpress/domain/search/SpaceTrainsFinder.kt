@@ -1,7 +1,7 @@
 package com.beyondxscratch.mandaloreexpress.domain.search
 
 import com.beyondxscratch.mandaloreexpress.annotations.DomainService
-import com.beyondxscratch.mandaloreexpress.domain.Search
+import com.beyondxscratch.mandaloreexpress.domain.search.Search
 import com.beyondxscratch.mandaloreexpress.domain.criteria.Criteria
 import com.beyondxscratch.mandaloreexpress.domain.criteria.Journey
 import com.beyondxscratch.mandaloreexpress.domain.criteria.Journeys

@@ -1,7 +1,7 @@
 package com.beyondxscratch.mandaloreexpress.domain.booking.spi
 
 import com.beyondxscratch.mandaloreexpress.annotations.Stub
-import com.beyondxscratch.mandaloreexpress.domain.Booking
+import com.beyondxscratch.mandaloreexpress.domain.booking.Booking
 import com.beyondxscratch.mandaloreexpress.domain.spacetrain.Bound.OUTBOUND
 import com.beyondxscratch.mandaloreexpress.domain.spacetrain.Schedule
 import com.beyondxscratch.mandaloreexpress.domain.spacetrain.SpaceTrain

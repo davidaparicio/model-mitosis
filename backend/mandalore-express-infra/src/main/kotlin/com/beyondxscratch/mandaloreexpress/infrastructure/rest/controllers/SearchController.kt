@@ -42,7 +42,7 @@ import java.net.URI
 import java.time.LocalDateTime.parse
 import java.util.Locale
 import java.util.UUID
-import com.beyondxscratch.mandaloreexpress.domain.Search as DomainSearch
+import com.beyondxscratch.mandaloreexpress.domain.search.Search as DomainSearch
 import com.beyondxscratch.mandaloreexpress.domain.criteria.Criteria as DomainCriteria
 import com.beyondxscratch.mandaloreexpress.domain.criteria.Journey as DomainJourney
 import com.beyondxscratch.mandaloreexpress.domain.spacetrain.SpaceTrain as DomainSpaceTrain

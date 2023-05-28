@@ -2,6 +2,7 @@ package com.beyondxscratch.mandaloreexpress.domain
 
 import com.beyondxscratch.mandaloreexpress.domain.criteria.Criteria
 import com.beyondxscratch.mandaloreexpress.domain.criteria.Journey
+import com.beyondxscratch.mandaloreexpress.domain.search.Search
 import com.beyondxscratch.mandaloreexpress.domain.selection.SelectedSpaceTrain
 import com.beyondxscratch.mandaloreexpress.domain.selection.Selection
 import com.beyondxscratch.mandaloreexpress.domain.spacetrain.Bound.INBOUND
