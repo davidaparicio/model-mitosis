@@ -10,8 +10,8 @@ import com.beyondxscratch.mandaloreexpress.domain.spacetrain.Bound.OUTBOUND
 import com.beyondxscratch.mandaloreexpress.domain.spacetrain.Bound.values
 import com.beyondxscratch.mandaloreexpress.domain.spacetrain.Inbound
 import com.beyondxscratch.mandaloreexpress.domain.spacetrain.Outbound
-import com.beyondxscratch.mandaloreexpress.domain.spacetrain.SpaceTrain
-import com.beyondxscratch.mandaloreexpress.domain.spacetrain.SpaceTrain.Companion.get
+import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.SpaceTrain
+import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.SpaceTrain.Companion.get
 import com.beyondxscratch.mandaloreexpress.domain.spacetrain.fare.Fare
 import com.beyondxscratch.mandaloreexpress.domain.spacetrain.fare.price
 import org.assertj.core.api.Assertions.assertThat

@@ -7,9 +7,9 @@ import com.beyondxscratch.mandaloreexpress.domain.spacetrain.Bound
 import com.beyondxscratch.mandaloreexpress.domain.spacetrain.Bound.INBOUND
 import com.beyondxscratch.mandaloreexpress.domain.spacetrain.Bound.OUTBOUND
 import com.beyondxscratch.mandaloreexpress.domain.spacetrain.Bound.values
-import com.beyondxscratch.mandaloreexpress.domain.spacetrain.SpaceTrain
-import com.beyondxscratch.mandaloreexpress.domain.spacetrain.SpaceTrain.Companion.get
-import com.beyondxscratch.mandaloreexpress.domain.spacetrain.SpaceTrains
+import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.SpaceTrain
+import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.SpaceTrain.Companion.get
+import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.SpaceTrains
 import java.util.UUID
 import java.util.UUID.randomUUID
 

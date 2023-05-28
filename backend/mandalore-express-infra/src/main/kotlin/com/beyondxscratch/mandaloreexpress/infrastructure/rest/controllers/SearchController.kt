@@ -8,8 +8,7 @@ import com.beyondxscratch.mandaloreexpress.domain.search.api.`in search`
 import com.beyondxscratch.mandaloreexpress.domain.search.api.`with the fare`
 import com.beyondxscratch.mandaloreexpress.domain.spaceport.SpacePort
 import com.beyondxscratch.mandaloreexpress.domain.spacetrain.Bound
-import com.beyondxscratch.mandaloreexpress.domain.spacetrain.SpaceTrain.Companion.get
-import com.beyondxscratch.mandaloreexpress.domain.search.spi.Searches
+import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.SpaceTrain.Companion.get
 import com.beyondxscratch.mandaloreexpress.infrastructure.rest.resources.fare.Fare
 import com.beyondxscratch.mandaloreexpress.infrastructure.rest.resources.fare.Fares
 import com.beyondxscratch.mandaloreexpress.infrastructure.rest.resources.search.*
@@ -45,8 +44,8 @@ import java.util.UUID
 import com.beyondxscratch.mandaloreexpress.domain.search.Search as DomainSearch
 import com.beyondxscratch.mandaloreexpress.domain.criteria.Criteria as DomainCriteria
 import com.beyondxscratch.mandaloreexpress.domain.criteria.Journey as DomainJourney
-import com.beyondxscratch.mandaloreexpress.domain.spacetrain.SpaceTrain as DomainSpaceTrain
-import com.beyondxscratch.mandaloreexpress.domain.spacetrain.SpaceTrains as DomainSpaceTrains
+import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.SpaceTrain as DomainSpaceTrain
+import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.SpaceTrains as DomainSpaceTrains
 import com.beyondxscratch.mandaloreexpress.domain.spacetrain.fare.Fare as DomainFare
 import com.beyondxscratch.mandaloreexpress.domain.spacetrain.fare.Fares as DomainFares
 

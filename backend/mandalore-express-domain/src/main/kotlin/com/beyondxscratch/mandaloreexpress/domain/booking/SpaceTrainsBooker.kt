@@ -3,7 +3,7 @@ package com.beyondxscratch.mandaloreexpress.domain.booking
 import com.beyondxscratch.mandaloreexpress.annotations.DomainService
 import com.beyondxscratch.mandaloreexpress.domain.search.Search
 import com.beyondxscratch.mandaloreexpress.domain.booking.api.BookSpaceTrains
-import com.beyondxscratch.mandaloreexpress.domain.spacetrain.SpaceTrain
+import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.SpaceTrain
 import com.beyondxscratch.mandaloreexpress.domain.spacetrain.fare.Fare
 import com.beyondxscratch.mandaloreexpress.domain.booking.spi.Bookings
 

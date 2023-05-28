@@ -1,6 +1,8 @@
 package com.beyondxscratch.mandaloreexpress.domain.spacetrain
 
 import com.beyondxscratch.mandaloreexpress.domain.criteria.Criteria
+import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.SpaceTrain
+import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.SpaceTrains
 import com.beyondxscratch.mandaloreexpress.domain.spaceport.Planet
 import com.beyondxscratch.mandaloreexpress.domain.spaceport.Planet.CORUSCANT
 import com.beyondxscratch.mandaloreexpress.domain.spaceport.Planet.MANDALORE

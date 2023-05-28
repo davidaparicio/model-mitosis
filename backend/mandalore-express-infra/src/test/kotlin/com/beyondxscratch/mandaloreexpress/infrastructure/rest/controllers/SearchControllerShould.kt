@@ -8,7 +8,7 @@ import com.beyondxscratch.mandaloreexpress.domain.spaceport.OnMandalore
 import com.beyondxscratch.mandaloreexpress.domain.spaceport.SpacePort
 import com.beyondxscratch.mandaloreexpress.domain.spacetrain.Bound.INBOUND
 import com.beyondxscratch.mandaloreexpress.domain.spacetrain.Bound.OUTBOUND
-import com.beyondxscratch.mandaloreexpress.domain.spacetrain.SpaceTrain.Companion.get
+import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.SpaceTrain.Companion.get
 import com.beyondxscratch.mandaloreexpress.domain.search.spi.Searches
 import com.beyondxscratch.mandaloreexpress.infrastructure.configurations.DomainConfiguration
 import com.jayway.jsonpath.JsonPath

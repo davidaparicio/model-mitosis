@@ -1,7 +1,9 @@
-package com.beyondxscratch.mandaloreexpress.domain.spacetrain
+package com.beyondxscratch.mandaloreexpress.domain.search.spacetrain
 
+import com.beyondxscratch.mandaloreexpress.domain.spacetrain.Bound
+import com.beyondxscratch.mandaloreexpress.domain.spacetrain.Schedule
 import com.beyondxscratch.mandaloreexpress.domain.spacetrain.fare.Fares
-import java.util.UUID
+import java.util.*
 
 data class SpaceTrain(
     val number: String,
@@ -31,6 +33,3 @@ data class SpaceTrain(
 
 }
 typealias SpaceTrains = List<SpaceTrain>
-
-
-
