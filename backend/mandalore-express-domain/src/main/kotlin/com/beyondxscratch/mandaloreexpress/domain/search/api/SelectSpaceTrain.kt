@@ -1,4 +1,4 @@
-package com.beyondxscratch.mandaloreexpress.domain.api
+package com.beyondxscratch.mandaloreexpress.domain.search.api
 
 import com.beyondxscratch.mandaloreexpress.domain.Search
 import java.util.UUID

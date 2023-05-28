@@ -1,10 +1,10 @@
 package com.beyondxscratch.mandaloreexpress.domain
 
 import com.beyondxscratch.mandaloreexpress.annotations.DomainService
-import com.beyondxscratch.mandaloreexpress.domain.api.BookSpaceTrains
-import com.beyondxscratch.mandaloreexpress.domain.api.RetrieveSpacePorts
-import com.beyondxscratch.mandaloreexpress.domain.api.SearchForSpaceTrains
-import com.beyondxscratch.mandaloreexpress.domain.api.SelectSpaceTrain
+import com.beyondxscratch.mandaloreexpress.domain.booking.api.BookSpaceTrains
+import com.beyondxscratch.mandaloreexpress.domain.search.api.RetrieveSpacePorts
+import com.beyondxscratch.mandaloreexpress.domain.search.api.SearchForSpaceTrains
+import com.beyondxscratch.mandaloreexpress.domain.search.api.SelectSpaceTrain
 import com.beyondxscratch.mandaloreexpress.domain.criteria.Criteria
 import com.beyondxscratch.mandaloreexpress.domain.criteria.Journey
 import com.beyondxscratch.mandaloreexpress.domain.criteria.Journeys

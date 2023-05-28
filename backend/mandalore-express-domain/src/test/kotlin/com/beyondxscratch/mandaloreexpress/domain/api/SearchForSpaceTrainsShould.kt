@@ -7,6 +7,7 @@ import com.beyondxscratch.mandaloreexpress.domain.RoundTrip
 import com.beyondxscratch.mandaloreexpress.domain.Search
 import com.beyondxscratch.mandaloreexpress.domain.criteria.Criteria
 import com.beyondxscratch.mandaloreexpress.domain.criteria.Journey
+import com.beyondxscratch.mandaloreexpress.domain.search.api.SearchForSpaceTrains
 import com.beyondxscratch.mandaloreexpress.domain.spaceport.OnCoruscant
 import com.beyondxscratch.mandaloreexpress.domain.spaceport.SpacePort
 import org.junit.jupiter.api.Test

@@ -1,11 +1,11 @@
 package com.beyondxscratch.mandaloreexpress.infrastructure.rest.controllers
 
-import com.beyondxscratch.mandaloreexpress.domain.api.RetrieveSpacePorts
-import com.beyondxscratch.mandaloreexpress.domain.api.SearchForSpaceTrains
-import com.beyondxscratch.mandaloreexpress.domain.api.SelectSpaceTrain
-import com.beyondxscratch.mandaloreexpress.domain.api.`by resetting the selection`
-import com.beyondxscratch.mandaloreexpress.domain.api.`in search`
-import com.beyondxscratch.mandaloreexpress.domain.api.`with the fare`
+import com.beyondxscratch.mandaloreexpress.domain.search.api.RetrieveSpacePorts
+import com.beyondxscratch.mandaloreexpress.domain.search.api.SearchForSpaceTrains
+import com.beyondxscratch.mandaloreexpress.domain.search.api.SelectSpaceTrain
+import com.beyondxscratch.mandaloreexpress.domain.search.api.`by resetting the selection`
+import com.beyondxscratch.mandaloreexpress.domain.search.api.`in search`
+import com.beyondxscratch.mandaloreexpress.domain.search.api.`with the fare`
 import com.beyondxscratch.mandaloreexpress.domain.spaceport.SpacePort
 import com.beyondxscratch.mandaloreexpress.domain.spacetrain.Bound
 import com.beyondxscratch.mandaloreexpress.domain.spacetrain.SpaceTrain.Companion.get

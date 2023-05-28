@@ -2,6 +2,10 @@ package com.beyondxscratch.mandaloreexpress.domain.api
 
 import com.beyondxscratch.mandaloreexpress.domain.RoundTrip
 import com.beyondxscratch.mandaloreexpress.domain.Search
+import com.beyondxscratch.mandaloreexpress.domain.search.api.SelectSpaceTrain
+import com.beyondxscratch.mandaloreexpress.domain.search.api.`by resetting the selection`
+import com.beyondxscratch.mandaloreexpress.domain.search.api.`in search`
+import com.beyondxscratch.mandaloreexpress.domain.search.api.`with the fare`
 import com.beyondxscratch.mandaloreexpress.domain.selection.SelectedSpaceTrain
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatThrownBy

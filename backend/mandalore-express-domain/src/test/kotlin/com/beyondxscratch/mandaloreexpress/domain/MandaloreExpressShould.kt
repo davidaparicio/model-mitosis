@@ -1,12 +1,12 @@
 package com.beyondxscratch.mandaloreexpress.domain
 
-import com.beyondxscratch.mandaloreexpress.domain.api.BookSpaceTrains
+import com.beyondxscratch.mandaloreexpress.domain.booking.api.BookSpaceTrains
 import com.beyondxscratch.mandaloreexpress.domain.api.BookSpaceTrainsShould
-import com.beyondxscratch.mandaloreexpress.domain.api.RetrieveSpacePorts
+import com.beyondxscratch.mandaloreexpress.domain.search.api.RetrieveSpacePorts
 import com.beyondxscratch.mandaloreexpress.domain.api.RetrieveSpacePortsShould
-import com.beyondxscratch.mandaloreexpress.domain.api.SearchForSpaceTrains
+import com.beyondxscratch.mandaloreexpress.domain.search.api.SearchForSpaceTrains
 import com.beyondxscratch.mandaloreexpress.domain.api.SearchForSpaceTrainsShould
-import com.beyondxscratch.mandaloreexpress.domain.api.SelectSpaceTrain
+import com.beyondxscratch.mandaloreexpress.domain.search.api.SelectSpaceTrain
 import com.beyondxscratch.mandaloreexpress.domain.api.SelectSpaceTrainShould
 import com.beyondxscratch.mandaloreexpress.domain.spi.InMemoryBookings
 import com.beyondxscratch.mandaloreexpress.domain.spi.InMemorySearches
