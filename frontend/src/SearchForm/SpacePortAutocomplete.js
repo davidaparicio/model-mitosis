@@ -6,6 +6,7 @@ import FlightTakeoffIcon from '@material-ui/icons/FlightTakeoff'
 import fetch from 'cross-fetch'
 import { makeStyles } from '@material-ui/core/styles'
 import FlightLandIcon from '@material-ui/icons/FlightLand'
+import { StarDestroyerLanding, StarDestroyerTakingOff } from '../Icons/StarDestroyer';
 
 function SpacePortAutocomplete ({ id, arrival, onSelect }) {
   const [open, setOpen] = useState(false)
@@ -103,10 +104,19 @@ function SpacePortAutocomplete ({ id, arrival, onSelect }) {
 }
 
 function SpaceportIcon ({ arrival, className }) {
+
+  const useStyles = makeStyles(theme => ({
+    starDestroyer: {
+      opacity: 0.6
+    },
+  }))
+
+  const classes = useStyles()
+
   if (arrival !== true) {
-    return <FlightTakeoffIcon className={className} />
+    return <StarDestroyerTakingOff className={`${className} ${classes.starDestroyer}`}/>;
   }
-  return <FlightLandIcon className={className} />
+  return <StarDestroyerLanding className={`${className} ${classes.starDestroyer}`}/>;
 }
 
 export default SpacePortAutocomplete

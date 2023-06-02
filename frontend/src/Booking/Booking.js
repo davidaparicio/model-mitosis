@@ -1,17 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { StarDestroyerLanding, StarDestroyerTakingOff, StarDestroyerTopView } from '../Icons/StarDestroyer';
 import { proxiedUrl } from "../utils";
 import Grid from "@material-ui/core/Grid";
 import { withRouter } from "react-router-dom";
-import FlightTakeoffIcon from "@material-ui/icons/FlightTakeoff";
 import { Paper, Typography, Box } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
-import FlightLandIcon from "@material-ui/icons/FlightLand";
 import moment from "moment";
 import ExploreIcon from "@material-ui/icons/Explore";
 import Class from "../Commons/Class";
-import FlightIcon from "@material-ui/icons/Flight";
 import { getCurrencySymbol } from "../Commons/Currency";
 import Alert from '@material-ui/lab/Alert'
 
@@ -105,9 +103,9 @@ function Bound({ spacePortId, schedule, arrival }) {
   return (
     <Box display="flex" alignItems="center" mb={1}>
       {arrival === true ? (
-        <FlightLandIcon className={classes.icon} />
+        <StarDestroyerLanding className={classes.icon}/>
       ) : (
-        <FlightTakeoffIcon className={classes.icon} />
+        <StarDestroyerTakingOff className={classes.icon}/>
       )}
       <Box display="flex" alignItems="baseline">
         {spacePort !== undefined && (
@@ -153,12 +151,12 @@ function Description({ number, fare }) {
   return (
     <Box display="flex" alignItems="flex-end" justifyContent="space-between">
       <Box display="flex" alignItems="baseline">
-        <FlightIcon className={classes.marginRight} />
         <Typography
           className={classes.marginRight}
           color="primary"
           variant="subtitle2"
         >
+          <StarDestroyerTopView className={classes.marginRight}/>
           {number}
         </Typography>
         <Class
