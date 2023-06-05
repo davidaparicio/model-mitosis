@@ -6,6 +6,7 @@ import com.beyondxscratch.mandaloreexpress.domain.booking.spacetrain.SpaceTrain
 import com.beyondxscratch.mandaloreexpress.domain.booking.tax.TaxPortion
 import com.beyondxscratch.mandaloreexpress.domain.booking.tax.TaxRate
 import java.math.BigDecimal
+import java.time.LocalDateTime.now
 import java.util.UUID
 import java.util.UUID.randomUUID
 
@@ -30,8 +31,13 @@ data class Booking(
         require(selectedSeatLocationsCompatibleWithSpaceTrains()) {
             "SelectedSeatLocations are incompatible with the SpaceTrains"
         }
+
+        require(hasNoDepatureInThePastWhenNewBooking()){
+            "SpaceTrains cannot depart in the past for a new Booking"
+        }
     }
 
+    private fun hasNoDepatureInThePastWhenNewBooking() = finalized ||  spaceTrains.all { it.schedule.departure.isAfter(now()) }
 
     private fun selectedSeatLocationsCompatibleWithSpaceTrains(): Boolean {
         return selectedSeatLocations
