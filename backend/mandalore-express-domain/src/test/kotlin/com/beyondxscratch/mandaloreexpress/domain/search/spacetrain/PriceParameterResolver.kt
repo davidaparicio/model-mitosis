@@ -1,7 +1,11 @@
-package com.beyondxscratch.mandaloreexpress.domain.sharedkernel
+package com.beyondxscratch.mandaloreexpress.domain.search.spacetrain
 
 import com.beyondxscratch.TypedParameterResolver
-import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.fare.Price
+import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.fare.Price
+import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.OneCalamariFlan
+import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.OneRepCredit
+import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.Random
+import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.TenRepCredit
 
 class PriceParameterResolver : TypedParameterResolver<Price>({ parameterContext, _ ->
     when {

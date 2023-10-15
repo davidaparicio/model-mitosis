@@ -1,8 +1,8 @@
 package com.beyondxscratch.mandaloreexpress.domain.booking
 
 import com.beyondxscratch.mandaloreexpress.domain.booking.spacetrain.SpaceTrain
+import com.beyondxscratch.mandaloreexpress.domain.booking.spacetrain.fare.Price
 import com.beyondxscratch.mandaloreexpress.domain.booking.tax.TaxPortion
-import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.fare.Price
 import java.util.UUID
 import java.util.UUID.randomUUID
 
@@ -13,7 +13,7 @@ data class Booking(
     ) {
 
     val totalPrice: Price get() = spaceTrains.map { it.fare.price }.reduce(Price::plus)
-    val taxPortion : TaxPortion get() = spaceTrains.map{ it.fare.taxPortion }.reduce(TaxPortion::plus) // /!\ IncompatibleInstructionsException /!\
+    val taxPortion : TaxPortion get() = spaceTrains.map{ it.fare.taxPortion }.reduce(TaxPortion::plus)
 
     init {
         require(spaceTrains.isNotEmpty()) {

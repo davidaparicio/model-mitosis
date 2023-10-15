@@ -1,11 +1,7 @@
 package com.beyondxscratch.mandaloreexpress.domain.booking.spacetrain
 
-import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.fare
-import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.firstClassFare
-import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.randomFare
 import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.randomSchedule
 import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.schedule
-import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.secondClassFare
 import kotlin.random.Random.Default.nextLong
 
 fun spaceTrain(): SpaceTrain = SpaceTrain(

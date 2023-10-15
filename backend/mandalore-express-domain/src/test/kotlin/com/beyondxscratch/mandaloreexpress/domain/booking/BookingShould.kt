@@ -2,13 +2,13 @@ package com.beyondxscratch.mandaloreexpress.domain.booking
 
 import com.beyondxscratch.mandaloreexpress.domain.EqualityShould
 import com.beyondxscratch.mandaloreexpress.domain.booking.spacetrain.SpaceTrain
+import com.beyondxscratch.mandaloreexpress.domain.booking.spacetrain.fare.Price
 import com.beyondxscratch.mandaloreexpress.domain.booking.spacetrain.withFirstClass
 import com.beyondxscratch.mandaloreexpress.domain.booking.spacetrain.withSecondClass
 import com.beyondxscratch.mandaloreexpress.domain.booking.tax.TaxPortion
+import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.Currency.REPUBLIC_CREDIT
 import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.Random
 import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.amount
-import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.fare.Currency.REPUBLIC_CREDIT
-import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.fare.Price
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.junit.jupiter.api.Test

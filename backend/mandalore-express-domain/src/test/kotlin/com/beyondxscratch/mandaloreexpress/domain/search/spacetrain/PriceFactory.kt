@@ -1,9 +1,9 @@
-package com.beyondxscratch.mandaloreexpress.domain.sharedkernel
+package com.beyondxscratch.mandaloreexpress.domain.search.spacetrain
 
-import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.fare.Amount
-import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.fare.Currency.CALAMARI_FLAN
-import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.fare.Currency.REPUBLIC_CREDIT
-import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.fare.Price
+import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.Amount
+import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.Currency.CALAMARI_FLAN
+import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.Currency.REPUBLIC_CREDIT
+import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.fare.Price
 import java.math.BigDecimal
 import java.math.BigDecimal.ONE
 import java.math.BigDecimal.TEN
