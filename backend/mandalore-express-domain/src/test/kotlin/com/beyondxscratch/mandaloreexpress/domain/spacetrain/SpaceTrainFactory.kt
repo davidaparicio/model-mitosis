@@ -23,7 +23,7 @@ fun spaceTrain(): SpaceTrain = SpaceTrain(
         originId = spacePort(CORUSCANT).id,
         destinationId = spacePort(MANDALORE).id,
         schedule = schedule(),
-        fares = setOf(fare()))
+        fareOptions = setOf(fare()))
 
 fun outboundSpaceTrain(): SpaceTrain = spaceTrain()
 fun inboundSpaceTrain(): SpaceTrain = SpaceTrain(
@@ -32,12 +32,12 @@ fun inboundSpaceTrain(): SpaceTrain = SpaceTrain(
         originId = spacePort(MANDALORE).id,
         destinationId = spacePort(CORUSCANT).id,
         schedule = schedule(),
-        fares = setOf(fare()))
+        fareOptions = setOf(fare()))
 
 fun randomSpaceTrain(): SpaceTrain = spaceTrain()
         .copy(
                 number = nextLong(1, 1000).toString(),
-                fares = setOf(randomFare(), randomFare()),
+                fareOptions = setOf(randomFare(), randomFare()),
                 compatibleSpaceTrains = setOf(nextLong(1001, 2000).toString())
         )
 
@@ -50,7 +50,7 @@ fun spaceTrainsFrom(criteria: Criteria): SpaceTrains {
                             originId = journey.departureSpacePortId,
                             destinationId = journey.arrivalSpacePortId,
                             schedule = schedule(),
-                            fares = setOf(firstClassFare(), secondClassFare())
+                            fareOptions = setOf(firstClassFare(), secondClassFare())
                     )
                 }
             }

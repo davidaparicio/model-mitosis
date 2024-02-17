@@ -71,7 +71,7 @@ data class Search(
 
         val newSelection = getExistingSelectionOrReset(resetSelection, spaceTrainToSelect)
 
-        val price = spaceTrainToSelect.fares.first { it.id == fareId }.price
+        val price = spaceTrainToSelect.fareOptions.first { it.id == fareId }.price
         return copy(selection = newSelection.selectSpaceTrainWithFare(spaceTrainToSelect, fareId, price))
     }
 
@@ -139,7 +139,7 @@ data class Search(
 
     private infix fun Selection.`with only known fares from`(spaceTrainsFromSearch: SpaceTrains): Boolean =
         spaceTrains.all { selectedSpaceTrain ->
-            spaceTrainsFromSearch.find { it.number == selectedSpaceTrain.spaceTrainNumber }?.fares?.any { it.id == selectedSpaceTrain.fareId }
+            spaceTrainsFromSearch.find { it.number == selectedSpaceTrain.spaceTrainNumber }?.fareOptions?.any { it.id == selectedSpaceTrain.fareId }
                 ?: false
         }
 

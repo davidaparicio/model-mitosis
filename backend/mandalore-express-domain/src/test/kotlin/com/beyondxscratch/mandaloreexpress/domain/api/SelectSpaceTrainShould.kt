@@ -20,7 +20,7 @@ interface SelectSpaceTrainShould {
     @Test
     fun `select a space train with a specific fare in an existing search`(@RoundTrip search: Search) {
         val spaceTrain = search.spaceTrains.first()
-        val fare = spaceTrain.fares.first()
+        val fare = spaceTrain.fareOptions.first()
 
         val result = selectSpaceTrain `having the number` spaceTrain.number `with the fare` fare.id `in search` search.id `by resetting the selection` false
         assertThat(result.selection)

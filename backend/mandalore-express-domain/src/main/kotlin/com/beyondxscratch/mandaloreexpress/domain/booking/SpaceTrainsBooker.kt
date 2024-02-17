@@ -4,7 +4,7 @@ import com.beyondxscratch.mandaloreexpress.annotations.DomainService
 import com.beyondxscratch.mandaloreexpress.domain.search.Search
 import com.beyondxscratch.mandaloreexpress.domain.booking.api.BookSpaceTrains
 import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.SpaceTrain
-import com.beyondxscratch.mandaloreexpress.domain.spacetrain.fare.Fare
+import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.fare.FareOption
 import com.beyondxscratch.mandaloreexpress.domain.booking.spi.Bookings
 
 @DomainService
@@ -26,7 +26,7 @@ class SpaceTrainsBooker(
         search.getSelectedSpaceTrainsSortedByBound()
             .map { selectedSpaceTrain ->
                 val (spaceTrain, fareId) = selectedSpaceTrain
-                val fare = spaceTrain.getFare(fareId)
+                val selectedFareOption = spaceTrain.getFare(fareId)
 
                 return@map SpaceTrain(
                     spaceTrain.number,
@@ -34,7 +34,7 @@ class SpaceTrainsBooker(
                     spaceTrain.originId,
                     spaceTrain.destinationId,
                     spaceTrain.schedule,
-                    setOf<Fare>(fare),
+                    setOf<FareOption>(selectedFareOption),
                     spaceTrain.compatibleSpaceTrains
                 )
             }

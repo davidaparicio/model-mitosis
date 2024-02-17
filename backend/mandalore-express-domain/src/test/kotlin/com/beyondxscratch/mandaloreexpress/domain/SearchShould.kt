@@ -12,7 +12,7 @@ import com.beyondxscratch.mandaloreexpress.domain.spacetrain.Inbound
 import com.beyondxscratch.mandaloreexpress.domain.spacetrain.Outbound
 import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.SpaceTrain
 import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.SpaceTrain.Companion.get
-import com.beyondxscratch.mandaloreexpress.domain.spacetrain.fare.Fare
+import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.fare.FareOption
 import com.beyondxscratch.mandaloreexpress.domain.spacetrain.fare.price
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatCode
@@ -110,7 +110,7 @@ class SearchShould : EqualityShould<Search> {
     fun `only have selected space trains corresponding to the right bound`(@RoundTrip search: Search) {
         val spaceTrain = search.spaceTrains.first()
         val spaceTrainNumber = spaceTrain.number
-        val fare = spaceTrain.fares.first()
+        val fare = spaceTrain.fareOptions.first()
         val wrongBound = values().first { it != spaceTrain.bound }
 
         val invalidSelection = Selection(
@@ -184,12 +184,12 @@ class SearchShould : EqualityShould<Search> {
         )
     }
 
-    private fun Search.selectOutboundAndReturnIncompatibleInbound(): Triple<Search, SpaceTrain, Fare> {
+    private fun Search.selectOutboundAndReturnIncompatibleInbound(): Triple<Search, SpaceTrain, FareOption> {
         val outbound = spaceTrains.first { it.bound == OUTBOUND }
-        val outboundFare = outbound.fares.first()
+        val outboundFare = outbound.fareOptions.first()
         val incompatibleInbound =
             spaceTrains.first { it.bound == INBOUND && !it.compatibleSpaceTrains.contains(outbound.number) }
-        val inboundFare = incompatibleInbound.fares.first()
+        val inboundFare = incompatibleInbound.fareOptions.first()
 
         val newSearch = selectSpaceTrainWithFare(outbound.number, outboundFare.id, false)
         return Triple(newSearch, incompatibleInbound, inboundFare)

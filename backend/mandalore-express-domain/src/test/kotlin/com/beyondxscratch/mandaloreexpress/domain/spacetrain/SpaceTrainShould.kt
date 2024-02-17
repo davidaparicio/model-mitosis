@@ -17,9 +17,9 @@ class SpaceTrainShould(private val spaceTrain: SpaceTrain) : EqualityShould<Spac
 
     @Test
     fun `have at least one fare`() {
-        assertThatThrownBy { spaceTrain.copy(fares = setOf()) }
+        assertThatThrownBy { spaceTrain.copy(fareOptions = setOf()) }
                 .isInstanceOf(IllegalArgumentException::class.java)
-                .hasMessage("SpaceTrain must have at least one fare")
+                .hasMessage("SpaceTrain must have at least one fare option")
     }
 
     @Test
@@ -45,7 +45,7 @@ class SpaceTrainShould(private val spaceTrain: SpaceTrain) : EqualityShould<Spac
 
     @Test
     fun `return the fare corresponding to a given id if present`() {
-        val fare = spaceTrain.fares.first()
+        val fare = spaceTrain.fareOptions.first()
         assertThat(spaceTrain.getFare(fare.id)).isEqualTo(fare)
     }
 

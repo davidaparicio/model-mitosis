@@ -20,7 +20,7 @@ import com.beyondxscratch.mandaloreexpress.domain.spacetrain.fare.ComfortClass
 import com.beyondxscratch.mandaloreexpress.domain.spacetrain.fare.ComfortClass.FIRST
 import com.beyondxscratch.mandaloreexpress.domain.spacetrain.fare.ComfortClass.SECOND
 import com.beyondxscratch.mandaloreexpress.domain.spacetrain.fare.Currency.REPUBLIC_CREDIT
-import com.beyondxscratch.mandaloreexpress.domain.spacetrain.fare.Fare
+import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.fare.FareOption
 import com.beyondxscratch.mandaloreexpress.domain.spacetrain.fare.Price
 import com.beyondxscratch.mandaloreexpress.domain.search.spi.Searches
 import com.beyondxscratch.mandaloreexpress.domain.search.spi.SpacePorts
@@ -136,7 +136,7 @@ class SpaceTrainsFinder(
             ),
             destinationId = journey.arrivalSpacePortId,
             originId = journey.departureSpacePortId,
-            fares = computeFares()
+            fareOptions = computeFares()
         )
     }
 
@@ -158,7 +158,7 @@ class SpaceTrainsFinder(
             .plusHours(97 + spaceTrainIndex)
             .plusMinutes((20L..840L).random())
 
-    private fun computeFares(): Set<Fare> {
+    private fun computeFares(): Set<FareOption> {
 
 
         return setOf(
@@ -167,7 +167,7 @@ class SpaceTrainsFinder(
         )
     }
 
-    private fun computeFare(comfortClass: ComfortClass): Fare {
+    private fun computeFare(comfortClass: ComfortClass): FareOption {
 
         val amountRange = when (comfortClass) {
             FIRST -> 180..400
@@ -175,7 +175,7 @@ class SpaceTrainsFinder(
         }
 
         val price = Price(Amount(BigDecimal(amountRange.random())), REPUBLIC_CREDIT)
-        return Fare(
+        return FareOption(
             comfortClass = comfortClass,
             price = price,
         )

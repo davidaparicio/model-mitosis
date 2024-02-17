@@ -5,8 +5,8 @@ import com.beyondxscratch.mandaloreexpress.infrastructure.rest.resources.Resourc
 import org.springframework.hateoas.RepresentationModel
 import org.springframework.hateoas.server.LinkBuilder
 import java.util.UUID
-import com.beyondxscratch.mandaloreexpress.domain.spacetrain.fare.Fare as DomainFare
-import com.beyondxscratch.mandaloreexpress.domain.spacetrain.fare.Fares as DomainFares
+import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.fare.FareOption as DomainFare
+import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.fare.FareOptions as DomainFares
 
 @Resource
 data class Fare(

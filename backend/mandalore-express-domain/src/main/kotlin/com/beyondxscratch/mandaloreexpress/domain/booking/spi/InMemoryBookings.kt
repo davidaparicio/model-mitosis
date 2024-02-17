@@ -7,7 +7,7 @@ import com.beyondxscratch.mandaloreexpress.domain.spacetrain.Schedule
 import com.beyondxscratch.mandaloreexpress.domain.spacetrain.fare.Amount
 import com.beyondxscratch.mandaloreexpress.domain.spacetrain.fare.ComfortClass
 import com.beyondxscratch.mandaloreexpress.domain.spacetrain.fare.Currency.REPUBLIC_CREDIT
-import com.beyondxscratch.mandaloreexpress.domain.spacetrain.fare.Fare
+import com.beyondxscratch.mandaloreexpress.domain.booking.spacetrain.fare.SelectedFare
 import com.beyondxscratch.mandaloreexpress.domain.spacetrain.fare.Price
 import java.math.BigDecimal
 import java.time.LocalDateTime.now
@@ -27,7 +27,7 @@ class InMemoryBookings : Bookings {
                         "http://localhost:1865/spaceports/f01ed70b-513e-3bef-98f4-19038a4f6d64",
                         "http://localhost:1865/spaceports/4c542529-4427-3f3c-90d8-b47cdaa8e20a",
                         Schedule(now().minusWeeks(2), now().minusWeeks(1)),
-                        Fare(
+                        SelectedFare(
                             comfortClass = ComfortClass.FIRST,
                             price = Price(Amount(BigDecimal(162)), REPUBLIC_CREDIT)
                         )

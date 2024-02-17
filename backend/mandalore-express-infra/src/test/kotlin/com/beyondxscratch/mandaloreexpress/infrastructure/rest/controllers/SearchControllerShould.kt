@@ -410,9 +410,9 @@ class SearchControllerShould(
     @Test
     fun `select space trains with fares`(@RoundTrip search: Search) {
         val outBoundSpaceTrain = search.spaceTrains.first { it.bound == OUTBOUND }
-        val outBoundFare = outBoundSpaceTrain.fares.first()
+        val outBoundFare = outBoundSpaceTrain.fareOptions.first()
         val inBoundSpaceTrain = search.spaceTrains.first { it.bound == INBOUND }
-        val inBoundFare = inBoundSpaceTrain.fares.first()
+        val inBoundFare = inBoundSpaceTrain.fareOptions.first()
         val location = "http://localhost/searches/${search.id}"
 
         val selectedSpaceTrainsAndFares =

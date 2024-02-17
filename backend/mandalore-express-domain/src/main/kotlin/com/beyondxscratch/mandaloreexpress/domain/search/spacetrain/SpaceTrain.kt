@@ -2,7 +2,7 @@ package com.beyondxscratch.mandaloreexpress.domain.search.spacetrain
 
 import com.beyondxscratch.mandaloreexpress.domain.spacetrain.Bound
 import com.beyondxscratch.mandaloreexpress.domain.spacetrain.Schedule
-import com.beyondxscratch.mandaloreexpress.domain.spacetrain.fare.Fares
+import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.fare.FareOptions
 import java.util.*
 
 data class SpaceTrain(
@@ -11,12 +11,12 @@ data class SpaceTrain(
     val originId: String,
     val destinationId: String,
     val schedule: Schedule,
-    val fares: Fares,
+    val fareOptions: FareOptions,
     val compatibleSpaceTrains: Set<String> = emptySet()
 ) {
     init {
-        require(fares.isNotEmpty()) {
-            "SpaceTrain must have at least one fare"
+        require(fareOptions.isNotEmpty()) {
+            "SpaceTrain must have at least one fare option"
         }
 
         require(isNotCompatibleWithItself()) {
@@ -24,7 +24,7 @@ data class SpaceTrain(
         }
     }
 
-    fun getFare(fareId: UUID) = this.fares.first { it.id == fareId }
+    fun getFare(fareId: UUID) = this.fareOptions.first { it.id == fareId }
     private fun isNotCompatibleWithItself() = !compatibleSpaceTrains.contains(number)
 
     companion object {

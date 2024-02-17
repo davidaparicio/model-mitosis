@@ -46,8 +46,8 @@ import com.beyondxscratch.mandaloreexpress.domain.criteria.Criteria as DomainCri
 import com.beyondxscratch.mandaloreexpress.domain.criteria.Journey as DomainJourney
 import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.SpaceTrain as DomainSpaceTrain
 import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.SpaceTrains as DomainSpaceTrains
-import com.beyondxscratch.mandaloreexpress.domain.spacetrain.fare.Fare as DomainFare
-import com.beyondxscratch.mandaloreexpress.domain.spacetrain.fare.Fares as DomainFares
+import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.fare.FareOption as DomainFare
+import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.fare.FareOptions as DomainFares
 
 
 @RestController
@@ -178,7 +178,7 @@ class SearchController(
                         spaceTrain.destinationId,
                         spaceTrain.schedule.departure,
                         spaceTrain.schedule.arrival,
-                        spaceTrain.fares.first { it.id == selectedSpaceTrain.fareId }.toResource()
+                        spaceTrain.fareOptions.first { it.id == selectedSpaceTrain.fareId }.toResource()
                     )
                 }
                 .sortedBy { it.bound.ordinal }
@@ -234,7 +234,7 @@ class SearchController(
         schedule.departure,
         schedule.arrival,
         schedule.duration,
-        fares.toResource(searchLink.slash("spacetrains").slash(number), resetSelection)
+        fareOptions.toResource(searchLink.slash("spacetrains").slash(number), resetSelection)
     )
 
     private fun DomainSpaceTrains.toResource(
