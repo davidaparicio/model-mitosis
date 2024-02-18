@@ -6,7 +6,7 @@ import com.beyondxscratch.mandaloreexpress.domain.booking.spi.IsSelectionComplet
 import com.beyondxscratch.mandaloreexpress.domain.booking.spi.RetrieveSelection
 import java.util.UUID
 
-interface BookSpaceTrains {
+interface PrepareBooking {
     val isSelectionComplete : IsSelectionComplete
     val retrieveSelection : RetrieveSelection
     val bookings: Bookings

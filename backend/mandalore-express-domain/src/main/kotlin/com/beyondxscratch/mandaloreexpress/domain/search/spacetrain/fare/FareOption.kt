@@ -1,7 +1,5 @@
 package com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.fare
 
-import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.fare.ComfortClass
-import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.fare.Price
 import java.util.UUID
 
 data class FareOption(

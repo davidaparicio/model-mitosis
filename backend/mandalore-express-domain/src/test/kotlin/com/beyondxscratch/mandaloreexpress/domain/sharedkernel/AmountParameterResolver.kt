@@ -1,4 +1,4 @@
-package com.beyondxscratch.mandaloreexpress.domain.sharedkernel.fare
+package com.beyondxscratch.mandaloreexpress.domain.sharedkernel
 
 import com.beyondxscratch.TypedParameterResolver
 import com.beyondxscratch.mandaloreexpress.domain.Random
@@ -8,8 +8,6 @@ class AmountParameterResolver : TypedParameterResolver<Amount>({ parameterContex
         parameterContext.isAnnotated(Random::class.java) -> {
             randomAmount()
         }
-
         else -> amount()
-
     }
 })

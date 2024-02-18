@@ -1,6 +1,7 @@
-package com.beyondxscratch.mandaloreexpress.domain.sharedkernel.fare
+package com.beyondxscratch.mandaloreexpress.domain.sharedkernel
 
 import java.math.BigDecimal
+import java.math.RoundingMode
 
 data class Amount(val value: BigDecimal) {
     init {
@@ -14,4 +15,10 @@ data class Amount(val value: BigDecimal) {
     operator fun minus(amount: Amount): Amount = Amount(value - amount.value)
 
     operator fun compareTo(amount: Amount): Int = value.compareTo(amount.value)
+    operator fun times(taxRatio: BigDecimal): Amount {
+        return Amount(value * taxRatio)
+    }
 }
+
+private operator fun BigDecimal.times(value: BigDecimal) : BigDecimal =
+    this.multiply(value).setScale(this.scale(), RoundingMode.HALF_UP)

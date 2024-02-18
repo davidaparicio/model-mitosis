@@ -1,6 +1,8 @@
 package com.beyondxscratch.mandaloreexpress.domain.anticorruptionlayer
 
 import com.beyondxscratch.mandaloreexpress.domain.booking.spacetrain.SpaceTrain
+import com.beyondxscratch.mandaloreexpress.domain.booking.spacetrain.fare.ComfortClass
+import com.beyondxscratch.mandaloreexpress.domain.booking.spacetrain.fare.Price
 import com.beyondxscratch.mandaloreexpress.domain.booking.spacetrain.fare.SelectedFare
 import com.beyondxscratch.mandaloreexpress.domain.booking.spi.IsSelectionCompleteShould
 import com.beyondxscratch.mandaloreexpress.domain.booking.spi.RetrieveSelectionShould
@@ -21,12 +23,13 @@ class SearchSelectionForBookingShould(
     override val selectedSpaceTrain: SpaceTrain
         get() {
             val (_, spacetrain, fareOption) = completeSearchSpaceTrainAndFare
+            val (_, comfortClass, price) = fareOption
             return SpaceTrain(
                 spacetrain.number,
                 spacetrain.originId,
                 spacetrain.destinationId,
                 spacetrain.schedule,
-                SelectedFare(fareOption.id, fareOption.comfortClass, fareOption.price)
+                SelectedFare(fareOption.id, ComfortClass.valueOf(comfortClass.name), Price(price.amount, price.currency))
             )
         }
 

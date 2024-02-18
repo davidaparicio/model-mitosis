@@ -1,7 +1,6 @@
 package com.beyondxscratch.mandaloreexpress.infrastructure.rest.resources.booking
 
 import com.beyondxscratch.mandaloreexpress.infrastructure.rest.resources.Resource
-import com.beyondxscratch.mandaloreexpress.infrastructure.rest.resources.price.Price
 import org.springframework.hateoas.RepresentationModel
 import java.util.UUID
 

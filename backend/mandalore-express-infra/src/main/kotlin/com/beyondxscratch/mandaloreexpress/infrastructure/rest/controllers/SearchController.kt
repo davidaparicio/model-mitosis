@@ -9,7 +9,6 @@ import com.beyondxscratch.mandaloreexpress.domain.search.api.`with the fare`
 import com.beyondxscratch.mandaloreexpress.domain.search.spaceport.SpacePort
 import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.Bound
 import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.SpaceTrain.Companion.get
-import com.beyondxscratch.mandaloreexpress.infrastructure.rest.resources.price.toResource
 import com.beyondxscratch.mandaloreexpress.infrastructure.rest.resources.search.FareOption
 import com.beyondxscratch.mandaloreexpress.infrastructure.rest.resources.search.FareOptions
 import com.beyondxscratch.mandaloreexpress.infrastructure.rest.resources.search.*

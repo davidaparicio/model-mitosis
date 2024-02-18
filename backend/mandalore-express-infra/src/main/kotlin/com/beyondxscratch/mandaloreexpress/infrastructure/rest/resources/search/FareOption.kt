@@ -1,11 +1,9 @@
 package com.beyondxscratch.mandaloreexpress.infrastructure.rest.resources.search
 
+import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.fare.ComfortClass
 import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.fare.FareOption as DomainFareOption
 import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.fare.FareOptions as DomainFareOptions
-import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.fare.ComfortClass
 import com.beyondxscratch.mandaloreexpress.infrastructure.rest.resources.Resource
-import com.beyondxscratch.mandaloreexpress.infrastructure.rest.resources.price.Price
-import com.beyondxscratch.mandaloreexpress.infrastructure.rest.resources.price.toResource
 import org.springframework.hateoas.RepresentationModel
 import org.springframework.hateoas.server.LinkBuilder
 import java.util.UUID

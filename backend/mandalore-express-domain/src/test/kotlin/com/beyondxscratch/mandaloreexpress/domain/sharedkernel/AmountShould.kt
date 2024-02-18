@@ -1,4 +1,4 @@
-package com.beyondxscratch.mandaloreexpress.domain.sharedkernel.fare
+package com.beyondxscratch.mandaloreexpress.domain.sharedkernel
 
 import com.beyondxscratch.mandaloreexpress.domain.EqualityShould
 import org.assertj.core.api.Assertions.assertThat
@@ -64,5 +64,15 @@ class AmountShould : EqualityShould<Amount> {
 
         assertThat(ten >= ten).isEqualTo(true)
         assertThat(ten <= ten).isEqualTo(true)
+    }
+
+    @Test
+    fun `multiply amount by a scalar`() {
+        val ten = Amount(BigDecimal.TEN)
+        val five = BigDecimal(5.0)
+
+        val fifty = ten * five
+
+        assertThat(fifty).isEqualTo(amount(50.0))
     }
 }

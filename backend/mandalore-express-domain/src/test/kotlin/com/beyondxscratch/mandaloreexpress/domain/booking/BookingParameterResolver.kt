@@ -9,6 +9,14 @@ class BookingParameterResolver : TypedParameterResolver<Booking>({ parameterCont
             randomBooking()
         }
 
+        parameterContext.isAnnotated(Finalized::class.java) -> {
+            finalizedBooking()
+        }
+
+        parameterContext.isAnnotated(NonFinalized::class.java) -> {
+            nonFinalizedBooking()
+        }
+
         else -> booking()
     }
 })
