@@ -2,9 +2,9 @@ package com.beyondxscratch.mandaloreexpress.domain.booking.tax
 
 import com.beyondxscratch.TypedParameterResolver
 import com.beyondxscratch.mandaloreexpress.domain.Random
-import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.OneCalamariFlan
-import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.OneRepCredit
-import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.TenRepCredit
+import com.beyondxscratch.mandaloreexpress.domain.money.OneCalamariFlan
+import com.beyondxscratch.mandaloreexpress.domain.money.OneRepCredit
+import com.beyondxscratch.mandaloreexpress.domain.money.TenRepCredit
 
 class TaxPortionParameterResolver : TypedParameterResolver<TaxPortion>({ parameterContext, _ ->
     when {

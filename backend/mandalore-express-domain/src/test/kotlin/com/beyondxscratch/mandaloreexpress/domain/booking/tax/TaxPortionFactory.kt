@@ -1,7 +1,7 @@
 package com.beyondxscratch.mandaloreexpress.domain.booking.tax
 
-import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.Amount
-import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.Currency
+import com.beyondxscratch.mandaloreexpress.domain.money.Amount
+import com.beyondxscratch.mandaloreexpress.domain.money.Currency
 import java.math.BigDecimal
 import kotlin.random.Random
 

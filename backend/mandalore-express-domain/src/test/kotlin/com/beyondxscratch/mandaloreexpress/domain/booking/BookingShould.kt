@@ -9,9 +9,9 @@ import com.beyondxscratch.mandaloreexpress.domain.booking.spacetrain.spaceTrain
 import com.beyondxscratch.mandaloreexpress.domain.booking.spacetrain.withFirstClass
 import com.beyondxscratch.mandaloreexpress.domain.booking.spacetrain.withSecondClass
 import com.beyondxscratch.mandaloreexpress.domain.booking.tax.TaxPortion
-import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.Currency.REPUBLIC_CREDIT
+import com.beyondxscratch.mandaloreexpress.domain.money.Currency.REPUBLIC_CREDIT
 import com.beyondxscratch.mandaloreexpress.domain.Random
-import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.amount
+import com.beyondxscratch.mandaloreexpress.domain.money.amount
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatCode
 import org.assertj.core.api.Assertions.assertThatThrownBy

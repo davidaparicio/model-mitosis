@@ -1,8 +1,8 @@
 package com.beyondxscratch.mandaloreexpress.domain.search.spacetrain
 
-import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.Amount
-import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.Currency.CALAMARI_FLAN
-import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.Currency.REPUBLIC_CREDIT
+import com.beyondxscratch.mandaloreexpress.domain.money.Amount
+import com.beyondxscratch.mandaloreexpress.domain.money.Currency.CALAMARI_FLAN
+import com.beyondxscratch.mandaloreexpress.domain.money.Currency.REPUBLIC_CREDIT
 import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.fare.Price
 import java.math.BigDecimal
 import java.math.BigDecimal.ONE

@@ -17,12 +17,12 @@ import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.SpaceTrains
 import com.beyondxscratch.mandaloreexpress.domain.search.spi.Searches
 import com.beyondxscratch.mandaloreexpress.domain.search.spi.SpacePorts
 import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.Schedule
-import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.Amount
+import com.beyondxscratch.mandaloreexpress.domain.money.Amount
 import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.fare.ComfortClass
 import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.fare.ComfortClass.FIRST
 import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.fare.ComfortClass.SECOND
 import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.fare.FareOption
-import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.Currency.REPUBLIC_CREDIT
+import com.beyondxscratch.mandaloreexpress.domain.money.Currency.REPUBLIC_CREDIT
 import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.fare.Price
 import java.math.BigDecimal
 import java.time.LocalDateTime

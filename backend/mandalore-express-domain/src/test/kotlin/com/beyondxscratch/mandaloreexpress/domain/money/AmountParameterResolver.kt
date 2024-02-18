@@ -1,4 +1,4 @@
-package com.beyondxscratch.mandaloreexpress.domain.sharedkernel
+package com.beyondxscratch.mandaloreexpress.domain.money
 
 import com.beyondxscratch.TypedParameterResolver
 import com.beyondxscratch.mandaloreexpress.domain.Random

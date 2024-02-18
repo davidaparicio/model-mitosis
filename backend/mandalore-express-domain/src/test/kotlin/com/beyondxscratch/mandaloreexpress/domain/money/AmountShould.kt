@@ -1,4 +1,4 @@
-package com.beyondxscratch.mandaloreexpress.domain.sharedkernel
+package com.beyondxscratch.mandaloreexpress.domain.money
 
 import com.beyondxscratch.mandaloreexpress.domain.EqualityShould
 import org.assertj.core.api.Assertions.assertThat
