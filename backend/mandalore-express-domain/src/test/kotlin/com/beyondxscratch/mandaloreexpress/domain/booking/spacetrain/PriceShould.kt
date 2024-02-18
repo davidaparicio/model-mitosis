@@ -1,7 +1,7 @@
 package com.beyondxscratch.mandaloreexpress.domain.booking.spacetrain
 
 import com.beyondxscratch.mandaloreexpress.domain.EqualityShould
-import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.Price
+import com.beyondxscratch.mandaloreexpress.domain.booking.spacetrain.fare.Price
 import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.OneCalamariFlan
 import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.OneRepCredit
 import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.TenRepCredit

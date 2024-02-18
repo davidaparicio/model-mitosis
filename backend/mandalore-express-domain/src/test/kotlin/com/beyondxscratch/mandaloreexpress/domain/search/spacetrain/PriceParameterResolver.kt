@@ -1,7 +1,7 @@
 package com.beyondxscratch.mandaloreexpress.domain.search.spacetrain
 
 import com.beyondxscratch.TypedParameterResolver
-import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.Price
+import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.fare.Price
 import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.OneCalamariFlan
 import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.OneRepCredit
 import com.beyondxscratch.mandaloreexpress.domain.Random
