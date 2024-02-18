@@ -1,6 +1,6 @@
 package com.beyondxscratch.mandaloreexpress.infrastructure.rest.resources.search
 
-import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.fare.ComfortClass
+import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.ComfortClass
 import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.fare.FareOption as DomainFareOption
 import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.fare.FareOptions as DomainFareOptions
 import com.beyondxscratch.mandaloreexpress.infrastructure.rest.resources.Resource

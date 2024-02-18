@@ -1,8 +1,8 @@
 package com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.fare
 
-import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.fare.ComfortClass.FIRST
-import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.fare.ComfortClass.SECOND
-import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.fare.ComfortClass.values
+import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.ComfortClass.FIRST
+import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.ComfortClass.SECOND
+import com.beyondxscratch.mandaloreexpress.domain.sharedkernel.ComfortClass.values
 import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.randomPrice
 import com.beyondxscratch.mandaloreexpress.domain.search.spacetrain.tenRepCreditsPrice
 import java.util.UUID.nameUUIDFromBytes
